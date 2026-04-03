@@ -1,0 +1,142 @@
+---
+import { profile } from '../data/services';
+---
+
+<section class="relative min-h-screen flex items-center overflow-hidden">
+  <!-- Dark background with image -->
+  <div class="absolute inset-0">
+    <img src="/hero-bg.jpg" alt="Haradhan Sharma's Services" class="w-full h-full object-cover opacity-90" loading="eager" />
+    <div class="absolute inset-0 bg-gradient-to-b from-[#070b14]/60 via-[#0a0e1a]/80 to-[#0a0e1a]"></div>
+  </div>
+
+  <!-- Decorative elements -->
+  <div class="absolute top-20 right-[15%] w-72 h-72 bg-primary-600/10 rounded-full blur-[100px] animate-float"></div>
+  <div class="absolute bottom-20 left-[10%] w-56 h-56 bg-accent-600/8 rounded-full blur-[80px] animate-float" style="animation-delay: 2s;"></div>
+  <div class="absolute inset-0 dot-pattern"></div>
+
+  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-28 pb-20 md:pt-36 md:pb-28">
+    <div class="grid lg:grid-cols-5 gap-12 lg:gap-16 items-center">
+      <!-- Left: Text (3 cols) -->
+      <div class="lg:col-span-3 animate-fade-in">
+        <!-- Availability badge -->
+        <div class="inline-flex items-center gap-2.5 rounded-full border border-accent-500/20 bg-accent-500/5 px-4 py-2 mb-8 badge-glow">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent-500"></span>
+          </span>
+          <span class="text-sm font-medium text-accent-400">Available for new projects</span>
+        </div>
+
+        <!-- Heading -->
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-[1.1] tracking-tight">
+          <span class="text-surface-100">I build</span><br />
+          <span class="gradient-text">intelligent systems</span><br />
+          <span class="text-surface-100">for your business</span>
+        </h1>
+
+        <!-- Subheading -->
+        <p class="mt-6 text-lg sm:text-xl text-surface-400 leading-relaxed max-w-xl">
+          {profile.tagline}
+        </p>
+
+        <!-- Stats -->
+        <div class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-6">
+          {profile.stats.map((stat) => (
+            <div class="glass-card rounded-xl p-4 text-center">
+              <div class="text-2xl sm:text-3xl font-black gradient-text">{stat.value}</div>
+              <div class="text-xs sm:text-sm text-surface-500 mt-1">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="mt-10 flex flex-wrap gap-4">
+          <a
+            href="#services"
+            class="btn-glow inline-flex items-center gap-2 rounded-xl bg-primary-600 px-7 py-3.5 text-base font-semibold text-white transition-all hover:bg-primary-500 hover:-translate-y-0.5"
+          >
+            View Services
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </a>
+          <a
+            href="/resume"
+            class="inline-flex items-center gap-2 rounded-xl border border-surface-600/50 px-7 py-3.5 text-base font-semibold text-surface-300 transition-all hover:border-primary-500/50 hover:text-primary-400 hover:bg-primary-500/5"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            Download CV
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Profile Card (2 cols) -->
+      <div class="lg:col-span-2 animate-slide-up hidden lg:block" style="animation-delay: 0.3s;">
+        <div class="relative">
+          <!-- Main card -->
+          <div class="relative z-10 rounded-2xl glass-card p-8 animate-glow-pulse">
+            <!-- Avatar -->
+            <div class="flex flex-col items-center text-center mb-6">
+              <div class="avatar-ring mb-4">
+                <img src="/haradhan-sharma.png" alt="Haradhan Sharma" class="w-24 h-24 rounded-full object-cover" />
+              </div>
+              <h3 class="text-xl font-bold text-surface-100">{profile.name}</h3>
+              <p class="text-sm text-surface-400 mt-1">{profile.title}</p>
+            </div>
+
+            <!-- Divider -->
+            <div class="section-divider mb-6"></div>
+
+            <!-- Tech tags -->
+            <div class="flex flex-wrap gap-2 mb-6 justify-center">
+              {['React', 'Node.js', 'Python', 'AI/ML', 'Docker', 'AWS'].map((tech) => (
+                <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-surface-600/20 text-xs font-medium text-surface-300 font-mono">
+                  {tech}
+                </span>
+              ))}
+            </div>
+
+            <!-- Mini stats -->
+            <div class="space-y-3">
+              <div class="flex items-center gap-3 p-3 rounded-xl bg-primary-500/5 border border-primary-500/10">
+                <span class="text-lg">🤖</span>
+                <div class="flex-1 text-left">
+                  <div class="text-sm font-semibold text-surface-200">AI Agent Deployed</div>
+                  <div class="text-xs text-surface-500">24/7 automation active</div>
+                </div>
+                <span class="text-xs font-bold text-success-400 bg-success-400/10 px-2.5 py-1 rounded-full">LIVE</span>
+              </div>
+
+              <div class="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-surface-600/15">
+                <span class="text-lg">⚡</span>
+                <div class="flex-1 text-left">
+                  <div class="text-sm font-semibold text-surface-200">API Optimized</div>
+                  <div class="text-xs text-surface-500">45ms avg response</div>
+                </div>
+                <span class="text-xs font-bold text-accent-400 bg-accent-400/10 px-2.5 py-1 rounded-full">-95%</span>
+              </div>
+
+              <div class="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-surface-600/15">
+                <span class="text-lg">🚀</span>
+                <div class="flex-1 text-left">
+                  <div class="text-sm font-semibold text-surface-200">App Delivered</div>
+                  <div class="text-xs text-surface-500">Full-stack SaaS platform</div>
+                </div>
+                <span class="text-xs font-bold text-primary-400 bg-primary-400/10 px-2.5 py-1 rounded-full">v2.0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Decorative rings -->
+          <div class="absolute -top-4 -right-4 w-full h-full rounded-2xl border border-primary-500/10 -z-10"></div>
+          <div class="absolute -top-8 -right-8 w-full h-full rounded-2xl border border-accent-500/5 -z-20"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom gradient fade -->
+  <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0a0e1a] to-transparent"></div>
+</section>

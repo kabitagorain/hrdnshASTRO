@@ -1,0 +1,238 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Contact from '../../components/Contact.astro';
+import { services } from '../../data/services';
+
+export function getStaticPaths() {
+  return services.map((service) => ({
+    params: { id: service.id },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+---
+
+<Layout title={`${service.title} — Z Dev Services`} description={service.businessOwner.summary}>
+  <Header />
+
+  <!-- Hero -->
+  <section class="relative pt-32 pb-16 sm:pt-40 sm:pb-20 overflow-hidden dark-section noise-overlay">
+    <div class="absolute inset-0 dot-pattern"></div>
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-600/8 rounded-full blur-[120px]"></div>
+
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <a href="/#services" class="inline-flex items-center gap-2 text-sm text-surface-500 hover:text-surface-300 transition-colors mb-8">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+        </svg>
+        Back to Services
+      </a>
+
+      <div class="flex items-start gap-5 mb-6">
+        <div class="flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500/15 to-accent-500/15 text-3xl border border-primary-500/10">
+          {service.icon}
+        </div>
+        <div>
+          <span class="text-sm font-bold text-accent-400 tracking-widest font-mono">SERVICE {service.number}</span>
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-surface-100 tracking-tight mt-2">
+            {service.title}
+          </h1>
+        </div>
+      </div>
+
+      <p class="text-xl text-surface-400 leading-relaxed max-w-3xl">
+        {service.tagline}
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-4">
+        <div class="flex items-center gap-2 rounded-full glass-card px-4 py-2 text-sm text-surface-300">
+          <svg class="w-4 h-4 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          {service.timeline}
+        </div>
+        <div class="flex items-center gap-2 rounded-full glass-card px-4 py-2 text-sm text-surface-300">
+          <svg class="w-4 h-4 text-success-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          {service.deliverables.length} Deliverables
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <main class="py-16 sm:py-24" style="background: linear-gradient(180deg, #0c1220 0%, #111827 50%, #0c1220 100%);">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <!-- Dual audience tabs -->
+      <div class="mb-16 animate-on-scroll">
+        <div x-data="{ tab: 'business' }">
+          <div class="inline-flex items-center rounded-xl glass-card p-1.5 gap-1">
+            <button
+              @click="tab = 'business'"
+              :class="tab === 'business' ? 'bg-primary-600 text-white shadow-lg shadow-primary-600/20' : 'text-surface-400 hover:text-surface-200'"
+              class="rounded-lg px-6 py-2.5 text-sm font-semibold transition-all duration-200"
+            >
+              👔 For Business Owners
+            </button>
+            <button
+              @click="tab = 'developer'"
+              :class="tab === 'developer' ? 'bg-surface-700 text-surface-100 shadow-lg shadow-black/20' : 'text-surface-400 hover:text-surface-200'"
+              class="rounded-lg px-6 py-2.5 text-sm font-semibold transition-all duration-200"
+            >
+              💻 For Developers
+            </button>
+          </div>
+
+          <!-- Business Content -->
+          <div x-show="tab === 'business'" class="mt-8">
+            <div class="glass-card rounded-2xl p-8 sm:p-10">
+              <h2 class="text-2xl font-bold text-surface-100 mb-4">What This Means for Your Business</h2>
+              <p class="text-lg text-surface-400 leading-relaxed mb-8">{service.businessOwner.summary}</p>
+              <h3 class="text-lg font-semibold text-surface-200 mb-4">Key Benefits</h3>
+              <ul class="space-y-4">
+                {service.businessOwner.benefits.map((b) => (
+                  <li class="flex items-start gap-3">
+                    <div class="flex h-6 w-6 items-center justify-center rounded-full bg-accent-500/10 mt-0.5 shrink-0">
+                      <svg class="w-3.5 h-3.5 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <span class="text-surface-300 leading-relaxed">{b}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <!-- Developer Content -->
+          <div x-show="tab === 'developer'" x-cloak class="mt-8">
+            <div class="rounded-2xl bg-surface-800/50 border border-surface-600/20 p-8 sm:p-10">
+              <h2 class="text-2xl font-bold text-surface-100 mb-4">Technical Details</h2>
+              <p class="text-lg text-surface-400 leading-relaxed mb-8">{service.developer.summary}</p>
+              <h3 class="text-lg font-semibold text-surface-200 mb-4">What's Included</h3>
+              <ul class="space-y-4">
+                {service.developer.benefits.map((b) => (
+                  <li class="flex items-start gap-3">
+                    <div class="flex h-6 w-6 items-center justify-center rounded-full bg-primary-500/10 mt-0.5 shrink-0">
+                      <svg class="w-3.5 h-3.5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <span class="text-surface-300 leading-relaxed font-mono text-sm">{b}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Two columns: Deliverables + Pricing -->
+      <div class="grid lg:grid-cols-5 gap-8">
+        <!-- Deliverables -->
+        <div class="lg:col-span-3 animate-on-scroll">
+          <div class="glass-card rounded-2xl p-8 sm:p-10">
+            <h2 class="text-2xl font-bold text-surface-100 mb-6">What You'll Get</h2>
+            <div class="space-y-4">
+              {service.deliverables.map((item, i) => (
+                <div class="flex items-start gap-4 p-4 rounded-xl bg-white/[0.02] border border-surface-600/10">
+                  <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-500/10 text-primary-400 text-sm font-bold shrink-0 border border-primary-500/10">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span class="text-surface-300 font-medium pt-1">{item}</span>
+                </div>
+              ))}
+            </div>
+
+            <div class="mt-8 pt-8 border-t border-surface-600/15">
+              <h3 class="text-lg font-semibold text-surface-200 mb-4">Tech Stack</h3>
+              <div class="flex flex-wrap gap-2">
+                {service.techStack.map((tech) => (
+                  <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-surface-600/15 text-sm text-surface-300 font-mono">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pricing sidebar -->
+        <div class="lg:col-span-2 animate-on-scroll" style="transition-delay: 0.2s;">
+          <div class="sticky top-24 glass-card rounded-2xl overflow-hidden animate-glow-pulse">
+            <div class="h-0.5 bg-gradient-to-r from-primary-500 via-accent-500 to-primary-500"></div>
+            <div class="p-8">
+              <h3 class="text-lg font-bold text-surface-100 mb-2">Choose Your Plan</h3>
+              <p class="text-sm text-surface-500 mb-8">Secure payment via Stripe</p>
+
+              <!-- One-time -->
+              <div class="p-6 rounded-xl bg-white/[0.03] border border-surface-600/15 mb-4">
+                <div class="flex items-baseline gap-2 mb-1">
+                  <span class="text-3xl font-black text-surface-100">${service.pricing.oneTime}</span>
+                  <span class="text-surface-500 text-sm">one-time</span>
+                </div>
+                <p class="text-xs text-surface-500 mb-4">Full project delivery</p>
+                <a
+                  href={service.stripeLinks.oneTime}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-glow flex items-center justify-center gap-2 w-full rounded-xl bg-primary-600 px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-primary-500"
+                >
+                  Pay Now
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </a>
+              </div>
+
+              <!-- Weekly -->
+              <div class="p-6 rounded-xl bg-gradient-to-br from-accent-600/10 to-primary-600/10 border border-accent-500/15">
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="text-3xl font-black text-surface-100">${service.pricing.weekly}</span>
+                  <span class="text-surface-500 text-sm">/week</span>
+                  <span class="text-xs font-bold text-accent-400 bg-accent-500/10 px-2 py-0.5 rounded-full border border-accent-500/15">SAVE</span>
+                </div>
+                <p class="text-xs text-surface-500 mb-4">Ongoing weekly support</p>
+                <a
+                  href={service.stripeLinks.weekly}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-glow flex items-center justify-center gap-2 w-full rounded-xl bg-accent-600 px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-accent-500"
+                >
+                  Subscribe Weekly
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </a>
+              </div>
+
+              <p class="text-xs text-surface-600 text-center mt-6">
+                Powered by <span class="text-surface-400 font-medium">Stripe</span> · Secure & encrypted
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-16 text-center animate-on-scroll">
+        <a
+          href="/#contact"
+          class="btn-glow inline-flex items-center gap-2 rounded-xl bg-primary-600 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-primary-500 hover:-translate-y-0.5"
+        >
+          Have questions? Let's talk
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <Contact />
+  <Footer />
+</Layout>

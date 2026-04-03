@@ -1,0 +1,137 @@
+---
+import { services } from '../data/services';
+---
+
+<section id="pricing" class="relative py-24 sm:py-32 dark-section noise-overlay">
+  <div class="absolute inset-0 dot-pattern"></div>
+
+  <!-- SINGLE x-data wrapping both toggle AND cards -->
+  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" x-data="{ billing: 'onetime' }">
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto mb-16 sm:mb-20 animate-on-scroll">
+      <div class="inline-flex items-center gap-2 rounded-full border border-primary-500/20 bg-primary-500/5 px-4 py-2 mb-6 badge-glow">
+        <span class="text-sm font-semibold text-primary-400">Simple Pricing</span>
+      </div>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight">
+        <span class="text-surface-100">Transparent pricing,</span><br />
+        <span class="gradient-text">no surprises</span>
+      </h2>
+      <p class="mt-6 text-lg text-surface-400 leading-relaxed">
+        Choose one-time project delivery or ongoing weekly support. Every plan comes with clear deliverables and timelines.
+      </p>
+    </div>
+
+    <!-- Pricing Toggle (shares same x-data scope as cards) -->
+    <div class="flex justify-center mb-12 animate-on-scroll">
+      <div class="inline-flex items-center rounded-xl glass-card p-1.5 gap-1">
+        <button
+          @click="billing = 'onetime'"
+          :class="billing === 'onetime' ? 'bg-primary-600 text-white shadow-lg shadow-primary-600/25' : 'text-surface-400 hover:text-surface-200'"
+          class="rounded-lg px-6 py-2.5 text-sm font-semibold transition-all duration-200"
+        >
+          One-Time
+        </button>
+        <button
+          @click="billing = 'weekly'"
+          :class="billing === 'weekly' ? 'bg-accent-600 text-white shadow-lg shadow-accent-600/25' : 'text-surface-400 hover:text-surface-200'"
+          class="rounded-lg px-6 py-2.5 text-sm font-semibold transition-all duration-200"
+        >
+          Weekly
+          <span class="ml-1.5 text-xs font-bold bg-white/20 px-2 py-0.5 rounded-full">SAVE</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Pricing Cards (same x-data scope — toggle controls these) -->
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {services.map((service) => (
+        <div class="animate-on-scroll group glass-card glass-card-hover rounded-2xl overflow-hidden relative">
+          <!-- Top accent line -->
+          <div class="h-0.5 bg-gradient-to-r from-primary-500 via-accent-500 to-primary-500"></div>
+
+          <div class="p-6 sm:p-8">
+            <!-- Header -->
+            <div class="flex items-center gap-3 mb-4">
+              <span class="text-2xl">{service.icon}</span>
+              <span class="text-xs font-bold text-surface-600 tracking-widest font-mono">SERVICE {service.number}</span>
+            </div>
+
+            <h3 class="text-lg font-bold text-surface-100 mb-2">{service.title}</h3>
+            <p class="text-sm text-surface-500 mb-6">{service.timeline}</p>
+
+            <!-- Price (switches with toggle) -->
+            <div class="mb-6">
+              <div x-show="billing === 'onetime'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" class="flex items-baseline gap-2">
+                <span class="text-4xl font-black text-surface-100">${service.pricing.oneTime}</span>
+                <span class="text-surface-500 text-sm">one-time</span>
+              </div>
+              <div x-show="billing === 'weekly'" x-cloak x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" class="flex items-baseline gap-2">
+                <span class="text-4xl font-black text-surface-100">${service.pricing.weekly}</span>
+                <span class="text-surface-500 text-sm">/week</span>
+              </div>
+            </div>
+
+            <!-- Deliverables -->
+            <ul class="space-y-3 mb-8">
+              {service.deliverables.map((item) => (
+                <li class="flex items-start gap-2.5">
+                  <svg class="w-5 h-5 text-accent-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span class="text-sm text-surface-300">{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <!-- CTAs -->
+            <div class="space-y-3">
+              <!-- One-time pay button -->
+              <a
+                x-show="billing === 'onetime'"
+                href={service.stripeLinks.oneTime}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-glow flex items-center justify-center gap-2 w-full rounded-xl bg-primary-600 px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-primary-500"
+              >
+                Pay ${service.pricing.oneTime} — One Time
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </a>
+
+              <!-- Weekly subscribe button -->
+              <a
+                x-show="billing === 'weekly'"
+                x-cloak
+                href={service.stripeLinks.weekly}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-glow flex items-center justify-center gap-2 w-full rounded-xl bg-accent-600 px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-accent-500"
+              >
+                Subscribe ${service.pricing.weekly}/wk
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </a>
+
+              <!-- View Details link (always visible) -->
+              <a
+                href={`/services/${service.id}`}
+                class="flex items-center justify-center gap-2 w-full rounded-xl border border-surface-600/20 px-5 py-2.5 text-sm font-medium text-surface-400 transition-all hover:border-primary-500/30 hover:text-primary-400 hover:bg-primary-500/5"
+              >
+                View Full Details
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <p class="text-center text-sm text-surface-500 mt-12 animate-on-scroll">
+      All payments processed securely via <span class="text-surface-300 font-medium">Stripe</span>. Prices in USD. Custom quotes available for enterprise projects.
+    </p>
+  </div>
+</section>

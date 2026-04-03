@@ -1,0 +1,84 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  canonicalURL?: string;
+}
+
+import '../styles/global.css';
+import FloatingButton from '../components/FloatingButton.astro';
+
+const { title, description = 'Full-stack development services — AI agents, web apps, automation, and DevOps. Build smarter systems with expert engineering.', ogImage = '/og-image.png', canonicalURL = new URL(Astro.url.pathname, Astro.site).href } = Astro.props;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: "Haradhan Sharma's Services",
+  description: 'Full-stack development services — AI agents, web apps, automation, and DevOps.',
+  url: 'https://hrdnsh.com',
+  serviceType: ['Web Development', 'AI Agent Development', 'Backend Optimization', 'DevOps'],
+  areaServed: 'Worldwide',
+};
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth" x-data="{ theme: localStorage.getItem('theme') || 'dark' }" x-init="$watch('theme', v => { localStorage.setItem('theme', v); document.documentElement.classList.toggle('light', v === 'light'); }); if(theme === 'light') document.documentElement.classList.add('light')">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content="Z Dev Services" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <meta name="theme-color" content="#0a0e1a" />
+
+    <!-- Prevent flash of wrong theme -->
+    <script is:inline>
+      if (localStorage.getItem('theme') === 'light') {
+        document.documentElement.classList.add('light');
+      }
+    </script>
+  </head>
+  <body class="min-h-screen antialiased transition-colors duration-300">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <slot />
+    <FloatingButton />
+
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('animate-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+      );
+      document.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>

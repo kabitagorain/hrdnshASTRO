@@ -1,0 +1,174 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Contact from '../components/Contact.astro';
+import { recommendations } from '../data/services';
+---
+
+<Layout title="Recommended Tools & Services — Z Dev" description="My personally recommended tools, hosting, and services — tested and used in real projects. Honest recommendations I actually stand behind.">
+  <Header />
+
+  <!-- Page Hero -->
+  <section class="relative pt-32 pb-16 sm:pt-40 sm:pb-20 overflow-hidden dark-section noise-overlay">
+    <div class="absolute inset-0 dot-pattern"></div>
+    <div class="absolute top-0 left-1/3 w-[500px] h-[500px] bg-primary-600/8 rounded-full blur-[120px]"></div>
+
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <a href="/" class="inline-flex items-center gap-2 text-sm text-surface-500 hover:text-surface-300 transition-colors mb-8">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+        </svg>
+        Home
+      </a>
+
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 rounded-full border border-accent-500/20 bg-accent-500/5 px-4 py-2 mb-6 badge-glow">
+          <span class="text-sm font-semibold text-accent-400">Trusted Tools</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight">
+          <span class="text-surface-100">Tools I</span>
+          <span class="gradient-text">actually use</span>
+          <span class="text-surface-100"> & recommend</span>
+        </h1>
+
+        <p class="mt-6 text-lg text-surface-400 leading-relaxed">
+          No paid placements, no sponsored junk. These are tools I use in my own projects and for my clients — every single day. Honest recommendations backed by real experience.
+        </p>
+
+        <!-- Trust indicators -->
+        <div class="mt-8 flex flex-wrap gap-4">
+          <div class="flex items-center gap-2 text-sm text-surface-400">
+            <svg class="w-5 h-5 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+            Personally tested
+          </div>
+          <div class="flex items-center gap-2 text-sm text-surface-400">
+            <svg class="w-5 h-5 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            Used in production
+          </div>
+          <div class="flex items-center gap-2 text-sm text-surface-400">
+            <svg class="w-5 h-5 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Honest opinions
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    {recommendations.map((group, gi) => (
+      <section class:list={[
+        'relative py-16 sm:py-20',
+        gi % 2 === 0 ? 'dark-section noise-overlay' : '',
+        gi % 2 !== 0 ? '' : '',
+      ]} style={gi % 2 !== 0 ? 'background: linear-gradient(180deg, #0c1220 0%, #111827 50%, #0c1220 100%);' : ''}>
+        <div class:list={['absolute inset-0', gi % 2 === 0 ? 'dot-pattern' : '']}></div>
+
+        <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <!-- Category Header -->
+          <div class="flex items-center gap-3 mb-10 animate-on-scroll">
+            <span class="text-3xl">{group.icon}</span>
+            <h2 class="text-2xl sm:text-3xl font-black text-surface-100">{group.category}</h2>
+            <div class="flex-1 section-divider ml-4"></div>
+          </div>
+
+          <!-- Items Grid -->
+          <div class="grid md:grid-cols-2 gap-6">
+            {group.items.map((item) => (
+              <a
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer sponsored"
+                class="animate-on-scroll group glass-card glass-card-hover rounded-2xl p-6 sm:p-8 flex flex-col relative overflow-hidden"
+              >
+                <!-- Subtle link glow on hover -->
+                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary-600/3 via-transparent to-accent-600/3"></div>
+
+                <div class="relative z-10 flex-1">
+                  <!-- Header -->
+                  <div class="flex items-start justify-between gap-4 mb-4">
+                    <div>
+                      <div class="flex items-center gap-2 mb-1">
+                        <h3 class="text-xl font-bold text-surface-100 group-hover:text-primary-300 transition-colors">{item.name}</h3>
+                        {item.badge && (
+                          <span class:list={[
+                            'text-xs font-bold px-2.5 py-0.5 rounded-full',
+                            item.badgeColor === 'accent' ? 'text-accent-300 bg-accent-500/10 border border-accent-500/15' : 'text-primary-300 bg-primary-500/10 border border-primary-500/15',
+                          ]}>
+                            {item.badge}
+                          </span>
+                        )}
+                      </div>
+                      <p class="text-sm text-surface-500">{item.tagline}</p>
+                    </div>
+                    <svg class="w-5 h-5 text-surface-600 group-hover:text-primary-400 transition-colors shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </div>
+
+                  <!-- Description -->
+                  <p class="text-sm text-surface-400 leading-relaxed mb-5">
+                    {item.description}
+                  </p>
+
+                  <!-- Pros -->
+                  <div class="space-y-2 mb-5">
+                    {item.pros.map((pro) => (
+                      <div class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-success-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span class="text-sm text-surface-300">{pro}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <!-- Bottom: Price + CTA -->
+                <div class="relative z-10 flex items-center justify-between pt-5 border-t border-surface-600/15">
+                  <div>
+                    <span class="text-xs text-surface-500">Starting from</span>
+                    <div class="text-lg font-bold text-surface-100">{item.startingPrice}</div>
+                  </div>
+                  <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-primary-400 group-hover:gap-2.5 transition-all">
+                    Visit
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    ))}
+
+    <!-- Disclosure -->
+    <section class="relative py-12" style="background: #070b14;">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="glass-card rounded-xl p-6 sm:p-8 max-w-3xl mx-auto text-center">
+          <div class="flex items-center justify-center gap-2 mb-3">
+            <svg class="w-5 h-5 text-surface-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h3 class="text-sm font-bold text-surface-300 uppercase tracking-wider">Transparency Note</h3>
+          </div>
+          <p class="text-sm text-surface-500 leading-relaxed">
+            Some of the links above are affiliate links. This means I may earn a small commission if you sign up through them — at <span class="text-surface-300 font-medium">absolutely no extra cost to you</span>. I only recommend tools I personally use and trust. I would never recommend something just for a commission.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Contact />
+  <Footer />
+</Layout>
