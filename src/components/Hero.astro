@@ -1,5 +1,5 @@
 ---
-import { profile } from '../data/services';
+import { profile, commonTechStack } from '../data/services';
 ---
 
 <section class="relative min-h-screen flex items-center overflow-hidden">
@@ -91,7 +91,7 @@ import { profile } from '../data/services';
 
             <!-- Tech tags -->
             <div class="flex flex-wrap gap-2 mb-6 justify-center">
-              {['React', 'Node.js', 'Python', 'AI/ML', 'Docker', 'AWS'].map((tech) => (
+              {commonTechStack.map((tech) => (
                 <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-surface-600/20 text-xs font-medium text-surface-300 font-mono">
                   {tech}
                 </span>
