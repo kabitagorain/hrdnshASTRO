@@ -1,6 +1,5 @@
 ---
-// Contact section component
-import { profile } from '../data/services';
+import { siteData } from '../data/services';
 ---
 
 <section id="contact" class="relative py-24 sm:py-32 overflow-hidden dark-section noise-overlay">
@@ -26,7 +25,7 @@ import { profile } from '../data/services';
       <!-- Contact Cards -->
       <div class="mt-12 grid sm:grid-cols-3 gap-4 animate-on-scroll">
         <a
-          href={`mailto:${profile.email}`}
+          href={`mailto:${siteData.email}`}
           class="group flex flex-col items-center gap-3 glass-card glass-card-hover rounded-2xl p-6"
         >
           <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-500/10 text-primary-400 group-hover:bg-primary-500/20 transition-colors border border-primary-500/10">
@@ -35,11 +34,11 @@ import { profile } from '../data/services';
             </svg>
           </div>
           <span class="text-sm font-semibold text-surface-200">Email</span>
-          <span class="text-xs text-surface-500">{profile.email}</span>
+          <span class="text-xs text-surface-500">{siteData.email}</span>
         </a>
 
         <a
-          href={`https://wa.me/${profile.phone}`}
+          href={`https://wa.me/${siteData.whatsapp}`}
           target="_blank"
           rel="noopener noreferrer"
           class="group flex flex-col items-center gap-3 glass-card glass-card-hover rounded-2xl p-6"
@@ -54,7 +53,7 @@ import { profile } from '../data/services';
         </a>
 
         <a
-          href={`${profile.upwork}`}
+          href={siteData.upwork}
           target="_blank"
           rel="noopener noreferrer"
           class="group flex flex-col items-center gap-3 glass-card glass-card-hover rounded-2xl p-6"

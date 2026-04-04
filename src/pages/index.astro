@@ -8,9 +8,10 @@ import Pricing from '../components/Pricing.astro';
 import Testimonials from '../components/Testimonials.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
+import { seoData } from '../data/services';
 ---
 
-<Layout title="Haradhan Sharma's Services — AI Agents, Web Apps, Automation & DevOps">
+<Layout title={seoData.home.title} description={seoData.home.description}>
   <Header />
   <Hero />
   <main>

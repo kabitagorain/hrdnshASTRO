@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import Contact from '../../components/Contact.astro';
-import { services } from '../../data/services';
+import { services, profile, siteData } from '../../data/services';
 
 export function getStaticPaths() {
   return services.map((service) => ({
@@ -15,7 +15,7 @@ export function getStaticPaths() {
 const { service } = Astro.props;
 ---
 
-<Layout title={`${service.title} — Z Dev Services`} description={service.businessOwner.summary}>
+<Layout title={`${service.title} — ${profile.name}`} description={service.businessOwner.summary}>
   <Header />
 
   <!-- Hero -->

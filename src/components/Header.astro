@@ -1,35 +1,27 @@
 ---
-const navLinks = [
-  { label: 'Services', href: '/#services' },
-  { label: 'About', href: '/#about' },
-  { label: 'Pricing', href: '/#pricing' },
-  { label: 'Resume', href: '/resume' },
-  { label: 'Recommend', href: '/recommend' },
-  { label: 'Contact', href: '/#contact' },
-  
-];
+import { profile, navLinks } from '../data/services';
 ---
 
 <header
   x-data="{ mobileOpen: false, scrolled: false }"
   x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 30 })"
   :class="scrolled ? 'glass-nav shadow-2xl shadow-black/10' : ''"
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full overflow-hidden"
 >
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="flex h-16 items-center justify-between lg:h-18">
+    <div class="flex h-16 items-center justify-between lg:h-18 min-w-0">
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-3 group">
+      <a href="/" class="flex items-center gap-3 group shrink-0">
         <div class="avatar-ring">
-          <img src="/header-avatar.svg" alt="Haradhan Sharma" class="w-9 h-9 rounded-full object-cover" />
+          <img src="/header-avatar.svg" alt={profile.name} class="w-9 h-9 rounded-full object-cover" />
         </div>
         <span class="text-lg font-bold tracking-tight">
-          <span class="text-surface-100">Haradhan</span><span class="gradient-text">Sharma</span>
+          <span class="text-surface-100">{profile.fname.charAt(0).toUpperCase()}</span><span class="gradient-text">{profile.lname.toLowerCase()}</span>
         </span>
       </a>
 
       <!-- Desktop Nav -->
-      <nav class="hidden lg:flex items-center gap-1">
+      <nav class="hidden lg:flex items-center gap-1 min-w-0">
         {navLinks.map((link) => (
           <a
             href={link.href}
@@ -41,7 +33,7 @@ const navLinks = [
       </nav>
 
       <!-- Right side: Theme toggle + CTA -->
-      <div class="hidden lg:flex items-center gap-3">
+      <div class="hidden lg:flex items-center gap-3 shrink-0">
         <!-- Dark/Light Toggle -->
         <button
           @click="$root.theme = $root.theme === 'dark' ? 'light' : 'dark'"

@@ -39,7 +39,7 @@ export const services = [
       'Admin dashboard for monitoring & training',
       'Documentation & handover guide',
     ],
-    timeline: '1–2 weeks',
+    timeline: '1-2 weeks',
     techStack: ['OpenAI', 'LangChain', 'Pinecone', 'FastAPI', 'Docker'],
   },
   {
@@ -59,7 +59,7 @@ export const services = [
     businessOwner: {
       summary: 'Is your website slow? Customers leave when pages take too long to load. I optimize your backend systems so everything runs fast, handles more visitors, and never crashes during peak times.',
       benefits: [
-        'Pages load 3–10x faster after optimization',
+        'Pages load 3-10x faster after optimization',
         'Handle traffic spikes without downtime',
         'Lower server costs through efficient resource usage',
         'Better customer experience = more conversions',
@@ -81,7 +81,7 @@ export const services = [
       'Load testing results & capacity planning',
       'Monitoring & alerting setup',
     ],
-    timeline: '1–2 weeks',
+    timeline: '1-2 weeks',
     techStack: ['PostgreSQL', 'Redis', 'Node.js', 'GraphQL', 'Nginx'],
   },
   {
@@ -124,7 +124,7 @@ export const services = [
       'Deployment to production with CI/CD',
       '30-day post-launch support',
     ],
-    timeline: '4–8 weeks',
+    timeline: '4-8 weeks',
     techStack: ['Next.js', 'React', 'Node.js', 'PostgreSQL', 'Docker', 'AWS'],
   },
   {
@@ -167,7 +167,7 @@ export const services = [
       'User training and documentation',
       '3-month post-deployment support',
     ],
-    timeline: '6–12 weeks',
+    timeline: '6-12 weeks',
     techStack: ['Python', 'FastAPI', 'React', 'PostgreSQL', 'MQTT', 'Docker'],
   },
   {
@@ -209,7 +209,7 @@ export const services = [
       'Real-time monitoring dashboard',
       'Deployment guide & configuration manual',
     ],
-    timeline: '2–4 weeks',
+    timeline: '2-4 weeks',
     techStack: ['Python', 'CCXT', 'Pandas', 'WebSockets', 'Redis', 'Docker'],
   },
   {
@@ -303,12 +303,16 @@ export const services = [
 // Profile / About data
 export const profile = {
   name: 'Haradhan Sharma',
+  fname: 'Haradhan',
+  lname: 'Sharma',
+  apndx: "'s",
   title: 'Full-Stack Developer & AI Automation Specialist',
   tagline: 'Building intelligent systems that help businesses grow — from custom web apps to AI agents that work while you sleep.',
   email: 'me@hrdnsh.com',
   phone: '+8801712270815',
   upwork: 'https://www.upwork.com/freelancers/~0166a448a65b1641fb',
   location: 'Remote — Worldwide',
+  url: 'https://hrdnsh.com',
   bio: [
     'I\'m a full-stack developer with 5+ years of experience building production-grade applications that solve real business problems. I specialize in creating intelligent systems — from AI-powered agents to automated trading platforms — that help businesses operate smarter and faster.',
     'My approach is practical: I focus on delivering solutions that actually work in production, not just prototypes. Every project I deliver includes proper documentation, monitoring, and the support you need to maintain it long-term.',
@@ -330,6 +334,46 @@ export const profile = {
   ],
 };
 
+// Site-wide data — single source of truth for brand, contact, and URLs
+export const siteData = {
+  siteName: `${profile.fname} ${profile.lname}${profile.apndx} Services`,
+  brandName: 'hrdnsh',
+  url: profile.url,
+  email: profile.email,
+  phone: profile.phone,
+  whatsapp: '8801712270815', // digits only for wa.me link
+  upwork: profile.upwork,
+  location: profile.location,
+  defaultOgImage: '/og-image.jpg',
+  defaultDescription: 'Full-stack development services — AI agents, web apps, automation, and DevOps. Build smarter systems with expert engineering.',
+  serviceTypes: ['Web Development', 'AI Agent Development', 'Backend Optimization', 'DevOps'],
+};
+
+// Page-specific SEO data — all meta titles/descriptions from one place
+export const seoData = {
+  home: {
+    title: `${profile.fname} ${profile.lname} — AI Agents, Web Apps, Automation & DevOps`,
+    description: siteData.defaultDescription,
+  },
+  resume: {
+    title: `Resume & Services — ${profile.fname} ${profile.lname}`,
+    description: `Download ${profile.fname}'s complete service catalog, view technical skills, and explore professional background.`,
+  },
+  recommend: {
+    title: `Recommended Tools & Services — ${profile.fname} ${profile.lname}`,
+    description: `Personally recommended tools, hosting, and services — tested and used in real projects by ${profile.fname}. Honest recommendations backed by real experience.`,
+  },
+};
+
+// Navigation links — used in Header and Footer
+export const navLinks = [
+  { label: 'Services', href: '/#services' },
+  { label: 'About', href: '/#about' },
+  { label: 'Pricing', href: '/#pricing' },
+  { label: 'Resume', href: '/resume' },
+  { label: 'Recommend', href: '/recommend' },
+  { label: 'Contact', href: '/#contact' },
+];
 
 // Recommended tools & services (affiliate links)
 export const recommendations = [
@@ -464,7 +508,6 @@ export const recommendations = [
     ],
   },
 ];
-
 
 export const testimonials = [
   {

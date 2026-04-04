@@ -8,16 +8,17 @@ interface Props {
 
 import '../styles/global.css';
 import FloatingButton from '../components/FloatingButton.astro';
+import { profile, siteData } from '../data/services';
 
-const { title, description = 'Full-stack development services — AI agents, web apps, automation, and DevOps. Build smarter systems with expert engineering.', ogImage = '/og-image.png', canonicalURL = new URL(Astro.url.pathname, Astro.site).href } = Astro.props;
+const { title, description = siteData.defaultDescription, ogImage = siteData.defaultOgImage, canonicalURL = new URL(Astro.url.pathname, Astro.site).href } = Astro.props;
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
-  name: "Haradhan Sharma's Services",
+  name: siteData.siteName,
   description: 'Full-stack development services — AI agents, web apps, automation, and DevOps.',
-  url: 'https://hrdnsh.com',
-  serviceType: ['Web Development', 'AI Agent Development', 'Backend Optimization', 'DevOps'],
+  url: siteData.url,
+  serviceType: siteData.serviceTypes,
   areaServed: 'Worldwide',
 };
 ---
@@ -38,7 +39,7 @@ const jsonLd = {
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:site_name" content="Z Dev Services" />
+    <meta property="og:site_name" content={siteData.siteName} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />

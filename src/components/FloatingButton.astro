@@ -1,5 +1,5 @@
 ---
-// Floating message button — WhatsApp, Email, Upwork
+import { siteData } from '../data/services';
 ---
 
 <div
@@ -32,7 +32,7 @@
       x-transition:leave="transition ease-in duration-150"
       x-transition:leave-start="opacity-100 translate-y-0 scale-100"
       x-transition:leave-end="opacity-0 translate-y-4 scale-75"
-      href="https://wa.me/1234567890"
+      href={`https://wa.me/${siteData.whatsapp}`}
       target="_blank"
       rel="noopener noreferrer"
       class="flex items-center gap-3 glass-card rounded-xl pr-4 pl-3 py-3 shadow-xl hover:border-success-400/30 transition-all group"
@@ -57,7 +57,7 @@
       x-transition:leave="transition ease-in duration-150"
       x-transition:leave-start="opacity-100 translate-y-0 scale-100"
       x-transition:leave-end="opacity-0 translate-y-4 scale-75"
-      href="mailto:hello@zdev.services"
+      href={`mailto:${siteData.email}`}
       class="flex items-center gap-3 glass-card rounded-xl pr-4 pl-3 py-3 shadow-xl hover:border-primary-400/30 transition-all group"
     >
       <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-500/15 text-primary-400 group-hover:bg-primary-500/25 transition-colors">
@@ -80,7 +80,7 @@
       x-transition:leave="transition ease-in duration-150"
       x-transition:leave-start="opacity-100 translate-y-0 scale-100"
       x-transition:leave-end="opacity-0 translate-y-4 scale-75"
-      href="https://www.upwork.com/freelancers/YOUR_PROFILE"
+      href={siteData.upwork}
       target="_blank"
       rel="noopener noreferrer"
       class="flex items-center gap-3 glass-card rounded-xl pr-4 pl-3 py-3 shadow-xl hover:border-success-400/30 transition-all group"

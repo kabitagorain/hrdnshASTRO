@@ -5,7 +5,7 @@ import { profile } from '../data/services';
 <section class="relative min-h-screen flex items-center overflow-hidden">
   <!-- Dark background with image -->
   <div class="absolute inset-0">
-    <img src="/hero-bg.jpg" alt="Haradhan Sharma's Services" class="w-full h-full object-cover opacity-90" loading="eager" />
+    <img src="/hero-bg.jpg" alt="" class="w-full h-full object-cover opacity-90" loading="eager" />
     <div class="absolute inset-0 bg-gradient-to-b from-[#070b14]/60 via-[#0a0e1a]/80 to-[#0a0e1a]"></div>
   </div>
 
@@ -80,7 +80,7 @@ import { profile } from '../data/services';
             <!-- Avatar -->
             <div class="flex flex-col items-center text-center mb-6">
               <div class="avatar-ring mb-4">
-                <img src="/haradhan-sharma.png" alt="Haradhan Sharma" class="w-24 h-24 rounded-full object-cover" />
+                <img src="/avatar.png" alt={profile.name} class="w-24 h-24 rounded-full object-cover" />
               </div>
               <h3 class="text-xl font-bold text-surface-100">{profile.name}</h3>
               <p class="text-sm text-surface-400 mt-1">{profile.title}</p>

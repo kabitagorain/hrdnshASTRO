@@ -3,10 +3,10 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Contact from '../components/Contact.astro';
-import { recommendations } from '../data/services';
+import { recommendations, seoData } from '../data/services';
 ---
 
-<Layout title="Recommended Tools & Services — Haradhan Sharma" description="My personally recommended tools, hosting, and services — tested and used in real projects. Honest recommendations I actually stand behind.">
+<Layout title={seoData.recommend.title} description={seoData.recommend.description}>
   <Header />
 
   <!-- Page Hero -->

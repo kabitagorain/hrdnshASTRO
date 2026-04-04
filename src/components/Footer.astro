@@ -1,6 +1,6 @@
 ---
 const year = new Date().getFullYear();
-import { profile } from '../data/services';
+import { profile, siteData, navLinks } from '../data/services';
 ---
 
 <footer class="relative border-t border-surface-700/20" style="background: #070b14;">
@@ -9,24 +9,17 @@ import { profile } from '../data/services';
       <!-- Logo -->
       <a href="/" class="flex items-center gap-2.5">
         <div class="avatar-ring">
-          <img src="/header-avatar.svg" alt="Haradhan Sharma" class="w-7 h-7 rounded-full object-cover" />
+          <img src="/avatar.png" alt={profile.name} class="w-7 h-7 rounded-full object-cover" />
         </div>
         <span class="text-sm font-bold">
-          <span class="text-surface-300">H</span><span class="gradient-text">aradhan Sharma's</span>
+          <span class="text-surface-300">{profile.fname.charAt(0).toUpperCase()}</span><span class="gradient-text">{profile.lname.toLowerCase()}</span>
           <span class="text-surface-500 font-normal ml-1">Services</span>
         </span>
       </a>
 
       <!-- Links -->
       <nav class="flex items-center gap-6">
-        {[
-          { label: 'Services', href: '/#services' },
-          { label: 'About', href: '/#about' },
-          { label: 'Pricing', href: '/#pricing' },
-          { label: 'Resume', href: '/resume' },
-          { label: 'Recommend', href: '/recommend' },
-          { label: 'Contact', href: '/#contact' },
-        ].map((link) => (
+        {navLinks.map((link) => (
           <a href={link.href} class="text-sm text-surface-500 hover:text-surface-300 transition-colors">
             {link.label}
           </a>

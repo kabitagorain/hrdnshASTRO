@@ -3,10 +3,10 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Contact from '../components/Contact.astro';
-import { profile, services } from '../data/services';
+import { profile, services, seoData } from '../data/services';
 ---
 
-<Layout title="Resume & Services — Haradhan Sharma" description="Download my complete service catalog, view my technical skills, and explore my professional background.">
+<Layout title={seoData.resume.title} description={seoData.resume.description}>
   <Header />
 
   <!-- Page Hero -->
@@ -26,7 +26,7 @@ import { profile, services } from '../data/services';
       <div class="flex flex-col md:flex-row items-center gap-8">
         <!-- Avatar -->
         <div class="avatar-ring shrink-0">
-          <img src="/haradhan-sharma.png" alt="Haradhan Sharma" class="w-28 h-28 md:w-36 md:h-36 rounded-full object-cover" />
+          <img src="/avatar.png" alt={profile.name} class="w-28 h-28 md:w-36 md:h-36 rounded-full object-cover" />
         </div>
 
         <div class="text-center md:text-left">

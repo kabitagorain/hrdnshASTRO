@@ -23,7 +23,7 @@ import { profile } from '../data/services';
         <!-- Avatar + name (mobile visible) -->
         <div class="flex items-center gap-4 mt-8 mb-8 lg:hidden">
           <div class="avatar-ring">
-            <img src="/haradhan-sharma.png" alt="Haradhan Sharma" class="w-16 h-16 rounded-full object-cover" />
+            <img src="/avatar.png" alt={profile.name} class="w-16 h-16 rounded-full object-cover" />
           </div>
           <div>
             <h3 class="text-lg font-bold text-surface-100">{profile.name}</h3>
@@ -76,7 +76,7 @@ import { profile } from '../data/services';
                 </div>
                 <svg
                   class="w-4 h-4 text-surface-500 transition-transform duration-200"
-                  :class={`activeCategory === '${category.category}' ? 'rotate-180 text-accent-400' : ''`}"
+                  :class={`activeCategory === '${category.category}' ? 'rotate-180 text-accent-400' : ''`}
                   fill="none" stroke="currentColor" viewBox="0 0 24 24"
                 >
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
