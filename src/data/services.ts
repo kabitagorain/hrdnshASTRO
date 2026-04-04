@@ -503,6 +503,43 @@ export const recommendations = [
         pros: ['Simple pricing', 'Global data centers', '24/7 human support', 'Built-in backups'],
         startingPrice: '$5/mo',
       },
+
+      {
+        name: 'Contabo',
+        tagline: 'Reliable cloud compute with simple pricing',
+        description: 'Straightforward VPS hosting with consistent performance. Global CDN integration. Great for blogs, APIs, and any applications.',
+        url: 'https://contabo.com/en/vps/?utm_source=cj&utm_medium=affiliate&utm_campaign=vps',
+        badge: '',
+        badgeColor: '',
+        pros: ['Simple pricing', 'Global data centers', '24/7 human support', 'Built-in backups'],
+        startingPrice: '$3.9/mo',
+      },
+
+      {
+        name: 'Hostinger',
+        tagline: 'Reliable cloud compute with simple pricing',
+        description: 'Straightforward VPS hosting with consistent performance. Global CDN integration. Great for blogs, APIs, and any applications.',
+        url: 'https://www.hostinger.com/cart?product=vps%3Avps_kvm_1&period=12&referral_type=cart_link&REFERRALCODE=NKWHARADHG2L&referral_id=019d5a62-f9e7-7361-96de-bb360c6d66ca',
+        badge: '',
+        badgeColor: '',
+        pros: ['Simple pricing', 'Global data centers', '24/7 human support', 'Built-in backups'],
+        startingPrice: '$5.59/mo',
+      },
+
+      {
+        name: 'SSDNODES',
+        tagline: 'Reliable cloud compute with simple pricing',
+        description: 'Straightforward VPS hosting with consistent performance. Global CDN integration. Great for blogs, APIs, and any applications.',
+        url: 'https://www.ssdnodes.com/manage/aff.php?aff=2160&register=true',
+        badge: '',
+        badgeColor: '',
+        pros: ['Simple pricing', 'Global data centers', '24/7 human support', 'Built-in backups'],
+        startingPrice: '$5.59/mo',
+      },
+
+
+      
+    
     ],
   },
   {
