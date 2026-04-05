@@ -24,6 +24,17 @@
     pendingService: '',
     hovered: false,
 
+    // Safe Zaraz event helper — only fires if user has consented to analytics via Zaraz banner
+    trackZaraz(eventName, params = {}) {
+      try {
+        if (typeof window !== 'undefined' && window.zaraz) {
+          window.zaraz.track(eventName, params);
+        }
+      } catch (e) {
+        // Silently fail — don't break UX if Zaraz is blocked or not loaded
+      }
+    },
+
     init() {
       // Intercept clicks on all [data-tos-stripe] elements
       document.addEventListener('click', (e) => {
@@ -32,6 +43,15 @@
         e.preventDefault();
         this.pendingUrl = btn.dataset.tosStripe;
         this.pendingService = btn.dataset.tosService || 'this service';
+
+        const paymentType = btn.dataset.tosService && btn.dataset.tosService.includes('(Weekly)') ? 'subscribe' : 'onetime';
+
+        // Track payment button click
+        this.trackZaraz('payment_button_click', {
+          service: this.pendingService,
+          payment_type: paymentType,
+          page_path: window.location.pathname,
+        });
 
         // Check if already consented for this specific service
         const consentKey = 'tos_consent_' + this.pendingService;
@@ -43,6 +63,12 @@
             // Consent valid for 365 days
             const consentAge = Date.now() - parsed.timestamp;
             if (consentAge < 365 * 24 * 60 * 60 * 1000) {
+              // Track that consent was already given — user goes straight to Stripe
+              this.trackZaraz('tos_consent_already_given', {
+                service: this.pendingService,
+                payment_type: paymentType,
+                page_path: window.location.pathname,
+              });
               this.redirectToStripe();
               return;
             }
@@ -51,10 +77,15 @@
           }
         }
 
-        // Show modal
+        // Show modal — track it
         this.agreed = false;
         this.show = true;
         document.body.style.overflow = 'hidden';
+        this.trackZaraz('tos_modal_shown', {
+          service: this.pendingService,
+          payment_type: paymentType,
+          page_path: window.location.pathname,
+        });
       });
 
       // Hover tooltips
@@ -78,6 +109,8 @@
     },
 
     redirectToStripe() {
+      const paymentType = this.pendingService.includes('(Weekly)') ? 'subscribe' : 'onetime';
+
       // Record consent in localStorage
       const consentKey = 'tos_consent_' + this.pendingService;
       localStorage.setItem(consentKey, JSON.stringify({
@@ -86,6 +119,13 @@
         url: this.pendingUrl,
       }));
 
+      // Track ToS consent agreement to GA4 via Zaraz
+      this.trackZaraz('tos_consent_agreed', {
+        service: this.pendingService,
+        payment_type: paymentType,
+        page_path: window.location.pathname,
+      });
+
       // Open Stripe in new tab
       window.open(this.pendingUrl, '_blank', 'noopener,noreferrer');
       this.show = false;
@@ -93,6 +133,13 @@
     },
 
     close() {
+      // Track modal dismissal without agreeing
+      if (this.show && !this.agreed) {
+        this.trackZaraz('tos_modal_dismissed', {
+          service: this.pendingService,
+          page_path: window.location.pathname,
+        });
+      }
       this.show = false;
       document.body.style.overflow = '';
     },
