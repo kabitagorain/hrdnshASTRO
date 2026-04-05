@@ -88,8 +88,9 @@
         });
       });
 
-      // Hover tooltips
+      // Hover tooltips — use closest?() because mouseenter on SVG/text nodes gives non-Element targets
       document.addEventListener('mouseenter', (e) => {
+        if (!(e.target instanceof Element)) return;
         const btn = e.target.closest('[data-tos-stripe]');
         if (btn) {
           this.hovered = true;
@@ -99,6 +100,7 @@
       }, true);
 
       document.addEventListener('mouseleave', (e) => {
+        if (!(e.target instanceof Element)) return;
         const btn = e.target.closest('[data-tos-stripe]');
         if (btn) {
           this.hovered = false;
