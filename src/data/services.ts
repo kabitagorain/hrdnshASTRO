@@ -439,6 +439,10 @@ export const seoData = {
     title: `Recommended Tools & Services — ${profile.fname} ${profile.lname}`,
     description: `Personally recommended tools, hosting, and services — tested and used in real projects by ${profile.fname}. Honest recommendations backed by real experience.`,
   },
+  privacy: {
+    title: `Privacy Policy — ${profile.fname} ${profile.lname}`,
+    description: `Privacy policy for ${siteData.url} — how we collect, use, and protect your data through Cloudflare Zaraz and Google Analytics.`,
+  },
 };
 
 // Navigation links — used in Header and Footer

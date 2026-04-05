@@ -26,10 +26,17 @@ import { profile, siteData, navLinks } from '../data/services';
         ))}
       </nav>
 
+      
       <!-- Copyright -->
-      <p class="text-xs text-surface-600">
-        &copy; {year} {profile.name}. All rights reserved.
-      </p>
+      <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+        <p class="text-xs text-surface-600">
+          &copy; {year} {profile.name}. All rights reserved.
+        </p>
+        <a href="/privacy-policy" class="text-xs text-surface-600 hover:text-surface-400 transition-colors">
+          Privacy Policy
+        </a>
+      </div>
+
     </div>
   </div>
 </footer>
