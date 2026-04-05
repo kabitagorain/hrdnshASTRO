@@ -443,6 +443,10 @@ export const seoData = {
     title: `Privacy Policy — ${profile.fname} ${profile.lname}`,
     description: `Privacy policy for ${siteData.url} — how we collect, use, and protect your data through Cloudflare Zaraz and Google Analytics.`,
   },
+  terms: {
+    title: `Terms of Service — ${profile.fname} ${profile.lname}`,
+    description: `Terms of service for ${siteData.url} — payment terms, delivery timelines, refund policy, intellectual property rights, and client obligations.`,
+  },
 };
 
 // Navigation links — used in Header and Footer

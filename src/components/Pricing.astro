@@ -86,33 +86,41 @@ import { services } from '../data/services';
             <!-- CTAs -->
             <div class="space-y-3">
               <!-- One-time pay button -->
-              <a
+              <button
                 x-show="billing === 'onetime'"
-                href={service.stripeLinks.oneTime}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-glow flex items-center justify-center gap-2 w-full rounded-xl bg-primary-600 px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-primary-500"
+                data-tos-stripe={service.stripeLinks.oneTime}
+                data-tos-service={service.title}
+                class="btn-glow relative flex items-center justify-center gap-2 w-full rounded-xl bg-primary-600 px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-primary-500 cursor-pointer"
               >
                 Pay ${service.pricing.oneTime} — One Time
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
-              </a>
+                <!-- Hover tooltip -->
+                <div class="tos-tooltip absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-lg bg-surface-800 border border-surface-600/30 text-xs text-surface-300 whitespace-nowrap opacity-0 pointer-events-none transition-opacity duration-200 shadow-lg">
+                  By paying, you agree to our Terms of Service
+                  <div class="absolute top-full left-1/2 -translate-x-1/2 -mt-px w-2 h-2 bg-surface-800 border-r border-b border-surface-600/30 rotate-45"></div>
+                </div>
+              </button>
 
               <!-- Weekly subscribe button -->
-              <a
+              <button
                 x-show="billing === 'weekly'"
                 x-cloak
-                href={service.stripeLinks.weekly}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-glow flex items-center justify-center gap-2 w-full rounded-xl bg-accent-600 px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-accent-500"
+                data-tos-stripe={service.stripeLinks.weekly}
+                data-tos-service={service.title + ' (Weekly)'}
+                class="btn-glow relative flex items-center justify-center gap-2 w-full rounded-xl bg-accent-600 px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-accent-500 cursor-pointer"
               >
                 Subscribe ${service.pricing.weekly}/wk
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
-              </a>
+                <!-- Hover tooltip -->
+                <div class="tos-tooltip absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-lg bg-surface-800 border border-surface-600/30 text-xs text-surface-300 whitespace-nowrap opacity-0 pointer-events-none transition-opacity duration-200 shadow-lg">
+                  By subscribing, you agree to our Terms of Service
+                  <div class="absolute top-full left-1/2 -translate-x-1/2 -mt-px w-2 h-2 bg-surface-800 border-r border-b border-surface-600/30 rotate-45"></div>
+                </div>
+              </button>
 
               <!-- View Details link (always visible) -->
               <a

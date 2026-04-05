@@ -8,6 +8,7 @@ interface Props {
 
 import '../styles/global.css';
 import FloatingButton from '../components/FloatingButton.astro';
+import TosConsent from '../components/TosConsent.astro';
 import { profile, siteData } from '../data/services';
 
 const { title, description = siteData.defaultDescription, ogImage = siteData.defaultOgImage, canonicalURL = new URL(Astro.url.pathname, Astro.site).href } = Astro.props;
@@ -29,17 +30,6 @@ const jsonLd = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
-
-    <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VM4JDZYW59"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-VM4JDZYW59');
-  </script>
-
 
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -77,6 +67,7 @@ const jsonLd = {
 
     <slot />
     <FloatingButton />
+    <TosConsent />
 
     <script>
       const observer = new IntersectionObserver(

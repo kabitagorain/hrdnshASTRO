@@ -1,0 +1,572 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { profile, siteData, seoData } from '../data/services';
+
+const effectiveDate = 'April 5, 2026';
+const siteName = siteData.url.replace('https://', '');
+---
+
+<Layout title={seoData.terms.title} description={seoData.terms.description}>
+  <Header />
+
+  <!-- Page Hero -->
+  <section class="relative pt-32 pb-16 sm:pt-40 sm:pb-20 overflow-hidden dark-section noise-overlay">
+    <div class="absolute inset-0 dot-pattern"></div>
+    <div class="absolute top-0 left-1/3 w-[500px] h-[500px] bg-primary-600/8 rounded-full blur-[120px]"></div>
+
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <a href="/" class="inline-flex items-center gap-2 text-sm text-surface-500 hover:text-surface-300 transition-colors mb-8">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+        </svg>
+        Home
+      </a>
+
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 rounded-full border border-accent-500/20 bg-accent-500/5 px-4 py-2 mb-6 badge-glow">
+          <svg class="w-4 h-4 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          <span class="text-sm font-semibold text-accent-400">Legal Agreement</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight">
+          <span class="text-surface-100">Terms of</span>
+          <span class="gradient-text"> Service</span>
+        </h1>
+
+        <p class="mt-6 text-lg text-surface-400 leading-relaxed">
+          This agreement governs your use of our services and payment terms. By clicking "Pay Now," "Subscribe Now," or engaging our services, you agree to be bound by these terms.
+        </p>
+
+        <div class="mt-6 flex flex-wrap items-center gap-4 text-sm text-surface-500">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span>Effective: {effectiveDate}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            <span>Provider: {profile.name}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <main class="relative dark-section noise-overlay">
+    <div class="absolute inset-0 dot-pattern"></div>
+
+    <div class="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+
+      <!-- Important Notice -->
+      <section class="mb-16 animate-on-scroll">
+        <div class="glass-card rounded-2xl p-6 sm:p-8" style="background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(6, 182, 212, 0.05));">
+          <div class="flex items-start gap-4">
+            <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-warning-500/15 shrink-0 mt-0.5">
+              <svg class="w-5 h-5 text-warning-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-surface-100 mb-2">Please Read This Carefully</h3>
+              <p class="text-surface-400 leading-relaxed">
+                These Terms of Service ("Terms") constitute a legally binding agreement between you ("Client," "you," or "your") and {profile.name} ("Provider," "we," "us," or "our") governing the use of all services offered through {siteName}. By initiating payment through the "Pay Now" or "Subscribe Now" buttons on our website, you acknowledge that you have read, understood, and agree to be bound by these Terms in their entirety. If you do not agree with any part of these Terms, you must not engage our services.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. Definitions -->
+      <section class="mb-16 animate-on-scroll">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary-600/20 text-primary-400 text-sm font-bold">1</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-surface-100">Definitions</h2>
+        </div>
+        <div class="glass-card rounded-2xl p-6 sm:p-8">
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <span class="text-sm font-semibold text-primary-400 shrink-0 mt-0.5 min-w-[100px]">"Service"</span>
+              <p class="text-surface-400 leading-relaxed">Any development, consulting, automation, or technical engagement listed on {siteName}, including but not limited to web application development, AI agent deployment, backend optimization, ERP implementation, trading system development, DevOps setup, and ongoing maintenance services.</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-sm font-semibold text-primary-400 shrink-0 mt-0.5 min-w-[100px]">"One-Time Service"</span>
+              <p class="text-surface-400 leading-relaxed">A project-based engagement with a fixed, listed price that is paid in full before work begins, as described on the service detail page.</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-sm font-semibold text-primary-400 shrink-0 mt-0.5 min-w-[100px]">"Weekly Subscription"</span>
+              <p class="text-surface-400 leading-relaxed">A recurring engagement model where the Client pays a weekly fee for ongoing development work, billed automatically every seven (7) calendar days from the subscription start date until canceled.</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-sm font-semibold text-primary-400 shrink-0 mt-0.5 min-w-[100px]">"Stated Lead Time"</span>
+              <p class="text-surface-400 leading-relaxed">The estimated delivery timeline (e.g., "1-2 weeks," "4-8 weeks") displayed on each service's detail page. This is a good-faith estimate and not a guaranteed deadline.</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-sm font-semibold text-primary-400 shrink-0 mt-0.5 min-w-[100px]">"Delivery Window"</span>
+              <p class="text-surface-400 leading-relaxed">The maximum allowable period for project completion, calculated as <span class="text-surface-200 font-medium">the upper end of the Stated Lead Time plus thirty (30) calendar days from the date of payment</span>. This buffer accounts for technical revisions, client feedback cycles, and unforeseen adjustments. This is the contractual deadline by which the Service must be delivered.
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-sm font-semibold text-primary-400 shrink-0 mt-0.5 min-w-[100px]">"Deliverables"</span>
+              <p class="text-surface-400 leading-relaxed">The functional code, configurations, documentation, and any other tangible outputs produced as part of the Service, as specified on the service detail page under "Deliverables."</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Service Engagement & Payment -->
+      <section class="mb-16 animate-on-scroll">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-accent-600/20 text-accent-400 text-sm font-bold">2</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-surface-100">Service Engagement & Payment</h2>
+        </div>
+        <div class="glass-card rounded-2xl p-6 sm:p-8">
+          <h3 class="text-lg font-semibold text-surface-200 mb-3">2.1 One-Time Services (Fixed Price)</h3>
+          <p class="text-surface-400 leading-relaxed mb-4">
+            For all project-based, fixed-price services listed on {siteName}, <span class="text-surface-200 font-medium">full payment of the listed price is required upfront before any development work begins</span>. The listed price is displayed on each service's detail page and on the Pricing section of the website. Payment is processed securely through Stripe, Inc., a third-party payment processor. Upon successful payment, the Client will receive a confirmation receipt via email, and a dedicated development resource will be allocated to the project.
+          </p>
+          <p class="text-surface-400 leading-relaxed mb-6">
+            No work, including planning, architecture, or code development, will commence until the full payment has been confirmed and processed. The payment confirmation email serves as the official start date of the engagement.
+          </p>
+
+          <h3 class="text-lg font-semibold text-surface-200 mb-3">2.2 Weekly Subscriptions (Recurring)</h3>
+          <p class="text-surface-400 leading-relaxed mb-4">
+            For Clients who prefer an ongoing engagement model, a Weekly Subscription option is available for select services. Under this model, the Client authorizes automatic recurring billing of the weekly subscription fee every seven (7) calendar days, starting from the initial subscription date. Billing is processed automatically through Stripe, and the Client will receive an invoice/receipt for each successful charge.
+          </p>
+          <p class="text-surface-400 leading-relaxed">
+            The subscription remains active and continues to bill until the Client explicitly cancels it. Cancellation instructions are provided in the receipt email and can also be requested by contacting us directly. <span class="text-surface-200 font-medium">The Provider reserves the right to modify weekly subscription pricing with at least seven (7) days' written notice via email before the next billing cycle.</span>
+          </p>
+        </div>
+      </section>
+
+      <!-- 3. Project Delivery & Timeline -->
+      <section class="mb-16 animate-on-scroll">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary-600/20 text-primary-400 text-sm font-bold">3</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-surface-100">Project Delivery & Timeline</h2>
+        </div>
+        <div class="glass-card rounded-2xl p-6 sm:p-8">
+          <h3 class="text-lg font-semibold text-surface-200 mb-3">3.1 Stated Lead Time (Estimate)</h3>
+          <p class="text-surface-400 leading-relaxed mb-4">
+            Each service listed on {siteName} includes a "Stated Lead Time" (e.g., "1-2 weeks," "4-8 weeks") displayed on the service detail page. This represents our standard, good-faith estimate of how long the initial delivery will take under normal circumstances. We make every effort to deliver within or before this estimated timeline. However, the Stated Lead Time is <span class="text-surface-200 font-medium">an estimate, not a guaranteed deadline</span>, and does not account for variables outside our control.
+          </p>
+
+          <h3 class="text-lg font-semibold text-surface-200 mb-3">3.2 Delivery Window (Contractual Deadline)</h3>
+          <p class="text-surface-400 leading-relaxed mb-4">
+            To account for technical revisions, client feedback cycles, scope clarifications, and unforeseen adjustments that are normal in custom software development, the <span class="text-surface-200 font-medium">formal "Delivery Window"</span> is calculated as <span class="text-surface-200 font-medium">the upper bound of the Stated Lead Time, plus thirty (30) additional calendar days, counted from the date of payment</span>. This ensures that both short and complex projects receive a proportional buffer period.
+          </p>
+
+          <div class="overflow-x-auto mb-6">
+            <p class="text-sm font-semibold text-surface-300 mb-3">Delivery Window Calculation Examples:</p>
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-surface-700/30">
+                  <th class="text-left py-3 pr-4 text-surface-300 font-semibold">Service</th>
+                  <th class="text-left py-3 pr-4 text-surface-300 font-semibold">Stated Lead Time</th>
+                  <th class="text-left py-3 text-surface-300 font-semibold">Max Delivery Window</th>
+                </tr>
+              </thead>
+              <tbody class="text-surface-400">
+                <tr class="border-b border-surface-700/15"><td class="py-3 pr-4">Self-Hosted AI Agents</td><td class="py-3 pr-4">1 week</td><td class="py-3 font-medium text-surface-200">~37 days from payment</td></tr>
+                <tr class="border-b border-surface-700/15"><td class="py-3 pr-4">High-Performance Backend</td><td class="py-3 pr-4">1-2 weeks</td><td class="py-3 font-medium text-surface-200">~44 days from payment</td></tr>
+                <tr class="border-b border-surface-700/15"><td class="py-3 pr-4">Full-Stack Web App</td><td class="py-3 pr-4">4-8 weeks</td><td class="py-3 font-medium text-surface-200">~86 days from payment</td></tr>
+                <tr class="border-b border-surface-700/15"><td class="py-3 pr-4">Custom ERP</td><td class="py-3 pr-4">8-12 weeks</td><td class="py-3 font-medium text-surface-200">~114 days from payment</td></tr>
+                <tr class="border-b border-surface-700/15"><td class="py-3 pr-4">ERP/CRM Implementation</td><td class="py-3 pr-4">4-10 weeks</td><td class="py-3 font-medium text-surface-200">~100 days from payment</td></tr>
+                <tr class="border-b border-surface-700/15"><td class="py-3 pr-4">Algorithmic Trading</td><td class="py-3 pr-4">2-4 weeks</td><td class="py-3 font-medium text-surface-200">~58 days from payment</td></tr>
+                <tr><td class="py-3 pr-4">DevOps & Security</td><td class="py-3 pr-4">1-2 weeks</td><td class="py-3 font-medium text-surface-200">~44 days from payment</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="text-surface-400 leading-relaxed mb-6">
+            A Service is considered <span class="text-surface-200 font-medium">"Delivered"</span> once the functional code, configurations, and specified Deliverables have been provided to the Client via the agreed-upon method (e.g., code repository access, deployment to staging/production server, or file transfer). Delivery confirmation, including access credentials and documentation, will be communicated to the Client via email.
+          </p>
+
+          <h3 class="text-lg font-semibold text-surface-200 mb-3">3.3 Delivery Delays</h3>
+          <p class="text-surface-400 leading-relaxed">
+            In the event that delivery extends beyond the calculated Delivery Window due to causes within the Provider's control, the Client may be eligible for a service credit or project extension at the Provider's sole discretion. The Provider will communicate any anticipated delays to the Client as early as reasonably possible. Delays caused by factors outside the Provider's control (see Section 10: Force Majeure) or by Client non-responsiveness (see Section 5: Client Responsibilities) do not constitute a breach of these Terms.
+          </p>
+        </div>
+      </section>
+
+      <!-- 4. Intellectual Property Rights -->
+      <section class="mb-16 animate-on-scroll">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-accent-600/20 text-accent-400 text-sm font-bold">4</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-surface-100">Intellectual Property Rights</h2>
+        </div>
+        <div class="glass-card rounded-2xl p-6 sm:p-8">
+          <h3 class="text-lg font-semibold text-surface-200 mb-3">4.1 Ownership of Deliverables</h3>
+          <p class="text-surface-400 leading-relaxed mb-4">
+            Upon full payment and successful Delivery of the Service, <span class="text-surface-200 font-medium">all intellectual property rights to the custom code, configurations, and Deliverables created specifically for the Client are transferred to the Client</span>. This includes the right to use, modify, distribute, and commercially exploit the delivered work without restriction.
+          </p>
+
+          <h3 class="text-lg font-semibold text-surface-200 mb-3">4.2 Pre-Existing IP & Third-Party Components</h3>
+          <p class="text-surface-400 leading-relaxed mb-4">
+            Any pre-existing code, libraries, frameworks, open-source software, templates, or tools used in the development of the Service remain the property of their respective owners and are subject to their original licenses (e.g., MIT, Apache, GPL). The Client receives a license to use these components as part of the delivered project but does not gain ownership of the underlying third-party software. The Provider may also reuse general-purpose code patterns, utility functions, and solutions developed during the engagement for future projects, provided no confidential Client data is included.
+          </p>
+
+          <h3 class="text-lg font-semibold text-surface-200 mb-3">4.3 IP Transfer Condition</h3>
+          <p class="text-surface-400 leading-relaxed">
+            Intellectual property transfer is contingent upon <span class="text-surface-200 font-medium">full and confirmed payment</span>. If payment is disputed, reversed (chargeback), or not fully received, no intellectual property rights are transferred to the Client, and the Client has no license to use, deploy, or distribute any work product. The Provider retains full ownership until payment is settled in full.
+          </p>
+        </div>
+      </section>
+
+      <!-- 5. Client Responsibilities -->
+      <section class="mb-16 animate-on-scroll">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary-600/20 text-primary-400 text-sm font-bold">5</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-surface-100">Client Responsibilities</h2>
+        </div>
+        <div class="glass-card rounded-2xl p-6 sm:p-8">
+          <p class="text-surface-400 leading-relaxed mb-4">
+            Timely and successful delivery depends on the Client's cooperation. The Client agrees to fulfill the following responsibilities throughout the engagement:
+          </p>
+          <div class="space-y-3 mb-6">
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-primary-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+              </svg>
+              <p class="text-surface-400 leading-relaxed">
+                <span class="text-surface-200 font-medium">Provide Necessary Access:</span> Furnish any required credentials, API keys, server access, hosting panel logins, database access, third-party service accounts, or any other resources necessary for the Provider to perform the Service in a timely manner.
+              </p>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-primary-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+              </svg>
+              <p class="text-surface-400 leading-relaxed">
+                <span class="text-surface-200 font-medium">Timely Communication:</span> Respond to requests for clarification, feedback, approvals, or content within a reasonable timeframe. A lack of response for more than five (5) consecutive business days may result in the Delivery Window being paused and extended by the duration of the delay.
+              </p>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-primary-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+              </svg>
+              <p class="text-surface-400 leading-relaxed">
+                <span class="text-surface-200 font-medium">Accurate Information:</span> Provide accurate and complete project requirements, business logic, content, and any other information necessary for the Provider to deliver the Service as specified. Changes to requirements after work has begun are subject to Section 6 (Scope Changes).
+              </p>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-primary-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+              </svg>
+              <p class="text-surface-400 leading-relaxed">
+                <span class="text-surface-200 font-medium">Payment Obligations:</span> Ensure that payment methods used (credit card, debit card, or other Stripe-supported methods) have sufficient funds and are authorized for the transaction. The Provider is not responsible for payment failures due to insufficient funds, expired cards, or bank-side blocks.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Scope Changes & Additional Work -->
+      <section class="mb-16 animate-on-scroll">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-accent-600/20 text-accent-400 text-sm font-bold">6</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-surface-100">Scope Changes & Additional Work</h2>
+        </div>
+        <div class="glass-card rounded-2xl p-6 sm:p-8">
+          <p class="text-surface-400 leading-relaxed mb-4">
+            Each Service is defined by the deliverables and specifications listed on its service detail page. The Provider will deliver the Service as described. However, if the Client requests modifications, additions, or changes that fall outside the originally agreed scope ("Scope Changes"), the following provisions apply:
+          </p>
+          <div class="space-y-3 mb-6">
+            <div class="flex items-start gap-3 p-3 rounded-lg bg-surface-800/30">
+              <span class="text-primary-400 font-bold text-sm shrink-0">i.</span>
+              <p class="text-surface-400 text-sm leading-relaxed">The Provider will assess the Scope Change and provide a written estimate of any additional time, cost, or impact on the delivery timeline before proceeding.</p>
+            </div>
+            <div class="flex items-start gap-3 p-3 rounded-lg bg-surface-800/30">
+              <span class="text-primary-400 font-bold text-sm shrink-0">ii.</span>
+              <p class="text-surface-400 text-sm leading-relaxed">Scope Changes are only executed upon the Client's written approval (via email or messaging platform) and, if applicable, additional payment.</p>
+            </div>
+            <div class="flex items-start gap-3 p-3 rounded-lg bg-surface-800/30">
+              <span class="text-primary-400 font-bold text-sm shrink-0">iii.</span>
+              <p class="text-surface-400 text-sm leading-relaxed">Any Scope Change that is implemented without prior agreement will be treated as a separate service engagement and billed accordingly at the Provider's standard rates.</p>
+            </div>
+            <div class="flex items-start gap-3 p-3 rounded-lg bg-surface-800/30">
+              <span class="text-primary-400 font-bold text-sm shrink-0">iv.</span>
+              <p class="text-surface-400 text-sm leading-relaxed">Minor adjustments that do not materially affect the scope, timeline, or cost (e.g., bug fixes, small UI tweaks) will be accommodated at the Provider's discretion as part of the original Service.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. Refund & Cancellation Policy -->
+      <section class="mb-16 animate-on-scroll">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary-600/20 text-primary-400 text-sm font-bold">7</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-surface-100">Refund & Cancellation Policy</h2>
+        </div>
+        <div class="glass-card rounded-2xl p-6 sm:p-8">
+          <h3 class="text-lg font-semibold text-surface-200 mb-3">7.1 One-Time Services — Non-Refundable</h3>
+          <p class="text-surface-400 leading-relaxed mb-4">
+            <span class="text-surface-200 font-medium">All payments for one-time, fixed-price services are non-refundable.</span> This policy exists because the Services involve the allocation of dedicated engineering hours, expertise, and technical resources that cannot be "returned" or "restocked." Once payment is confirmed and development resources are allocated, the funds are committed to the project regardless of the outcome.
+          </p>
+          <p class="text-surface-400 leading-relaxed mb-6">
+            This non-refundable policy also applies to payments processed through third-party payment processors (e.g., Stripe). Payment processor fees, currency conversion charges, and any other transaction costs incurred during the payment process are the Client's responsibility and are not recoverable by either party. In the event of a payment dispute (chargeback) initiated by the Client through their bank or card issuer, the Provider reserves the right to dispute the chargeback and assert these Terms as evidence of the Client's agreement.
+          </p>
+
+          <h3 class="text-lg font-semibold text-surface-200 mb-3">7.2 Service Delays — Credit or Extension</h3>
+          <p class="text-surface-400 leading-relaxed mb-6">
+            If the Provider fails to deliver the Service within the calculated Delivery Window (Stated Lead Time + 30 days) due to causes within the Provider's control, the Client may be eligible for one of the following remedies at the Provider's sole discretion: (a) a service credit equal to the amount paid, applicable toward any future service engagement with the Provider, or (b) a service extension with a revised delivery timeline. <span class="text-surface-200 font-medium">Cash refunds are not issued for delivery delays.</span> This remedy is the Client's sole and exclusive recourse for late delivery.
+          </p>
+
+          <h3 class="text-lg font-semibold text-surface-200 mb-3">7.3 Weekly Subscriptions — Cancellation</h3>
+          <p class="text-surface-400 leading-relaxed mb-4">
+            Weekly Subscriptions may be canceled by the Client at any time. Upon cancellation, no further charges will be processed. However, <span class="text-surface-200 font-medium">no pro-rated refunds will be issued for the current billing period</span> once a charge has been successfully processed. For example, if the Client's billing week starts on Monday and the subscription is canceled on Wednesday, the Monday charge covers the full seven-day period through Sunday, and no partial refund will be issued for the remaining days.
+          </p>
+          <p class="text-surface-400 leading-relaxed">
+            The billing week is defined as seven (7) consecutive calendar days starting from the original subscription date — not a calendar week (Monday-Sunday). Upon cancellation, any work completed up to the cancellation date will be delivered as-is, and no further development work will be performed.
+          </p>
+        </div>
+      </section>
+
+      <!-- 8. Warranty Disclaimer -->
+      <section class="mb-16 animate-on-scroll">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-accent-600/20 text-accent-400 text-sm font-bold">8</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-surface-100">Warranty Disclaimer</h2>
+        </div>
+        <div class="glass-card rounded-2xl p-6 sm:p-8">
+          <p class="text-surface-400 leading-relaxed mb-4">
+            The Service is provided "as is" and "as available" without warranties of any kind, either express or implied, including but not limited to implied warranties of merchantability, fitness for a particular purpose, or non-infringement. The Provider does not warrant that:
+          </p>
+          <div class="space-y-2 mb-4">
+            <div class="flex items-start gap-3">
+              <span class="text-surface-600 shrink-0">•</span>
+              <p class="text-surface-400 text-sm leading-relaxed">The Service will be uninterrupted, error-free, or completely free of bugs or vulnerabilities.</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-surface-600 shrink-0">•</span>
+              <p class="text-surface-400 text-sm leading-relaxed">The results obtained from the Service will meet the Client's specific business objectives or revenue expectations.</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-surface-600 shrink-0">•</span>
+              <p class="text-surface-400 text-sm leading-relaxed">Any third-party integrations, APIs, or external services used in the Service will remain available, functional, or free of charge indefinitely.</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-surface-600 shrink-0">•</span>
+              <p class="text-surface-400 text-sm leading-relaxed">The Service will be compatible with all browsers, devices, operating systems, or future software updates not specified in the original scope.</p>
+            </div>
+          </div>
+          <p class="text-surface-400 leading-relaxed">
+            Post-delivery bug fixes and minor adjustments are provided at the Provider's discretion as a courtesy and do not constitute a warranty obligation unless explicitly stated in the service description or a separate maintenance agreement.
+          </p>
+        </div>
+      </section>
+
+      <!-- 9. Limitation of Liability -->
+      <section class="mb-16 animate-on-scroll">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary-600/20 text-primary-400 text-sm font-bold">9</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-surface-100">Limitation of Liability</h2>
+        </div>
+        <div class="glass-card rounded-2xl p-6 sm:p-8">
+          <p class="text-surface-400 leading-relaxed mb-4">
+            <span class="text-surface-200 font-medium">To the maximum extent permitted by applicable law, the Provider's total liability for any claims arising from or related to these Terms or the Service shall not exceed the total amount paid by the Client to the Provider for the specific Service giving rise to the claim.</span> This limit applies regardless of the legal theory on which the claim is based (contract, tort, negligence, strict liability, or otherwise).
+          </p>
+          <p class="text-surface-400 leading-relaxed mb-4">
+            In no event shall the Provider be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to loss of profits, loss of data, loss of business opportunities, business interruption, or reputational harm, even if the Provider has been advised of the possibility of such damages.
+          </p>
+          <p class="text-surface-400 leading-relaxed">
+            The Provider is not liable for any damages, losses, or issues arising from: (a) the Client's misuse, modification, or improper deployment of the Deliverables; (b) third-party service failures (hosting providers, APIs, payment processors); (c) the Client's failure to fulfill their responsibilities under Section 5; or (d) circumstances beyond the Provider's reasonable control as described in Section 10.
+          </p>
+        </div>
+      </section>
+
+      <!-- 10. Force Majeure -->
+      <section class="mb-16 animate-on-scroll">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-accent-600/20 text-accent-400 text-sm font-bold">10</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-surface-100">Force Majeure</h2>
+        </div>
+        <div class="glass-card rounded-2xl p-6 sm:p-8">
+          <p class="text-surface-400 leading-relaxed mb-4">
+            The Provider shall not be held liable for any failure or delay in performing obligations under these Terms where such failure or delay results from circumstances beyond the Provider's reasonable control ("Force Majeure Events"). Force Majeure Events include, but are not limited to:
+          </p>
+          <div class="grid sm:grid-cols-2 gap-3 mb-6">
+            <div class="flex items-start gap-2 text-sm text-surface-400">
+              <span class="text-surface-600 shrink-0">•</span>
+              Natural disasters, pandemics, or epidemics
+            </div>
+            <div class="flex items-start gap-2 text-sm text-surface-400">
+              <span class="text-surface-600 shrink-0">•</span>
+              War, terrorism, or civil unrest
+            </div>
+            <div class="flex items-start gap-2 text-sm text-surface-400">
+              <span class="text-surface-600 shrink-0">•</span>
+              Government actions, orders, or restrictions
+            </div>
+            <div class="flex items-start gap-2 text-sm text-surface-400">
+              <span class="text-surface-600 shrink-0">•</span>
+              Internet infrastructure outages or DNS failures
+            </div>
+            <div class="flex items-start gap-2 text-sm text-surface-400">
+              <span class="text-surface-600 shrink-0">•</span>
+              Third-party service provider outages (AWS, Cloudflare, Stripe, etc.)
+            </div>
+            <div class="flex items-start gap-2 text-sm text-surface-400">
+              <span class="text-surface-600 shrink-0">•</span>
+              Critical security vulnerabilities in upstream dependencies
+            </div>
+          </div>
+          <p class="text-surface-400 leading-relaxed">
+            In the event of a Force Majeure Event, the Provider will notify the Client as soon as reasonably possible and provide an estimated timeline for resolution. The Delivery Window will be extended by the duration of the Force Majeure Event plus a reasonable recovery period.
+          </p>
+        </div>
+      </section>
+
+      <!-- 11. Confidentiality -->
+      <section class="mb-16 animate-on-scroll">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary-600/20 text-primary-400 text-sm font-bold">11</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-surface-100">Confidentiality</h2>
+        </div>
+        <div class="glass-card rounded-2xl p-6 sm:p-8">
+          <p class="text-surface-400 leading-relaxed mb-4">
+            Both parties agree to maintain the confidentiality of any proprietary, sensitive, or non-public information shared during the course of the engagement ("Confidential Information"). This includes, but is not limited to:
+          </p>
+          <div class="grid sm:grid-cols-2 gap-3 mb-6">
+            <div class="flex items-start gap-2 text-sm text-surface-400">
+              <span class="text-surface-600 shrink-0">•</span>
+              Business strategies, trade secrets, and proprietary algorithms
+            </div>
+            <div class="flex items-start gap-2 text-sm text-surface-400">
+              <span class="text-surface-600 shrink-0">•</span>
+              Database credentials, API keys, and access tokens
+            </div>
+            <div class="flex items-start gap-2 text-sm text-surface-400">
+              <span class="text-surface-600 shrink-0">•</span>
+              Customer data, user information, and analytics
+            </div>
+            <div class="flex items-start gap-2 text-sm text-surface-400">
+              <span class="text-surface-600 shrink-0">•</span>
+              Financial data, pricing structures, and revenue figures
+            </div>
+          </div>
+          <p class="text-surface-400 leading-relaxed">
+            The Provider will not disclose the Client's Confidential Information to any third party except as required to perform the Service (e.g., deploying to the Client's server). This confidentiality obligation survives the termination of these Terms for a period of two (2) years. Either party may disclose Confidential Information if required by law, regulation, or court order, provided the disclosing party gives the other party reasonable advance notice when legally permissible.
+          </p>
+        </div>
+      </section>
+
+      <!-- 12. Dispute Resolution & Chargebacks -->
+      <section class="mb-16 animate-on-scroll">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-accent-600/20 text-accent-400 text-sm font-bold">12</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-surface-100">Dispute Resolution & Payment Disputes</h2>
+        </div>
+        <div class="glass-card rounded-2xl p-6 sm:p-8">
+          <h3 class="text-lg font-semibold text-surface-200 mb-3">12.1 Informal Resolution</h3>
+          <p class="text-surface-400 leading-relaxed mb-4">
+            In the event of any dispute, claim, or disagreement arising from these Terms or the Service, the parties agree to first attempt to resolve the matter informally. The Client should contact the Provider at <a href={`mailto:${siteData.email}`} class="text-primary-400 hover:text-primary-300 underline underline-offset-2 transition-colors">{siteData.email}</a> with a clear description of the issue. The Provider will respond within five (5) business days and make good-faith efforts to resolve the dispute.
+          </p>
+
+          <h3 class="text-lg font-semibold text-surface-200 mb-3">12.2 Chargeback Protection</h3>
+          <p class="text-surface-400 leading-relaxed mb-4">
+            By initiating payment through Stripe, the Client agrees that the Provider's delivery of the Service (as defined in Section 3) fulfills the transaction obligation. The Client agrees <span class="text-surface-200 font-medium">not to initiate a chargeback, payment reversal, or dispute through their bank, card issuer, or payment processor</span> for services that have been delivered or are actively being developed within the Delivery Window.
+          </p>
+          <p class="text-surface-400 leading-relaxed">
+            If the Client believes there is a legitimate issue with the Service, the proper course of action is to contact the Provider directly (as described in Section 12.1) to seek resolution. Initiation of an unjustified chargeback while the Service is being delivered or after delivery has been completed may result in the Provider asserting these Terms as a defense, and the Client may be responsible for any dispute processing fees or associated costs.
+          </p>
+        </div>
+      </section>
+
+      <!-- 13. Indemnification -->
+      <section class="mb-16 animate-on-scroll">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary-600/20 text-primary-400 text-sm font-bold">13</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-surface-100">Indemnification</h2>
+        </div>
+        <div class="glass-card rounded-2xl p-6 sm:p-8">
+          <p class="text-surface-400 leading-relaxed">
+            The Client agrees to indemnify, defend, and hold harmless the Provider from and against any and all claims, damages, losses, liabilities, costs, and expenses (including reasonable attorney's fees) arising from: (a) the Client's use or modification of the Deliverables after delivery; (b) the Client's breach of any provision of these Terms; (c) the Client's provision of inaccurate, unlawful, or infringing content or data to the Provider; or (d) any third-party claims related to the Client's business operations that are unrelated to the Provider's Service.
+          </p>
+        </div>
+      </section>
+
+      <!-- 14. Governing Law -->
+      <section class="mb-16 animate-on-scroll">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-accent-600/20 text-accent-400 text-sm font-bold">14</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-surface-100">Governing Law</h2>
+        </div>
+        <div class="glass-card rounded-2xl p-6 sm:p-8">
+          <p class="text-surface-400 leading-relaxed mb-4">
+            These Terms shall be governed by and construed in accordance with the laws of Bangladesh, without regard to its conflict of law principles. Both parties submit to the exclusive jurisdiction of the courts of Bangladesh for the resolution of any disputes arising from these Terms that cannot be resolved through informal negotiation as described in Section 12.
+          </p>
+          <p class="text-surface-400 leading-relaxed">
+            For Clients located outside of Bangladesh, these Terms are still governed by Bangladeshi law. The parties agree that any legal proceedings shall be conducted in English and that the Provider's place of business shall be the venue for any dispute resolution proceedings unless otherwise agreed in writing.
+          </p>
+        </div>
+      </section>
+
+      <!-- 15. Modifications to Terms -->
+      <section class="mb-16 animate-on-scroll">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-primary-600/20 text-primary-400 text-sm font-bold">15</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-surface-100">Modifications to These Terms</h2>
+        </div>
+        <div class="glass-card rounded-2xl p-6 sm:p-8">
+          <p class="text-surface-400 leading-relaxed mb-4">
+            The Provider reserves the right to modify, update, or replace these Terms at any time. Changes will be effective immediately upon posting the revised Terms on {siteName} with an updated "Effective Date" at the top of this page. Continued use of the website or engagement of services after any modification constitutes acceptance of the revised Terms.
+          </p>
+          <p class="text-surface-400 leading-relaxed">
+            <span class="text-surface-200 font-medium">Existing engagements are governed by the version of these Terms that was in effect at the time of payment.</span> Modifications to these Terms do not retroactively alter the terms of a service engagement that has already been paid for and initiated.
+          </p>
+        </div>
+      </section>
+
+      <!-- 16. Severability -->
+      <section class="mb-16 animate-on-scroll">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-accent-600/20 text-accent-400 text-sm font-bold">16</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-surface-100">Severability</h2>
+        </div>
+        <div class="glass-card rounded-2xl p-6 sm:p-8">
+          <p class="text-surface-400 leading-relaxed">
+            If any provision of these Terms is found to be unenforceable, invalid, or illegal by a court of competent jurisdiction, the remaining provisions shall continue in full force and effect. The unenforceable provision shall be modified to the minimum extent necessary to make it enforceable while preserving the original intent of the parties. If modification is not possible, the provision shall be severed, and the remainder of these Terms shall be interpreted as if the severed provision had never existed.
+          </p>
+        </div>
+      </section>
+
+      <!-- 17. Contact -->
+      <section class="animate-on-scroll">
+        <div class="glass-card rounded-2xl p-6 sm:p-8" style="background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(6, 182, 212, 0.05));">
+          <div class="flex items-center gap-3 mb-4">
+            <svg class="w-6 h-6 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <h2 class="text-xl sm:text-2xl font-bold text-surface-100">Questions About These Terms?</h2>
+          </div>
+          <p class="text-surface-400 leading-relaxed mb-6">
+            If you have any questions, concerns, or need clarification about any part of these Terms of Service, please contact us before making a payment. We're happy to discuss and clarify anything to ensure a smooth and transparent engagement.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href={`mailto:${siteData.email}`} class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary-600 hover:bg-primary-500 text-white font-semibold text-sm transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              {siteData.email}
+            </a>
+            <a href={siteData.url} class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-surface-700/50 text-surface-300 hover:text-surface-100 hover:border-surface-600/50 font-semibold text-sm transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+              Visit {siteName}
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
