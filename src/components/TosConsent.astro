@@ -1,282 +1,231 @@
 ---
 /**
- * TosConsent.astro — ToS Consent Modal
+ * TosConsent.astro — ToS Consent Modal with Payment Gateway Selector
  *
- * Intercepted by any element with data-tos-stripe attribute.
- * Shows modal requiring user to agree to Terms of Service before
- * redirecting to Stripe payment URL.
+ * Payment links live on each service object (services.ts):
+ *   service.payment_links.default  → Stripe (fallback)
+ *   service.payment_links.bd       → bKash
+ *   service.payment_links.in       → Razorpay
+ *   ...
  *
- * Usage:
- *   <button data-tos-stripe="https://buy.stripe.com/..." data-tos-service="AI Agent">
- *     Pay Now
- *   </button>
- *
- * Consent is tracked per-service in localStorage.
- * If already consented, redirects immediately without modal.
+ * This component:
+ *   1. Shows ToS agreement modal when Pay Now / Subscribe is clicked
+ *   2. Has a "Payment Gateway" dropdown from paymentGateways list
+ *   3. Resolves: selected gateway → service.payment_links[gateway]
+ *   4. Falls back to service.payment_links.default if gateway has no links
  */
+import { paymentGateways, services } from '../data/services';
+
+// Build a map: serviceId → payment_links (for client-side resolution)
+const paymentLinksMap = {};
+services.forEach(s => { paymentLinksMap[s.id] = s.payment_links; });
 ---
+
+<!-- Inject data for Alpine.js -->
+<script is:inline set:html={`
+  window.__paymentGateways = ${JSON.stringify(paymentGateways)};
+  window.__paymentLinksMap = ${JSON.stringify(paymentLinksMap)};
+`}></script>
 
 <div
   x-data="{
     show: false,
     agreed: false,
-    pendingUrl: '',
     pendingService: '',
-    hovered: false,
+    pendingServiceId: '',
+    pendingPaymentType: 'onetime',
+    gateway: 'default',
 
-    // Safe Zaraz event helper — only fires if user has consented to analytics via Zaraz banner
-    trackZaraz(eventName, params = {}) {
-      try {
-        if (typeof window !== 'undefined' && window.zaraz) {
-          window.zaraz.track(eventName, params);
-        }
-      } catch (e) {
-        // Silently fail — don't break UX if Zaraz is blocked or not loaded
-      }
+    trackZaraz(name, params = {}) {
+      try { if (window.zaraz) window.zaraz.track(name, params); } catch(e) {}
     },
 
     init() {
-      // Intercept clicks on all [data-tos-stripe] elements
       document.addEventListener('click', (e) => {
         const btn = e.target.closest('[data-tos-stripe]');
         if (!btn) return;
         e.preventDefault();
-        this.pendingUrl = btn.dataset.tosStripe;
         this.pendingService = btn.dataset.tosService || 'this service';
+        this.pendingServiceId = btn.dataset.tosServiceId || '';
+        this.pendingPaymentType = btn.dataset.tosPaymentType || 'onetime';
+        this.gateway = 'default';
 
-        const paymentType = btn.dataset.tosService && btn.dataset.tosService.includes('(Weekly)') ? 'subscribe' : 'onetime';
-
-        // Track payment button click
         this.trackZaraz('payment_button_click', {
-          service: this.pendingService,
-          payment_type: paymentType,
-          page_path: window.location.pathname,
+          service: this.pendingService, service_id: this.pendingServiceId,
+          payment_type: this.pendingPaymentType, page_path: window.location.pathname,
         });
 
-        // Check if already consented for this specific service
-        const consentKey = 'tos_consent_' + this.pendingService;
-        const consentData = localStorage.getItem(consentKey);
-
-        if (consentData) {
+        // Already consented? Pre-check but still show modal so
+        // the visitor can change gateway or payment type.
+        this.agreed = false;
+        const key = 'tos_consent_' + this.pendingService;
+        const saved = localStorage.getItem(key);
+        if (saved) {
           try {
-            const parsed = JSON.parse(consentData);
-            // Consent valid for 365 days
-            const consentAge = Date.now() - parsed.timestamp;
-            if (consentAge < 365 * 24 * 60 * 60 * 1000) {
-              // Track that consent was already given — user goes straight to Stripe
+            const p = JSON.parse(saved);
+            if (Date.now() - p.timestamp < 365 * 24 * 60 * 60 * 1000) {
+              this.agreed = true;
               this.trackZaraz('tos_consent_already_given', {
-                service: this.pendingService,
-                payment_type: paymentType,
-                page_path: window.location.pathname,
+                service: this.pendingService, service_id: this.pendingServiceId,
+                payment_type: this.pendingPaymentType, page_path: window.location.pathname,
               });
-              this.redirectToStripe();
-              return;
             }
-          } catch (err) {
-            localStorage.removeItem(consentKey);
-          }
+          } catch(e) { localStorage.removeItem(key); }
         }
 
-        // Show modal — track it
-        this.agreed = false;
         this.show = true;
         document.body.style.overflow = 'hidden';
         this.trackZaraz('tos_modal_shown', {
-          service: this.pendingService,
-          payment_type: paymentType,
-          page_path: window.location.pathname,
+          service: this.pendingService, service_id: this.pendingServiceId,
+          payment_type: this.pendingPaymentType, page_path: window.location.pathname,
         });
       });
 
-      // Hover tooltips — use closest?() because mouseenter on SVG/text nodes gives non-Element targets
+      // Hover tooltips
       document.addEventListener('mouseenter', (e) => {
         if (!(e.target instanceof Element)) return;
         const btn = e.target.closest('[data-tos-stripe]');
-        if (btn) {
-          this.hovered = true;
-          const tooltip = btn.querySelector('.tos-tooltip');
-          if (tooltip) tooltip.classList.remove('opacity-0', 'pointer-events-none');
-        }
+        if (btn) { const t = btn.querySelector('.tos-tooltip'); if (t) t.classList.remove('opacity-0','pointer-events-none'); }
       }, true);
-
       document.addEventListener('mouseleave', (e) => {
         if (!(e.target instanceof Element)) return;
         const btn = e.target.closest('[data-tos-stripe]');
-        if (btn) {
-          this.hovered = false;
-          const tooltip = btn.querySelector('.tos-tooltip');
-          if (tooltip) tooltip.classList.add('opacity-0', 'pointer-events-none');
-        }
+        if (btn) { const t = btn.querySelector('.tos-tooltip'); if (t) t.classList.add('opacity-0','pointer-events-none'); }
       }, true);
     },
 
-    redirectToStripe() {
-      const paymentType = this.pendingService.includes('(Weekly)') ? 'subscribe' : 'onetime';
+    // Resolve URL: gateway override → default
+    // data-tos-payment-type sends lowercase ('onetime') but
+    // service object keys are camelCase ('oneTime').
+    resolveUrl() {
+      const links = (window.__paymentLinksMap || {})[this.pendingServiceId];
+      if (!links) return '#';
+      const typeKey = this.pendingPaymentType === 'onetime' ? 'oneTime' : 'weekly';
+      if (this.gateway !== 'default' && links[this.gateway]) {
+        const url = links[this.gateway][typeKey];
+        if (url) return url;
+      }
+      return links.default[typeKey] || '#';
+    },
 
-      // Record consent in localStorage
-      const consentKey = 'tos_consent_' + this.pendingService;
-      localStorage.setItem(consentKey, JSON.stringify({
-        timestamp: Date.now(),
-        service: this.pendingService,
-        url: this.pendingUrl,
+    pay() {
+      const url = this.resolveUrl();
+      localStorage.setItem('tos_consent_' + this.pendingService, JSON.stringify({
+        timestamp: Date.now(), service: this.pendingService,
+        serviceId: this.pendingServiceId, paymentType: this.pendingPaymentType,
+        gateway: this.gateway, url,
       }));
-
-      // Track ToS consent agreement to GA4 via Zaraz
       this.trackZaraz('tos_consent_agreed', {
-        service: this.pendingService,
-        payment_type: paymentType,
+        service: this.pendingService, service_id: this.pendingServiceId,
+        payment_type: this.pendingPaymentType, gateway: this.gateway,
         page_path: window.location.pathname,
       });
-
-      // Open Stripe in new tab
-      window.open(this.pendingUrl, '_blank', 'noopener,noreferrer');
+      window.open(url, '_blank', 'noopener,noreferrer');
       this.show = false;
       document.body.style.overflow = '';
     },
 
     close() {
-      // Track modal dismissal without agreeing
-      if (this.show && !this.agreed) {
-        this.trackZaraz('tos_modal_dismissed', {
-          service: this.pendingService,
-          page_path: window.location.pathname,
-        });
-      }
+      if (this.show && !this.agreed) this.trackZaraz('tos_modal_dismissed', {
+        service: this.pendingService, page_path: window.location.pathname,
+      });
       this.show = false;
       document.body.style.overflow = '';
     },
   }"
-  x-show="show"
-  x-cloak
-  x-transition:enter="transition ease-out duration-200"
-  x-transition:enter-start="opacity-0"
-  x-transition:enter-end="opacity-100"
-  x-transition:leave="transition ease-in duration-150"
-  x-transition:leave-start="opacity-100"
-  x-transition:leave-end="opacity-0"
-  class="fixed inset-0 z-[100] flex items-center justify-center p-4"
-  style="display: none;"
+  x-show="show" x-cloak
+  x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+  x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+  class="fixed inset-0 z-[100] flex items-center justify-center p-4" style="display: none;"
 >
-  <!-- Backdrop -->
-  <div
-    x-show="show"
-    class="absolute inset-0 bg-black/70 backdrop-blur-sm"
-    @click="close()"
-    x-transition:enter="transition ease-out duration-200"
-    x-transition:enter-start="opacity-0"
-    x-transition:enter-end="opacity-100"
-    x-transition:leave="transition ease-in duration-150"
-    x-transition:leave-start="opacity-100"
-    x-transition:leave-end="opacity-0"
-  ></div>
+  <div x-show="show" class="absolute inset-0 bg-black/70 backdrop-blur-sm" @click="close()"
+    x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+    x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
 
-  <!-- Modal -->
-  <div
-    x-show="show"
-    x-transition:enter="transition ease-out duration-200"
-    x-transition:enter-start="opacity-0 scale-95 translate-y-4"
-    x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-    x-transition:leave="transition ease-in duration-150"
-    x-transition:leave-start="opacity-100 scale-100 translate-y-0"
-    x-transition:leave-end="opacity-0 scale-95 translate-y-4"
+  <div x-show="show"
+    x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 scale-95 translate-y-4" x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+    x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 scale-100 translate-y-0" x-transition:leave-end="opacity-0 scale-95 translate-y-4"
     class="relative w-full max-w-lg rounded-2xl border border-surface-600/30 shadow-2xl overflow-hidden"
-    style="background: linear-gradient(180deg, #131a2e 0%, #0f1628 100%);"
-  >
-    <!-- Top accent -->
+    style="background: linear-gradient(180deg, #131a2e 0%, #0f1628 100%);">
     <div class="h-0.5 bg-gradient-to-r from-primary-500 via-accent-500 to-primary-500"></div>
 
     <div class="p-6 sm:p-8">
       <!-- Header -->
-      <div class="flex items-start gap-4 mb-6">
+      <div class="flex items-start gap-4 mb-5">
         <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-warning-500/15 shrink-0">
-          <svg class="w-5 h-5 text-warning-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-          </svg>
+          <svg class="w-5 h-5 text-warning-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
         </div>
         <div class="flex-1">
-          <h3 class="text-lg font-bold text-surface-100">Terms of Service Agreement</h3>
-          <p class="text-sm text-surface-400 mt-1">Please review before proceeding to payment</p>
+          <h3 class="text-lg font-bold text-surface-100">Terms of Service</h3>
+          <p class="text-sm text-surface-400 mt-0.5" x-text="pendingService"></p>
         </div>
-        <button
-          @click="close()"
-          class="flex items-center justify-center w-8 h-8 rounded-lg text-surface-500 hover:text-surface-300 hover:bg-surface-700/50 transition-colors shrink-0"
-        >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
+        <button @click="close()" class="flex items-center justify-center w-8 h-8 rounded-lg text-surface-500 hover:text-surface-300 hover:bg-surface-700/50 transition-colors shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
       </div>
 
-      <!-- Content -->
-      <div class="p-4 rounded-xl bg-surface-800/50 border border-surface-700/30 mb-6">
-        <p class="text-sm text-surface-400 leading-relaxed">
+      <!-- Payment Gateway -->
+      <div class="mb-5">
+        <label for="tos-gateway" class="flex items-center gap-2 mb-2">
+          <svg class="w-4 h-4 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
+          <span class="text-xs font-bold text-surface-500 tracking-widest uppercase">Payment Gateway</span>
+        </label>
+        <select id="tos-gateway" x-model="gateway"
+          class="w-full px-4 py-2.5 rounded-lg bg-surface-900/50 border border-surface-600/40 text-sm text-surface-200 focus:outline-none focus:border-primary-500/50 focus:ring-1 focus:ring-primary-500/20 transition-all cursor-pointer appearance-none"
+          style="background-image: url(&quot;data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236b7280'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z' clip-rule='evenodd' /%3E%3C/svg%3E&quot;); background-position: right 0.75rem center; background-repeat: no-repeat; background-size: 1rem;">
+          <template x-for="gw in window.__paymentGateways || []" :key="gw.code">
+            <option :value="gw.code" x-text="gw.icon + '  ' + gw.name + (gw.code === 'default' ? ' (Default)' : '')"></option>
+          </template>
+        </select>
+      </div>
+
+      <!-- ToS summary -->
+      <div class="p-3.5 rounded-xl bg-surface-800/30 border border-surface-700/20 mb-5">
+        <p class="text-sm text-surface-400 leading-relaxed mb-3">
           By proceeding with payment for <span class="text-surface-200 font-medium" x-text="pendingService"></span>, you acknowledge that you have read, understood, and agree to our <a href="/terms-of-service" target="_blank" class="text-primary-400 hover:text-primary-300 underline underline-offset-2 transition-colors">Terms of Service</a>. Key terms include:
         </p>
-        <ul class="mt-3 space-y-2">
+        <ul class="space-y-1.5">
           <li class="flex items-start gap-2 text-sm text-surface-400">
-            <svg class="w-4 h-4 text-accent-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-            </svg>
+            <svg class="w-4 h-4 text-accent-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
             <span>All payments are <span class="text-surface-200 font-medium">non-refundable</span> — you're purchasing dedicated engineering time</span>
           </li>
           <li class="flex items-start gap-2 text-sm text-surface-400">
-            <svg class="w-4 h-4 text-accent-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>Delivery window is the <span class="text-surface-200 font-medium">stated lead time + 30 days</span> buffer</span>
+            <svg class="w-4 h-4 text-accent-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <span>Delivery window is the <span class="text-surface-200 font-medium">stated lead time + 30 days buffer</span></span>
           </li>
           <li class="flex items-start gap-2 text-sm text-surface-400">
-            <svg class="w-4 h-4 text-accent-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
+            <svg class="w-4 h-4 text-accent-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
             <span>Intellectual property transfers <span class="text-surface-200 font-medium">only upon full payment</span></span>
           </li>
         </ul>
       </div>
 
       <!-- Checkbox -->
-      <label class="flex items-start gap-3 mb-6 cursor-pointer group">
+      <label class="flex items-start gap-3 mb-5 cursor-pointer group">
         <div class="relative mt-0.5">
-          <input
-            type="checkbox"
-            x-model="agreed"
-            class="peer sr-only"
-          />
+          <input type="checkbox" x-model="agreed" class="peer sr-only" />
           <div class="w-5 h-5 rounded-md border-2 border-surface-600 bg-surface-800/50 peer-checked:bg-primary-600 peer-checked:border-primary-600 transition-all duration-200 flex items-center justify-center">
-            <svg class="w-3 h-3 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-show="agreed">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
-            </svg>
+            <svg class="w-3 h-3 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-show="agreed"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
           </div>
         </div>
         <span class="text-sm text-surface-300 group-hover:text-surface-200 transition-colors">
-          I have read and agree to the <a href="/terms-of-service" target="_blank" class="text-primary-400 hover:text-primary-300 underline underline-offset-2 transition-colors">Terms of Service</a> for this purchase
+          I have read and agree to the <a href="/terms-of-service" target="_blank" class="text-primary-400 hover:text-primary-300 underline underline-offset-2 transition-colors">Terms of Service</a>
         </span>
       </label>
 
       <!-- Buttons -->
       <div class="flex gap-3">
-        <button
-          @click="close()"
-          class="flex-1 px-5 py-3 rounded-xl border border-surface-700/50 text-sm font-medium text-surface-400 hover:text-surface-200 hover:border-surface-600/50 transition-all"
-        >
-          Cancel
-        </button>
-        <button
-          @click="agreed ? redirectToStripe() : null"
-          :class="agreed
-            ? 'bg-primary-600 hover:bg-primary-500 text-white cursor-pointer'
-            : 'bg-surface-700/50 text-surface-500 cursor-not-allowed'"
-          class="flex-1 px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-2"
-        >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
+        <button @click="close()" class="flex-1 px-5 py-3 rounded-xl border border-surface-700/50 text-sm font-medium text-surface-400 hover:text-surface-200 hover:border-surface-600/50 transition-all">Cancel</button>
+        <button @click="agreed ? pay() : null"
+          :class="agreed ? 'bg-primary-600 hover:bg-primary-500 text-white cursor-pointer' : 'bg-surface-700/50 text-surface-500 cursor-not-allowed'"
+          class="flex-1 px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
           Proceed to Payment
         </button>
       </div>
 
-      <p class="text-xs text-surface-600 text-center mt-4">
-        Your consent is recorded. You won't be asked again for this service within 12 months.
+      <p class="text-xs text-surface-600 text-center mt-3">
+        Your gateway preference is remembered. You can always change it before proceeding.
       </p>
     </div>
   </div>

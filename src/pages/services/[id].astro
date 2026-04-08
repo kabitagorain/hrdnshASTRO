@@ -177,8 +177,10 @@ const { service } = Astro.props;
                 </div>
                 <p class="text-xs text-surface-500 mb-4">Full project delivery</p>
                 <button
-                  data-tos-stripe={service.stripeLinks.oneTime}
+                  data-tos-stripe={service.payment_links.default.oneTime}
                   data-tos-service={service.title}
+                  data-tos-service-id={service.id}
+                  data-tos-payment-type="onetime"
                   class="btn-glow relative flex items-center justify-center gap-2 w-full rounded-xl bg-primary-600 px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-primary-500 cursor-pointer"
                 >
                   Pay Now
@@ -202,8 +204,10 @@ const { service } = Astro.props;
                 </div>
                 <p class="text-xs text-surface-500 mb-4">Ongoing weekly support</p>
                 <button
-                  data-tos-stripe={service.stripeLinks.weekly}
+                  data-tos-stripe={service.payment_links.default.weekly}
                   data-tos-service={service.title + ' (Weekly)'}
+                  data-tos-service-id={service.id}
+                  data-tos-payment-type="weekly"
                   class="btn-glow relative flex items-center justify-center gap-2 w-full rounded-xl bg-accent-600 px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-accent-500 cursor-pointer"
                 >
                   Subscribe Weekly

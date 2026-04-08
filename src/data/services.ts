@@ -10,9 +10,13 @@ export const services = [
       oneTime: 599, // Increased value because you save them $200+/mo in API fees
       weekly: 149, // Maintenance for SEO crawling and model fine-tuning
     },
-    stripeLinks: {
-      oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
-      weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+    payment_links: {
+      default: {
+        oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
+        weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      },
+      bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
+      in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
     },
     businessOwner: {
       summary: 'A secure, 24/7 AI assistant that lives on your server. It handles SEO monitoring, market research, and customer inquiries using "Free" open-source models—meaning no monthly bills from OpenAI or Claude.',
@@ -52,9 +56,13 @@ export const services = [
       oneTime: 899, // Premium pricing for specialized Python/Async architecture
       weekly: 199, // Ongoing performance monitoring and scaling
     },
-    stripeLinks: {
-      oneTime: 'https://buy.stripe.com/YOUR_LINK_2',
-      weekly: 'https://buy.stripe.com/YOUR_LINK_2_SUB',
+    payment_links: {
+      default: {
+        oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
+        weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      },
+      bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
+      in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
     },
     businessOwner: {
       summary: 'Slow backends kill conversions. I transform sluggish systems into high-speed engines that handle massive traffic spikes without crashing. Using advanced asynchronous architecture, I ensure your business remains online and responsive 24/7.',
@@ -94,9 +102,13 @@ export const services = [
       oneTime: 2999, // Increased value for specialized "Island Architecture" expertise
       weekly: 249,
     },
-    stripeLinks: {
-      oneTime: 'https://buy.stripe.com/YOUR_LINK_3',
-      weekly: 'https://buy.stripe.com/YOUR_LINK_3_SUB',
+    payment_links: {
+      default: {
+        oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
+        weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      },
+      bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
+      in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
     },
     businessOwner: {
       summary: 'Generic websites are slow and lose customers. I build custom web applications—from complex inventory portals to high-converting e-commerce engines—using modern "Island Architecture." The result? Instant load times, perfect SEO scores, and a system that fits your business like a glove.',
@@ -137,9 +149,13 @@ export const services = [
       oneTime: 4999, // Manufacturing solutions carry higher ticket value due to ROI
       weekly: 299,
     },
-    stripeLinks: {
-      oneTime: 'https://buy.stripe.com/YOUR_LINK_4',
-      weekly: 'https://buy.stripe.com/YOUR_LINK_4_SUB',
+    payment_links: {
+      default: {
+        oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
+        weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      },
+      bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
+      in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
     },
     businessOwner: {
       summary: 'Ditch the messy spreadsheets. I build custom ERP systems designed specifically for manufacturing (Garments, Textiles, Industrial) that track raw materials, production stages, and worker efficiency in real-time. Gain 100% visibility over your factory floor from a single dashboard.',
@@ -179,9 +195,13 @@ export const services = [
       oneTime: 3999, // High value for complex Frappe/Python environments
       weekly: 249, // Maintenance for backups, updates, and custom scripts
     },
-    stripeLinks: {
-      oneTime: 'https://buy.stripe.com/YOUR_LINK_5',
-      weekly: 'https://buy.stripe.com/YOUR_LINK_5_SUB',
+    payment_links: {
+      default: {
+        oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
+        weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      },
+      bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
+      in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
     },
     businessOwner: {
       summary: 'Tired of expensive per-user licenses for Salesforce or SAP? I deploy and customize powerful open-source alternatives like ERPNext and Odoo. You get full control over your Accounting, HR, CRM, and Supply Chain on your own private cloud—with unlimited users and zero recurring license fees.',
@@ -222,9 +242,13 @@ export const services = [
       oneTime: 1499, // Quantitative engineering demands premium rates
       weekly: 199, // Ongoing strategy optimization and server monitoring
     },
-    stripeLinks: {
-      oneTime: 'https://buy.stripe.com/YOUR_LINK_6',
-      weekly: 'https://buy.stripe.com/YOUR_LINK_6_SUB',
+    payment_links: {
+      default: {
+        oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
+        weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      },
+      bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
+      in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
     },
     businessOwner: {
       summary: 'Emotion is the enemy of trading. I build institutional-grade algorithmic systems that execute your strategies 24/7 with millisecond precision. Whether you trade Forex on MetaTrader 5 or Crypto on Binance, my systems handle the execution, risk management, and data analysis so you can focus on the edge.',
@@ -265,9 +289,13 @@ export const services = [
       oneTime: 699, // Increased value for specialized Security & Cloudflare WAF setup
       weekly: 129, // Retainer for server monitoring, backups, and security patches
     },
-    stripeLinks: {
-      oneTime: 'https://buy.stripe.com/YOUR_LINK_7',
-      weekly: 'https://buy.stripe.com/YOUR_LINK_7_SUB',
+    payment_links: {
+      default: {
+        oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
+        weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      },
+      bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
+      in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
     },
     businessOwner: {
       summary: 'Stop worrying about server crashes, data breaches, and deployment headaches. I build automated "Self-Healing" infrastructures that protect your business from hackers and ensure your updates launch perfectly every time without a second of downtime.',
@@ -308,9 +336,13 @@ export const services = [
       oneTime: 399, // Onboarding fee for full system audit and hardening
       weekly: 99,   // Priority 24/7 monitoring and technical support
     },
-    stripeLinks: {
-      oneTime: 'https://buy.stripe.com/YOUR_LINK_8',
-      weekly: 'https://buy.stripe.com/YOUR_LINK_8_SUB',
+    payment_links: {
+      default: {
+        oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
+        weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      },
+      bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
+      in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
     },
     businessOwner: {
       summary: 'Your online store is your 24/7 salesperson. If it slows down or crashes, you lose revenue instantly. I provide professional technical oversight for your eCommerce platform, ensuring your site remains fast, secure, and fully optimized so you can focus on scaling your sales while I handle the code.',
@@ -458,6 +490,27 @@ export const navLinks = [
   { label: 'Recommend', href: '/recommend' },
   { label: 'Contact', href: '/#contact' },
 ];
+
+// ============================================================
+// Payment Gateways
+// ============================================================
+// Gateway options for the "Payment Gateway" dropdown in the
+// ToS consent modal. Only add gateways that have their own
+// payment links configured in service.payment_links.
+//
+// The 'default' gateway (Stripe) is always shown as the first
+// option and is the fallback for any service that doesn't have
+// a link for the selected gateway.
+//
+// Links live on each service object — not here.
+// This is just the dropdown list (code, name, icon).
+// ============================================================
+export const paymentGateways = [
+  { code: 'default', name: 'Stripe', icon: '💳' },
+  { code: 'bd', name: 'bKash', icon: '📱' },
+  { code: 'in', name: 'Razorpay', icon: '🇮🇳' },
+];
+
 
 // Recommended tools & services (affiliate links)
 export const recommendations = [

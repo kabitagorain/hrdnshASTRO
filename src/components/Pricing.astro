@@ -88,8 +88,10 @@ import { services } from '../data/services';
               <!-- One-time pay button -->
               <button
                 x-show="billing === 'onetime'"
-                data-tos-stripe={service.stripeLinks.oneTime}
+                data-tos-stripe={service.payment_links.default.oneTime}
                 data-tos-service={service.title}
+                data-tos-service-id={service.id}
+                data-tos-payment-type="onetime"
                 class="btn-glow relative flex items-center justify-center gap-2 w-full rounded-xl bg-primary-600 px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-primary-500 cursor-pointer"
               >
                 Pay ${service.pricing.oneTime} — One Time
@@ -107,8 +109,10 @@ import { services } from '../data/services';
               <button
                 x-show="billing === 'weekly'"
                 x-cloak
-                data-tos-stripe={service.stripeLinks.weekly}
+                data-tos-stripe={service.payment_links.default.weekly}
                 data-tos-service={service.title + ' (Weekly)'}
+                data-tos-service-id={service.id}
+                data-tos-payment-type="weekly"
                 class="btn-glow relative flex items-center justify-center gap-2 w-full rounded-xl bg-accent-600 px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-accent-500 cursor-pointer"
               >
                 Subscribe ${service.pricing.weekly}/wk
