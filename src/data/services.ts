@@ -10,6 +10,14 @@ export const services = [
           oneTime: 1499, // Architecture for vector databases & agentic tool-calling
           weekly: 299,  // Model fine-tuning, token optimization, and logic updates
         },
+        payment_links: {
+          default: {
+            oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
+            weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+          },
+          bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
+          in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
+        },
         businessOwner: {
           summary: 'Generic AI bots hallucinate and leak data. I build "Agentic" systems that act as expert employees. By using Retrieval-Augmented Generation (RAG), your AI only speaks from your private data, ensuring 100% accuracy and professional-grade security.',
           benefits: [
@@ -467,6 +475,14 @@ export const services = [
       oneTime: 2499, // Custom ERP module development and IoT bridge
       weekly: 499,  // Real-time monitoring, hardware maintenance, and data backups
     },
+    payment_links: {
+      default: {
+        oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
+        weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      },
+      bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
+      in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
+    },
     businessOwner: {
       summary: 'Spreadsheets lead to human error and lost revenue. I build custom, high-speed ERP modules that track your production in real-time. From raw material inventory to final dispatch, get a God-eye view of your factory with automated alerts for bottlenecks.',
       benefits: [
@@ -505,6 +521,14 @@ export const services = [
     pricing: {
       oneTime: 1200, // Varnish/Nginx optimization and WAF configuration
       weekly: 150,  // Bot mitigation monitoring and cache-hit ratio tuning
+    },
+    payment_links: {
+      default: {
+        oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
+        weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      },
+      bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
+      in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
     },
     businessOwner: {
       summary: 'A 1-second delay in page load costs 7% in conversions. I transform standard OpenCart/WooCommerce stores into high-performance engines. Beyond speed, I harden your store against SQL injections, bot-driven price scraping, and checkout attacks.',
