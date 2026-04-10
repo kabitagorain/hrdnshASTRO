@@ -1,8 +1,54 @@
 // Service definitions — single source of truth
 export const services = [
+    {
+      id: 'openclaw-enterprise-web-gateway',
+      number: '01',
+      title: 'OpenClaw Web Interface & AI Model Integration',
+      tagline: 'Deploy a hardened, web-accessible OpenClaw instance with multi-model AI logic.',
+      icon: '🤖',
+      pricing: {
+        oneTime: 599, // Architecture, Web UI hardening, and Model/API orchestration
+        weekly: 99,  // Uptime monitoring, security patches, and model cost optimization
+      },
+      payment_links: {
+        default: {
+          oneTime: 'https://buy.stripe.com/OPENCLAW_ONE_TIME',
+          weekly: 'https://buy.stripe.com/OPENCLAW_WEEKLY',
+        },
+        bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
+        in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
+      },
+      businessOwner: {
+        summary: 'Standard OpenClaw setups are often restricted to a terminal or local machine. I deliver a ready-to-use, cloud-hosted OpenClaw environment accessible via a secure web interface. This includes pre-integrated AI models (GPT-4/Claude/Llama) and automated maintenance, allowing you to focus on results while I handle the infrastructure and security.',
+        benefits: [
+          'Secure Web Access: Manage your AI agents from any browser with encrypted logins',
+          'Turnkey AI Integration: Pre-configured API bridges for OpenAI, Anthropic, or local LLMs',
+          'Zero-Maintenance Hosting: I handle the server complexity, patches, and resource scaling',
+          'Full Data Sovereignty: Your setup, your keys, and your data—completely isolated and private',
+        ],
+      },
+      developer: {
+        summary: 'Deployment of a hardened OpenClaw Gateway using Docker-based sandboxing and Nginx reverse proxies. I implement complex model routing (A2A), SSL/TLS termination, and persistent volume management to ensure stateful conversation history and reliable agent execution across sessions.',
+        benefits: [
+          'Hardened Web Dashboard: Secure exposure of the OpenClaw UI with custom auth layers',
+          'Multi-Model Orchestration: Configurable Fallback/Primary model logic for 99.9% reliability',
+          'Isolated Sandboxing: Dockerized environments to prevent agent code-execution escapes',
+          'Persistent Database Storage: Integrated PostgreSQL/Redis for reliable session and memory logs',
+        ],
+      },
+      deliverables: [
+        'Encrypted Web-Accessible OpenClaw Dashboard',
+        'Hardened VPS Deployment (Nginx/Docker/Firewall)',
+        'API Key Orchestration & Multi-Model Config',
+        'Automated Weekly Backup & Security Update Script',
+        'Custom Integration Guide for Webhooks & Channels (Telegram/Slack)',
+      ],
+      timeline: '5-7 days',
+      techStack: ['OpenClaw', 'Docker', 'Nginx (SSL)', 'PostgreSQL', 'Python/Node.js', 'Redis'],
+  },
   {
     id: 'private-ai-agent-vps',
-    number: '01',
+    number: '02',
     title: 'Self-Hosted AI Agents (Zero API Costs)',
     tagline: 'Your private digital employee—running 24/7 on your own server without subscriptions.',
     icon: '🤖',
@@ -48,7 +94,7 @@ export const services = [
   },
   {
     id: 'high-concurrency-backend-optimization',
-    number: '02',
+    number: '03',
     title: 'High-Performance Backend & Database Scaling',
     tagline: 'Scale your infrastructure to 10K+ concurrent users with sub-50ms latency.',
     icon: '⚡',
@@ -94,7 +140,7 @@ export const services = [
   },
   {
     id: 'fullstack-modern-web-architecture',
-    number: '03',
+    number: '04',
     title: 'Modern Full-Stack Web App Development',
     tagline: 'High-performance applications built for speed, SEO, and massive scale.',
     icon: '🚀',
@@ -141,7 +187,7 @@ export const services = [
   },
   {
     id: 'industrial-automation-erp',
-    number: '04',
+    number: '05',
     title: 'Custom ERP & Manufacturing Automation',
     tagline: 'Digital transformation for factories—from production floor to final export.',
     icon: '🏭',
@@ -187,7 +233,7 @@ export const services = [
   },
   {
     id: 'erpnext-crm-deployment',
-    number: '05',
+    number: '06',
     title: 'Open-Source ERP & CRM Implementation',
     tagline: 'Enterprise-grade business management without the enterprise price tag.',
     icon: '📊',
@@ -234,7 +280,7 @@ export const services = [
   },
   {
     id: 'algorithmic-trading-fintech',
-    number: '06',
+    number: '07',
     title: 'Algorithmic Trading & FinTech Automation',
     tagline: 'High-precision trading systems for Forex, Crypto, and Global Markets.',
     icon: '📈',
@@ -281,7 +327,7 @@ export const services = [
   },
   {
     id: 'devops-security-hardening',
-    number: '07',
+    number: '08',
     title: 'DevOps, Security & Cloud Hardening',
     tagline: 'Bulletproof infrastructure with automated, zero-downtime deployments.',
     icon: '🔒',
@@ -328,7 +374,7 @@ export const services = [
   },
   {
     id: 'ecommerce-reliability-maintenance',
-    number: '08',
+    number: '09',
     title: 'eCommerce Reliability & Server Maintenance',
     tagline: 'Zero-downtime maintenance for high-growth online stores.',
     icon: '🛠️',
