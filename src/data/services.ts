@@ -1,14 +1,52 @@
 // Service definitions — single source of truth
 export const services = [
+      {
+        id: 'agentic-ai-rag-orchestration',
+        number: '01',
+        title: 'Agentic AI & Enterprise RAG Infrastructure',
+        tagline: 'Turn static data into an autonomous workforce with secure RAG pipelines.',
+        icon: '🧠',
+        pricing: {
+          oneTime: 1499, // Architecture for vector databases & agentic tool-calling
+          weekly: 299,  // Model fine-tuning, token optimization, and logic updates
+        },
+        businessOwner: {
+          summary: 'Generic AI bots hallucinate and leak data. I build "Agentic" systems that act as expert employees. By using Retrieval-Augmented Generation (RAG), your AI only speaks from your private data, ensuring 100% accuracy and professional-grade security.',
+          benefits: [
+            'Private Data Intelligence: AI that knows your specific business docs perfectly',
+            'Autonomous Task Execution: Agents that can book meetings, update CRMs, or generate reports',
+            'Cost-Efficient Inference: Optimized model routing to slash your OpenAI/Anthropic monthly bills',
+            'Enterprise Security: On-premise or VPC-isolated deployment to keep your data private',
+          ],
+        },
+        developer: {
+          summary: 'Implementation of advanced RAG pipelines using LangChain/LlamaIndex and Vector Databases (Pinecone/Weaviate). I specialize in "Tool-Calling" logic where agents interact with your existing Django/FastAPI endpoints securely.',
+          benefits: [
+            'Vector Database Scaling: Optimized indexing for million-document retrieval',
+            'Semantic Chunking: Advanced NLP strategies to ensure high-relevancy AI context',
+            'Agentic Tool-Use: Enabling LLMs to execute Python functions and SQL queries safely',
+            'Observability & Evals: Integrated monitoring to track AI accuracy and latency',
+          ],
+        },
+        deliverables: [
+          'Production-Ready Vector Database Setup',
+          'Secure API Gateway for LLM Orchestration',
+          'Custom Multi-Agent Workflow Design',
+          'Evaluation Framework for AI Accuracy (Ragas/Giskard)',
+          '1-Month Performance & Hallucination Audit',
+        ],
+        timeline: '2-3 weeks to initial setup as one-time setup, for weekly continuous optimization and monitoring',
+        techStack: ['Python', 'LangChain', 'PostgreSQL (pgvector)', 'Redis', 'Docker'],
+    },
     {
       id: 'openclaw-enterprise-web-gateway',
-      number: '01',
+      number: '02',
       title: 'OpenClaw Web Interface & AI Model Integration',
       tagline: 'Deploy a hardened, web-accessible OpenClaw instance with multi-model AI logic.',
       icon: '🤖',
       pricing: {
-        oneTime: 599, // Architecture, Web UI hardening, and Model/API orchestration
-        weekly: 99,  // Uptime monitoring, security patches, and model cost optimization
+        oneTime: 699, // Architecture, Web UI hardening, and Model/API orchestration
+        weekly: 149,  // Uptime monitoring, security patches, and model cost optimization
       },
       payment_links: {
         default: {
@@ -43,12 +81,12 @@ export const services = [
         'Automated Weekly Backup & Security Update Script',
         'Custom Integration Guide for Webhooks & Channels (Telegram/Slack)',
       ],
-      timeline: '5-7 days',
+      timeline: '7-10 days to initial setup as one-time setup, for weekly continuous optimization and monitoring',
       techStack: ['OpenClaw', 'Docker', 'Nginx (SSL)', 'PostgreSQL', 'Python/Node.js', 'Redis'],
   },
   {
     id: 'private-ai-agent-vps',
-    number: '02',
+    number: '03',
     title: 'Self-Hosted AI Agents (Zero API Costs)',
     tagline: 'Your private digital employee—running 24/7 on your own server without subscriptions.',
     icon: '🤖',
@@ -89,12 +127,12 @@ export const services = [
       'Secure CloudPanel Dashboard for monitoring and logs',
       'Handover guide for adding new business knowledge',
     ],
-    timeline: '1 week', // Faster deployment with your pre-built Docker setup
+    timeline: '7-10 days to initial setup as one-time setup, for weekly continuous optimization and monitoring',
     techStack: ['Gemma 4', 'OpenClaw', 'Ollama', 'Django/FastAPI', 'Docker', 'CloudPanel'],
   },
   {
     id: 'high-concurrency-backend-optimization',
-    number: '03',
+    number: '04',
     title: 'High-Performance Backend & Database Scaling',
     tagline: 'Scale your infrastructure to 10K+ concurrent users with sub-50ms latency.',
     icon: '⚡',
@@ -140,7 +178,7 @@ export const services = [
   },
   {
     id: 'fullstack-modern-web-architecture',
-    number: '04',
+    number: '05',
     title: 'Modern Full-Stack Web App Development',
     tagline: 'High-performance applications built for speed, SEO, and massive scale.',
     icon: '🚀',
@@ -187,7 +225,7 @@ export const services = [
   },
   {
     id: 'industrial-automation-erp',
-    number: '05',
+    number: '06',
     title: 'Custom ERP & Manufacturing Automation',
     tagline: 'Digital transformation for factories—from production floor to final export.',
     icon: '🏭',
@@ -228,12 +266,12 @@ export const services = [
       'Automated PDF/Excel Reporting Engine (Celery-based)',
       'User Training Manuals & 90-Day Priority Support',
     ],
-    timeline: '8-12 weeks',
+    timeline: '8-12 weeks to initial setup as one-time setup, for weekly continuous optimization and monitoring',
     techStack: ['Django Ninja', 'Python', 'Astro', 'PostgreSQL', 'Redis', 'Docker'],
   },
   {
     id: 'erpnext-crm-deployment',
-    number: '06',
+    number: '07',
     title: 'Open-Source ERP & CRM Implementation',
     tagline: 'Enterprise-grade business management without the enterprise price tag.',
     icon: '📊',
@@ -280,7 +318,7 @@ export const services = [
   },
   {
     id: 'algorithmic-trading-fintech',
-    number: '07',
+    number: '08',
     title: 'Algorithmic Trading & FinTech Automation',
     tagline: 'High-precision trading systems for Forex, Crypto, and Global Markets.',
     icon: '📈',
@@ -327,7 +365,7 @@ export const services = [
   },
   {
     id: 'devops-security-hardening',
-    number: '08',
+    number: '09',
     title: 'DevOps, Security & Cloud Hardening',
     tagline: 'Bulletproof infrastructure with automated, zero-downtime deployments.',
     icon: '🔒',
@@ -369,12 +407,12 @@ export const services = [
       'Automated Off-site Backup & Recovery System',
       'Infrastructure Health Monitoring & Alerting Dashboard',
     ],
-    timeline: '1-2 weeks',
+    timeline: '1-2 weeks to initial Fixation as one-time setup, for weekly continuous optimization and monitoring',
     techStack: ['Docker', 'GitHub Actions', 'Nginx', 'Cloudflare', 'VPS (Linux)', 'SSL/TLS'],
   },
   {
     id: 'ecommerce-reliability-maintenance',
-    number: '09',
+    number: '10',
     title: 'eCommerce Reliability & Server Maintenance',
     tagline: 'Zero-downtime maintenance for high-growth online stores.',
     icon: '🛠️',
@@ -416,8 +454,85 @@ export const services = [
       'Monthly Security Audit & Speed Benchmark Report',
       'Priority Technical Support for Site Emergencies',
     ],
-    timeline: 'Ongoing / Monthly Subscription',
+    timeline: '7-10 days to initial Fixation as one-time setup, for weekly continuous optimization and monitoring',
     techStack: ['WooCommerce', 'Shopify', 'OpenCart', 'Amazon SP-API', 'PHP', 'Linux VPS'],
+  },
+  {
+    id: 'manufacturing-automation-erp',
+    number: '11',
+    title: 'Manufacturing ERP & Real-Time Production Tracking',
+    tagline: 'Digitize your shop floor with sub-second latency and automated reporting.',
+    icon: '🏭',
+    pricing: {
+      oneTime: 2499, // Custom ERP module development and IoT bridge
+      weekly: 499,  // Real-time monitoring, hardware maintenance, and data backups
+    },
+    businessOwner: {
+      summary: 'Spreadsheets lead to human error and lost revenue. I build custom, high-speed ERP modules that track your production in real-time. From raw material inventory to final dispatch, get a God-eye view of your factory with automated alerts for bottlenecks.',
+      benefits: [
+        'Eliminate Manual Entry: Barcode/IoT integration for automated tracking',
+        'Real-Time Bottleneck Detection: Instant alerts when a production line slows down',
+        'Predictive Inventory: Automated re-ordering of materials based on production speed',
+        'Custom Dashboarding: High-level financial and operational reports for stakeholders',
+      ],
+    },
+    developer: {
+      summary: 'Building resilient, low-latency backends for industrial environments. I focus on "Offline-First" architecture so your factory keeps running even if the internet goes down, with background synchronization via Celery and RabbitMQ or Redis.',
+      benefits: [
+        'IoT Gateway Integration: Connecting hardware sensors to Django/Django-Ninja backends',
+        'Event-Driven Architecture: Using WebSockets for real-time shop floor updates',
+        'Relational Data Integrity: Complex schema design for multi-stage manufacturing',
+        'Edge Computing: Localized Docker nodes for ultra-low latency processing',
+      ],
+    },
+    deliverables: [
+      'Custom ERP/Production Tracking Web Dashboard',
+      'IoT/Scanner Integration Bridge',
+      'Automated PDF/Excel Reporting Engine',
+      'On-Site or Private Cloud Server Configuration',
+      'Operator & Manager Training Documentation',
+    ],  
+    timeline: '4-6 weeks to initial setup and development as one-time setup, for weekly continuous optimization and monitoring',
+    techStack: ['Django', 'PostgreSQL', 'RabbitMQ', 'MQTT', 'celery', 'Channels', 'Docker', 'Astro'],
+  },
+
+  {
+    id: 'ecommerce-performance-hardening',
+    number: '12',
+    title: 'E-commerce Performance & Security Hardening',
+    tagline: 'Zero-lag shopping experience protected by enterprise-grade security.',
+    icon: '🛡️',
+    pricing: {
+      oneTime: 1200, // Varnish/Nginx optimization and WAF configuration
+      weekly: 150,  // Bot mitigation monitoring and cache-hit ratio tuning
+    },
+    businessOwner: {
+      summary: 'A 1-second delay in page load costs 7% in conversions. I transform standard OpenCart/WooCommerce stores into high-performance engines. Beyond speed, I harden your store against SQL injections, bot-driven price scraping, and checkout attacks.',
+      benefits: [
+        'Blazing Fast Speed: Achieved through advanced Varnish & Redis caching layers',
+        'Bot & Scraper Protection: Prevent competitors from stealing your pricing data',
+        'Fraud Prevention: Hardened checkout protocols to stop automated payment testing',
+        'SEO Ranking Boost: Faster sites rank higher on Google automatically',
+      ],
+    },
+    developer: {
+      summary: 'Advanced server-side optimization including Nginx vHost tuning, Varnish Cache policy writing, and Layer 7 Firewall (WAF) implementation. I focus on reducing TTFB (Time to First Byte) and securing the application layer.',
+      benefits: [
+        'Varnish VCL Customization: Strategic cache-purging for real-time inventory',
+        'Nginx Hardening: Implementation of rate-limiting and custom security headers',
+        'Database Query Optimization: Identifying and fixing slow JOINs in e-commerce schemas',
+        'SSL/TLS Performance: Modernizing cipher suites for faster, secure handshakes',
+      ],
+    },
+    deliverables: [
+      'Full Security & Performance Audit Report',
+      'Custom Varnish/Nginx Configuration Files',
+      'Cloudflare Enterprise-Level Firewall Rules',
+      'Automated Database Optimization Scripts',
+      'Post-Setup Load Testing (Simulating 5k+ shoppers)',
+    ],
+    timeline: '7-10 days to initial setup as one-time setup, for weekly continuous optimization and monitoring',
+    techStack: ['Nginx', 'Varnish', 'Redis', 'OpenCart/WooCommerce', 'Linux Hardening'],
   },
 ];
 
