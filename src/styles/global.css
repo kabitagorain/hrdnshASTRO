@@ -103,6 +103,18 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Prevent flash of invisible text during font load */
+body {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-display: swap;
+}
+
+/* Alpine.js x-cloak: hide elements until Alpine initializes */
+[x-cloak] {
+  display: none !important;
+}
+
+
 /* Prevent horizontal overflow on all screens */
 *, *::before, *::after {
   box-sizing: border-box;
