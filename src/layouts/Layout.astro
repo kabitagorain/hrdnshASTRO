@@ -5,6 +5,8 @@ interface Props {
   ogImage?: string;
   canonicalURL?: string;
   schemaType?: 'person' | 'service' | 'legal' | 'none';
+  noindex?: boolean;
+  customJsonLd?: object[];
 }
 
 import '../styles/global.css';
@@ -12,10 +14,18 @@ import FloatingButton from '../components/FloatingButton.astro';
 import TosConsent from '../components/TosConsent.astro';
 import { profile, siteData } from '../data/services';
 
-const { title, description = siteData.defaultDescription, ogImage = siteData.defaultOgImage, canonicalURL = new URL(Astro.url.pathname, Astro.site).href, schemaType = 'service' } = Astro.props;
+const {
+  title,
+  description = siteData.defaultDescription,
+  ogImage = siteData.defaultOgImage,
+  canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
+  schemaType = 'service',
+  noindex = false,
+  customJsonLd = [],
+} = Astro.props;
 
 // Build JSON-LD based on page type
-const jsonLdBlocks: object[] = [];
+const jsonLdBlocks: object[] = [...customJsonLd];
 
 // Person schema — for homepage, resume, and about
 if (schemaType === 'person' || schemaType === 'service') {
@@ -59,6 +69,24 @@ if (schemaType === 'service') {
     areaServed: 'Worldwide',
   });
 }
+
+// Inline manifest data (fallback if /manifest.json gets 403 from Cloudflare WAF)
+const inlineManifest = {
+  name: "Haradhan Sharma's Services",
+  short_name: "hrdnsh",
+  description: "Full-stack development services — AI agents, web apps, automation, and DevOps.",
+  start_url: "/",
+  display: "standalone",
+  background_color: "#0a0e1a",
+  theme_color: "#0a0e1a",
+  orientation: "portrait-primary",
+  categories: ["business", "technology", "professional"],
+  icons: [
+    { src: "/favicon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
+    { src: "/favicon.ico", sizes: "32x32", type: "image/x-icon" },
+    { src: "/avatar.png", sizes: "512x512", type: "image/png" },
+  ],
+};
 ---
 
 <!DOCTYPE html>
@@ -70,6 +98,9 @@ if (schemaType === 'service') {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+
+    <!-- Robots: support noindex for legal/utility pages -->
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
@@ -92,15 +123,24 @@ if (schemaType === 'service') {
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 
+    <!-- Preload hero background (must be in <head> for browsers to honor it) -->
+    <link rel="preload" href="/hero-bg.jpg" as="image" />
+
     <!-- Favicon & Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" sizes="32x32" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/avatar.png" />
 
-    <!-- Web Manifest -->
+    <!-- Web Manifest — external link + inline fallback -->
     <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#0a0e1a" />
-    <link rel="preload" href="/hero-bg.jpg" as="image" />
+    <!-- Inline manifest as fallback: browsers will use whichever loads first.
+         This prevents 403 errors from Cloudflare WAF breaking PWA install. -->
+    <script type="application/manifest+json" set:html={JSON.stringify(inlineManifest)} />
+
+    <!-- Sitemap hint for crawlers -->
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
     <!-- JSON-LD Structured Data -->
     {jsonLdBlocks.map((block) => (
       <script type="application/ld+json" set:html={JSON.stringify(block)} />
@@ -115,9 +155,6 @@ if (schemaType === 'service') {
   </head>
   <body class="min-h-screen antialiased transition-colors duration-300">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-    <!-- Preload hero background (above the fold) -->
-    
 
     <slot />
     <FloatingButton />
