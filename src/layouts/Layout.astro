@@ -130,9 +130,13 @@ if (schemaType === 'person') {
     <meta name="twitter:image" content={new URL(ogImage, Astro.site).href} />
 
     <!-- Preconnect: Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" fetchpriority="high" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin fetchpriority="high" />
+    <!-- Async Google Fonts — loads without blocking render -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+    </noscript>
 
     <!-- Preconnect: Alpine.js CDN -->
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
@@ -147,8 +151,8 @@ if (schemaType === 'person') {
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#0a0e1a" />
 
-    <!-- Preload hero background (above the fold) -->
-    <link rel="preload" href="/hero-bg.jpg" as="image" />
+    <!-- Preload hero background (above the fold — LCP image) -->
+    <link rel="preload" href="/hero-bg.jpg" as="image" fetchpriority="high" />
 
     <!-- Sitemap link -->
     <link rel="sitemap" href="/sitemap-index.xml" />

@@ -470,7 +470,7 @@ export const services = [
     number: '11',
     title: 'Manufacturing ERP & Real-Time Production Tracking',
     tagline: 'Digitize your shop floor with sub-second latency and automated reporting.',
-    icon: '🏭',
+    icon: '⚙️',
     pricing: {
       oneTime: 2499, // Custom ERP module development and IoT bridge
       weekly: 499,  // Real-time monitoring, hardware maintenance, and data backups
