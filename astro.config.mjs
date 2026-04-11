@@ -10,5 +10,10 @@ export default defineConfig({
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
+    build: {
+      // Combine all CSS into one file — prevents render-blocking component CSS chunks
+      // (e.g. Footer.DhDV2Wdd.css) that create critical-request chains
+      cssCodeSplit: false,
+    },
   },
 });

@@ -22,7 +22,7 @@ const ratingJsonLd = {
     ratingValue: '5',
     bestRating: '5',
     worstRating: '1',
-    ratingCount: String(testimonials.length * 12), // realistic multiplier
+    ratingCount: String(testimonials.length),
     reviewCount: String(testimonials.length),
   },
   review: testimonials.map((t) => ({

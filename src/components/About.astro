@@ -23,7 +23,10 @@ import { profile } from '../data/services';
         <!-- Avatar + name (mobile visible) -->
         <div class="flex items-center gap-4 mt-8 mb-8 lg:hidden">
           <div class="avatar-ring">
-            <img src="/avatar.png" alt={profile.name} class="w-16 h-16 rounded-full object-cover" />
+            <picture>
+              <source type="image/webp" srcset="/images/avatar-192.webp 192w, /images/avatar-96.webp 96w" sizes="64px" />
+              <img src="/avatar.png" alt={profile.name} class="w-16 h-16 rounded-full object-cover" width="64" height="64" loading="lazy" />
+            </picture>
           </div>
           <div>
             <h3 class="text-lg font-bold text-surface-100">{profile.name}</h3>

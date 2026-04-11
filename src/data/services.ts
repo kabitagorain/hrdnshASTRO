@@ -415,7 +415,7 @@ export const services = [
       'Automated Off-site Backup & Recovery System',
       'Infrastructure Health Monitoring & Alerting Dashboard',
     ],
-    timeline: '1-2 weeks to initial Fixation as one-time setup, for weekly continuous optimization and monitoring',
+    timeline: '1-2 weeks to initial setup as one-time setup, for weekly continuous optimization and monitoring',
     techStack: ['Docker', 'GitHub Actions', 'Nginx', 'Cloudflare', 'VPS (Linux)', 'SSL/TLS'],
   },
   {
@@ -462,7 +462,7 @@ export const services = [
       'Monthly Security Audit & Speed Benchmark Report',
       'Priority Technical Support for Site Emergencies',
     ],
-    timeline: '7-10 days to initial Fixation as one-time setup, for weekly continuous optimization and monitoring',
+    timeline: '7-10 days to initial setup as one-time setup, for weekly continuous optimization and monitoring',
     techStack: ['WooCommerce', 'Shopify', 'OpenCart', 'Amazon SP-API', 'PHP', 'Linux VPS'],
   },
   {
