@@ -4,6 +4,7 @@ interface Props {
   description?: string;
   ogImage?: string;
   canonicalURL?: string;
+  schemaType?: 'person' | 'service' | 'legal' | 'none';
 }
 
 import '../styles/global.css';
@@ -11,17 +12,53 @@ import FloatingButton from '../components/FloatingButton.astro';
 import TosConsent from '../components/TosConsent.astro';
 import { profile, siteData } from '../data/services';
 
-const { title, description = siteData.defaultDescription, ogImage = siteData.defaultOgImage, canonicalURL = new URL(Astro.url.pathname, Astro.site).href } = Astro.props;
+const { title, description = siteData.defaultDescription, ogImage = siteData.defaultOgImage, canonicalURL = new URL(Astro.url.pathname, Astro.site).href, schemaType = 'service' } = Astro.props;
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
-  name: siteData.siteName,
-  description: 'Full-stack development services — AI agents, web apps, automation, and DevOps.',
-  url: siteData.url,
-  serviceType: siteData.serviceTypes,
-  areaServed: 'Worldwide',
-};
+// Build JSON-LD based on page type
+const jsonLdBlocks: object[] = [];
+
+// Person schema — for homepage, resume, and about
+if (schemaType === 'person' || schemaType === 'service') {
+  jsonLdBlocks.push({
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': siteData.url + '#person',
+    name: profile.name,
+    url: siteData.url,
+    jobTitle: profile.title,
+    email: profile.email,
+    telephone: profile.phone,
+    image: siteData.url + '/avatar.png',
+    sameAs: [
+      profile.upwork,
+    ],
+    knowsAbout: siteData.serviceTypes,
+    worksFor: {
+      '@type': 'Organization',
+      name: siteData.brandName,
+      url: siteData.url,
+    },
+  });
+}
+
+// ProfessionalService schema — for service and pricing pages
+if (schemaType === 'service') {
+  jsonLdBlocks.push({
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    '@id': siteData.url + '#service',
+    name: siteData.siteName,
+    description: siteData.defaultDescription,
+    url: siteData.url,
+  image: siteData.url + siteData.defaultOgImage,
+    provider: {
+      '@type': 'Person',
+      '@id': siteData.url + '#person',
+    },
+    serviceType: siteData.serviceTypes,
+    areaServed: 'Worldwide',
+  });
+}
 ---
 
 <!DOCTYPE html>
@@ -29,7 +66,6 @@ const jsonLd = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="generator" content={Astro.generator} />
 
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -38,22 +74,37 @@ const jsonLd = {
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:site_name" content={siteData.siteName} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image" content={new URL(ogImage, Astro.site).href} />
 
+    <!-- Preconnect: Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <!-- Preconnect: Alpine.js CDN -->
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" sizes="32x32" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/avatar.png" />
+
+    <!-- Web Manifest -->
+    <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#0a0e1a" />
+
+    <!-- JSON-LD Structured Data -->
+    {jsonLdBlocks.map((block) => (
+      <script type="application/ld+json" set:html={JSON.stringify(block)} />
+    ))}
 
     <!-- Prevent flash of wrong theme -->
     <script is:inline>
@@ -64,6 +115,9 @@ const jsonLd = {
   </head>
   <body class="min-h-screen antialiased transition-colors duration-300">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Preload hero background (above the fold) -->
+    <link rel="preload" href="/hero-bg.jpg" as="image" />
 
     <slot />
     <FloatingButton />
