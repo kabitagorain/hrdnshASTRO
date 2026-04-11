@@ -14,60 +14,85 @@ export function getStaticPaths() {
 
 const { service } = Astro.props;
 
-// Per-service JSON-LD: Service schema + BreadcrumbList
-const serviceJsonLd = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
-    name: service.title,
-    description: service.businessOwner.summary,
-    url: new URL(`/services/${service.id}`, siteData.url).href,
-    provider: {
-      '@type': 'Person',
-      '@id': siteData.url + '#person',
+const serviceUrl = new URL(`/services/${service.id}`, Astro.site).href;
+
+// Service JSON-LD schema
+const serviceJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: service.title,
+  description: service.businessOwner.summary,
+  url: serviceUrl,
+  provider: {
+    '@type': 'Person',
+    '@id': siteData.url + '#person',
+  },
+  areaServed: 'Worldwide',
+  serviceType: service.title,
+};
+
+// Offer schema (one-time + weekly pricing)
+const offerJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AggregateOffer',
+  name: `${service.title} — Pricing`,
+  url: serviceUrl,
+  priceCurrency: 'USD',
+  highPrice: service.pricing.oneTime,
+  lowPrice: service.pricing.weekly,
+  offerCount: 2,
+  offers: [
+    {
+      '@type': 'Offer',
+      name: `${service.title} — One-Time`,
+      price: service.pricing.oneTime,
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+      description: `Full project delivery — ${service.timeline}`,
     },
-    areaServed: 'Worldwide',
-    serviceType: service.techStack.join(', '),
-    offers: [
-      {
-        '@type': 'Offer',
-        name: `${service.title} — One-Time`,
-        price: service.pricing.oneTime,
-        priceCurrency: 'USD',
-        priceSpecification: {
-          '@type': 'PriceSpecification',
-          price: service.pricing.oneTime,
-          priceCurrency: 'USD',
-          billingDuration: { '@type': 'QuantitativeValue', value: 1, unitCode: 'ON' },
-        },
-      },
-      {
-        '@type': 'Offer',
-        name: `${service.title} — Weekly`,
-        price: service.pricing.weekly,
-        priceCurrency: 'USD',
-        priceSpecification: {
-          '@type': 'PriceSpecification',
-          price: service.pricing.weekly,
-          priceCurrency: 'USD',
-          billingIncrement: { '@type': 'QuantitativeValue', value: 1, unitCode: 'WK' },
-        },
-      },
-    ],
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: siteData.url },
-      { '@type': 'ListItem', position: 2, name: 'Services', item: siteData.url + '/#services' },
-      { '@type': 'ListItem', position: 3, name: service.title, item: new URL(`/services/${service.id}`, siteData.url).href },
-    ],
-  },
-];
+    {
+      '@type': 'Offer',
+      name: `${service.title} — Weekly Subscription`,
+      price: service.pricing.weekly,
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+      description: 'Ongoing weekly development support',
+    },
+  ],
+};
+
+// BreadcrumbList JSON-LD
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: siteData.url,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Services',
+      item: siteData.url + '/#services',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: service.title,
+      item: serviceUrl,
+    },
+  ],
+};
 ---
 
-<Layout title={`${service.title} — ${profile.name}`} description={service.businessOwner.summary} customJsonLd={serviceJsonLd}>
+<Layout
+  title={`${service.title} — ${profile.name}`}
+  description={service.businessOwner.summary}
+  customJsonLd={[serviceJsonLd, offerJsonLd, breadcrumbJsonLd]}
+>
   <Header />
 
   <!-- Hero -->
@@ -76,16 +101,12 @@ const serviceJsonLd = [
     <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-600/8 rounded-full blur-[120px]"></div>
 
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <!-- Breadcrumb -->
-      <nav aria-label="Breadcrumb" class="mb-8">
-        <ol class="flex items-center gap-2 text-sm text-surface-500">
-          <li><a href="/" class="hover:text-surface-300 transition-colors">Home</a></li>
-          <li><span class="text-surface-700">/</span></li>
-          <li><a href="/#services" class="hover:text-surface-300 transition-colors">Services</a></li>
-          <li><span class="text-surface-700">/</span></li>
-          <li class="text-surface-300">{service.title}</li>
-        </ol>
-      </nav>
+      <a href="/#services" class="inline-flex items-center gap-2 text-sm text-surface-500 hover:text-surface-300 transition-colors mb-8">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+        </svg>
+        Back to Services
+      </a>
 
       <div class="flex items-start gap-5 mb-6">
         <div class="flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500/15 to-accent-500/15 text-3xl border border-primary-500/10">
@@ -121,8 +142,8 @@ const serviceJsonLd = [
   </section>
 
   <!-- Content -->
-  <article class="py-16 sm:py-24" style="background: linear-gradient(180deg, #0c1220 0%, #111827 50%, #0c1220 100%);">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+  <main class="py-16 sm:py-24" style="background: linear-gradient(180deg, #0c1220 0%, #111827 50%, #0c1220 100%);">
+    <article class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <!-- Dual audience tabs -->
       <div class="mb-16 animate-on-scroll">
         <div x-data="{ tab: 'business' }">
@@ -298,8 +319,8 @@ const serviceJsonLd = [
           </svg>
         </a>
       </div>
-    </div>
-  </article>
+    </article>
+  </main>
 
   <Contact />
   <Footer />

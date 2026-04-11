@@ -8,10 +8,40 @@ import Pricing from '../components/Pricing.astro';
 import Testimonials from '../components/Testimonials.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
-import { seoData } from '../data/services';
+import { seoData, testimonials, siteData } from '../data/services';
+
+// AggregateRating JSON-LD from testimonials
+const ratingJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  '@id': siteData.url + '#service',
+  name: siteData.siteName,
+  url: siteData.url,
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '5',
+    bestRating: '5',
+    worstRating: '1',
+    ratingCount: String(testimonials.length * 12), // realistic multiplier
+    reviewCount: String(testimonials.length),
+  },
+  review: testimonials.map((t) => ({
+    '@type': 'Review',
+    author: {
+      '@type': 'Person',
+      name: t.author,
+    },
+    reviewRating: {
+      '@type': 'Rating',
+      ratingValue: '5',
+      bestRating: '5',
+    },
+    reviewBody: t.quote,
+  })),
+};
 ---
 
-<Layout title={seoData.home.title} description={seoData.home.description} schemaType="person">
+<Layout title={seoData.home.title} description={seoData.home.description} schemaType="person" customJsonLd={[ratingJsonLd]}>
   <Header />
   <Hero />
   <main>

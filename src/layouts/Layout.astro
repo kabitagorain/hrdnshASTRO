@@ -60,13 +60,44 @@ if (schemaType === 'service') {
     name: siteData.siteName,
     description: siteData.defaultDescription,
     url: siteData.url,
-  image: siteData.url + siteData.defaultOgImage,
+    image: siteData.url + siteData.defaultOgImage,
     provider: {
       '@type': 'Person',
       '@id': siteData.url + '#person',
     },
     serviceType: siteData.serviceTypes,
     areaServed: 'Worldwide',
+  });
+}
+
+// WebPage schema — for legal pages
+if (schemaType === 'legal') {
+  jsonLdBlocks.push({
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: title,
+    description: description,
+    url: canonicalURL,
+    isPartOf: {
+      '@type': 'WebSite',
+      '@id': siteData.url + '#website',
+    },
+  });
+}
+
+// WebSite schema — emitted on homepage
+if (schemaType === 'person') {
+  jsonLdBlocks.push({
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': siteData.url + '#website',
+    name: siteData.siteName,
+    url: siteData.url,
+    description: siteData.defaultDescription,
+    publisher: {
+      '@type': 'Person',
+      '@id': siteData.url + '#person',
+    },
   });
 }
 ---
@@ -81,47 +112,45 @@ if (schemaType === 'service') {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
 
-    <!-- Robots: support noindex for legal/utility pages -->
     {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:site_name" content={siteData.siteName} />
+    <meta property="og:locale" content="en_US" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL(ogImage, Astro.site).href} />
 
-        <!-- Preconnect: Fonts (high priority) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" fetchpriority="high" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin fetchpriority="high" />
-    <!-- Non-blocking font load: async CSS to avoid render chain -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" /></noscript>
+    <!-- Preconnect: Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
     <!-- Preconnect: Alpine.js CDN -->
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-
-
-    <!-- Preload hero background (must be in <head> for browsers to honor it) -->
-    <link rel="preload" href="/hero-bg.jpg" as="image" />
 
     <!-- Favicon & Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" sizes="32x32" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/avatar.png" />
 
-    <!-- Web Manifest (.webmanifest avoids Cloudflare WAF blocking .json files) -->
+    <!-- Web Manifest -->
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#0a0e1a" />
 
-    <!-- Sitemap hint for crawlers -->
+    <!-- Preload hero background (above the fold) -->
+    <link rel="preload" href="/hero-bg.jpg" as="image" />
+
+    <!-- Sitemap link -->
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- JSON-LD Structured Data -->
