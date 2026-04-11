@@ -69,24 +69,6 @@ if (schemaType === 'service') {
     areaServed: 'Worldwide',
   });
 }
-
-// Inline manifest data (fallback if /manifest.json gets 403 from Cloudflare WAF)
-const inlineManifest = {
-  name: "Haradhan Sharma's Services",
-  short_name: "hrdnsh",
-  description: "Full-stack development services — AI agents, web apps, automation, and DevOps.",
-  start_url: "/",
-  display: "standalone",
-  background_color: "#0a0e1a",
-  theme_color: "#0a0e1a",
-  orientation: "portrait-primary",
-  categories: ["business", "technology", "professional"],
-  icons: [
-    { src: "/favicon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
-    { src: "/favicon.ico", sizes: "32x32", type: "image/x-icon" },
-    { src: "/avatar.png", sizes: "512x512", type: "image/png" },
-  ],
-};
 ---
 
 <!DOCTYPE html>
@@ -131,12 +113,9 @@ const inlineManifest = {
     <link rel="icon" type="image/x-icon" sizes="32x32" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/avatar.png" />
 
-    <!-- Web Manifest — external link + inline fallback -->
-    <link rel="manifest" href="/manifest.json" />
+    <!-- Web Manifest (.webmanifest avoids Cloudflare WAF blocking .json files) -->
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#0a0e1a" />
-    <!-- Inline manifest as fallback: browsers will use whichever loads first.
-         This prevents 403 errors from Cloudflare WAF breaking PWA install. -->
-    <script type="application/manifest+json" set:html={JSON.stringify(inlineManifest)} />
 
     <!-- Sitemap hint for crawlers -->
     <link rel="sitemap" href="/sitemap-index.xml" />
