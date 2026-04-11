@@ -100,7 +100,7 @@ if (schemaType === 'service') {
     <!-- Web Manifest -->
     <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#0a0e1a" />
-
+    <link rel="preload" href="/hero-bg.jpg" as="image" />
     <!-- JSON-LD Structured Data -->
     {jsonLdBlocks.map((block) => (
       <script type="application/ld+json" set:html={JSON.stringify(block)} />
@@ -117,7 +117,7 @@ if (schemaType === 'service') {
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <!-- Preload hero background (above the fold) -->
-    <link rel="preload" href="/hero-bg.jpg" as="image" />
+    
 
     <slot />
     <FloatingButton />
