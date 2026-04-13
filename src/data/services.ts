@@ -11,12 +11,16 @@ export const services = [
           weekly: 299,  // Model fine-tuning, token optimization, and logic updates
         },
         payment_links: {
-          default: {
-            oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
-            weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+          // stripe: {
+          //   oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
+          //   weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+          // },
+          default: { 
+            oneTime: '/payment/{service-id}?type=onetime', 
+            weekly: '/payment/{service-id}?type=weekly' 
           },
-          bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
-          in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
+          // bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
+          // in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
         },
         businessOwner: {
           summary: 'Generic AI bots hallucinate and leak data. I build "Agentic" systems that act as expert employees. By using Retrieval-Augmented Generation (RAG), your AI only speaks from your private data, ensuring 100% accuracy and professional-grade security.',
@@ -57,13 +61,17 @@ export const services = [
         weekly: 149,  // Uptime monitoring, security patches, and model cost optimization
       },
       payment_links: {
-        default: {
-          oneTime: 'https://buy.stripe.com/OPENCLAW_ONE_TIME',
-          weekly: 'https://buy.stripe.com/OPENCLAW_WEEKLY',
+          // stripe: {
+          //   oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
+          //   weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+          // },
+          default: { 
+            oneTime: '/payment/{service-id}?type=onetime', 
+            weekly: '/payment/{service-id}?type=weekly' 
+          },
+          // bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
+          // in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
         },
-        bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
-        in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
-      },
       businessOwner: {
         summary: 'Standard OpenClaw setups are often restricted to a terminal or local machine. I deliver a ready-to-use, cloud-hosted OpenClaw environment accessible via a secure web interface. This includes pre-integrated AI models (GPT-4/Claude/Llama) and automated maintenance, allowing you to focus on results while I handle the infrastructure and security.',
         benefits: [
@@ -103,12 +111,16 @@ export const services = [
       weekly: 149, // Maintenance for SEO crawling and model fine-tuning
     },
     payment_links: {
-      default: {
-        oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
-        weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      // stripe: {
+      //   oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
+      //   weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      // },
+      default: { 
+        oneTime: '/payment/{service-id}?type=onetime', 
+        weekly: '/payment/{service-id}?type=weekly' 
       },
-      bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
-      in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
+      // bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
+      // in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
     },
     businessOwner: {
       summary: 'A secure, 24/7 AI assistant that lives on your server. It handles SEO monitoring, market research, and customer inquiries using "Free" open-source models—meaning no monthly bills from OpenAI or Claude.',
@@ -149,12 +161,16 @@ export const services = [
       weekly: 199, // Ongoing performance monitoring and scaling
     },
     payment_links: {
-      default: {
-        oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
-        weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      // stripe: {
+      //   oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
+      //   weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      // },
+      default: { 
+        oneTime: '/payment/{service-id}?type=onetime', 
+        weekly: '/payment/{service-id}?type=weekly' 
       },
-      bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
-      in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
+      // bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
+      // in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
     },
     businessOwner: {
       summary: 'Slow backends kill conversions. I transform sluggish systems into high-speed engines that handle massive traffic spikes without crashing. Using advanced asynchronous architecture, I ensure your business remains online and responsive 24/7.',
@@ -195,12 +211,16 @@ export const services = [
       weekly: 249,
     },
     payment_links: {
-      default: {
-        oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
-        weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      // stripe: {
+      //   oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
+      //   weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      // },
+      default: { 
+        oneTime: '/payment/{service-id}?type=onetime', 
+        weekly: '/payment/{service-id}?type=weekly' 
       },
-      bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
-      in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
+      // bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
+      // in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
     },
     businessOwner: {
       summary: 'Generic websites are slow and lose customers. I build custom web applications—from complex inventory portals to high-converting e-commerce engines—using modern "Island Architecture." The result? Instant load times, perfect SEO scores, and a system that fits your business like a glove.',
@@ -242,12 +262,16 @@ export const services = [
       weekly: 299,
     },
     payment_links: {
-      default: {
-        oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
-        weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      // stripe: {
+      //   oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
+      //   weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      // },
+      default: { 
+        oneTime: '/payment/{service-id}?type=onetime', 
+        weekly: '/payment/{service-id}?type=weekly' 
       },
-      bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
-      in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
+      // bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
+      // in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
     },
     businessOwner: {
       summary: 'Ditch the messy spreadsheets. I build custom ERP systems designed specifically for manufacturing (Garments, Textiles, Industrial) that track raw materials, production stages, and worker efficiency in real-time. Gain 100% visibility over your factory floor from a single dashboard.',
@@ -288,12 +312,16 @@ export const services = [
       weekly: 249, // Maintenance for backups, updates, and custom scripts
     },
     payment_links: {
-      default: {
-        oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
-        weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      // stripe: {
+      //   oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
+      //   weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      // },
+      default: { 
+        oneTime: '/payment/{service-id}?type=onetime', 
+        weekly: '/payment/{service-id}?type=weekly' 
       },
-      bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
-      in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
+      // bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
+      // in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
     },
     businessOwner: {
       summary: 'Tired of expensive per-user licenses for Salesforce or SAP? I deploy and customize powerful open-source alternatives like ERPNext and Odoo. You get full control over your Accounting, HR, CRM, and Supply Chain on your own private cloud—with unlimited users and zero recurring license fees.',
@@ -335,12 +363,16 @@ export const services = [
       weekly: 199, // Ongoing strategy optimization and server monitoring
     },
     payment_links: {
-      default: {
-        oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
-        weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      // stripe: {
+      //   oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
+      //   weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      // },
+      default: { 
+        oneTime: '/payment/{service-id}?type=onetime', 
+        weekly: '/payment/{service-id}?type=weekly' 
       },
-      bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
-      in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
+      // bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
+      // in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
     },
     businessOwner: {
       summary: 'Emotion is the enemy of trading. I build institutional-grade algorithmic systems that execute your strategies 24/7 with millisecond precision. Whether you trade Forex on MetaTrader 5 or Crypto on Binance, my systems handle the execution, risk management, and data analysis so you can focus on the edge.',
@@ -382,12 +414,16 @@ export const services = [
       weekly: 129, // Retainer for server monitoring, backups, and security patches
     },
     payment_links: {
-      default: {
-        oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
-        weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      // stripe: {
+      //   oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
+      //   weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      // },
+      default: { 
+        oneTime: '/payment/{service-id}?type=onetime', 
+        weekly: '/payment/{service-id}?type=weekly' 
       },
-      bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
-      in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
+      // bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
+      // in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
     },
     businessOwner: {
       summary: 'Stop worrying about server crashes, data breaches, and deployment headaches. I build automated "Self-Healing" infrastructures that protect your business from hackers and ensure your updates launch perfectly every time without a second of downtime.',
@@ -429,12 +465,16 @@ export const services = [
       weekly: 99,   // Priority 24/7 monitoring and technical support
     },
     payment_links: {
-      default: {
-        oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
-        weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      // stripe: {
+      //   oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
+      //   weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      // },
+      default: { 
+        oneTime: '/payment/{service-id}?type=onetime', 
+        weekly: '/payment/{service-id}?type=weekly' 
       },
-      bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
-      in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
+      // bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
+      // in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
     },
     businessOwner: {
       summary: 'Your online store is your 24/7 salesperson. If it slows down or crashes, you lose revenue instantly. I provide professional technical oversight for your eCommerce platform, ensuring your site remains fast, secure, and fully optimized so you can focus on scaling your sales while I handle the code.',
@@ -476,12 +516,16 @@ export const services = [
       weekly: 499,  // Real-time monitoring, hardware maintenance, and data backups
     },
     payment_links: {
-      default: {
-        oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
-        weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      // stripe: {
+      //   oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
+      //   weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      // },
+      default: { 
+        oneTime: '/payment/{service-id}?type=onetime', 
+        weekly: '/payment/{service-id}?type=weekly' 
       },
-      bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
-      in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
+      // bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
+      // in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
     },
     businessOwner: {
       summary: 'Spreadsheets lead to human error and lost revenue. I build custom, high-speed ERP modules that track your production in real-time. From raw material inventory to final dispatch, get a God-eye view of your factory with automated alerts for bottlenecks.',
@@ -523,12 +567,16 @@ export const services = [
       weekly: 150,  // Bot mitigation monitoring and cache-hit ratio tuning
     },
     payment_links: {
-      default: {
-        oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
-        weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      // stripe: {
+      //   oneTime: 'https://buy.stripe.com/YOUR_LINK_1',
+      //   weekly: 'https://buy.stripe.com/YOUR_LINK_1_SUB',
+      // },
+      default: { 
+        oneTime: '/payment/{service-id}?type=onetime', 
+        weekly: '/payment/{service-id}?type=weekly' 
       },
-      bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
-      in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
+      // bd: { oneTime: 'https://bkash.com/...', weekly: 'https://bkash.com/...' },
+      // in: { oneTime: 'https://razorpay.com/...', weekly: 'https://razorpay.com/...' },
     },
     businessOwner: {
       summary: 'A 1-second delay in page load costs 7% in conversions. I transform standard OpenCart/WooCommerce stores into high-performance engines. Beyond speed, I harden your store against SQL injections, bot-driven price scraping, and checkout attacks.',
@@ -691,9 +739,10 @@ export const navLinks = [
 // This is just the dropdown list (code, name, icon).
 // ============================================================
 export const paymentGateways = [
-  { code: 'default', name: 'Stripe', icon: '💳' },
-  { code: 'bd', name: 'bKash', icon: '📱' },
-  { code: 'in', name: 'Razorpay', icon: '🇮🇳' },
+  { code: 'default', name: 'Manual Invoice', icon: '📝' },
+  // { code: 'bd', name: 'bKash', icon: '📱' },
+  // { code: 'in', name: 'Razorpay', icon: '🇮🇳' },
+  // { code: 'manual', name: 'Stripe', icon: '💳' }
 ];
 
 
