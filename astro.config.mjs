@@ -5,9 +5,12 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
+import cloudflare from '@astrojs/cloudflare';
+
 export default defineConfig({
   site: 'https://hrdnsh.com',
   integrations: [sitemap()],
+
   vite: {
     plugins: [tailwindcss()],
     build: {
@@ -16,4 +19,6 @@ export default defineConfig({
       cssCodeSplit: false,
     },
   },
+
+  adapter: cloudflare(),
 });
