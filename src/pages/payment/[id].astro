@@ -44,16 +44,16 @@ const serviceUrl = new URL(`/payment/${service.id}`, Astro.site).href;
 const manualPaymentMethods = [
   {
     code: 'bank',
-    name: 'Bank / Wire Transfer',
+    name: 'Bank / IBAN Transfer',
     icon: '🏦',
     region: 'International',
     regionColor: 'primary',
     details: [
-      { label: 'Bank Name', value: 'City Bank Limited' },
+      { label: 'Bank Name', value: 'Clear Bank(Based in GB)' },
       { label: 'Account Name', value: 'Haradhan Sharma' },
-      { label: 'Account Number', value: 'YOUR_ACCOUNT_NUMBER' },
-      { label: 'SWIFT / BIC', value: 'YOUR_SWIFT_CODE' },
-      { label: 'Routing Number', value: 'YOUR_ROUTING_NUMBER' },
+      { label: 'IBAN', value: 'GB96CLRB04281204027608' },
+      { label: 'SWIFT / BIC', value: 'CLRBGB22XXX' },
+      { label: 'Bank address', value: '133 Houndsditch, LONDON, EC3A 7BX' },
     ],
     note: 'For international wire transfers, please include the service name in the reference field.',
   },
@@ -65,7 +65,7 @@ const manualPaymentMethods = [
     regionColor: 'success',
     details: [
       { label: 'Account Type', value: 'Personal' },
-      { label: 'bKash Number', value: '01XXXXXXXXX' },
+      { label: 'bKash Number', value: '011712270815' },
       { label: 'Reference', value: `Use ID: ${service.id}` },
     ],
     note: 'Send payment via bKash "Send Money" to the number above. Keep your TrxID for verification.',
@@ -78,7 +78,7 @@ const manualPaymentMethods = [
     regionColor: 'warning',
     details: [
       { label: 'Network', value: 'TRC20 (Tron)' },
-      { label: 'Wallet Address', value: 'YOUR_TRC20_WALLET_ADDRESS' },
+      { label: 'Wallet Address', value: 'TNKkGiFrZ1LNpvx74CVeA6BBoFkekgQoBS' },
       { label: 'Min. Amount', value: '$10 USDT' },
     ],
     note: 'Only send USDT on TRC20 network. Do NOT send on ERC20 or other networks — funds will be lost.',
