@@ -39,3 +39,7 @@ worker-configuration.d.ts
 # Cloudflare dev artifacts
 .wrangler/
 worker-configuration.d.ts
+
+# Cloudflare Workers — local dev state (miniflare)
+.wrangler/
+worker-configuration.d.ts
