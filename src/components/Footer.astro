@@ -1,6 +1,6 @@
 ---
 const year = new Date().getFullYear();
-import { profile, siteData, navLinks } from '../data/services';
+import { profile, siteData, navLinks } from '@data/services';
 ---
 
 <footer class="relative border-t border-surface-700/20" style="background: #070b14;">
@@ -9,10 +9,9 @@ import { profile, siteData, navLinks } from '../data/services';
       <!-- Logo -->
       <a href="/" class="flex items-center gap-2.5">
         <div class="avatar-ring">
-          <picture>
-            <source type="image/webp" srcset="/images/avatar-96.webp 96w" sizes="28px" />
+         
             <img src="/avatar.png" alt={profile.name} class="w-7 h-7 rounded-full object-cover" width="28" height="28" loading="lazy" />
-          </picture>
+    
         </div>
         <span class="text-sm font-bold">
           <span class="text-surface-300">{profile.fname.charAt(0).toUpperCase()}</span><span class="gradient-text">{profile.lname.toLowerCase()}</span>

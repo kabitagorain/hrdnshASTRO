@@ -15,7 +15,7 @@
  *   4. Resolves: selected gateway → service.payment_links[gateway]
  *   5. Falls back to service.payment_links.default if gateway has no links
  */
-import { paymentGateways, services } from '../data/services';
+import { paymentGateways, services } from '@data/services';
 
 // Build a map: serviceId → payment_links (for client-side resolution)
 const paymentLinksMap = {};
