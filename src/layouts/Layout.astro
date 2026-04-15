@@ -159,7 +159,7 @@ if (schemaType === 'person') {
 
     <!-- JSON-LD Structured Data -->
     {jsonLdBlocks.map((block) => (
-      <script is:inline set:html={JSON.stringify(block)} />
+      <script type="application/ld+json" set:html={JSON.stringify(block)} />
     ))}
 
     <!-- Prevent flash of wrong theme -->
