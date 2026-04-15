@@ -24,7 +24,7 @@ export const GET: APIRoute = async ({ site }) => {
 ${pages
   .map(
     (p) => `  <url>
-    <loc>${site}${p.url}</loc>
+    <loc>${new URL(p.url, site).href}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>${p.changefreq}</changefreq>
     <priority>${p.priority}</priority>
