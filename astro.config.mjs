@@ -3,11 +3,11 @@ import { defineConfig } from 'astro/config';
 
 import alpinejs from '@astrojs/alpinejs';
 import tailwindcss from '@tailwindcss/vite';
-import sitemap from '@astrojs/sitemap';
+// import sitemap from '@astrojs/sitemap';
 
 import cloudflare from '@astrojs/cloudflare';
 
-import { services } from './src/data/services';
+// import { services } from './src/data/services';
 
 export default defineConfig({
   site: 'https://hrdnsh.com',
@@ -21,13 +21,13 @@ export default defineConfig({
 
   integrations: [
     alpinejs(),
-    sitemap({
-      changefreq: 'daily',
-      priority: 0.7,
-      lastmod: new Date(),
-      filter: (page) => !page.includes('/payment/'),
-      customPages: services.map((s) => `/services/${s.id}`),
-    }),
+    // sitemap({
+    //   changefreq: 'daily',
+    //   priority: 0.7,
+    //   lastmod: new Date(),
+    //   filter: (page) => !page.includes('/payment/'),
+    //   customPages: services.map((s) => `/services/${s.id}`),
+    // }),
   ],
 
   vite: {
