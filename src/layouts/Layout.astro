@@ -159,7 +159,7 @@ if (schemaType === 'person') {
 
     <!-- JSON-LD Structured Data -->
     {jsonLdBlocks.map((block) => (
-      <script type="application/ld+json" set:html={JSON.stringify(block)} />
+      <script is:inline set:html={JSON.stringify(block)} />
     ))}
 
     <!-- Prevent flash of wrong theme -->
@@ -170,13 +170,13 @@ if (schemaType === 'person') {
     </script>
   </head>
   <body class="min-h-screen antialiased transition-colors duration-300">
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script is:inline src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <slot />
     <FloatingButton />
     <TosConsent />
 
-    <script>
+    <script is:inline>
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -192,7 +192,7 @@ if (schemaType === 'person') {
     </script>
 
     <!-- mautic -->
-    <script>
+    <script is:inline>
       (function(w,d,t,u,n,a,m){w['MauticTrackingObject']=n;
           w[n]=w[n]||function(){(w[n].q=w[n].q||[]).push(arguments)},a=d.createElement(t),
           m=d.getElementsByTagName(t)[0];a.async=1;a.src=u;m.parentNode.insertBefore(a,m)

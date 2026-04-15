@@ -31,3 +31,11 @@ Thumbs.db
 
 # jetbrains setting folder
 .idea/
+
+# Cloudflare dev artifacts
+.wrangler/
+worker-configuration.d.ts
+
+# Cloudflare dev artifacts
+.wrangler/
+worker-configuration.d.ts

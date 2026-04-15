@@ -18,7 +18,8 @@
 import { paymentGateways, services } from '@data/services';
 
 // Build a map: serviceId → payment_links (for client-side resolution)
-const paymentLinksMap = {};
+
+const paymentLinksMap: Record<string, typeof services[0]['payment_links']> = {};
 services.forEach(s => { paymentLinksMap[s.id] = s.payment_links; });
 
 // Gateway list includes manual from services.ts — no need to append here
