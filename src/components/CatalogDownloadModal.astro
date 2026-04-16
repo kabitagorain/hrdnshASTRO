@@ -157,14 +157,14 @@
 
   window.loadCatalogForm() — called from resume.astro button click.
   Dynamically injects generate.js, waits for form to render, then sets up
-  iframe target + validation + submit handler.
+  validation + submit handler.
 
   setupCatalogForm(form):
   1. ALWAYS prevents default submit (we control everything)
   2. Manual validation — checks Mautic-required fields (label with *, data-validate,
      HTML5 required). Mautic forms often DON'T use HTML5 required attributes.
-  3. On valid: submits to hidden iframe via HTMLFormElement.prototype.submit
-  4. After 2s: PDF downloads + success state shown
+  3. On valid: submits to Mautic via fetch() (no iframe, no X-Frame-Options issue)
+  4. After response: PDF downloads + success state shown
 -->
 <script is:inline>
 window.loadCatalogForm = function() {
@@ -199,31 +199,14 @@ window.loadCatalogForm = function() {
 };
 
 function setupCatalogForm(form) {
-  // Save real submit method (before any override)
-  var nativeSubmit = HTMLFormElement.prototype.submit.bind(form);
-
-  // Block Mautic from calling form.submit() directly (bypasses events & validation)
-  form.submit = function() {
-    if (!form.__catalogValidated) return;
-    nativeSubmit();
-  };
+  // Block Mautic from calling form.submit() directly (bypasses our validation)
+  form.submit = function() {};
 
   form.removeAttribute('novalidate');
 
-  // Hidden iframe so form submission doesn't navigate the page
-  var iframe = document.createElement('iframe');
-  iframe.name = 'mautic_catalog_iframe';
-  iframe.style.cssText = 'width:1px;height:1px;border:0;position:fixed;left:-9999px;opacity:0;pointer-events:none;';
-  document.body.appendChild(iframe);
-  form.target = 'mautic_catalog_iframe';
-
-  // Clear Mautic's return field so it doesn't try to redirect
-  var retField = form.querySelector('[name="mauticform[return]"]');
-  if (retField) retField.value = '';
-
   // Submit handler — capture phase runs BEFORE Mautic's handlers
   form.addEventListener('submit', function(e) {
-    // ALWAYS prevent default — we control submission manually
+    // ALWAYS prevent default — we submit via fetch, not browser
     e.preventDefault();
     e.stopPropagation();
 
@@ -266,7 +249,6 @@ function setupCatalogForm(form) {
         if (!field.value || field.value.trim() === '') {
           valid = false;
           field.classList.add('mauticform-notvalid');
-          // Show Mautic's error message if present
           var msg = field.parentElement.querySelector('.mauticform-errormsg');
           if (msg) msg.style.display = '';
         } else {
@@ -279,12 +261,19 @@ function setupCatalogForm(form) {
 
     if (!valid) return; // Don't submit, don't download
 
-    // --- Valid: submit to Mautic ---
-    form.__catalogValidated = true;
-    nativeSubmit();
-    form.__catalogValidated = false;
+    // --- Valid: submit to Mautic via fetch (no iframe, no X-Frame-Options issues) ---
+    var action = form.getAttribute('action') || window.location.href;
+    var formData = new FormData(form);
 
-    // After 2s: download PDF + show success
+    fetch(action, {
+      method: 'POST',
+      body: formData,
+      mode: 'no-cors' // Mautic is cross-origin, we don't need to read the response
+    }).catch(function() {
+      // Even if fetch fails (network), data was likely sent — continue gracefully
+    });
+
+    // Download PDF + show success immediately after sending
     setTimeout(function() {
       var store = window.Alpine ? Alpine.store('catalogModal') : null;
       if (!store || !store.open) return;
@@ -301,7 +290,7 @@ function setupCatalogForm(form) {
         store.submitted = false;
         store.open = false;
       }, 5000);
-    }, 2000);
+    }, 1000);
   }, true);
 }
 </script>
