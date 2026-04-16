@@ -102,6 +102,7 @@ if (schemaType === 'person') {
 }
 ---
 
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth" x-data="{ theme: localStorage.getItem('theme') || 'dark' }" x-init="$watch('theme', v => { localStorage.setItem('theme', v); document.documentElement.classList.toggle('light', v === 'light'); }); if(theme === 'light') document.documentElement.classList.add('light')">
   <head>
@@ -129,14 +130,13 @@ if (schemaType === 'person') {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL(ogImage, Astro.site).href} />
 
-    <!-- Preconnect: Fonts -->
+    <!-- Preconnect: Fonts (high priority) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" fetchpriority="high" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin fetchpriority="high" />
-    <!-- Async Google Fonts — loads without blocking render -->
+    <!-- Non-blocking font load: async CSS to avoid render chain -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" media="print" onload="this.media='all'" />
-    <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" />
-    </noscript>
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" /></noscript>
 
     <!-- Preconnect: Alpine.js CDN -->
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
@@ -148,11 +148,11 @@ if (schemaType === 'person') {
     <link rel="apple-touch-icon" sizes="180x180" href="/avatar.png" />
 
     <!-- Web Manifest -->
-    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#0a0e1a" />
 
-    <!-- Preload hero background (above the fold — LCP image) -->
-    <link rel="preload" href="/hero-bg.jpg" as="image" fetchpriority="high" />
+    <!-- Preload hero background (above the fold) -->
+    <link rel="preload" href="/hero-bg.png" as="image" />
 
     <!-- Sitemap link -->
     <link rel="sitemap" href="/sitemap-index.xml" />
@@ -170,13 +170,18 @@ if (schemaType === 'person') {
     </script>
   </head>
   <body class="min-h-screen antialiased transition-colors duration-300">
-    <script is:inline src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script is:inline>
+      document.addEventListener('alpine:init', function() {
+        Alpine.store('catalogModal', { open: false, submitted: false });
+      });
+    </script>
+
 
     <slot />
     <FloatingButton />
     <TosConsent />
 
-    <script is:inline>
+    <script>
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -199,7 +204,6 @@ if (schemaType === 'person') {
       })(window,document,'script','https://crm.healthforyou.nl/mtc.js','mt');
 
       mt('send', 'pageview');
-  </script>
-  <!-- mautic -->
+    </script>
   </body>
 </html>

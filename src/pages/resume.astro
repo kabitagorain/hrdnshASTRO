@@ -4,7 +4,9 @@ import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
 import Contact from '@components/Contact.astro';
 import { profile, services, seoData } from '@data/services';
+import CatalogDownloadModal from '@components/CatalogDownloadModal.astro';
 ---
+
 
 <Layout title={seoData.resume.title} description={seoData.resume.description} schemaType="person">
   <Header />
@@ -26,9 +28,7 @@ import { profile, services, seoData } from '@data/services';
       <div class="flex flex-col md:flex-row items-center gap-8">
         <!-- Avatar -->
         <div class="avatar-ring shrink-0">
-          
-            <img src="/avatar.png" alt={profile.name} class="w-28 h-28 md:w-36 md:h-36 rounded-full object-cover" width="144" height="144" fetchpriority="high" />
-       
+          <img src="/avatar.png" alt={profile.name} class="w-28 h-28 md:w-36 md:h-36 rounded-full object-cover" />
         </div>
 
         <div class="text-center md:text-left">
@@ -87,16 +87,16 @@ import { profile, services, seoData } from '@data/services';
             </p>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a
-                href="/Service_Product_Catalog.pdf"
-                download
-                class="btn-glow inline-flex items-center gap-2.5 rounded-xl bg-primary-600 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-primary-500 hover:-translate-y-0.5"
+              <button
+                type="button"
+                @click="$store.catalogModal.open = true; $store.catalogModal.submitted = false; loadCatalogForm()"
+                class="btn-glow inline-flex items-center gap-2.5 rounded-xl bg-primary-600 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-primary-500 hover:-translate-y-0.5 cursor-pointer"
               >
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
                 Download PDF Catalog
-              </a>
+              </button>
               <a
                 href="#services-list"
                 class="inline-flex items-center gap-2 rounded-xl border border-surface-600/30 px-8 py-4 text-base font-semibold text-surface-300 transition-all hover:border-primary-500/30 hover:text-primary-400"
@@ -111,6 +111,9 @@ import { profile, services, seoData } from '@data/services';
         </div>
       </div>
     </section>
+
+    <!-- Catalog download modal — placed OUTSIDE glass-card so position:fixed works correctly -->
+    <CatalogDownloadModal />
 
     <!-- Services Summary -->
     <section id="services-list" class="relative py-16 sm:py-20 dark-section noise-overlay">
