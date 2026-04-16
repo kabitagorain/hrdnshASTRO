@@ -13,7 +13,8 @@
     "preview": "astro preview",
     "check": "astro check",
     "astro": "astro",
-    "generate-types": "wrangler types"
+    "generate-types": "wrangler types",
+    "pdf": "node scripts/export-services.mjs && python3 scripts/generate-catalog.py && wrangler types"
   },
   "dependencies": {
     "@astrojs/alpinejs": "^0.5.0",

@@ -32,14 +32,12 @@ Thumbs.db
 # jetbrains setting folder
 .idea/
 
-# Cloudflare dev artifacts
-.wrangler/
-worker-configuration.d.ts
-
-# Cloudflare dev artifacts
-.wrangler/
-worker-configuration.d.ts
 
 # Cloudflare Workers — local dev state (miniflare)
 .wrangler/
 worker-configuration.d.ts
+
+# Build-time generated catalog data
+public/_catalog-data.json
+scripts/
+
