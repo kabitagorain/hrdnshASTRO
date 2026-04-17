@@ -1,10 +1,18 @@
 ---
 const year = new Date().getFullYear();
 import { profile, navLinks } from '@data/services';
+import NewsLetter from '@components/NewsLetter.astro';
 ---
 
 <footer class="relative border-t border-surface-700/20" style="background: #070b14;">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- Newsletter -->
+    <div class="pb-8 mb-8 border-b border-surface-700/15">
+      <NewsLetter />
+    </div>
+
+
     <div class="flex flex-col md:flex-row items-center justify-between gap-6">
       <!-- Logo -->
       <a href="/" class="flex items-center gap-2.5">

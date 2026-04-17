@@ -1,0 +1,121 @@
+---
+// NewsLetter.astro
+//
+// Newsletter signup using Mautic form #3 (first_name + email).
+// The form loads statically in the footer — no dynamic injection needed
+// since there's no auto-submit concern in the footer.
+---
+
+<div class="newsletter-section">
+
+    <!-- Left: Heading -->
+    <div class="w-100">
+      <p class="text-xs font-semibold uppercase tracking-wider text-surface-500 mb-0.5">Stay Updated</p>
+      <p class="text-sm text-surface-400 leading-relaxed">Get insights on AI, web dev & scaling delivered to your inbox.</p>
+    </div>
+
+    <!-- Right: Mautic Form -->
+    <div id="newsletter-form-wrapper">
+      <script type="text/javascript" src="//crm.healthforyou.nl/form/generate.js?id=3"></script>
+    </div>
+  </div>
+
+<style is:global>
+/* Main Section: Ensure column flow for the whole footer block */
+.newsletter-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    margin-top: 4rem;
+}
+
+/* Row 1: Text Area */
+.newsletter-section .w-100 {
+    margin-bottom: 2.5rem;
+}
+
+/* Row 2: Force the Mautic wrapper to handle stacking */
+#newsletter-form-wrapper .mauticform-page-wrapper {
+    display: flex !important;
+    flex-direction: row !important; /* Forces row-by-row stacking */
+    align-items: center !important;
+    gap: 16px !important; 
+    width: 100% !important;
+}
+
+/* Row 2: Inputs Row */
+#newsletter-form-wrapper .mauticform-innerform {
+    display: flex;
+    flex-direction: row; /* Keeps First Name and Email side-by-side on desktop */
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+}
+
+/* Row 3: Submit Button Styling */
+#newsletter-form-wrapper .mauticform-button {
+    width: 100%;
+    max-width: 200px; /* Matches the "Hire Me" button proportions */
+    height: 46px;
+    /* This vibrant blue matches your "Hire Me" button better */
+    background-color: #3b82f6; 
+    color: #ffffff;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 15px;
+    margin-top: 0px;
+    padding: 0 16px;
+}
+#newsletter-form-wrapper .mauticform-label {
+    display: none
+}
+#newsletter-form-wrapper .mauticform-button:hover {
+    background-color: #2563eb;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+}
+
+/* Field input styling for the dark theme */
+#newsletter-form-wrapper .mauticform-input {
+    width: 220px; /* Fixed width for symmetry */
+    height: 46px;
+    padding: 0 16px;
+    background-color: #0f172a; /* Navy-black to match your "How it works" bg */
+    border: 1px solid #1e293b;
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+#newsletter-form-wrapper .mauticform-input::placeholder {
+    color: #64748b;
+}
+
+/* Individual containers for error message alignment */
+#newsletter-form-wrapper .mauticform-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Keeps errors aligned to the input edge */
+}
+
+/* Responsive: Stack inputs on mobile */
+@media (max-width: 640px) {
+    #newsletter-form-wrapper .mauticform-innerform {
+        flex-direction: column;
+        align-items: center;
+    }
+    #newsletter-form-wrapper .mauticform-input {
+        width: 100%;
+        max-width: 320px;
+    }
+    #newsletter-form-wrapper .mauticform-page-wrapper {
+  
+    flex-direction: column !important; /* Forces row-by-row stacking */
+  
+}
+}
+</style>

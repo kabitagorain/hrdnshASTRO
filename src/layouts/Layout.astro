@@ -14,6 +14,7 @@ import FloatingButton from '@components/FloatingButton.astro';
 import TosConsent from '@components/TosConsent.astro';
 import { profile, siteData } from '@data/services';
 
+
 const {
   title,
   description = siteData.defaultDescription,
@@ -178,6 +179,7 @@ if (schemaType === 'person') {
 
 
     <slot />
+    
     <FloatingButton />
     <TosConsent />
 
