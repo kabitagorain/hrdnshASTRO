@@ -334,3 +334,34 @@ html.light .section-divider {
 }
 
 
+.hrdnsh-brand-strip {
+    text-align: center;
+    position: relative;
+    width: 100%;
+}
+
+.hrdnsh-brand-strip .hrdnsh-brand-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 6.5vw;
+    font-weight: 100;
+    text-transform: uppercase;
+    letter-spacing: 1.5vw;
+    color: #fff;
+    margin-bottom: 8px;
+    line-height: 1;
+    padding: 0 2vw;
+}
+.hrdnsh-brand-strip .hrdnsh-brand-url {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2vw;
+    font-weight: 300;
+    color: #777;
+    letter-spacing: 0.5vw;
+    text-transform: uppercase;
+}
+
+.hrdnsh-brand-strip .hrdnsh-brand-url a {
+    color: #777;
+    transition: color 0.3s;
+    text-decoration: none;
+}

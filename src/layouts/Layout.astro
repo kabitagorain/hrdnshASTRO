@@ -12,6 +12,7 @@ interface Props {
 import '@styles/global.css';
 import FloatingButton from '@components/FloatingButton.astro';
 import TosConsent from '@components/TosConsent.astro';
+import HrdnshBrand from '@components/HrdnshBrand.astro';
 import { profile, siteData } from '@data/services';
 
 
@@ -182,7 +183,8 @@ if (schemaType === 'person') {
     
     <FloatingButton />
     <TosConsent />
-      
+    <HrdnshBrand />
+    
     <script>
       const observer = new IntersectionObserver(
         (entries) => {
