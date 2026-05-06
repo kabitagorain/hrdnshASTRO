@@ -58,5 +58,7 @@ export default defineConfig({
 
   adapter: cloudflare({
     imageService: { build: 'compile', runtime: 'cloudflare-binding' },
+    sessionKVBindingName: 'HRDNSH_SESSION_BINDING',
+    prerenderEnvironment: 'node',
   }),
 });
