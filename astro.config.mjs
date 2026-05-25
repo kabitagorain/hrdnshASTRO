@@ -1,49 +1,37 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config";
 
-import alpinejs from '@astrojs/alpinejs';
-import tailwindcss from '@tailwindcss/vite';
-// import sitemap from '@astrojs/sitemap';
+import alpinejs from "@astrojs/alpinejs";
+import tailwindcss from "@tailwindcss/vite";
 
-import cloudflare from '@astrojs/cloudflare';
-
-// import { services } from './src/data/services';
+import cloudflare from "@astrojs/cloudflare";
 
 export default defineConfig({
-  site: 'https://hrdnsh.com',
-  output: 'server',
+  site: "https://hrdnsh.com",
+  output: "server",
 
   server: {
     headers: {
-      'Access-Control-Allow-Origin': '*',
+      "Access-Control-Allow-Origin": "*",
     },
   },
 
-  integrations: [
-    alpinejs(),
-    // sitemap({
-    //   changefreq: 'daily',
-    //   priority: 0.7,
-    //   lastmod: new Date(),
-    //   filter: (page) => !page.includes('/payment/'),
-    //   customPages: services.map((s) => `/services/${s.id}`),
-    // }),
-  ],
+  integrations: [alpinejs()],
 
   vite: {
     plugins: [tailwindcss()],
     optimizeDeps: {
-      exclude: ['alpinejs'],
+      exclude: ["alpinejs"],
     },
     resolve: {
       alias: {
-        '@': '/src',
-        '@components': '/src/components',
-        '@layouts': '/src/layouts',
-        '@assets': '/src/assets',
-        '@utils': '/src/utils',
-        '@data': '/src/data',
-        '@styles': '/src/styles',
+        "@": "/src",
+        "@components": "/src/components",
+        "@layouts": "/src/layouts",
+        "@assets": "/src/assets",
+        "@utils": "/src/utils",
+        "@data": "/src/data",
+        "@styles": "/src/styles",
       },
     },
     build: {
@@ -57,8 +45,8 @@ export default defineConfig({
   },
 
   adapter: cloudflare({
-    imageService: { build: 'compile', runtime: 'cloudflare-binding' },
-    sessionKVBindingName: 'HRDNSH_SESSION_BINDING',
-    prerenderEnvironment: 'node',
+    imageService: { build: "compile", runtime: "cloudflare-binding" },
+    sessionKVBindingName: "HRDNSH_SESSION_BINDING",
+    prerenderEnvironment: "node",
   }),
 });

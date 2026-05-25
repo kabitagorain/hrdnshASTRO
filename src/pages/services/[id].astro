@@ -1,87 +1,126 @@
 ---
-import Layout from '@layouts/Layout.astro';
-import Header from '@components/Header.astro';
-import Footer from '@components/Footer.astro';
-import Contact from '@components/Contact.astro';
-import { services, profile, siteData } from '@data/services';
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import Contact from "@components/Contact.astro";
+import { services, profile, siteData } from "@data/services";
 
 // ── SSR: Resolve service from URL param (no getStaticPaths needed) ──
 const { id } = Astro.params;
 const service = services.find((s) => s.id === id);
 
 if (!service) {
-  return Astro.redirect('/404');
+  return Astro.redirect("/404");
 }
 
 const serviceUrl = new URL(`/services/${service.id}`, Astro.site).href;
 
 // Service JSON-LD schema
 const serviceJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
+  "@context": "https://schema.org",
+  "@type": "Service",
   name: service.title,
   description: service.businessOwner.summary,
   url: serviceUrl,
   provider: {
-    '@type': 'Person',
-    '@id': siteData.url + '#person',
+    "@type": "Person",
+    "@id": siteData.url + "#person",
   },
-  areaServed: 'Worldwide',
+  areaServed: "Worldwide",
   serviceType: service.title,
 };
 
 // Offer schema (one-time + weekly pricing)
 const offerJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'AggregateOffer',
+  "@context": "https://schema.org",
+  "@type": "AggregateOffer",
   name: `${service.title} — Pricing`,
   url: serviceUrl,
-  priceCurrency: 'USD',
+  priceCurrency: "USD",
   highPrice: service.pricing.oneTime,
   lowPrice: service.pricing.weekly,
   offerCount: 2,
   offers: [
     {
-      '@type': 'Offer',
+      "@type": "Offer",
       name: `${service.title} — One-Time`,
       price: service.pricing.oneTime,
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
       description: `Full project delivery — ${service.timeline}`,
     },
     {
-      '@type': 'Offer',
+      "@type": "Offer",
       name: `${service.title} — Weekly Subscription`,
       price: service.pricing.weekly,
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
-      description: 'Ongoing weekly development support',
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      description: "Ongoing weekly development support",
     },
   ],
 };
 
 // BreadcrumbList JSON-LD
 const breadcrumbJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
   itemListElement: [
     {
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: 1,
-      name: 'Home',
+      name: "Home",
       item: siteData.url,
     },
     {
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: 2,
-      name: 'Services',
-      item: siteData.url + '/#services',
+      name: "Services",
+      item: siteData.url + "/services",
     },
     {
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: 3,
       name: service.title,
       item: serviceUrl,
+    },
+  ],
+};
+// FAQ JSON-LD
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: `What is included in the ${service.title} service?`,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: `This service includes ${service.deliverables.length} core deliverables: ${service.deliverables.join(", ")}. Every deliverable is production-ready and documented.`,
+      },
+    },
+    {
+      "@type": "Question",
+      name: `How long does ${service.title} take to deliver?`,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: service.timeline,
+      },
+    },
+    {
+      "@type": "Question",
+      name: `What is the pricing for ${service.title}?`,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: `One-time project delivery starts at $${service.pricing.oneTime}. Weekly ongoing support is available at $${service.pricing.weekly}/week for continuous optimization and maintenance.`,
+      },
+    },
+    {
+      "@type": "Question",
+      name: `What technologies are used in ${service.title}?`,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: `Technologies include: ${service.techStack.join(", ")}. All are production-grade, well-maintained, and chosen for long-term reliability.`,
+      },
     },
   ],
 };
@@ -90,49 +129,124 @@ const breadcrumbJsonLd = {
 <Layout
   title={`${service.title} — ${profile.name}`}
   description={service.businessOwner.summary}
-  customJsonLd={[serviceJsonLd, offerJsonLd, breadcrumbJsonLd]}
+  ogType="business.business"
+  datePublished={service.updatedAt || undefined}
+  dateModified={service.updatedAt || undefined}
+  customJsonLd={[serviceJsonLd, offerJsonLd, breadcrumbJsonLd, faqJsonLd]}
 >
   <Header />
 
   <!-- Hero -->
-  <section class="relative pt-32 pb-16 sm:pt-40 sm:pb-20 overflow-hidden dark-section noise-overlay">
+  <section
+    class="relative pt-32 pb-16 sm:pt-40 sm:pb-20 overflow-hidden dark-section noise-overlay"
+  >
     <div class="absolute inset-0 dot-pattern"></div>
-    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-600/8 rounded-full blur-[120px]"></div>
+    <div
+      class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-600/8 rounded-full blur-[120px]"
+    >
+    </div>
 
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <a href="/#services" class="inline-flex items-center gap-2 text-sm text-surface-500 hover:text-surface-300 transition-colors mb-8">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
-        </svg>
-        Back to Services
-      </a>
+      <!-- Breadcrumb -->
+      <nav class="mb-8" aria-label="Breadcrumb">
+        <ol class="flex items-center gap-2 text-sm text-surface-500">
+          <li>
+            <a href="/" class="hover:text-surface-300 transition-colors"
+              >Home</a>
+          </li>
+          <li>
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"></path></svg>
+          </li>
+          <li>
+            <a href="/services" class="hover:text-surface-300 transition-colors"
+              >Services</a>
+          </li>
+          <li>
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"></path></svg>
+          </li>
+          <li class="text-surface-300 font-medium">{service.title}</li>
+        </ol>
+      </nav>
 
       <div class="flex items-start gap-5 mb-6">
-        <div class="flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500/15 to-accent-500/15 text-3xl border border-primary-500/10">
+        <div
+          class="flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500/15 to-accent-500/15 text-3xl border border-primary-500/10"
+          role="img"
+          aria-label={service.title}
+        >
           {service.icon}
         </div>
         <div>
-          <span class="text-sm font-bold text-accent-400 tracking-widest font-mono">SERVICE {service.number}</span>
-          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-surface-100 tracking-tight mt-2">
+          <span
+            class="text-sm font-bold text-accent-400 tracking-widest font-mono"
+            >SERVICE {service.number}</span
+          >
+          <h1
+            class="text-3xl sm:text-4xl lg:text-5xl font-black text-surface-100 tracking-tight mt-2"
+            itemprop="name"
+          >
             {service.title}
           </h1>
         </div>
       </div>
 
-      <p class="text-xl text-surface-400 leading-relaxed max-w-3xl">
+      <p
+        class="text-xl text-surface-400 leading-relaxed max-w-3xl"
+        itemprop="description"
+      >
         {service.tagline}
       </p>
 
       <div class="mt-8 flex flex-wrap gap-4">
-        <div class="flex items-center gap-2 rounded-full glass-card px-4 py-2 text-sm text-surface-300">
-          <svg class="w-4 h-4 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <div
+          class="flex items-center gap-2 rounded-full glass-card px-4 py-2 text-sm text-surface-300"
+        >
+          <svg
+            class="w-4 h-4 text-accent-400"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
           {service.timeline}
         </div>
-        <div class="flex items-center gap-2 rounded-full glass-card px-4 py-2 text-sm text-surface-300">
-          <svg class="w-4 h-4 text-success-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <div
+          class="flex items-center gap-2 rounded-full glass-card px-4 py-2 text-sm text-surface-300"
+        >
+          <svg
+            class="w-4 h-4 text-success-400"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
           {service.deliverables.length} Deliverables
         </div>
@@ -141,12 +255,21 @@ const breadcrumbJsonLd = {
   </section>
 
   <!-- Content -->
-  <main class="py-16 sm:py-24" style="background: linear-gradient(180deg, #0c1220 0%, #111827 50%, #0c1220 100%);">
-    <article class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+  <main
+    class="py-16 sm:py-24"
+    style="background: linear-gradient(180deg, #0c1220 0%, #111827 50%, #0c1220 100%);"
+  >
+    <article
+      class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
+      itemscope
+      itemtype="https://schema.org/Service"
+    >
       <!-- Dual audience tabs -->
       <div class="mb-16 animate-on-scroll">
         <div x-data="{ tab: 'business' }">
-          <div class="inline-flex items-center rounded-xl glass-card p-1.5 gap-1">
+          <div
+            class="inline-flex items-center rounded-xl glass-card p-1.5 gap-1"
+          >
             <button
               @click="tab = 'business'"
               :class="tab === 'business' ? 'bg-primary-600 text-white shadow-lg shadow-primary-600/20' : 'text-surface-400 hover:text-surface-200'"
@@ -166,41 +289,81 @@ const breadcrumbJsonLd = {
           <!-- Business Content -->
           <div x-show="tab === 'business'" class="mt-8">
             <div class="glass-card rounded-2xl p-8 sm:p-10">
-              <h2 class="text-2xl font-bold text-surface-100 mb-4">What This Means for Your Business</h2>
-              <p class="text-lg text-surface-400 leading-relaxed mb-8">{service.businessOwner.summary}</p>
-              <h3 class="text-lg font-semibold text-surface-200 mb-4">Key Benefits</h3>
+              <h2 class="text-2xl font-bold text-surface-100 mb-4">
+                What This Means for Your Business
+              </h2>
+              <p class="text-lg text-surface-400 leading-relaxed mb-8">
+                {service.businessOwner.summary}
+              </p>
+              <h3 class="text-lg font-semibold text-surface-200 mb-4">
+                Key Benefits
+              </h3>
               <ul class="space-y-4">
-                {service.businessOwner.benefits.map((b) => (
-                  <li class="flex items-start gap-3">
-                    <div class="flex h-6 w-6 items-center justify-center rounded-full bg-accent-500/10 mt-0.5 shrink-0">
-                      <svg class="w-3.5 h-3.5 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <span class="text-surface-300 leading-relaxed">{b}</span>
-                  </li>
-                ))}
+                {
+                  service.businessOwner.benefits.map((b) => (
+                    <li class="flex items-start gap-3">
+                      <div class="flex h-6 w-6 items-center justify-center rounded-full bg-accent-500/10 mt-0.5 shrink-0">
+                        <svg
+                          class="w-3.5 h-3.5 text-accent-400"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      </div>
+                      <span class="text-surface-300 leading-relaxed">{b}</span>
+                    </li>
+                  ))
+                }
               </ul>
             </div>
           </div>
 
           <!-- Developer Content -->
           <div x-show="tab === 'developer'" x-cloak class="mt-8">
-            <div class="rounded-2xl bg-surface-800/50 border border-surface-600/20 p-8 sm:p-10">
-              <h2 class="text-2xl font-bold text-surface-100 mb-4">Technical Details</h2>
-              <p class="text-lg text-surface-400 leading-relaxed mb-8">{service.developer.summary}</p>
-              <h3 class="text-lg font-semibold text-surface-200 mb-4">What's Included</h3>
+            <div
+              class="rounded-2xl bg-surface-800/50 border border-surface-600/20 p-8 sm:p-10"
+            >
+              <h2 class="text-2xl font-bold text-surface-100 mb-4">
+                Technical Details
+              </h2>
+              <p class="text-lg text-surface-400 leading-relaxed mb-8">
+                {service.developer.summary}
+              </p>
+              <h3 class="text-lg font-semibold text-surface-200 mb-4">
+                What's Included
+              </h3>
               <ul class="space-y-4">
-                {service.developer.benefits.map((b) => (
-                  <li class="flex items-start gap-3">
-                    <div class="flex h-6 w-6 items-center justify-center rounded-full bg-primary-500/10 mt-0.5 shrink-0">
-                      <svg class="w-3.5 h-3.5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <span class="text-surface-300 leading-relaxed font-mono text-sm">{b}</span>
-                  </li>
-                ))}
+                {
+                  service.developer.benefits.map((b) => (
+                    <li class="flex items-start gap-3">
+                      <div class="flex h-6 w-6 items-center justify-center rounded-full bg-primary-500/10 mt-0.5 shrink-0">
+                        <svg
+                          class="w-3.5 h-3.5 text-primary-400"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      </div>
+                      <span class="text-surface-300 leading-relaxed font-mono text-sm">
+                        {b}
+                      </span>
+                    </li>
+                  ))
+                }
               </ul>
             </div>
           </div>
@@ -212,46 +375,74 @@ const breadcrumbJsonLd = {
         <!-- Deliverables -->
         <div class="lg:col-span-3 animate-on-scroll">
           <div class="glass-card rounded-2xl p-8 sm:p-10">
-            <h2 class="text-2xl font-bold text-surface-100 mb-6">What You'll Get</h2>
+            <h2 class="text-2xl font-bold text-surface-100 mb-6">
+              What You'll Get
+            </h2>
             <div class="space-y-4">
-              {service.deliverables.map((item, i) => (
-                <div class="flex items-start gap-4 p-4 rounded-xl bg-white/[0.02] border border-surface-600/10">
-                  <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-500/10 text-primary-400 text-sm font-bold shrink-0 border border-primary-500/10">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <span class="text-surface-300 font-medium pt-1">{item}</span>
-                </div>
-              ))}
+              {
+                service.deliverables.map((item, i) => (
+                  <div class="flex items-start gap-4 p-4 rounded-xl bg-white/[0.02] border border-surface-600/10">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-500/10 text-primary-400 text-sm font-bold shrink-0 border border-primary-500/10">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span class="text-surface-300 font-medium pt-1">
+                      {item}
+                    </span>
+                  </div>
+                ))
+              }
             </div>
 
             <div class="mt-8 pt-8 border-t border-surface-600/15">
-              <h3 class="text-lg font-semibold text-surface-200 mb-4">Tech Stack</h3>
+              <h3 class="text-lg font-semibold text-surface-200 mb-4">
+                Tech Stack
+              </h3>
               <div class="flex flex-wrap gap-2">
-                {service.techStack.map((tech) => (
-                  <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-surface-600/15 text-sm text-surface-300 font-mono">
-                    {tech}
-                  </span>
-                ))}
+                {
+                  service.techStack.map((tech) => (
+                    <span class="px-3 py-1.5 rounded-lg bg-white/5 border border-surface-600/15 text-sm text-surface-300 font-mono">
+                      {tech}
+                    </span>
+                  ))
+                }
               </div>
             </div>
           </div>
         </div>
 
         <!-- Pricing sidebar -->
-        <div class="lg:col-span-2 animate-on-scroll" style="transition-delay: 0.2s;">
-          <div class="sticky top-24 glass-card rounded-2xl overflow-hidden animate-glow-pulse">
-            <div class="h-0.5 bg-gradient-to-r from-primary-500 via-accent-500 to-primary-500"></div>
+        <div
+          class="lg:col-span-2 animate-on-scroll"
+          style="transition-delay: 0.2s;"
+        >
+          <div
+            class="sticky top-24 glass-card rounded-2xl overflow-hidden animate-glow-pulse"
+          >
+            <div
+              class="h-0.5 bg-gradient-to-r from-primary-500 via-accent-500 to-primary-500"
+            >
+            </div>
             <div class="p-8">
-              <h3 class="text-lg font-bold text-surface-100 mb-2">Choose Your Plan</h3>
-              <p class="text-sm text-surface-500 mb-8">Secure payment via Stripe</p>
+              <h3 class="text-lg font-bold text-surface-100 mb-2">
+                Choose Your Plan
+              </h3>
+              <p class="text-sm text-surface-500 mb-8">
+                Secure payment via Stripe
+              </p>
 
               <!-- One-time -->
-              <div class="p-6 rounded-xl bg-white/[0.03] border border-surface-600/15 mb-4">
+              <div
+                class="p-6 rounded-xl bg-white/[0.03] border border-surface-600/15 mb-4"
+              >
                 <div class="flex items-baseline gap-2 mb-1">
-                  <span class="text-3xl font-black text-surface-100">${service.pricing.oneTime}</span>
+                  <span class="text-3xl font-black text-surface-100"
+                    >${service.pricing.oneTime}</span
+                  >
                   <span class="text-surface-500 text-sm">one-time</span>
                 </div>
-                <p class="text-xs text-surface-500 mb-4">Full project delivery</p>
+                <p class="text-xs text-surface-500 mb-4">
+                  Full project delivery
+                </p>
                 <button
                   data-tos-stripe={service.payment_links.default.oneTime}
                   data-tos-service={service.title}
@@ -260,46 +451,141 @@ const breadcrumbJsonLd = {
                   class="btn-glow relative flex items-center justify-center gap-2 w-full rounded-xl bg-primary-600 px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-primary-500 cursor-pointer"
                 >
                   Pay Now
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                   </svg>
                   <!-- Hover tooltip -->
-                  <div class="tos-tooltip absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-lg bg-surface-800 border border-surface-600/30 text-xs text-surface-300 whitespace-nowrap opacity-0 pointer-events-none transition-opacity duration-200 shadow-lg">
+                  <div
+                    class="tos-tooltip absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-lg bg-surface-800 border border-surface-600/30 text-xs text-surface-300 whitespace-nowrap opacity-0 pointer-events-none transition-opacity duration-200 shadow-lg"
+                  >
                     By paying, you agree to our Terms of Service
-                    <div class="absolute top-full left-1/2 -translate-x-1/2 -mt-px w-2 h-2 bg-surface-800 border-r border-b border-surface-600/30 rotate-45"></div>
+                    <div
+                      class="absolute top-full left-1/2 -translate-x-1/2 -mt-px w-2 h-2 bg-surface-800 border-r border-b border-surface-600/30 rotate-45"
+                    >
+                    </div>
                   </div>
                 </button>
               </div>
 
               <!-- Weekly -->
-              <div class="p-6 rounded-xl bg-gradient-to-br from-accent-600/10 to-primary-600/10 border border-accent-500/15">
+              <div
+                class="p-6 rounded-xl bg-gradient-to-br from-accent-600/10 to-primary-600/10 border border-accent-500/15"
+              >
                 <div class="flex items-center gap-2 mb-1">
-                  <span class="text-3xl font-black text-surface-100">${service.pricing.weekly}</span>
+                  <span class="text-3xl font-black text-surface-100"
+                    >${service.pricing.weekly}</span
+                  >
                   <span class="text-surface-500 text-sm">/week</span>
-                  <span class="text-xs font-bold text-accent-400 bg-accent-500/10 px-2 py-0.5 rounded-full border border-accent-500/15">SAVE</span>
+                  <span
+                    class="text-xs font-bold text-accent-400 bg-accent-500/10 px-2 py-0.5 rounded-full border border-accent-500/15"
+                    >SAVE</span
+                  >
                 </div>
-                <p class="text-xs text-surface-500 mb-4">Ongoing weekly support</p>
+                <p class="text-xs text-surface-500 mb-4">
+                  Ongoing weekly support
+                </p>
                 <button
                   data-tos-stripe={service.payment_links.default.weekly}
-                  data-tos-service={service.title + ' (Weekly)'}
+                  data-tos-service={service.title + " (Weekly)"}
                   data-tos-service-id={service.id}
                   data-tos-payment-type="weekly"
                   class="btn-glow relative flex items-center justify-center gap-2 w-full rounded-xl bg-accent-600 px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-accent-500 cursor-pointer"
                 >
                   Subscribe Weekly
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                   </svg>
                   <!-- Hover tooltip -->
-                  <div class="tos-tooltip absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-lg bg-surface-800 border border-surface-600/30 text-xs text-surface-300 whitespace-nowrap opacity-0 pointer-events-none transition-opacity duration-200 shadow-lg">
+                  <div
+                    class="tos-tooltip absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-lg bg-surface-800 border border-surface-600/30 text-xs text-surface-300 whitespace-nowrap opacity-0 pointer-events-none transition-opacity duration-200 shadow-lg"
+                  >
                     By subscribing, you agree to our Terms of Service
-                    <div class="absolute top-full left-1/2 -translate-x-1/2 -mt-px w-2 h-2 bg-surface-800 border-r border-b border-surface-600/30 rotate-45"></div>
+                    <div
+                      class="absolute top-full left-1/2 -translate-x-1/2 -mt-px w-2 h-2 bg-surface-800 border-r border-b border-surface-600/30 rotate-45"
+                    >
+                    </div>
                   </div>
                 </button>
               </div>
 
               <p class="text-xs text-surface-600 text-center mt-6">
-                Powered by <span class="text-surface-400 font-medium">Stripe</span> · Secure & encrypted
+                Powered by <span class="text-surface-400 font-medium"
+                  >Stripe</span
+                > · Secure & encrypted
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="mt-16 animate-on-scroll">
+        <div class="glass-card rounded-2xl p-8 sm:p-10">
+          <h2 class="text-2xl font-bold text-surface-100 mb-8">
+            Frequently Asked Questions
+          </h2>
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-lg font-semibold text-surface-200 mb-2">
+                What is included in the {service.title} service?
+              </h3>
+              <p class="text-surface-400 leading-relaxed">
+                This service includes {service.deliverables.length} core deliverables:
+                {service.deliverables.slice(0, 3).join(", ")}, and more. A
+                complete list is provided above. Every deliverable is
+                production-ready and documented.
+              </p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-surface-200 mb-2">
+                How long does it take to deliver?
+              </h3>
+              <p class="text-surface-400 leading-relaxed">
+                {service.timeline} The initial engagement focuses on architecture
+                and core delivery, with ongoing weekly support available for optimization,
+                updates, and maintenance.
+              </p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-surface-200 mb-2">
+                What is the pricing model?
+              </h3>
+              <p class="text-surface-400 leading-relaxed">
+                You can choose a one-time project delivery (${
+                  service.pricing.oneTime
+                }) or ongoing weekly support (${service.pricing.weekly}/week).
+                The one-time fee covers the full initial build. The weekly
+                option is ideal for continuous development, monitoring, and
+                iterative improvements.
+              </p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-surface-200 mb-2">
+                What technologies are used?
+              </h3>
+              <p class="text-surface-400 leading-relaxed">
+                This service primarily uses {
+                  service.techStack.slice(0, 3).join(", ")
+                } and related tools. The full tech stack is listed above. All technologies
+                are production-grade, well-maintained, and chosen for long-term reliability.
               </p>
             </div>
           </div>
@@ -313,8 +599,17 @@ const breadcrumbJsonLd = {
           class="btn-glow inline-flex items-center gap-2 rounded-xl bg-primary-600 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-primary-500 hover:-translate-y-0.5"
         >
           Have questions? Let's talk
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
           </svg>
         </a>
       </div>

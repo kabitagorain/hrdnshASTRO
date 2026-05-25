@@ -4,49 +4,56 @@ interface Props {
   description?: string;
   ogImage?: string;
   canonicalURL?: string;
-  schemaType?: 'person' | 'service' | 'legal' | 'none';
+  ogType?: "website" | "business.business" | "profile" | "article";
+  schemaType?: "person" | "service" | "legal" | "none";
   noindex?: boolean;
   customJsonLd?: object[];
+  datePublished?: string;
+  dateModified?: string;
 }
 
-import '@styles/global.css';
-import FloatingButton from '@components/FloatingButton.astro';
-import TosConsent from '@components/TosConsent.astro';
-import HrdnshBrand from '@components/HrdnshBrand.astro';
-import { profile, siteData } from '@data/services';
-
+import "@styles/global.css";
+import FloatingButton from "@components/FloatingButton.astro";
+import TosConsent from "@components/TosConsent.astro";
+import HrdnshBrand from "@components/HrdnshBrand.astro";
+import { profile, siteData } from "@data/services";
 
 const {
   title,
   description = siteData.defaultDescription,
   ogImage = siteData.defaultOgImage,
   canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
-  schemaType = 'service',
+  ogType = "website",
+  schemaType = "service",
   noindex = false,
   customJsonLd = [],
+  datePublished = undefined,
+  dateModified = undefined,
 } = Astro.props;
 
 // Build JSON-LD based on page type
 const jsonLdBlocks: object[] = [...customJsonLd];
 
 // Person schema — for homepage, resume, and about
-if (schemaType === 'person' || schemaType === 'service') {
+if (schemaType === "person" || schemaType === "service") {
   jsonLdBlocks.push({
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    '@id': siteData.url + '#person',
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": siteData.url + "#person",
     name: profile.name,
     url: siteData.url,
     jobTitle: profile.title,
     email: profile.email,
     telephone: profile.phone,
-    image: siteData.url + '/avatar.png',
+    image: siteData.url + "/avatar.png",
     sameAs: [
       profile.upwork,
+      "https://github.com/kabitagorain",
+      "https://linkedin.com/in/haradhan-sharma",
     ],
     knowsAbout: siteData.serviceTypes,
     worksFor: {
-      '@type': 'Organization',
+      "@type": "Organization",
       name: siteData.brandName,
       url: siteData.url,
     },
@@ -54,59 +61,63 @@ if (schemaType === 'person' || schemaType === 'service') {
 }
 
 // ProfessionalService schema — for service and pricing pages
-if (schemaType === 'service') {
+if (schemaType === "service") {
   jsonLdBlocks.push({
-    '@context': 'https://schema.org',
-    '@type': 'ProfessionalService',
-    '@id': siteData.url + '#service',
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": siteData.url + "#service",
     name: siteData.siteName,
     description: siteData.defaultDescription,
     url: siteData.url,
     image: siteData.url + siteData.defaultOgImage,
     provider: {
-      '@type': 'Person',
-      '@id': siteData.url + '#person',
+      "@type": "Person",
+      "@id": siteData.url + "#person",
     },
     serviceType: siteData.serviceTypes,
-    areaServed: 'Worldwide',
+    areaServed: "Worldwide",
   });
 }
 
 // WebPage schema — for legal pages
-if (schemaType === 'legal') {
+if (schemaType === "legal") {
   jsonLdBlocks.push({
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
+    "@context": "https://schema.org",
+    "@type": "WebPage",
     name: title,
     description: description,
     url: canonicalURL,
     isPartOf: {
-      '@type': 'WebSite',
-      '@id': siteData.url + '#website',
+      "@type": "WebSite",
+      "@id": siteData.url + "#website",
     },
   });
 }
 
 // WebSite schema — emitted on homepage
-if (schemaType === 'person') {
+if (schemaType === "person") {
   jsonLdBlocks.push({
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    '@id': siteData.url + '#website',
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": siteData.url + "#website",
     name: siteData.siteName,
     url: siteData.url,
     description: siteData.defaultDescription,
     publisher: {
-      '@type': 'Person',
-      '@id': siteData.url + '#person',
+      "@type": "Person",
+      "@id": siteData.url + "#person",
     },
   });
 }
 ---
 
-
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth" x-data="{ theme: localStorage.getItem('theme') || 'dark' }" x-init="$watch('theme', v => { localStorage.setItem('theme', v); document.documentElement.classList.toggle('light', v === 'light'); }); if(theme === 'light') document.documentElement.classList.add('light')">
+<!doctype html>
+<html
+  lang="en"
+  class="scroll-smooth"
+  x-data="{ theme: localStorage.getItem('theme') || 'dark' }"
+  x-init="$watch('theme', v => { localStorage.setItem('theme', v); document.documentElement.classList.toggle('light', v === 'light'); }); if(theme === 'light') document.documentElement.classList.add('light')"
+>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -114,10 +125,23 @@ if (schemaType === 'person') {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" hreflang="en" href={canonicalURL} />
+    <link rel="alternate" hreflang="x-default" href={canonicalURL} />
 
     {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {!noindex && <meta name="robots" content="max-image-preview:large" />}
+    {
+      datePublished && (
+        <meta property="article:published_time" content={datePublished} />
+      )
+    }
+    {
+      dateModified && (
+        <meta property="article:modified_time" content={dateModified} />
+      )
+    }
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
@@ -126,6 +150,7 @@ if (schemaType === 'person') {
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:site_name" content={siteData.siteName} />
     <meta property="og:locale" content="en_US" />
+    <meta property="og:image:alt" content={title} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
@@ -133,12 +158,35 @@ if (schemaType === 'person') {
     <meta name="twitter:image" content={new URL(ogImage, Astro.site).href} />
 
     <!-- Preconnect: Fonts (high priority) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" fetchpriority="high" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin fetchpriority="high" />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+      fetchpriority="high"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+      fetchpriority="high"
+    />
     <!-- Non-blocking font load: async CSS to avoid render chain -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" /></noscript>
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      /></noscript
+    >
 
     <!-- Preconnect: Alpine.js CDN -->
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
@@ -146,7 +194,9 @@ if (schemaType === 'person') {
 
     <!-- Favicon & Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/x-icon" sizes="32x32" href="/favicon.ico" />
+    <link rel="icon" type="image/x-icon" sizes="48x48" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/avatar.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/avatar.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/avatar.png" />
 
     <!-- Web Manifest -->
@@ -157,59 +207,76 @@ if (schemaType === 'person') {
     <!-- <link rel="preload" href="/hero-bg.jpg" as="image" /> -->
 
     <!-- Sitemap link -->
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="sitemap" href="/sitemap.xml" />
 
     <!-- JSON-LD Structured Data -->
-    {jsonLdBlocks.map((block) => (
-      <script type="application/ld+json" set:html={JSON.stringify(block)} />
-    ))}
+    {
+      jsonLdBlocks.map((block) => (
+        <script type="application/ld+json" set:html={JSON.stringify(block)} />
+      ))
+    }
 
     <!-- Prevent flash of wrong theme -->
     <script is:inline>
-      if (localStorage.getItem('theme') === 'light') {
-        document.documentElement.classList.add('light');
+      if (localStorage.getItem("theme") === "light") {
+        document.documentElement.classList.add("light");
       }
     </script>
   </head>
   <body class="min-h-screen antialiased transition-colors duration-300">
     <script is:inline>
-      document.addEventListener('alpine:init', function() {
-        Alpine.store('catalogModal', { open: false, submitted: false });
+      document.addEventListener("alpine:init", function () {
+        Alpine.store("catalogModal", { open: false, submitted: false });
       });
     </script>
 
-
     <slot />
-    
+
     <FloatingButton />
     <TosConsent />
     <HrdnshBrand />
-    
+
     <script>
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              entry.target.classList.add('animate-visible');
+              entry.target.classList.add("animate-visible");
               observer.unobserve(entry.target);
             }
           });
         },
-        { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+        { threshold: 0.08, rootMargin: "0px 0px -40px 0px" },
       );
-      document.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el));
+      document
+        .querySelectorAll(".animate-on-scroll")
+        .forEach((el) => observer.observe(el));
     </script>
 
     <!-- mautic -->
     <script is:inline>
-      (function(w,d,t,u,n,a,m){w['MauticTrackingObject']=n;
-          w[n]=w[n]||function(){(w[n].q=w[n].q||[]).push(arguments)},a=d.createElement(t),
-          m=d.getElementsByTagName(t)[0];a.async=1;a.src=u;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://crm.healthforyou.nl/mtc.js','mt');
+      (function (w, d, t, u, n, a, m) {
+        w["MauticTrackingObject"] = n;
+        ((w[n] =
+          w[n] ||
+          function () {
+            (w[n].q = w[n].q || []).push(arguments);
+          }),
+          (a = d.createElement(t)),
+          (m = d.getElementsByTagName(t)[0]));
+        a.async = 1;
+        a.src = u;
+        m.parentNode.insertBefore(a, m);
+      })(
+        window,
+        document,
+        "script",
+        "https://crm.healthforyou.nl/mtc.js",
+        "mt",
+      );
 
-      mt('send', 'pageview');
+      mt("send", "pageview");
     </script>
     <!-- mautic -->
-   
   </body>
 </html>

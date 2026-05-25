@@ -3,6 +3,7 @@ export const services = [
   {
     id: "agentic-ai-rag-orchestration",
     number: "01",
+    updatedAt: "2026-03-15",
     title: "Enterprise Agentic AI & Sovereign RAG Infrastructure",
     tagline:
       "Transform corporate knowledge into a high-accuracy autonomous workforce with secure RAG pipelines.",
@@ -58,6 +59,7 @@ export const services = [
   {
     id: "openclaw-enterprise-web-gateway",
     number: "02",
+    updatedAt: "2026-03-15",
     title: "OpenClaw Enterprise AI Gateway & Model Orchestration",
     tagline:
       "Secure, web-accessible AI orchestration with multi-model routing and enterprise-grade infrastructure hardening.",
@@ -113,6 +115,7 @@ export const services = [
   {
     id: "private-ai-agent-vps",
     number: "03",
+    updatedAt: "2026-03-15",
     title: "Private AI Employee (Sovereign Self-Hosted Agents)",
     tagline:
       "Deploy a 24/7 digital workforce on your own hardware with zero recurring API costs.",
@@ -168,6 +171,7 @@ export const services = [
   {
     id: "high-concurrency-backend-optimization",
     number: "04",
+    updatedAt: "2026-03-15",
     title: "Enterprise Backend Scaling & High-Concurrency Engineering",
     tagline:
       "Eliminate bottlenecks and scale your infrastructure to 10K+ concurrent users with industrial-grade <50ms latency.",
@@ -223,6 +227,7 @@ export const services = [
   {
     id: "fullstack-modern-web-architecture",
     number: "05",
+    updatedAt: "2026-03-15",
     title: "High-Conversion Full-Stack Ecosystems & Performance Engineering",
     tagline:
       "Engineering ultra-lean, SEO-dominant web applications using Island Architecture for instant load times and maximum revenue.",
@@ -281,6 +286,7 @@ export const services = [
   {
     id: "industrial-automation-erp",
     number: "06",
+    updatedAt: "2026-03-15",
     title: "Industrial Intelligence & Custom Manufacturing ERP",
     tagline:
       "Bridging the gap between the production floor and the boardroom with real-time operational transparency.",
@@ -337,6 +343,7 @@ export const services = [
   {
     id: "erpnext-crm-deployment",
     number: "07",
+    updatedAt: "2026-03-15",
     title: "Sovereign Business OS: Open-Source ERP & CRM Implementation",
     tagline:
       "Break free from the 'Subscription Tax' with a license-free, enterprise-grade management system you own forever.",
@@ -385,6 +392,7 @@ export const services = [
   {
     id: "algorithmic-trading-fintech",
     number: "08",
+    updatedAt: "2026-03-15",
     title: "Quantitative Trading Systems & FinTech Automation",
     tagline:
       "Engineering institutional-grade algorithmic execution to extract a mathematical edge from Global Markets.",
@@ -441,6 +449,7 @@ export const services = [
   {
     id: "devops-security-hardening",
     number: "09",
+    updatedAt: "2026-03-15",
     title: "Sovereign Cloud Hardening & Zero-Downtime DevOps",
     tagline:
       "Build an unbreakable digital foundation with automated, self-healing infrastructure and zero-trust security.",
@@ -497,6 +506,7 @@ export const services = [
   {
     id: "ecommerce-reliability-maintenance",
     number: "10",
+    updatedAt: "2026-03-15",
     title: "eCommerce Revenue Protection & Technical Stewardship",
     tagline:
       "Eliminating the 'Fear of the Crash' with zero-downtime maintenance for high-growth online stores.",
@@ -554,6 +564,7 @@ export const services = [
   {
     id: "manufacturing-automation-erp",
     number: "11",
+    updatedAt: "2026-03-15",
     title: "Shop Floor Intelligence & Real-Time Production Tracking",
     tagline:
       "Eliminate production blindness with sub-second latency and industrial-grade automated reporting.",
@@ -611,6 +622,7 @@ export const services = [
   {
     id: "ecommerce-performance-hardening",
     number: "12",
+    updatedAt: "2026-03-15",
     title: "E-commerce Conversion Engineering & Edge Security Hardening",
     tagline:
       "Maximize your ROI by eliminating latency and securing your revenue stream with industrial-grade edge protection.",
@@ -822,7 +834,7 @@ export const seoData = {
 
 // Navigation links — used in Header and Footer
 export const navLinks = [
-  { label: "Services", href: "/#services" },
+  { label: "Services", href: "/services" },
   { label: "About", href: "/#about" },
   { label: "Pricing", href: "/#pricing" },
   { label: "Resume", href: "/resume" },

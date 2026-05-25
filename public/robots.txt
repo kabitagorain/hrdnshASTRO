@@ -18,4 +18,4 @@ Disallow: /
 # Note: Google-Extended and GPTBot are now ALLOWED to ensure 
 # you appear in AI-generated search summaries and recommendations.
 
-Sitemap: https://hrdnsh.com/sitemap-index.xml
+Sitemap: https://hrdnsh.com/sitemap.xml
