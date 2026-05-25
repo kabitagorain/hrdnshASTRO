@@ -22,7 +22,10 @@ const {
   title,
   description = siteData.defaultDescription,
   ogImage = siteData.defaultOgImage,
-  canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
+  canonicalURL = new URL(
+    Astro.url.pathname.replace(/\/+$/, "") || "/",
+    Astro.site,
+  ).href,
   ogType = "website",
   schemaType = "service",
   noindex = false,

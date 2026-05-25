@@ -1,0 +1,4 @@
+# Enforce no trailing slashes — redirect /path/ to /path
+# This prevents Google from seeing duplicate content at /services/ vs /services
+https://hrdnsh.com/*/*/  https://hrdnsh.com/*/*  301
+https://hrdnsh.com/*/  https://hrdnsh.com/*  301

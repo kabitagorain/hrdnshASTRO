@@ -9,6 +9,7 @@ import cloudflare from "@astrojs/cloudflare";
 export default defineConfig({
   site: "https://hrdnsh.com",
   output: "server",
+  trailingSlash: "never",
 
   server: {
     headers: {
