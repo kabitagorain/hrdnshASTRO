@@ -3,6 +3,7 @@ export const services = [
   {
     id: "agentic-ai-rag-orchestration",
     number: "01",
+    category: "AI & Automation",
     updatedAt: "2026-03-15",
     title: "Enterprise Agentic AI & Sovereign RAG Infrastructure",
     tagline:
@@ -59,6 +60,7 @@ export const services = [
   {
     id: "openclaw-enterprise-web-gateway",
     number: "02",
+    category: "AI & Automation",
     updatedAt: "2026-03-15",
     title: "OpenClaw Enterprise AI Gateway & Model Orchestration",
     tagline:
@@ -115,6 +117,7 @@ export const services = [
   {
     id: "private-ai-agent-vps",
     number: "03",
+    category: "AI & Automation",
     updatedAt: "2026-03-15",
     title: "Private AI Employee (Sovereign Self-Hosted Agents)",
     tagline:
@@ -171,6 +174,7 @@ export const services = [
   {
     id: "high-concurrency-backend-optimization",
     number: "04",
+    category: "Backend & Infrastructure",
     updatedAt: "2026-03-15",
     title: "Enterprise Backend Scaling & High-Concurrency Engineering",
     tagline:
@@ -227,6 +231,7 @@ export const services = [
   {
     id: "fullstack-modern-web-architecture",
     number: "05",
+    category: "Full-Stack Web Development",
     updatedAt: "2026-03-15",
     title: "High-Conversion Full-Stack Ecosystems & Performance Engineering",
     tagline:
@@ -286,6 +291,7 @@ export const services = [
   {
     id: "industrial-automation-erp",
     number: "06",
+    category: "Enterprise & ERP",
     updatedAt: "2026-03-15",
     title: "Industrial Intelligence & Custom Manufacturing ERP",
     tagline:
@@ -343,6 +349,7 @@ export const services = [
   {
     id: "erpnext-crm-deployment",
     number: "07",
+    category: "Enterprise & ERP",
     updatedAt: "2026-03-15",
     title: "Sovereign Business OS: Open-Source ERP & CRM Implementation",
     tagline:
@@ -392,6 +399,7 @@ export const services = [
   {
     id: "algorithmic-trading-fintech",
     number: "08",
+    category: "Financial & Trading",
     updatedAt: "2026-03-15",
     title: "Quantitative Trading Systems & FinTech Automation",
     tagline:
@@ -449,6 +457,7 @@ export const services = [
   {
     id: "devops-security-hardening",
     number: "09",
+    category: "Backend & Infrastructure",
     updatedAt: "2026-03-15",
     title: "Sovereign Cloud Hardening & Zero-Downtime DevOps",
     tagline:
@@ -506,6 +515,7 @@ export const services = [
   {
     id: "ecommerce-reliability-maintenance",
     number: "10",
+    category: "E-Commerce",
     updatedAt: "2026-03-15",
     title: "eCommerce Revenue Protection & Technical Stewardship",
     tagline:
@@ -564,6 +574,7 @@ export const services = [
   {
     id: "manufacturing-automation-erp",
     number: "11",
+    category: "Enterprise & ERP",
     updatedAt: "2026-03-15",
     title: "Shop Floor Intelligence & Real-Time Production Tracking",
     tagline:
@@ -622,6 +633,7 @@ export const services = [
   {
     id: "ecommerce-performance-hardening",
     number: "12",
+    category: "E-Commerce",
     updatedAt: "2026-03-15",
     title: "E-commerce Conversion Engineering & Edge Security Hardening",
     tagline:
