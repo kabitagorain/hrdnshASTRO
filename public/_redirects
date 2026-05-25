@@ -1,4 +1,14 @@
-# Enforce no trailing slashes — redirect /path/ to /path
-# This prevents Google from seeing duplicate content at /services/ vs /services
-https://hrdnsh.com/*/*/  https://hrdnsh.com/*/*  301
-https://hrdnsh.com/*/  https://hrdnsh.com/*  301
+# Cloudflare Workers _redirects — relative paths ONLY (no https://...)
+# These enforce canonical URL consistency to prevent duplicate content
+# when Cloudflare serves /path and /path/ as separate URLs.
+
+# Exact page redirects
+/services/ /services 301
+/resume/ /resume 301
+/recommend/ /recommend 301
+/privacy-policy/ /privacy-policy 301
+/terms-of-service/ /terms-of-service 301
+
+# Dynamic route redirects
+/services/*/ /services/:splat 301
+/payment/*/ /payment/:splat 301
