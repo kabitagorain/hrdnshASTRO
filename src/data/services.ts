@@ -849,11 +849,16 @@ export const navLinks = [
   { label: "Services", href: "/services" },
   { label: "About", href: "/#about" },
   { label: "Pricing", href: "/#pricing" },
-  { label: "Resume", href: "/resume" },
-  { label: "Recommend", href: "/recommend" },
   { label: "Contact", href: "/#contact" },
+  {
+    label: "More",
+    children: [
+      { label: "Resume", href: "/resume" },
+      { label: "Recommend", href: "/recommend" },
+      { label: "Blog", href: "https://blog.hrdnsh.com" },
+    ],
+  },
 ];
-
 // ============================================================
 // Payment Gateways
 // ============================================================
