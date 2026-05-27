@@ -140,7 +140,11 @@ if (schemaType === "person") {
     <link rel="alternate" hreflang="x-default" href={canonicalURL} />
 
     {noindex && <meta name="robots" content="noindex, nofollow" />}
-    {!noindex && <meta name="robots" content="max-image-preview:large" />}
+    {
+      !noindex && (
+        <meta name="robots" content="index, follow, max-image-preview:large" />
+      )
+    }
     {
       datePublished && (
         <meta property="article:published_time" content={datePublished} />
