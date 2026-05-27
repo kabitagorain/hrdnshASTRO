@@ -4,6 +4,7 @@
   Content-Security-Policy: default-src 'self' 'unsafe-inline' 'unsafe-eval' https:; frame-ancestors 'self' https://crm.healthforyou.nl;
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Cache-Control: public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800
 
 # Note: X-XSS-Protection is removed as it is deprecated in favor of the CSP above
 
