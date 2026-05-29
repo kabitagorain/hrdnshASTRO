@@ -5,9 +5,9 @@ export const services = [
     number: "01",
     category: "AI & Automation",
     updatedAt: "2026-03-15",
-    title: "Enterprise Agentic AI & Sovereign RAG Infrastructure",
+    title: "Enterprise Agentic AI & Sovereign RAG Infrastructure | Hrdnsh",
     tagline:
-      "Transform corporate knowledge into a high-accuracy autonomous workforce with secure RAG pipelines.",
+      "Transform corporate knowledge into a high-accuracy autonomous workforce with secure RAG pipelines. Custom AI solutions by Haradhan Sharma.",
     icon: "🧠",
     pricing: {
       oneTime: 1499, // Architecture for vector databases & agentic tool-calling
@@ -62,9 +62,9 @@ export const services = [
     number: "02",
     category: "AI & Automation",
     updatedAt: "2026-03-15",
-    title: "OpenClaw Enterprise AI Gateway & Model Orchestration",
+    title: "OpenClaw Enterprise AI Gateway & Model Orchestration | Hrdnsh",
     tagline:
-      "Secure, web-accessible AI orchestration with multi-model routing and enterprise-grade infrastructure hardening.",
+      "Secure, web-accessible AI orchestration with multi-model routing and enterprise-grade infrastructure hardening by Haradhan Sharma.",
     icon: "🤖",
     pricing: {
       oneTime: 699, // Architecture, Web UI hardening, and Model/API orchestration
@@ -119,9 +119,9 @@ export const services = [
     number: "03",
     category: "AI & Automation",
     updatedAt: "2026-03-15",
-    title: "Private AI Employee (Sovereign Self-Hosted Agents)",
+    title: "Private AI Employee (Sovereign Self-Hosted Agents) | Hrdnsh",
     tagline:
-      "Deploy a 24/7 digital workforce on your own hardware with zero recurring API costs.",
+      "Deploy a 24/7 digital workforce on your own hardware with zero recurring API costs. Expert-managed AI agents by Haradhan Sharma.",
     icon: "🤖",
     pricing: {
       oneTime: 599, // High value: eliminates monthly API taxes
@@ -176,9 +176,9 @@ export const services = [
     number: "04",
     category: "Backend & Infrastructure",
     updatedAt: "2026-03-15",
-    title: "Enterprise Backend Scaling & High-Concurrency Engineering",
+    title: "Enterprise Backend Scaling & High-Concurrency Engineering | Hrdnsh",
     tagline:
-      "Eliminate bottlenecks and scale your infrastructure to 10K+ concurrent users with industrial-grade <50ms latency.",
+      "Eliminate bottlenecks and scale your infrastructure to 10K+ concurrent users with industrial-grade <50ms latency. Optimized by Haradhan Sharma.",
     icon: "⚡",
     pricing: {
       oneTime: 899, // Premium pricing for specialized Python/Async architecture
@@ -233,9 +233,9 @@ export const services = [
     number: "05",
     category: "Full-Stack Web Development",
     updatedAt: "2026-03-15",
-    title: "High-Conversion Full-Stack Ecosystems & Performance Engineering",
+    title: "High-Conversion Full-Stack Ecosystems | Hrdnsh",
     tagline:
-      "Engineering ultra-lean, SEO-dominant web applications using Island Architecture for instant load times and maximum revenue.",
+      "Engineering ultra-lean, SEO-dominant web applications using Island Architecture. Modern web solutions by Haradhan Sharma.",
     icon: "🚀",
     pricing: {
       oneTime: 2999, // Premium pricing for specialized "Island Architecture" & SEO expertise
@@ -293,9 +293,9 @@ export const services = [
     number: "06",
     category: "Enterprise & ERP",
     updatedAt: "2026-03-15",
-    title: "Industrial Intelligence & Custom Manufacturing ERP",
+    title: "Industrial Intelligence & Custom Manufacturing ERP | Hrdnsh",
     tagline:
-      "Bridging the gap between the production floor and the boardroom with real-time operational transparency.",
+      "Bridging the gap between the production floor and the boardroom. Custom ERP software engineering by Haradhan Sharma.",
     icon: "🏭",
     pricing: {
       oneTime: 4999, // High-ROI investment in operational efficiency and waste reduction
@@ -351,9 +351,9 @@ export const services = [
     number: "07",
     category: "Enterprise & ERP",
     updatedAt: "2026-03-15",
-    title: "Sovereign Business OS: Open-Source ERP & CRM Implementation",
+    title: "Sovereign Business OS: Open-Source ERP & CRM Implementation | Hrdnsh",
     tagline:
-      "Break free from the 'Subscription Tax' with a license-free, enterprise-grade management system you own forever.",
+      "Break free from the 'Subscription Tax' with license-free enterprise software. Expert ERP implementation by Haradhan Sharma.",
     icon: "📊",
     pricing: {
       oneTime: 3999, // High value for complex Frappe/Python environments and data migration
@@ -401,9 +401,9 @@ export const services = [
     number: "08",
     category: "Financial & Trading",
     updatedAt: "2026-03-15",
-    title: "Quantitative Trading Systems & FinTech Automation",
+    title: "Quantitative Trading Systems & FinTech Automation | Hrdnsh",
     tagline:
-      "Engineering institutional-grade algorithmic execution to extract a mathematical edge from Global Markets.",
+      "Engineering institutional-grade algorithmic execution for global markets. Advanced FinTech solutions by Haradhan Sharma.",
     icon: "📈",
     pricing: {
       oneTime: 1499, // Quantitative engineering and strategy architecture
@@ -459,9 +459,9 @@ export const services = [
     number: "09",
     category: "Backend & Infrastructure",
     updatedAt: "2026-03-15",
-    title: "Sovereign Cloud Hardening & Zero-Downtime DevOps",
+    title: "Sovereign Cloud Hardening & Zero-Downtime DevOps | Hrdnsh",
     tagline:
-      "Build an unbreakable digital foundation with automated, self-healing infrastructure and zero-trust security.",
+      "Build an unbreakable digital foundation with automated, self-healing infrastructure. Expert DevOps security by Haradhan Sharma.",
     icon: "🔒",
     pricing: {
       oneTime: 699, // Architecture, Cloudflare WAF hardening, and CI/CD pipeline engineering
