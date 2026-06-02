@@ -229,7 +229,7 @@ Added `<meta name="robots" content="max-image-preview:large" />` to all indexabl
 ```javascript
 sameAs: [
   profile.upwork,
-  'https://github.com/kabitagorain',
+  'https://github.com/haradhansharma',
   'https://linkedin.com/in/haradhan-sharma',
 ],
 ```

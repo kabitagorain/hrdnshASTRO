@@ -24,7 +24,7 @@ const {
   ogImage = siteData.defaultOgImage,
   canonicalURL = new URL(
     Astro.url.pathname.replace(/\/+$/, "") || "/",
-    Astro.site,
+    Astro.site || siteData.url,
   ).href,
   ogType = "website",
   schemaType = "service",
@@ -34,24 +34,23 @@ const {
   dateModified = undefined,
 } = Astro.props;
 
-// Build JSON-LD based on page type
+// Initialize isolated Schema Graph Array
 const jsonLdBlocks: object[] = [...customJsonLd];
 
-// Person schema — for homepage, resume, and about
 if (schemaType === "person" || schemaType === "service") {
   jsonLdBlocks.push({
     "@context": "https://schema.org",
     "@type": "Person",
-    "@id": siteData.url + "#person",
+    "@id": `${siteData.url}#person`,
     name: profile.name,
     url: siteData.url,
     jobTitle: profile.title,
     email: profile.email,
     telephone: profile.phone,
-    image: siteData.url + "/avatar.png",
+    image: `${siteData.url}/avatar.png`,
     sameAs: [
       profile.upwork,
-      "https://github.com/kabitagorain",
+      "https://github.com/haradhansharma",
       "https://linkedin.com/in/haradhan-sharma",
     ],
     knowsAbout: siteData.serviceTypes,
@@ -63,26 +62,24 @@ if (schemaType === "person" || schemaType === "service") {
   });
 }
 
-// ProfessionalService schema — for service and pricing pages
 if (schemaType === "service") {
   jsonLdBlocks.push({
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "@id": siteData.url + "#service",
+    "@id": `${siteData.url}#service`,
     name: siteData.siteName,
     description: siteData.defaultDescription,
     url: siteData.url,
-    image: siteData.url + siteData.defaultOgImage,
+    image: `${siteData.url}${siteData.defaultOgImage}`,
     provider: {
       "@type": "Person",
-      "@id": siteData.url + "#person",
+      "@id": `${siteData.url}#person`,
     },
     serviceType: siteData.serviceTypes,
     areaServed: "Worldwide",
   });
 }
 
-// WebPage schema — for legal pages
 if (schemaType === "legal") {
   jsonLdBlocks.push({
     "@context": "https://schema.org",
@@ -92,23 +89,22 @@ if (schemaType === "legal") {
     url: canonicalURL,
     isPartOf: {
       "@type": "WebSite",
-      "@id": siteData.url + "#website",
+      "@id": `${siteData.url}#website`,
     },
   });
 }
 
-// WebSite schema — emitted on homepage
 if (schemaType === "person") {
   jsonLdBlocks.push({
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": siteData.url + "#website",
+    "@id": `${siteData.url}#website`,
     name: siteData.siteName,
     url: siteData.url,
     description: siteData.defaultDescription,
     publisher: {
       "@type": "Person",
-      "@id": siteData.url + "#person",
+      "@id": `${siteData.url}#person`,
     },
     potentialAction: {
       "@type": "SearchAction",
@@ -120,6 +116,9 @@ if (schemaType === "person") {
     },
   });
 }
+
+// Compute safe dynamic metadata strings
+const absoluteOgImageUrl = new URL(ogImage, Astro.site || siteData.url).href;
 ---
 
 <!doctype html>
@@ -139,12 +138,14 @@ if (schemaType === "person") {
     <link rel="alternate" hreflang="en" href={canonicalURL} />
     <link rel="alternate" hreflang="x-default" href={canonicalURL} />
 
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
     {
-      !noindex && (
+      noindex ? (
+        <meta name="robots" content="noindex, nofollow" />
+      ) : (
         <meta name="robots" content="index, follow, max-image-preview:large" />
       )
     }
+
     {
       datePublished && (
         <meta property="article:published_time" content={datePublished} />
@@ -159,7 +160,7 @@ if (schemaType === "person") {
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
+    <meta property="og:image" content={absoluteOgImageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:url" content={canonicalURL} />
@@ -167,12 +168,16 @@ if (schemaType === "person") {
     <meta property="og:locale" content="en_US" />
     <meta property="og:image:alt" content={title} />
 
+    <meta property="profile:first_name" content="Haradhan" />
+    <meta property="profile:last_name" content="Sharma" />
+    <meta property="profile:username" content="haradhansharma" />
+
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL(ogImage, Astro.site).href} />
+    <meta name="twitter:image" content={absoluteOgImageUrl} />
 
-    <!-- Preconnect: Fonts (high priority) -->
+    <!-- Performance Optimization: Core Font Pre-connections -->
     <link
       rel="preconnect"
       href="https://fonts.googleapis.com"
@@ -184,7 +189,7 @@ if (schemaType === "person") {
       crossorigin
       fetchpriority="high"
     />
-    <!-- Non-blocking font load: async CSS to avoid render chain -->
+
     <link
       rel="preload"
       as="style"
@@ -196,42 +201,34 @@ if (schemaType === "person") {
       media="print"
       onload="this.media='all'"
     />
-    <noscript
-      ><link
+    <noscript>
+      <link
         rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
-      /></noscript
-    >
+      />
+    </noscript>
 
-    <!-- Preconnect: Alpine.js CDN -->
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 
-    <!-- Favicon & Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/x-icon" sizes="48x48" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/avatar.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/avatar.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/avatar.png" />
 
-    <!-- Web Manifest -->
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#0a0e1a" />
-
-    <!-- Preload hero background (above the fold) -->
-    <!-- <link rel="preload" href="/hero-bg.jpg" as="image" /> -->
-
-    <!-- Sitemap link -->
     <link rel="sitemap" href="/sitemap.xml" />
 
-    <!-- JSON-LD Structured Data -->
+    <!-- Emit structural data graphs -->
     {
       jsonLdBlocks.map((block) => (
         <script type="application/ld+json" set:html={JSON.stringify(block)} />
       ))
     }
 
-    <!-- Prevent flash of wrong theme -->
+    <!-- Inline script to prevent layout theme flash -->
     <script is:inline>
       if (localStorage.getItem("theme") === "light") {
         document.documentElement.classList.add("light");
@@ -251,6 +248,7 @@ if (schemaType === "person") {
     <TosConsent />
     <HrdnshBrand />
 
+    <!-- Core Interactive Animation Observers -->
     <script>
       const observer = new IntersectionObserver(
         (entries) => {
@@ -267,31 +265,5 @@ if (schemaType === "person") {
         .querySelectorAll(".animate-on-scroll")
         .forEach((el) => observer.observe(el));
     </script>
-
-    <!-- mautic -->
-    <script is:inline>
-      (function (w, d, t, u, n, a, m) {
-        w["MauticTrackingObject"] = n;
-        ((w[n] =
-          w[n] ||
-          function () {
-            (w[n].q = w[n].q || []).push(arguments);
-          }),
-          (a = d.createElement(t)),
-          (m = d.getElementsByTagName(t)[0]));
-        a.async = 1;
-        a.src = u;
-        m.parentNode.insertBefore(a, m);
-      })(
-        window,
-        document,
-        "script",
-        "https://crm.healthforyou.nl/mtc.js",
-        "mt",
-      );
-
-      mt("send", "pageview");
-    </script>
-    <!-- mautic -->
   </body>
 </html>

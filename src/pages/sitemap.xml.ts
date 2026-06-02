@@ -1,8 +1,12 @@
 import type { APIRoute } from "astro";
-import { services, profile, siteData } from "../data/services";
+import { services, siteData } from "../data/services";
 
 export const GET: APIRoute = async ({ site }) => {
-  if (!site) return new Response("Missing site config", { status: 500 });
+  // Graceful fallback to static siteData structure if site context is missing
+  const baseSiteUrl = site ? site.href : siteData.url;
+  if (!baseSiteUrl) {
+    return new Response("Missing base site configuration URL", { status: 500 });
+  }
 
   const today = new Date().toISOString().split("T")[0];
 
@@ -10,7 +14,7 @@ export const GET: APIRoute = async ({ site }) => {
     url: string;
     lastmod: string;
     priority: number;
-    changefreq: string;
+    changefreq: "daily" | "weekly" | "monthly" | "yearly";
   }
 
   const pages: SitemapEntry[] = [
@@ -32,11 +36,19 @@ export const GET: APIRoute = async ({ site }) => {
     },
   ];
 
-  // Add all service pages with their individual lastmod dates
-  for (const s of services) {
+  // Process dynamic service offerings natively
+  for (const service of services) {
+    // Ensure accurate string formatting for custom timestamps
+    let serviceDate = today;
+    if (service.updatedAt) {
+      serviceDate = service.updatedAt.includes("T")
+        ? service.updatedAt.split("T")[0]
+        : service.updatedAt;
+    }
+
     pages.push({
-      url: `/services/${s.id}`,
-      lastmod: s.updatedAt || today,
+      url: `/services/${service.id}`,
+      lastmod: serviceDate,
       priority: 0.8,
       changefreq: "weekly",
     });
@@ -45,18 +57,22 @@ export const GET: APIRoute = async ({ site }) => {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${pages
-  .map(
-    (p) => `  <url>
-    <loc>${new URL(p.url, site).href}</loc>
+  .map((p) => {
+    const targetUrl = new URL(p.url, baseSiteUrl).href.replace(/\/+$/, "");
+    return `  <url>
+    <loc>${targetUrl}</loc>
     <lastmod>${p.lastmod}</lastmod>
     <changefreq>${p.changefreq}</changefreq>
-    <priority>${p.priority}</priority>
-  </url>`,
-  )
+    <priority>${p.priority.toFixed(1)}</priority>
+  </url>`;
+  })
   .join("\n")}
 </urlset>`;
 
   return new Response(xml.trim(), {
-    headers: { "Content-Type": "application/xml; charset=utf-8" },
+    headers: {
+      "Content-Type": "application/xml; charset=utf-8",
+      "X-Content-Type-Options": "nosniff",
+    },
   });
 };
