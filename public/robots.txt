@@ -1,21 +1,4 @@
-# Allow search engines and AI discovery bots to index the site for recommendations
 User-agent: *
 Allow: /
-
-# Block aggressive scrapers and purely training-focused bots
-User-agent: Bytespider
-Disallow: /
-
-User-agent: CCBot
-Disallow: /
-
-User-agent: FacebookBot
-Disallow: /
-
-User-agent: Amazonbot
-Disallow: /
-
-# Note: Google-Extended and GPTBot are now ALLOWED to ensure 
-# you appear in AI-generated search summaries and recommendations.
 
 Sitemap: https://hrdnsh.com/sitemap.xml
