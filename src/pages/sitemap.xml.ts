@@ -1,3 +1,6 @@
+// Force static generation for sitemap - critical for SEO discovery
+export const prerender = true;
+
 import type { APIRoute } from "astro";
 import { services, siteData } from "../data/services";
 

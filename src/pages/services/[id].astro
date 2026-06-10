@@ -1,11 +1,21 @@
 ---
+// Generate all service pages at build time for optimal SEO indexing
+export const prerender = true;
+
 import Layout from "@layouts/Layout.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import Contact from "@components/Contact.astro";
 import { services, profile, siteData } from "@data/services";
 
-// ── SSR: Resolve service from URL param (no getStaticPaths needed) ──
+// Generate static paths for all services (critical for Google indexing)
+export function getStaticPaths() {
+  return services.map((service) => ({
+    params: { id: service.id },
+    props: { serviceId: service.id },
+  }));
+}
+
 const { id } = Astro.params;
 const service = services.find((s) => s.id === id);
 
