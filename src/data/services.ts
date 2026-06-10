@@ -592,7 +592,7 @@ export const services = [
     },
     businessOwner: {
       summary:
-        "If you're relying on spreadsheets to track your production, you're operating with a blind spot. By the time a mistake is recorded in a log, the revenue is already lost. I build high-speed, industrial ERP modules that give you an 'Operational Truth' in real-time. From the moment raw material hits the floor to the second the final product is dispatched, you get a God-eye view of your factory with instant alerts that stop bottlenecks before they kill your margin.",
+        "If you're relying on spreadsheets to track your production, you're operating with a blind spot. By the time a mistake is recorded in a log, the revenue is already lost. I build high-speed, industrial ERP modules that give you an 'Operational Truth' in real-time. From the moment raw material hits the floor to the second the final product is dispatched, you get complete command-center visibility of your factory with instant alerts that stop bottlenecks before they kill your margin.",
       benefits: [
         "End the Spreadsheet Nightmare: Replace manual logs with automated Barcode and IoT tracking for 100% data accuracy",
         "Instant Bottleneck Awareness: Receive real-time alerts the moment a production line slows down, allowing you to pivot instantly",
@@ -894,7 +894,7 @@ export const commonTechStack = [
 // Site-wide data — single source of truth for brand, contact, and URLs
 export const siteData = {
   siteName: `${profile.fname} ${profile.lname}${profile.apndx} Services`,
-  brandName: "hrdnsh",
+  brandName: "HRDNSH",
   url: profile.url,
   email: profile.email,
   phone: profile.phone,
