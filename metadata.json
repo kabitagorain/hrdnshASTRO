@@ -1,0 +1,8 @@
+{
+  "name": "Developer Portfolio & AI Services",
+  "description": "High-performance personal brand and portfolio ecosystem for full-stack development and AI automation services.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
