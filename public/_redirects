@@ -1,18 +1,2 @@
-# Cloudflare Workers _redirects — relative paths ONLY (no https://...)
-# These enforce canonical URL consistency to prevent duplicate content
-# when Cloudflare serves /path and /path/ as separate URLs.
-
-# Exact page redirects
-/services/ /services 301
-/resume/ /resume 301
-/recommend/ /recommend 301
-/privacy-policy/ /privacy-policy 301
-/terms-of-service/ /terms-of-service 301
-
-# Dynamic route redirects
-/services/*/ /services/:splat 301
-/payment/*/ /payment/:splat 301
-
-# Standard SPA wildcard fallback to serve index.html for all other routes
+# Standard SPA wildcard fallback to serve index.html for all client-side routes
 /* /index.html 200
-
