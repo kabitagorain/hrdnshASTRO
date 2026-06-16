@@ -9,3 +9,8 @@ coverage/
 reference-repo/
 developer-portfolio-&-ai-services.zip
 assets/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
