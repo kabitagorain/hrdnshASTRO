@@ -19,8 +19,6 @@ interface InvoicingPortalProps {
 }
 
 export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) {
-  const ADMIN_EMAIL = (import.meta as any).env.VITE_ADMIN_EMAIL || 'npa.hanging@gmail.com';
-
   // Navigation wizard state
   const [step, setStep] = useState(1);
 
@@ -73,6 +71,24 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
   const [isSyncingInvoices, setIsSyncingInvoices] = useState(false);
   const [syncTriggered, setSyncTriggered] = useState(false);
   const [sheetsError, setSheetsError] = useState<string | null>(null);
+
+  const ADMIN_EMAILS = useMemo(() => {
+    const rawEmails = (import.meta as any).env.VITE_ADMIN_EMAIL || '';
+    const emailList = rawEmails.split(',').map((e: string) => e.trim().toLowerCase()).filter(Boolean);
+    // Explicitly authorize both developers/admins as robust defaults
+    if (!emailList.includes('npa.hanging@gmail.com')) {
+      emailList.push('npa.hanging@gmail.com');
+    }
+    if (!emailList.includes('kabitagorain6@gmail.com')) {
+      emailList.push('kabitagorain6@gmail.com');
+    }
+    return emailList;
+  }, []);
+
+  const isUserAdmin = useMemo(() => {
+    if (!googleUser || !googleUser.email) return false;
+    return ADMIN_EMAILS.includes(googleUser.email.toLowerCase());
+  }, [googleUser, ADMIN_EMAILS]);
 
   const invoiceNumber = useMemo(() => {
     return `INV-DIRECT-${Math.floor(1000 + Math.random() * 9000)}`;
@@ -1343,7 +1359,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
         /* CRM WORKSPACE & GOOGLE SHEETS INTERACTIVE SETUP */
         <div className="space-y-8 animate-fadeIn" id="crm-sheets-workspace">
           
-          {(!googleUser || googleUser.email !== ADMIN_EMAIL) ? (
+          {(!googleUser || !isUserAdmin) ? (
             <div className="rounded-sm border border-white/5 bg-[#0a0a0a] p-8 text-center max-w-sm mx-auto space-y-6 my-12 shadow-2xl">
               <div className="mx-auto h-12 w-12 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center">
                 <ShieldCheck className="h-6 w-6" />
@@ -1355,10 +1371,10 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                 </p>
               </div>
 
-              {googleUser && googleUser.email !== ADMIN_EMAIL && (
+              {googleUser && !isUserAdmin && (
                 <div className="p-3.5 bg-rose-500/5 border border-rose-500/10 rounded font-mono text-[10px] text-rose-400 leading-normal text-left">
                   <span className="text-[#808080]">Current email:</span> <span className="font-bold text-white break-all">{googleUser.email}</span>
-                  <div className="mt-1.5 text-zinc-500 text-[9px] leading-snug">Only <span className="text-amber-300 font-bold">{ADMIN_EMAIL}</span> is authorized to access this administration registry.</div>
+                  <div className="mt-1.5 text-zinc-500 text-[9px] leading-snug">Only authorized administrators are allowed to access this registry (Authorized: <span className="text-amber-300 font-bold">{ADMIN_EMAILS.join(', ')}</span>).</div>
                 </div>
               )}
 
