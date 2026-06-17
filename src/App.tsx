@@ -18,7 +18,7 @@ import TermsOfService from './components/TermsOfService';
 import PrivacyPolicy from './components/PrivacyPolicy';
 
 // Site Data
-import { testimonials, siteData, profile } from './data/services';
+import { testimonials, siteData, profile, services } from './data/services';
 import { translations } from './data/translations';
 
 export default function App() {
@@ -105,20 +105,200 @@ export default function App() {
     }
   }, [currentView, selectedServiceId]);
 
-  // Sync language attribute and HTML / header tags for multi-lingual SEO compliance
+  // Dynamic Head SEO, canonical link, Open Graph, Twitter Card, and JSON-LD structured schema generator
   useEffect(() => {
     document.documentElement.setAttribute('lang', locale);
     const t = translations[locale] || translations.en;
-    
-    // Dynamic tab header metadata update
-    document.title = `${profile.name} | ${t.heroBadge}`;
-    
-    // SEO description update standard spider accessibility compliance
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute('content', t.heroTagline);
+
+    // 1. Dynamic document titles and descriptions
+    let titleStr = `${profile.name} | ${t.heroBadge}`;
+    let descStr = t.heroTagline;
+    let canonicalUrl = 'https://hrdnsh.com';
+
+    if (currentView === 'service-detail' && selectedServiceId) {
+      const matched = services.find(s => s.id === selectedServiceId);
+      if (matched) {
+        titleStr = `${matched.title} | ${profile.name} Consulting`;
+        descStr = matched.tagline || matched.businessOwner.summary;
+        canonicalUrl = `https://hrdnsh.com/?view=service-detail&service=${selectedServiceId}`;
+      }
+    } else if (currentView === 'resume') {
+      titleStr = `Official Resume & Tech Stack | ${profile.name}`;
+      descStr = `Comprehensive background on Python Async Optimizations, Cloud migrations, autonomous RAG stacks, and modern SRE of Haradhan Sharma.`;
+      canonicalUrl = 'https://hrdnsh.com/?view=resume';
+    } else if (currentView === 'recommend') {
+      titleStr = `Recommended Infrastructure & Tools | ${profile.name}`;
+      descStr = `Highly curated hosting recommendation, cloud servers, local database solutions, and domain providers utilized by Haradhan Sharma.`;
+      canonicalUrl = 'https://hrdnsh.com/?view=recommend';
+    } else if (currentView === 'consultation') {
+      titleStr = `Book an SLA Deployment Consultation | ${profile.name}`;
+      descStr = `Schedule a direct enterprise scope-definition meeting or urgent virtual deployment brief with Haradhan Sharma.`;
+      canonicalUrl = 'https://hrdnsh.com/?view=consultation';
+    } else if (currentView === 'billing-portal' || currentView === 'payment') {
+      titleStr = `Invoicing & Payment Portal | ${profile.name}`;
+      descStr = `Secure client-side escrow checkouts and payment reconciliations for custom system developments.`;
+      canonicalUrl = `https://hrdnsh.com/?view=${currentView}`;
+    } else if (currentView === 'terms') {
+      titleStr = `Terms of Service & Licensing | ${profile.name}`;
+      descStr = `Governance terms, container resource ownership models, cloud SLA guarantees, and dispute resolutions.`;
+      canonicalUrl = 'https://hrdnsh.com/?view=terms';
+    } else if (currentView === 'privacy') {
+      titleStr = `Privacy Protection Standard | ${profile.name}`;
+      descStr = `Information detailing diagnostic logging frameworks, contact caches, real-time calendars, and zero-monetization storage buffers.`;
+      canonicalUrl = 'https://hrdnsh.com/?view=privacy';
     }
-  }, [locale]);
+
+    // Set Document title
+    document.title = titleStr;
+
+    // Helper functions to update meta element
+    const updateMeta = (key: string, value: string, isProperty = false) => {
+      const attr = isProperty ? 'property' : 'name';
+      let el = document.querySelector(`meta[${attr}="${key}"]`);
+      if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute(attr, key);
+        document.head.appendChild(el);
+      }
+      el.setAttribute('content', value);
+    };
+
+    // Update Meta and Open Graph details to solve critical issues #3, #4 and #5
+    updateMeta('description', descStr);
+    
+    // Open Graph
+    updateMeta('og:title', titleStr, true);
+    updateMeta('og:description', descStr, true);
+    updateMeta('og:url', canonicalUrl, true);
+    updateMeta('og:image', 'https://hrdnsh.com/og-image.jpg', true);
+    updateMeta('og:type', currentView === 'service-detail' ? 'article' : 'website', true);
+
+    // Twitter Card
+    updateMeta('twitter:title', titleStr);
+    updateMeta('twitter:description', descStr);
+    updateMeta('twitter:image', 'https://hrdnsh.com/og-image.jpg');
+
+    // Update Canonical URL relation link tag
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+      canonicalLink = document.createElement('link');
+      canonicalLink.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute('href', canonicalUrl);
+
+    // 2. JSON-LD structured data graph array setup (Person + local ProfessionalService + FAQ + Service)
+    const basePersonSchema = {
+      "@type": "Person",
+      "@id": "https://hrdnsh.com/#person",
+      "name": profile.name,
+      "jobTitle": "Sovereign Systems Architect & AI Automation Specialist",
+      "url": "https://hrdnsh.com",
+      "image": "https://hrdnsh.com/avatar.png",
+      "sameAs": [
+        "https://github.com/hrdnsh"
+      ],
+      "knowsAbout": [
+        "Sovereign Systems Architect", "AI Agents", "Enterprise RAG", "Python Async Developer", "low-latency ERP", "Cloud Migration", "DevOps", "SRE"
+      ]
+    };
+
+    const baseServiceSchema = {
+      "@type": "ProfessionalService",
+      "@id": "https://hrdnsh.com/#service",
+      "name": "Haradhan Sharma Sovereign Systems Consulting",
+      "url": "https://hrdnsh.com",
+      "logo": "https://hrdnsh.com/avatar.png",
+      "image": "https://hrdnsh.com/og-image.jpg",
+      "description": "Sovereign Systems Architect specializing in production-grade AI agents, RAG pipelines, low-latency ERP implementations, and high-performance server migrations.",
+      "telephone": "+8801712270815",
+      "priceRange": "$$$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "BD"
+      },
+      "founder": {
+        "@type": "Person",
+        "@id": "https://hrdnsh.com/#person"
+      }
+    };
+
+    const faqSchema = {
+      "@type": "FAQPage",
+      "@id": "https://hrdnsh.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do I own 100% of the completed service code?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, absolutely. Once final invoices are settled, the entire private GitHub repository, Docker blueprints, and administrator keys are fully transferred. There are zero licensing, royalty, or hosting restrictions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How are APIs and server resource billing managed?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "All underlying resource costs (e.g., Contabo, Hetzner, DO VPS nodes, OpenAI API keys) are billed directly to your corporate accounts. I assist in setting up strict usage locks, semantic caching layers, and token compression to prevent runaway operational bills."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if the system encounters a bug after launch?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every single architectural deployment includes an automatic 30-day performance warranty. During this window, any configuration deviations, memory leaks, or execution failures are resolved instantly as priority items. Ongoing weekly Retainers extend this protective SLA infinitely."
+          }
+        }
+      ]
+    };
+
+    const graphArray: any[] = [basePersonSchema, baseServiceSchema];
+
+    // Add FAQ page schema on homepage structure
+    if (currentView === 'home') {
+      graphArray.push(faqSchema);
+    }
+
+    // Add detail card service schema on active individual service views
+    if (currentView === 'service-detail' && selectedServiceId) {
+      const matched = services.find(s => s.id === selectedServiceId);
+      if (matched) {
+        graphArray.push({
+          "@type": "Service",
+          "@id": `https://hrdnsh.com/?view=service-detail&service=${matched.id}#service`,
+          "name": matched.title,
+          "description": matched.tagline || matched.businessOwner.summary,
+          "provider": {
+            "@type": "Person",
+            "@id": "https://hrdnsh.com/#person"
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": matched.pricing.oneTime,
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": `https://hrdnsh.com/?view=service-detail&service=${matched.id}`
+          }
+        });
+      }
+    }
+
+    // Dynamic JSON-LD script mounting
+    let script = document.getElementById('json-ld-seo-tag') as HTMLScriptElement;
+    if (!script) {
+      script = document.createElement('script');
+      script.id = 'json-ld-seo-tag';
+      script.type = 'application/ld+json';
+      document.head.appendChild(script);
+    }
+    script.text = JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": graphArray
+    }, null, 2);
+
+  }, [locale, currentView, selectedServiceId]);
 
   // Scroll to top on view modification
   useEffect(() => {
