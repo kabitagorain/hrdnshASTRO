@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
 
+# Disallow noindex pages
+Disallow: /?view=terms
+Disallow: /?view=privacy
+
+# Sitemap
 Sitemap: https://hrdnsh.com/sitemap.xml

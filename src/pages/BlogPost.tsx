@@ -22,7 +22,7 @@ export default function BlogPostPage({ slug, onNavigate }: BlogPostProps) {
       publisher: { "@type": "Person", name: `${profile.fname} ${profile.lname}`, url: siteData.url },
       datePublished: "2026-06-22",
       dateModified: "2026-06-22",
-      mainEntityOfPage: { "@type": "WebPage", "@id": `${siteData.url}/blog/${post.slug}` },
+      mainEntityOfPage: { "@type": "WebPage", "@id": `${siteData.url}/?view=blog-post&slug=${post.slug}` },
     };
     let script = document.getElementById('json-ld-blog-post') as HTMLScriptElement;
     if (!script) {

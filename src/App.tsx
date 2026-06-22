@@ -200,7 +200,18 @@ export default function App() {
     updateMeta('og:description', descStr, true);
     updateMeta('og:url', canonicalUrl, true);
     updateMeta('og:image', 'https://hrdnsh.com/og-image.jpg', true);
-    updateMeta('og:type', currentView === 'service-detail' ? 'article' : 'website', true);
+    updateMeta('og:type', currentView === 'service-detail' || currentView === 'blog-post' ? 'article' : 'website', true);
+    updateMeta('og:locale', locale === 'en' ? 'en_US' : locale === 'de' ? 'de_DE' : locale === 'bn' ? 'bn_BD' : 'es_ES', true);
+    // og:locale:alternate — remove old alternates, then add current ones
+    document.querySelectorAll('meta[property="og:locale:alternate"]').forEach(el => el.remove());
+    const localeMap: Record<string, string> = { en: 'en_US', de: 'de_DE', bn: 'bn_BD', es: 'es_ES' };
+    const currentFull = localeMap[locale] || 'en_US';
+    ['en_US', 'de_DE', 'bn_BD', 'es_ES'].filter(l => l !== currentFull).forEach(alt => {
+      const el = document.createElement('meta');
+      el.setAttribute('property', 'og:locale:alternate');
+      el.setAttribute('content', alt);
+      document.head.appendChild(el);
+    });
 
     // Twitter Card
     updateMeta('twitter:title', titleStr);
@@ -226,7 +237,7 @@ export default function App() {
         link.setAttribute('hreflang', hl);
         document.head.appendChild(link);
       }
-      link.setAttribute('href', `https://hrdnsh.com/${hl === 'en' ? '' : hl + '/'}?view=${currentView}${selectedServiceId ? '&service=' + selectedServiceId : ''}`);
+      link.setAttribute('href', `https://hrdnsh.com/${hl === 'en' ? '' : hl + '/'}${currentView === 'home' ? '' : '?view=' + currentView}${currentView !== 'home' && selectedServiceId ? '&service=' + selectedServiceId : ''}`);
     });
     // x-default
     let xDefault = document.querySelector('link[rel="alternate"][hreflang="x-default"]');
@@ -236,7 +247,7 @@ export default function App() {
       xDefault.setAttribute('hreflang', 'x-default');
       document.head.appendChild(xDefault);
     }
-    xDefault.setAttribute('href', `https://hrdnsh.com/?view=${currentView}${selectedServiceId ? '&service=' + selectedServiceId : ''}`);
+    xDefault.setAttribute('href', `https://hrdnsh.com/${currentView === 'home' ? '' : '?view=' + currentView}${currentView !== 'home' && selectedServiceId ? '&service=' + selectedServiceId : ''}`);
 
     // 2. JSON-LD structured data graph array setup (Person + local ProfessionalService + FAQ + Service)
     const basePersonSchema = {
