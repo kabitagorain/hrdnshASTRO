@@ -45,37 +45,52 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
   const [msgText, setMsgText] = useState('');
   const [msgSuccess, setMsgSuccess] = useState(false);
 
-  // 1. Initial Load Deep Link Param Sync
+  // 1. Initial Load Deep Link Param Sync — supports both clean paths and ?view= query params
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const viewParam = params.get('view');
-    const serviceParam = params.get('service');
-    const slugParam = params.get('slug');
-
-    if (viewParam) {
-      if (viewParam === 'service-detail' && serviceParam) {
-        setCurrentView('service-detail');
-        setSelectedServiceId(serviceParam);
-      } else if (viewParam === 'blog-post' && slugParam) {
-        setCurrentView('blog-post');
-        setSelectedBlogPostSlug(slugParam);
-      } else if (['home', 'resume', 'recommend', 'consultation', 'billing-portal', 'invoicing', 'terms', 'privacy', 'blog'].includes(viewParam)) {
-        setCurrentView(viewParam === 'invoicing' ? 'billing-portal' : viewParam);
+    const url = new URL(window.location.href);
+    // Check for clean path first
+    const pathInfo = pathToView(url.pathname);
+    if (pathInfo.view !== 'home') {
+      setCurrentView(pathInfo.view);
+      setSelectedServiceId(pathInfo.serviceId);
+      setSelectedBlogPostSlug(pathInfo.slug);
+    } else {
+      // Fallback to query params for backward compatibility
+      const viewParam = url.searchParams.get('view');
+      const serviceParam = url.searchParams.get('service');
+      const slugParam = url.searchParams.get('slug');
+      if (viewParam) {
+        if (viewParam === 'service-detail' && serviceParam) {
+          setCurrentView('service-detail');
+          setSelectedServiceId(serviceParam);
+        } else if (viewParam === 'blog-post' && slugParam) {
+          setCurrentView('blog-post');
+          setSelectedBlogPostSlug(slugParam);
+        } else if (['home', 'resume', 'recommend', 'consultation', 'billing-portal', 'invoicing', 'terms', 'privacy', 'blog'].includes(viewParam)) {
+          setCurrentView(viewParam === 'invoicing' ? 'billing-portal' : viewParam);
+        }
       }
     }
   }, []);
 
-  // 2. Browser PopState State Synchronizer (History Back/Forward Support)
+  // 2. Browser PopState State Synchronizer — supports clean paths and query params
   useEffect(() => {
     const handlePopState = () => {
-      const params = new URLSearchParams(window.location.search);
-      const viewParam = params.get('view') || 'home';
-      const serviceParam = params.get('service');
-      const slugParam = params.get('slug');
-      
-      setCurrentView(viewParam === 'invoicing' ? 'billing-portal' : viewParam);
-      setSelectedServiceId(serviceParam || null);
-      setSelectedBlogPostSlug(slugParam || null);
+      const url = new URL(window.location.href);
+      const pathInfo = pathToView(url.pathname);
+      if (pathInfo.view !== 'home') {
+        setCurrentView(pathInfo.view);
+        setSelectedServiceId(pathInfo.serviceId);
+        setSelectedBlogPostSlug(pathInfo.slug);
+      } else {
+        // Fallback to query params
+        const viewParam = url.searchParams.get('view') || 'home';
+        const serviceParam = url.searchParams.get('service');
+        const slugParam = url.searchParams.get('slug');
+        setCurrentView(viewParam === 'invoicing' ? 'billing-portal' : viewParam);
+        setSelectedServiceId(serviceParam || null);
+        setSelectedBlogPostSlug(slugParam || null);
+      }
     };
 
     window.addEventListener('popstate', handlePopState);
@@ -99,33 +114,11 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
     }
   }, [currentView]);
 
-  // 3. Active Change pushing to History State for SEO accessibility and direct sharing
+  // 3. Active Change pushing to History State — clean URLs for SEO
   useEffect(() => {
-    const url = new URL(window.location.href);
-    const prevView = url.searchParams.get('view');
-    const prevService = url.searchParams.get('service');
-    const prevSlug = url.searchParams.get('slug');
-    
-    if (currentView === 'home') {
-      url.searchParams.delete('view');
-      url.searchParams.delete('service');
-      url.searchParams.delete('slug');
-    } else {
-      url.searchParams.set('view', currentView);
-      if (currentView === 'service-detail' && selectedServiceId) {
-        url.searchParams.set('service', selectedServiceId);
-      } else {
-        url.searchParams.delete('service');
-      }
-      if (currentView === 'blog-post' && selectedBlogPostSlug) {
-        url.searchParams.set('slug', selectedBlogPostSlug);
-      } else {
-        url.searchParams.delete('slug');
-      }
-    }
-
-    if (url.searchParams.get('view') !== prevView || url.searchParams.get('service') !== prevService || url.searchParams.get('slug') !== prevSlug) {
-      window.history.pushState(null, '', url.pathname + url.search);
+    const currentPath = viewToPath(currentView, selectedServiceId, selectedBlogPostSlug);
+    if (window.location.pathname !== currentPath) {
+      window.history.pushState(null, '', currentPath);
     }
   }, [currentView, selectedServiceId, selectedBlogPostSlug]);
 
@@ -144,35 +137,35 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
       if (matched) {
         titleStr = `${matched.title} | ${profile.name} Consulting`;
         descStr = matched.tagline || matched.businessOwner.summary;
-        canonicalUrl = `https://hrdnsh.com/?view=service-detail&service=${selectedServiceId}`;
+        canonicalUrl = `https://hrdnsh.com/services/${selectedServiceId}/`;
       }
     } else if (currentView === 'resume') {
       titleStr = `Official Resume & Tech Stack | ${profile.name}`;
       descStr = `Comprehensive background on Python Async Optimizations, Cloud migrations, autonomous RAG stacks, and modern SRE of Haradhan Sharma.`;
-      canonicalUrl = 'https://hrdnsh.com/?view=resume';
+      canonicalUrl = 'https://hrdnsh.com/resume/';
     } else if (currentView === 'recommend') {
       titleStr = `Recommended Infrastructure & Tools | ${profile.name}`;
       descStr = `Highly curated hosting recommendation, cloud servers, local database solutions, and domain providers utilized by Haradhan Sharma.`;
-      canonicalUrl = 'https://hrdnsh.com/?view=recommend';
+      canonicalUrl = 'https://hrdnsh.com/recommend/';
     } else if (currentView === 'blog') {
       titleStr = `Blog — AI, ERP & Infrastructure Articles | ${profile.name}`;
       descStr = `In-depth technical articles on Sovereign AI, private RAG systems, ERPNext, Odoo, LLM self-hosting, and AI automation for businesses.`;
-      canonicalUrl = 'https://hrdnsh.com/?view=blog';
+      canonicalUrl = 'https://hrdnsh.com/blog/';
     } else if (currentView === 'blog-post' && selectedBlogPostSlug) {
       const foundPost = blogPosts.find(p => p.slug === selectedBlogPostSlug);
       if (foundPost) {
         titleStr = `${foundPost.title} | ${profile.name}`;
         descStr = foundPost.description;
-        canonicalUrl = `https://hrdnsh.com/?view=blog-post&slug=${selectedBlogPostSlug}`;
+        canonicalUrl = `https://hrdnsh.com/blog/${selectedBlogPostSlug}/`;
       }
     } else if (currentView === 'consultation') {
       titleStr = `Book an SLA Deployment Consultation | ${profile.name}`;
       descStr = `Schedule a direct enterprise scope-definition meeting or urgent virtual deployment brief with Haradhan Sharma.`;
-      canonicalUrl = 'https://hrdnsh.com/?view=consultation';
+      canonicalUrl = 'https://hrdnsh.com/consultation/';
     } else if (currentView === 'billing-portal' || currentView === 'payment') {
       titleStr = `Invoicing & Payment Portal | ${profile.name}`;
       descStr = `Secure client-side escrow checkouts and payment reconciliations for custom system developments.`;
-      canonicalUrl = `https://hrdnsh.com/?view=${currentView}`;
+      canonicalUrl = 'https://hrdnsh.com/billing/';
     } else if (currentView === 'terms') {
       titleStr = `Terms of Service & Licensing | ${profile.name}`;
       descStr = `Governance terms, container resource ownership models, cloud SLA guarantees, and dispute resolutions.`;
@@ -507,14 +500,47 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
     }
   }, [currentView, selectedServiceId]);
 
+  // Clean URL path ↔ view mapping
+  const pathToView = (pathname: string): { view: string; serviceId: string | null; slug: string | null } => {
+    const p = pathname.replace(/\/$/, '') || '/';
+    if (p === '/' || p === '') return { view: 'home', serviceId: null, slug: null };
+    if (p === '/resume') return { view: 'resume', serviceId: null, slug: null };
+    if (p === '/consultation') return { view: 'consultation', serviceId: null, slug: null };
+    if (p === '/billing') return { view: 'billing-portal', serviceId: null, slug: null };
+    if (p === '/recommend') return { view: 'recommend', serviceId: null, slug: null };
+    if (p === '/blog') return { view: 'blog', serviceId: null, slug: null };
+    // Blog posts: /blog/slug-name/
+    const blogMatch = p.match(/^\/blog\/([^/]+)\/?$/);
+    if (blogMatch) return { view: 'blog-post', serviceId: null, slug: blogMatch[1] };
+    // Services: /services/service-id/
+    const svcMatch = p.match(/^\/services\/([^/]+)\/?$/);
+    if (svcMatch) return { view: 'service-detail', serviceId: svcMatch[1], slug: null };
+    return { view: 'home', serviceId: null, slug: null };
+  };
+
+  const viewToPath = (view: string, serviceId: string | null, slug: string | null): string => {
+    switch (view) {
+      case 'home': return '/';
+      case 'resume': return '/resume/';
+      case 'consultation': return '/consultation/';
+      case 'billing-portal': return '/billing/';
+      case 'recommend': return '/recommend/';
+      case 'blog': return '/blog/';
+      case 'blog-post': return `/blog/${slug}/`;
+      case 'service-detail': return `/services/${serviceId}/`;
+      case 'terms': return '/terms/';
+      case 'privacy': return '/privacy/';
+      default: return '/';
+    }
+  };
+
   const handleSetView = (view: string, serviceId: string | null = null, blogSlug: string | null = null) => {
     setCurrentView(view);
-    if (serviceId) {
-      setSelectedServiceId(serviceId);
-    }
-    if (blogSlug !== undefined) {
-      setSelectedBlogPostSlug(blogSlug);
-    }
+    setSelectedServiceId(serviceId);
+    setSelectedBlogPostSlug(blogSlug);
+    // Push clean URL to history
+    const path = viewToPath(view, serviceId, blogSlug);
+    window.history.pushState(null, '', path);
   };
 
   const handleInitiatePayment = (serviceId: string, billing: 'onetime' | 'weekly') => {
