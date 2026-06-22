@@ -2,14 +2,28 @@ import { initializeApp, FirebaseApp } from 'firebase/app';
 import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, User, signOut } from 'firebase/auth';
 import firebaseConfigJson from '../../firebase-applet-config.json';
 
+// Get env var: use import.meta.env in browser (Vite), process.env in Node (SSR)
+function env(key: string, fallback: string): string {
+  // Browser: Vite injects import.meta.env at build time
+  try {
+    const viteEnv = (import.meta as any)?.env;
+    if (viteEnv && viteEnv[key]) return viteEnv[key];
+  } catch {}
+  // Node.js SSR: use process.env
+  try {
+    if (typeof process !== 'undefined' && process.env?.[key]) return process.env[key];
+  } catch {}
+  return fallback;
+}
+
 const firebaseConfig = {
-  apiKey: (typeof process !== 'undefined' && process.env?.VITE_FIREBASE_API_KEY) || firebaseConfigJson.apiKey,
-  authDomain: (typeof process !== 'undefined' && process.env?.VITE_FIREBASE_AUTH_DOMAIN) || firebaseConfigJson.authDomain,
-  projectId: (typeof process !== 'undefined' && process.env?.VITE_FIREBASE_PROJECT_ID) || firebaseConfigJson.projectId,
-  storageBucket: (typeof process !== 'undefined' && process.env?.VITE_FIREBASE_STORAGE_BUCKET) || firebaseConfigJson.storageBucket,
-  messagingSenderId: (typeof process !== 'undefined' && process.env?.VITE_FIREBASE_MESSAGING_SENDER_ID) || firebaseConfigJson.messagingSenderId,
-  appId: (typeof process !== 'undefined' && process.env?.VITE_FIREBASE_APP_ID) || firebaseConfigJson.appId,
-  measurementId: (typeof process !== 'undefined' && process.env?.VITE_FIREBASE_MEASUREMENT_ID) || firebaseConfigJson.measurementId || ""
+  apiKey: env('VITE_FIREBASE_API_KEY', firebaseConfigJson.apiKey),
+  authDomain: env('VITE_FIREBASE_AUTH_DOMAIN', firebaseConfigJson.authDomain),
+  projectId: env('VITE_FIREBASE_PROJECT_ID', firebaseConfigJson.projectId),
+  storageBucket: env('VITE_FIREBASE_STORAGE_BUCKET', firebaseConfigJson.storageBucket),
+  messagingSenderId: env('VITE_FIREBASE_MESSAGING_SENDER_ID', firebaseConfigJson.messagingSenderId),
+  appId: env('VITE_FIREBASE_APP_ID', firebaseConfigJson.appId),
+  measurementId: env('VITE_FIREBASE_MEASUREMENT_ID', firebaseConfigJson.measurementId) || ""
 };
 
 // Lazy initialization — avoids crash in SSR/Node environment
