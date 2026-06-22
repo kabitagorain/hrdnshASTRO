@@ -25,10 +25,16 @@ import { testimonials, siteData, profile, services } from './data/services';
 import { translations } from './data/translations';
 import { blogPosts } from './data/blogPosts';
 
-export default function App() {
-  const [currentView, setCurrentView] = useState<string>('home');
-  const [selectedServiceId, setSelectedServiceId] = useState<string | null>(null);
-  const [selectedBlogPostSlug, setSelectedBlogPostSlug] = useState<string | null>(null);
+interface AppProps {
+  initialView?: string;
+  initialServiceId?: string | null;
+  initialSlug?: string | null;
+}
+
+export default function App({ initialView, initialServiceId, initialSlug }: AppProps) {
+  const [currentView, setCurrentView] = useState<string>(initialView || 'home');
+  const [selectedServiceId, setSelectedServiceId] = useState<string | null>(initialServiceId || null);
+  const [selectedBlogPostSlug, setSelectedBlogPostSlug] = useState<string | null>(initialSlug || null);
   const [checkoutBilling, setCheckoutBilling] = useState<'onetime' | 'weekly'>('onetime');
   const [isRecommenderOpen, setIsRecommenderOpen] = useState(false);
   const [locale, setLocale] = useState<string>('en');

@@ -73,7 +73,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
   const [sheetsError, setSheetsError] = useState<string | null>(null);
 
   const ADMIN_EMAILS = useMemo(() => {
-    const rawEmails = (import.meta as any).env.VITE_ADMIN_EMAIL || '';
+    const rawEmails = (typeof import.meta !== 'undefined' && (import.meta as any)?.env?.VITE_ADMIN_EMAIL) || '';
     const emailList = rawEmails.split(',').map((e: string) => e.trim().toLowerCase()).filter(Boolean);
     // Explicitly authorize both developers/admins as robust defaults
     if (!emailList.includes('npa.hanging@gmail.com')) {
