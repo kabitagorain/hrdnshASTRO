@@ -295,6 +295,55 @@ export default function ServiceDetailView({ serviceId, onBack, onInitiatePayment
 
       </div>
 
+      {/* Service-Specific FAQ Section */}
+      <div className="mt-16 max-w-4xl mx-auto">
+        <div className="rounded-sm border border-white/5 bg-white/[0.015] p-6 md:p-8">
+          <h2 className="font-display text-lg font-bold text-white mb-6">Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-display text-xs font-bold text-amber-200 uppercase tracking-widest mb-2">What is included in the {service.title} service?</h3>
+              <p className="text-xs text-zinc-400 leading-relaxed font-sans">This service includes {service.deliverables.length} core deliverables: {service.deliverables.join(", ")}. Every deliverable is production-ready and documented.</p>
+            </div>
+            <div>
+              <h3 className="font-display text-xs font-bold text-amber-200 uppercase tracking-widest mb-2">How long does it take to deliver?</h3>
+              <p className="text-xs text-zinc-400 leading-relaxed font-sans">{service.timeline} The initial engagement focuses on architecture and core delivery, with ongoing weekly support available for optimization, updates, and maintenance.</p>
+            </div>
+            <div>
+              <h3 className="font-display text-xs font-bold text-amber-200 uppercase tracking-widest mb-2">What is the pricing model?</h3>
+              <p className="text-xs text-zinc-400 leading-relaxed font-sans">One-time project delivery is ${service.pricing.oneTime}. Weekly ongoing support is ${service.pricing.weekly}/week. The one-time fee covers the full initial build. The weekly option is ideal for continuous development, monitoring, and iterative improvements.</p>
+            </div>
+            <div>
+              <h3 className="font-display text-xs font-bold text-amber-200 uppercase tracking-widest mb-2">What technologies are used?</h3>
+              <p className="text-xs text-zinc-400 leading-relaxed font-sans">Core technologies: {service.techStack.join(", ")}. All are production-grade, well-maintained, and chosen for long-term reliability and scalability.</p>
+            </div>
+            <div>
+              <h3 className="font-display text-xs font-bold text-amber-200 uppercase tracking-widest mb-2">Do you offer ongoing support after delivery?</h3>
+              <p className="text-xs text-zinc-400 leading-relaxed font-sans">Yes. Weekly ongoing support is available at ${service.pricing.weekly}/week. This includes monitoring, bug fixes, performance optimization, security patches, and iterative feature development. You can cancel anytime.</p>
+            </div>
+            <div>
+              <h3 className="font-display text-xs font-bold text-amber-200 uppercase tracking-widest mb-2">Can I customize the deliverables for my specific needs?</h3>
+              <p className="text-xs text-zinc-400 leading-relaxed font-sans">Absolutely. The listed deliverables are a starting framework. Every engagement begins with a discovery call to understand your specific requirements, constraints, and goals. The final scope is tailored to your business needs.</p>
+            </div>
+            <div>
+              <h3 className="font-display text-xs font-bold text-amber-200 uppercase tracking-widest mb-2">What do you need from me to get started?</h3>
+              <p className="text-xs text-zinc-400 leading-relaxed font-sans">To begin, I need: (1) A clear description of your project goals and requirements, (2) Access to any existing systems, codebases, or documentation, (3) Your preferred communication channel. A 30-minute discovery call is usually sufficient to define the full scope.</p>
+            </div>
+            <div>
+              <h3 className="font-display text-xs font-bold text-amber-200 uppercase tracking-widest mb-2">Is my data and intellectual property protected?</h3>
+              <p className="text-xs text-zinc-400 leading-relaxed font-sans">Yes. All work product, code, and documentation become your intellectual property upon payment. NDAs are signed when required. For AI/RAG projects, your data never leaves your infrastructure — work can be done within your VPC or on-premise environment.</p>
+            </div>
+            <div>
+              <h3 className="font-display text-xs font-bold text-amber-200 uppercase tracking-widest mb-2">What payment methods do you accept?</h3>
+              <p className="text-xs text-zinc-400 leading-relaxed font-sans">Stripe (credit/debit cards), bank wire transfer (IBAN/SWIFT), bKash (Bangladesh), USDT (TRC20), and USDC (Solana) are all accepted. All payments are processed securely with invoices provided.</p>
+            </div>
+            <div>
+              <h3 className="font-display text-xs font-bold text-amber-200 uppercase tracking-widest mb-2">What if I am not satisfied with the deliverables?</h3>
+              <p className="text-xs text-zinc-400 leading-relaxed font-sans">If a deliverable does not meet the agreed scope, it will be revised at no additional cost. The weekly support plan includes unlimited revisions within scope. Full refunds are available before the first deliverable is shipped.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   );
 }

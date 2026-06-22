@@ -41,19 +41,7 @@ export default function Header({ currentView, setView, locale, setLocale }: Head
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
-          <button
-            onClick={() => handleNavClick('home')}
-            className={`font-sans text-xs uppercase tracking-widest font-medium transition-colors hover:text-white ${
-              currentView === 'home' 
-                ? 'text-orange-500 border-b border-orange-500/50 pb-0.5' 
-                : 'text-zinc-400'
-            }`}
-            id="nav-home"
-          >
-            Home
-          </button>
-          
+        <nav className="hidden lg:flex items-center space-x-7 xl:space-x-8">
           <button
             onClick={() => handleNavClick('resume')}
             className={`font-sans text-xs uppercase tracking-widest font-medium transition-colors hover:text-white ${
@@ -79,15 +67,15 @@ export default function Header({ currentView, setView, locale, setLocale }: Head
           </button>
 
           <button
-            onClick={() => handleNavClick('consultation')}
+            onClick={() => handleNavClick('blog')}
             className={`font-sans text-xs uppercase tracking-widest font-medium transition-colors hover:text-white ${
-              currentView === 'consultation' 
+              currentView === 'blog' || currentView === 'blog-post'
                 ? 'text-orange-500 border-b border-orange-500/50 pb-0.5' 
                 : 'text-zinc-400'
             }`}
-            id="nav-consultation"
+            id="nav-blog"
           >
-            Consultation Booking
+            Blog
           </button>
 
           {/* Sub Navigation / Dropdown */}
@@ -173,18 +161,10 @@ export default function Header({ currentView, setView, locale, setLocale }: Head
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-b border-white/5 bg-[#050505] px-4 pb-6 pt-2 space-y-1 animate-fadeIn" id="mobile-navigation-menu">
-          <button
-            onClick={() => handleNavClick('home')}
-            className={`block w-full py-2.5 text-left text-xs uppercase tracking-widest font-semibold text-zinc-300 hover:text-white ${
-              currentView === 'home' ? 'text-orange-500 font-bold bg-white/5 px-3 rounded' : ''
-            }`}
-          >
-            Home
-          </button>
+        <div className="lg:hidden border-b border-white/5 bg-[#050505] px-4 pb-6 pt-3 space-y-1 animate-fadeIn" id="mobile-navigation-menu">
           <button
             onClick={() => handleNavClick('resume')}
-            className={`block w-full py-2.5 text-left text-xs uppercase tracking-widest font-semibold text-zinc-300 hover:text-white ${
+            className={`block w-full py-3 text-left text-xs uppercase tracking-widest font-semibold text-zinc-300 hover:text-white ${
               currentView === 'resume' ? 'text-orange-500 font-bold bg-white/5 px-3 rounded' : ''
             }`}
           >
@@ -192,22 +172,30 @@ export default function Header({ currentView, setView, locale, setLocale }: Head
           </button>
           <button
             onClick={() => handleNavClick('recommend')}
-            className={`block w-full py-2.5 text-left text-xs uppercase tracking-widest font-semibold text-zinc-300 hover:text-white ${
+            className={`block w-full py-3 text-left text-xs uppercase tracking-widest font-semibold text-zinc-300 hover:text-white ${
               currentView === 'recommend' ? 'text-orange-500 font-bold bg-white/5 px-3 rounded' : ''
             }`}
           >
             Recommendations
           </button>
           <button
+            onClick={() => handleNavClick('blog')}
+            className={`block w-full py-3 text-left text-xs uppercase tracking-widest font-semibold text-zinc-300 hover:text-white ${
+              currentView === 'blog' || currentView === 'blog-post' ? 'text-orange-500 font-bold bg-white/5 px-3 rounded' : ''
+            }`}
+          >
+            Blog
+          </button>
+          <button
             onClick={() => handleNavClick('consultation')}
-            className={`block w-full py-2.5 text-left text-xs uppercase tracking-widest font-semibold text-zinc-300 hover:text-white ${
+            className={`block w-full py-3 text-left text-xs uppercase tracking-widest font-semibold text-zinc-300 hover:text-white ${
               currentView === 'consultation' ? 'text-orange-500 font-bold bg-white/5 px-3 rounded' : ''
             }`}
           >
-            Consultation Booking
+            Book Session
           </button>
           
-          <div className="border-t border-white/5 pt-4 mt-2">
+          <div className="border-t border-white/5 pt-4 mt-3">
             <span className="block px-2 text-[10px] font-bold uppercase tracking-widest text-zinc-500">
               Escrow & Hiring
             </span>
@@ -230,7 +218,7 @@ export default function Header({ currentView, setView, locale, setLocale }: Head
 
             <div className="mt-3.5 pt-3.5 border-t border-white/[0.03]">
               <label htmlFor="mobile-locale" className="block text-[8px] font-mono font-bold uppercase text-zinc-500 tracking-widest mb-1.5 px-1">
-                Select Active Translation (Language)
+                Language
               </label>
               <select
                 id="mobile-locale"

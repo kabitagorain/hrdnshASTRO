@@ -16,14 +16,19 @@ import InvoicingPortal from './components/InvoicingPortal';
 import Footer from './components/Footer';
 import TermsOfService from './components/TermsOfService';
 import PrivacyPolicy from './components/PrivacyPolicy';
+import BlogIndex from './pages/BlogIndex';
+import BlogPostPage from './pages/BlogPost';
+import FloatingBookButton from './components/FloatingBookButton';
 
 // Site Data
 import { testimonials, siteData, profile, services } from './data/services';
 import { translations } from './data/translations';
+import { blogPosts } from './data/blogPosts';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<string>('home');
   const [selectedServiceId, setSelectedServiceId] = useState<string | null>(null);
+  const [selectedBlogPostSlug, setSelectedBlogPostSlug] = useState<string | null>(null);
   const [checkoutBilling, setCheckoutBilling] = useState<'onetime' | 'weekly'>('onetime');
   const [isRecommenderOpen, setIsRecommenderOpen] = useState(false);
   const [locale, setLocale] = useState<string>('en');
@@ -39,12 +44,16 @@ export default function App() {
     const params = new URLSearchParams(window.location.search);
     const viewParam = params.get('view');
     const serviceParam = params.get('service');
+    const slugParam = params.get('slug');
 
     if (viewParam) {
       if (viewParam === 'service-detail' && serviceParam) {
         setCurrentView('service-detail');
         setSelectedServiceId(serviceParam);
-      } else if (['home', 'resume', 'recommend', 'consultation', 'billing-portal', 'invoicing', 'terms', 'privacy'].includes(viewParam)) {
+      } else if (viewParam === 'blog-post' && slugParam) {
+        setCurrentView('blog-post');
+        setSelectedBlogPostSlug(slugParam);
+      } else if (['home', 'resume', 'recommend', 'consultation', 'billing-portal', 'invoicing', 'terms', 'privacy', 'blog'].includes(viewParam)) {
         setCurrentView(viewParam === 'invoicing' ? 'billing-portal' : viewParam);
       }
     }
@@ -56,9 +65,11 @@ export default function App() {
       const params = new URLSearchParams(window.location.search);
       const viewParam = params.get('view') || 'home';
       const serviceParam = params.get('service');
+      const slugParam = params.get('slug');
       
       setCurrentView(viewParam === 'invoicing' ? 'billing-portal' : viewParam);
       setSelectedServiceId(serviceParam || null);
+      setSelectedBlogPostSlug(slugParam || null);
     };
 
     window.addEventListener('popstate', handlePopState);
@@ -87,10 +98,12 @@ export default function App() {
     const url = new URL(window.location.href);
     const prevView = url.searchParams.get('view');
     const prevService = url.searchParams.get('service');
+    const prevSlug = url.searchParams.get('slug');
     
     if (currentView === 'home') {
       url.searchParams.delete('view');
       url.searchParams.delete('service');
+      url.searchParams.delete('slug');
     } else {
       url.searchParams.set('view', currentView);
       if (currentView === 'service-detail' && selectedServiceId) {
@@ -98,12 +111,17 @@ export default function App() {
       } else {
         url.searchParams.delete('service');
       }
+      if (currentView === 'blog-post' && selectedBlogPostSlug) {
+        url.searchParams.set('slug', selectedBlogPostSlug);
+      } else {
+        url.searchParams.delete('slug');
+      }
     }
 
-    if (url.searchParams.get('view') !== prevView || url.searchParams.get('service') !== prevService) {
+    if (url.searchParams.get('view') !== prevView || url.searchParams.get('service') !== prevService || url.searchParams.get('slug') !== prevSlug) {
       window.history.pushState(null, '', url.pathname + url.search);
     }
-  }, [currentView, selectedServiceId]);
+  }, [currentView, selectedServiceId, selectedBlogPostSlug]);
 
   // Dynamic Head SEO, canonical link, Open Graph, Twitter Card, and JSON-LD structured schema generator
   useEffect(() => {
@@ -130,6 +148,17 @@ export default function App() {
       titleStr = `Recommended Infrastructure & Tools | ${profile.name}`;
       descStr = `Highly curated hosting recommendation, cloud servers, local database solutions, and domain providers utilized by Haradhan Sharma.`;
       canonicalUrl = 'https://hrdnsh.com/?view=recommend';
+    } else if (currentView === 'blog') {
+      titleStr = `Blog — AI, ERP & Infrastructure Articles | ${profile.name}`;
+      descStr = `In-depth technical articles on Sovereign AI, private RAG systems, ERPNext, Odoo, LLM self-hosting, and AI automation for businesses.`;
+      canonicalUrl = 'https://hrdnsh.com/?view=blog';
+    } else if (currentView === 'blog-post' && selectedBlogPostSlug) {
+      const foundPost = blogPosts.find(p => p.slug === selectedBlogPostSlug);
+      if (foundPost) {
+        titleStr = `${foundPost.title} | ${profile.name}`;
+        descStr = foundPost.description;
+        canonicalUrl = `https://hrdnsh.com/?view=blog-post&slug=${selectedBlogPostSlug}`;
+      }
     } else if (currentView === 'consultation') {
       titleStr = `Book an SLA Deployment Consultation | ${profile.name}`;
       descStr = `Schedule a direct enterprise scope-definition meeting or urgent virtual deployment brief with Haradhan Sharma.`;
@@ -186,6 +215,28 @@ export default function App() {
       document.head.appendChild(canonicalLink);
     }
     canonicalLink.setAttribute('href', canonicalUrl);
+
+    // Hreflang tags for multilingual SEO
+    const hreflangLocales = ['en', 'de', 'bn', 'es'];
+    hreflangLocales.forEach(hl => {
+      let link = document.querySelector(`link[rel="alternate"][hreflang="${hl}"]`);
+      if (!link) {
+        link = document.createElement('link');
+        link.setAttribute('rel', 'alternate');
+        link.setAttribute('hreflang', hl);
+        document.head.appendChild(link);
+      }
+      link.setAttribute('href', `https://hrdnsh.com/${hl === 'en' ? '' : hl + '/'}?view=${currentView}${selectedServiceId ? '&service=' + selectedServiceId : ''}`);
+    });
+    // x-default
+    let xDefault = document.querySelector('link[rel="alternate"][hreflang="x-default"]');
+    if (!xDefault) {
+      xDefault = document.createElement('link');
+      xDefault.setAttribute('rel', 'alternate');
+      xDefault.setAttribute('hreflang', 'x-default');
+      document.head.appendChild(xDefault);
+    }
+    xDefault.setAttribute('href', `https://hrdnsh.com/?view=${currentView}${selectedServiceId ? '&service=' + selectedServiceId : ''}`);
 
     // 2. JSON-LD structured data graph array setup (Person + local ProfessionalService + FAQ + Service)
     const basePersonSchema = {
@@ -250,6 +301,62 @@ export default function App() {
             "@type": "Answer",
             "text": "Every single architectural deployment includes an automatic 30-day performance warranty. During this window, any configuration deviations, memory leaks, or execution failures are resolved instantly as priority items. Ongoing weekly Retainers extend this protective SLA infinitely."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you offer ongoing support after delivery?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Weekly ongoing support is available and includes monitoring, bug fixes, performance optimization, security patches, and iterative feature development. You can cancel anytime with no penalties."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I customize the deliverables for my specific needs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. The listed deliverables are a starting framework. Every engagement begins with a discovery call to understand your specific requirements, constraints, and goals. The final scope is tailored to your business needs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What do you need from me to get started?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To begin, I need: (1) A clear description of your project goals and requirements, (2) Access to any existing systems, codebases, or documentation, (3) Your preferred communication channel. A 30-minute discovery call is usually sufficient to define the full scope."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my data and intellectual property protected?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. All work product, code, and documentation become your intellectual property upon payment. NDAs are signed when required. For AI/RAG projects, your data never leaves your infrastructure."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What payment methods do you accept?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Stripe (credit/debit cards), bank wire transfer (IBAN/SWIFT), bKash (Bangladesh), USDT (TRC20), and USDC (Solana) are all accepted. All payments are processed securely with invoices provided."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if I am not satisfied with the deliverables?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If a deliverable does not meet the agreed scope, it will be revised at no additional cost. The weekly support plan includes unlimited revisions within scope. Full refunds are available before the first deliverable is shipped."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you handle communication during the project?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "I provide daily progress updates via your preferred channel (email, Slack, Telegram, or video calls). A shared project board tracks all tasks, milestones, and blockers. You have full visibility into the development process at all times."
+          }
         }
       ]
     };
@@ -282,6 +389,64 @@ export default function App() {
             "url": `https://hrdnsh.com/?view=service-detail&service=${matched.id}`
           }
         });
+
+        // Add service-specific FAQ schema
+        graphArray.push({
+          "@type": "FAQPage",
+          "@id": `https://hrdnsh.com/?view=service-detail&service=${matched.id}#faq`,
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": `What is included in the ${matched.title} service?`,
+              "acceptedAnswer": { "@type": "Answer", "text": `This service includes ${matched.deliverables.length} core deliverables: ${matched.deliverables.join(", ")}. Every deliverable is production-ready and documented.` }
+            },
+            {
+              "@type": "Question",
+              "name": `How long does ${matched.title} take to deliver?`,
+              "acceptedAnswer": { "@type": "Answer", "text": `${matched.timeline} The initial engagement focuses on architecture and core delivery, with ongoing weekly support available for optimization, updates, and maintenance.` }
+            },
+            {
+              "@type": "Question",
+              "name": `What is the pricing for ${matched.title}?`,
+              "acceptedAnswer": { "@type": "Answer", "text": `One-time project delivery is $${matched.pricing.oneTime}. Weekly ongoing support is $${matched.pricing.weekly}/week. The one-time fee covers the full initial build. The weekly option is ideal for continuous development, monitoring, and iterative improvements.` }
+            },
+            {
+              "@type": "Question",
+              "name": `What technologies are used in ${matched.title}?`,
+              "acceptedAnswer": { "@type": "Answer", "text": `Core technologies: ${matched.techStack.join(", ")}. All are production-grade, well-maintained, and chosen for long-term reliability and scalability.` }
+            },
+            {
+              "@type": "Question",
+              "name": "Do you offer ongoing support after delivery?",
+              "acceptedAnswer": { "@type": "Answer", "text": `Yes. Weekly ongoing support is available at $${matched.pricing.weekly}/week. This includes monitoring, bug fixes, performance optimization, security patches, and iterative feature development. You can cancel anytime.` }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I customize the deliverables for my specific needs?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. The listed deliverables are a starting framework. Every engagement begins with a discovery call to understand your specific requirements, constraints, and goals. The final scope is tailored to your business needs." }
+            },
+            {
+              "@type": "Question",
+              "name": "What do you need from me to get started?",
+              "acceptedAnswer": { "@type": "Answer", "text": "To begin, I need: (1) A clear description of your project goals and requirements, (2) Access to any existing systems, codebases, or documentation, (3) Your preferred communication channel. A 30-minute discovery call is usually sufficient to define the full scope." }
+            },
+            {
+              "@type": "Question",
+              "name": "Is my data and intellectual property protected?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Yes. All work product, code, and documentation become your intellectual property upon payment. NDAs are signed when required. For AI/RAG projects, your data never leaves your infrastructure." }
+            },
+            {
+              "@type": "Question",
+              "name": "What payment methods do you accept?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Stripe (credit/debit cards), bank wire transfer (IBAN/SWIFT), bKash (Bangladesh), USDT (TRC20), and USDC (Solana) are all accepted. All payments are processed securely with invoices provided." }
+            },
+            {
+              "@type": "Question",
+              "name": "What if I am not satisfied with the deliverables?",
+              "acceptedAnswer": { "@type": "Answer", "text": "If a deliverable does not meet the agreed scope, it will be revised at no additional cost. The weekly support plan includes unlimited revisions within scope. Full refunds are available before the first deliverable is shipped." }
+            }
+          ]
+        });
       }
     }
 
@@ -298,18 +463,20 @@ export default function App() {
       "@graph": graphArray
     }, null, 2);
 
-  }, [locale, currentView, selectedServiceId]);
+  }, [locale, currentView, selectedServiceId, selectedBlogPostSlug]);
 
   // Scroll to top on view modification
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-  }, [currentView, selectedServiceId]);
+  }, [currentView, selectedServiceId, selectedBlogPostSlug]);
 
   // Google Analytics virtual page tracking on internal SPA view transitions
   useEffect(() => {
     if (typeof window !== 'undefined' && (window as any).gtag) {
       const pageTitle = selectedServiceId 
         ? `Service Detail: ${selectedServiceId}`
+        : selectedBlogPostSlug
+        ? `Blog: ${selectedBlogPostSlug}`
         : `Hub View: ${currentView}`;
       const pagePath = selectedServiceId 
         ? `/?view=${currentView}&service=${selectedServiceId}`
@@ -323,10 +490,13 @@ export default function App() {
     }
   }, [currentView, selectedServiceId]);
 
-  const handleSetView = (view: string, serviceId: string | null = null) => {
+  const handleSetView = (view: string, serviceId: string | null = null, blogSlug: string | null = null) => {
     setCurrentView(view);
     if (serviceId) {
       setSelectedServiceId(serviceId);
+    }
+    if (blogSlug !== undefined) {
+      setSelectedBlogPostSlug(blogSlug);
     }
   };
 
@@ -501,6 +671,76 @@ export default function App() {
                         Every single architectural deployment includes an automatic 30-day performance warranty. During this window, any configuration deviations, memory leaks, or execution failures are resolved instantly as priority items. Ongoing weekly Retainers extend this protective SLA infinitely.
                       </p>
                     </div>
+
+                    <div className="p-6 rounded-sm border border-white/5 bg-white/[0.01] hover:border-orange-500/20 transition-colors duration-300">
+                      <h4 className="font-display font-semibold text-white text-xs flex items-center space-x-2">
+                        <HelpCircle className="h-4.5 w-4.5 text-orange-500 shrink-0" />
+                        <span>Do you offer ongoing support after delivery?</span>
+                      </h4>
+                      <p className="text-xs text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
+                        Yes. Weekly ongoing support is available and includes monitoring, bug fixes, performance optimization, security patches, and iterative feature development. You can cancel anytime with no penalties.
+                      </p>
+                    </div>
+
+                    <div className="p-6 rounded-sm border border-white/5 bg-white/[0.01] hover:border-orange-500/20 transition-colors duration-300">
+                      <h4 className="font-display font-semibold text-white text-xs flex items-center space-x-2">
+                        <HelpCircle className="h-4.5 w-4.5 text-orange-500 shrink-0" />
+                        <span>Can I customize the deliverables for my specific needs?</span>
+                      </h4>
+                      <p className="text-xs text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
+                        Absolutely. The listed deliverables are a starting framework. Every engagement begins with a discovery call to understand your specific requirements, constraints, and goals. The final scope is tailored to your business needs.
+                      </p>
+                    </div>
+
+                    <div className="p-6 rounded-sm border border-white/5 bg-white/[0.01] hover:border-orange-500/20 transition-colors duration-300">
+                      <h4 className="font-display font-semibold text-white text-xs flex items-center space-x-2">
+                        <HelpCircle className="h-4.5 w-4.5 text-orange-500 shrink-0" />
+                        <span>What do you need from me to get started?</span>
+                      </h4>
+                      <p className="text-xs text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
+                        To begin, I need: (1) A clear description of your project goals and requirements, (2) Access to any existing systems, codebases, or documentation, (3) Your preferred communication channel. A 30-minute discovery call is usually sufficient to define the full scope.
+                      </p>
+                    </div>
+
+                    <div className="p-6 rounded-sm border border-white/5 bg-white/[0.01] hover:border-orange-500/20 transition-colors duration-300">
+                      <h4 className="font-display font-semibold text-white text-xs flex items-center space-x-2">
+                        <HelpCircle className="h-4.5 w-4.5 text-orange-500 shrink-0" />
+                        <span>Is my data and intellectual property protected?</span>
+                      </h4>
+                      <p className="text-xs text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
+                        Yes. All work product, code, and documentation become your intellectual property upon payment. NDAs are signed when required. For AI/RAG projects, your data never leaves your infrastructure — work can be done within your VPC or on-premise environment.
+                      </p>
+                    </div>
+
+                    <div className="p-6 rounded-sm border border-white/5 bg-white/[0.01] hover:border-orange-500/20 transition-colors duration-300">
+                      <h4 className="font-display font-semibold text-white text-xs flex items-center space-x-2">
+                        <HelpCircle className="h-4.5 w-4.5 text-orange-500 shrink-0" />
+                        <span>What payment methods do you accept?</span>
+                      </h4>
+                      <p className="text-xs text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
+                        Stripe (credit/debit cards), bank wire transfer (IBAN/SWIFT), bKash (Bangladesh), USDT (TRC20), and USDC (Solana) are all accepted. All payments are processed securely with invoices provided for every transaction.
+                      </p>
+                    </div>
+
+                    <div className="p-6 rounded-sm border border-white/5 bg-white/[0.01] hover:border-orange-500/20 transition-colors duration-300">
+                      <h4 className="font-display font-semibold text-white text-xs flex items-center space-x-2">
+                        <HelpCircle className="h-4.5 w-4.5 text-orange-500 shrink-0" />
+                        <span>What if I am not satisfied with the deliverables?</span>
+                      </h4>
+                      <p className="text-xs text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
+                        If a deliverable does not meet the agreed scope, it will be revised at no additional cost. The weekly support plan includes unlimited revisions within scope. Full refunds are available before the first deliverable is shipped.
+                      </p>
+                    </div>
+
+                    <div className="p-6 rounded-sm border border-white/5 bg-white/[0.01] hover:border-orange-500/20 transition-colors duration-300">
+                      <h4 className="font-display font-semibold text-white text-xs flex items-center space-x-2">
+                        <HelpCircle className="h-4.5 w-4.5 text-orange-500 shrink-0" />
+                        <span>How do you handle communication during the project?</span>
+                      </h4>
+                      <p className="text-xs text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
+                        I provide daily progress updates via your preferred channel (email, Slack, Telegram, or video calls). A shared project board tracks all tasks, milestones, and blockers. You have full visibility into the development process at all times.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </section>
@@ -647,6 +887,30 @@ export default function App() {
             </motion.div>
           )}
 
+          {currentView === 'blog' && (
+            <motion.div
+              key="blog-view"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+            >
+              <BlogIndex onNavigate={(view, slug) => handleSetView(view, null, slug ?? null)} />
+            </motion.div>
+          )}
+
+          {currentView === 'blog-post' && selectedBlogPostSlug && (
+            <motion.div
+              key={`blog-post-${selectedBlogPostSlug}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+            >
+              <BlogPostPage slug={selectedBlogPostSlug} onNavigate={(view, slug) => handleSetView(view, null, slug ?? null)} />
+            </motion.div>
+          )}
+
           {currentView === 'consultation' && (
             <motion.div
               key="consultation-view"
@@ -714,6 +978,11 @@ export default function App() {
 
       {/* Global Footer */}
       <Footer setView={handleSetView} />
+
+      {/* Floating Book Free Session Button — visible on all pages except consultation */}
+      {currentView !== 'consultation' && (
+        <FloatingBookButton onBookSession={() => handleSetView('consultation')} />
+      )}
 
     </div>
   );

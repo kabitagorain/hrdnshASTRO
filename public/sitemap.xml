@@ -3,121 +3,181 @@
   <!-- Primary Homepage -->
   <url>
     <loc>https://hrdnsh.com/</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+
   <!-- Resume & Specializations -->
   <url>
     <loc>https://hrdnsh.com/?view=resume</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
   <!-- Consultation Scheduler -->
   <url>
     <loc>https://hrdnsh.com/?view=consultation</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
   <!-- Invoicing Portal & Billing -->
   <url>
     <loc>https://hrdnsh.com/?view=billing-portal</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
+
   <!-- Lead Recommender -->
   <url>
     <loc>https://hrdnsh.com/?view=recommend</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+
+  <!-- Blog Index -->
+  <url>
+    <loc>https://hrdnsh.com/?view=blog</loc>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Blog: Sovereign AI vs ChatGPT Enterprise -->
+  <url>
+    <loc>https://hrdnsh.com/?view=blog-post&amp;slug=sovereign-ai-vs-chatgpt-enterprise</loc>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Blog: Building Private RAG Systems -->
+  <url>
+    <loc>https://hrdnsh.com/?view=blog-post&amp;slug=building-private-rag-systems</loc>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Blog: ERPNext for Garments Manufacturing -->
+  <url>
+    <loc>https://hrdnsh.com/?view=blog-post&amp;slug=erpnext-for-garments-manufacturing</loc>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Blog: Odoo vs ERPNext Comparison -->
+  <url>
+    <loc>https://hrdnsh.com/?view=blog-post&amp;slug=odoo-vs-erpnext-comparison</loc>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Blog: How to Self-Host LLMs -->
+  <url>
+    <loc>https://hrdnsh.com/?view=blog-post&amp;slug=how-to-self-host-llms</loc>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Blog: AI Agents for Law Firms -->
+  <url>
+    <loc>https://hrdnsh.com/?view=blog-post&amp;slug=ai-agents-for-law-firms</loc>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <!-- Service Details -->
   <url>
     <loc>https://hrdnsh.com/?view=service-detail&amp;service=agentic-ai-rag-orchestration</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://hrdnsh.com/?view=service-detail&amp;service=openclaw-enterprise-web-gateway</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://hrdnsh.com/?view=service-detail&amp;service=private-ai-agent-vps</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://hrdnsh.com/?view=service-detail&amp;service=high-concurrency-backend-optimization</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://hrdnsh.com/?view=service-detail&amp;service=fullstack-modern-web-architecture</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://hrdnsh.com/?view=service-detail&amp;service=industrial-automation-erp</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://hrdnsh.com/?view=service-detail&amp;service=erpnext-crm-deployment</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://hrdnsh.com/?view=service-detail&amp;service=algorithmic-trading-fintech</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://hrdnsh.com/?view=service-detail&amp;service=devops-security-hardening</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://hrdnsh.com/?view=service-detail&amp;service=ecommerce-reliability-maintenance</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://hrdnsh.com/?view=service-detail&amp;service=manufacturing-automation-erp</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://hrdnsh.com/?view=service-detail&amp;service=ecommerce-performance-hardening</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://hrdnsh.com/?view=service-detail&amp;service=personal-portfolio-high-conversion</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://hrdnsh.com/?view=service-detail&amp;service=legal-specialized-rag-infrastructure</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
