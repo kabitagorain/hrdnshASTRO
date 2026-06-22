@@ -96,14 +96,127 @@ services.forEach(service => {
   });
 });
 
+function buildJsonLd(route: Route): string {
+  const basePerson = {
+    "@type": "Person", "@id": "https://hrdnsh.com/#person",
+    "name": profile.name, "jobTitle": "Sovereign Systems Architect & AI Automation Specialist",
+    "url": "https://hrdnsh.com", "image": "https://hrdnsh.com/avatar.png",
+    "sameAs": ["https://github.com/hrdnsh"],
+    "knowsAbout": ["Sovereign Systems Architect", "AI Agents", "Enterprise RAG", "Python Async Developer", "low-latency ERP", "Cloud Migration", "DevOps", "SRE"]
+  };
+  const baseService = {
+    "@type": "ProfessionalService", "@id": "https://hrdnsh.com/#service",
+    "name": "Haradhan Sharma Sovereign Systems Consulting",
+    "url": "https://hrdnsh.com", "logo": "https://hrdnsh.com/avatar.png",
+    "image": "https://hrdnsh.com/og-image.jpg",
+    "description": "Sovereign Systems Architect specializing in production-grade AI agents, RAG pipelines, low-latency ERP implementations, and high-performance server migrations.",
+    "telephone": "+8801712270815", "priceRange": "$$$",
+    "address": { "@type": "PostalAddress", "addressCountry": "BD" },
+    "founder": { "@type": "Person", "@id": "https://hrdnsh.com/#person" }
+  };
+
+  // Homepage: Person + ProfessionalService + FAQPage
+  if (route.view === 'home') {
+    const faqItems = [
+      { q: "Do I own 100% of the completed service code?", a: "Yes, absolutely. Once final invoices are settled, the entire private GitHub repository, Docker blueprints, and administrator keys are fully transferred. There are zero licensing, royalty, or hosting restrictions." },
+      { q: "How are APIs and server resource billing managed?", a: "All underlying resource costs (e.g., Contabo, Hetzner, DO VPS nodes, OpenAI API keys) are billed directly to your corporate accounts. I assist in setting up strict usage locks, semantic caching layers, and token compression to prevent runaway operational bills." },
+      { q: "What happens if the system encounters a bug after launch?", a: "Every single architectural deployment includes an automatic 30-day performance warranty. During this window, any configuration deviations, memory leaks, or execution failures are resolved instantly as priority items." },
+      { q: "Do you offer ongoing support after delivery?", a: "Yes. Weekly ongoing support is available and includes monitoring, bug fixes, performance optimization, security patches, and iterative feature development. You can cancel anytime with no penalties." },
+      { q: "Can I customize the deliverables for my specific needs?", a: "Absolutely. The listed deliverables are a starting framework. Every engagement begins with a discovery call to understand your specific requirements, constraints, and goals." },
+      { q: "What do you need from me to get started?", a: "To begin, I need: (1) A clear description of your project goals and requirements, (2) Access to any existing systems, codebases, or documentation, (3) Your preferred communication channel. A 30-minute discovery call is usually sufficient to define the full scope." },
+      { q: "Is my data and intellectual property protected?", a: "Yes. All work product, code, and documentation become your intellectual property upon payment. NDAs are signed when required. For AI/RAG projects, your data never leaves your infrastructure." },
+      { q: "What payment methods do you accept?", a: "Stripe (credit/debit cards), bank wire transfer (IBAN/SWIFT), bKash (Bangladesh), USDT (TRC20), and USDC (Solana) are all accepted." },
+      { q: "What if I am not satisfied with the deliverables?", a: "If a deliverable does not meet the agreed scope, it will be revised at no additional cost. Full refunds are available before the first deliverable is shipped." },
+      { q: "How do you handle communication during the project?", a: "I provide daily progress updates via your preferred channel (email, Slack, Telegram, or video calls). A shared project board tracks all tasks, milestones, and blockers." }
+    ];
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@graph": [
+        basePerson,
+        baseService,
+        {
+          "@type": "FAQPage", "@id": "https://hrdnsh.com/#faq",
+          "mainEntity": faqItems.map(item => ({
+            "@type": "Question", "name": item.q,
+            "acceptedAnswer": { "@type": "Answer", "text": item.a }
+          }))
+        }
+      ]
+    };
+    return JSON.stringify(jsonLd, null, 2);
+  }
+
+  // Blog posts: Article
+  if (route.view === 'blog-post') {
+    const post = blogPosts.find(p => p.slug === route.slug);
+    if (post) {
+      const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": post.title,
+        "description": post.description,
+        "author": { "@type": "Person", name: profile.name, url: "https://hrdnsh.com" },
+        "publisher": { "@type": "Person", name: profile.name, url: "https://hrdnsh.com" },
+        "datePublished": "2026-06-22T00:00:00+00:00",
+        "dateModified": "2026-06-22T00:00:00+00:00",
+        "mainEntityOfPage": { "@type": "WebPage", "@id": `https://hrdnsh.com/blog/${post.slug}/` }
+      };
+      return JSON.stringify(jsonLd, null, 2);
+    }
+  }
+
+  // Service details: Service + FAQPage
+  if (route.view === 'service-detail') {
+    const svc = services.find(s => s.id === route.service);
+    if (svc) {
+      const faqItems = [
+        { q: `What is included in the ${svc.title} service?`, a: `This service includes comprehensive delivery: ${svc.deliverables.slice(0, 3).join(", ")}. Every deliverable is production-ready and documented.` },
+        { q: `How long does ${svc.title} take to deliver?`, a: svc.timeline },
+        { q: `What is the pricing for ${svc.title}?`, a: `One-time project delivery is $${svc.pricing.oneTime}. Weekly ongoing support is $${svc.pricing.weekly}/week.` },
+        { q: `What technologies are used in ${svc.title}?`, a: `Core technologies: ${svc.techStack.slice(0, 4).join(", ")}. All are production-grade, well-maintained, and chosen for long-term reliability.` },
+        { q: "Do you offer ongoing support after delivery?", a: "Yes. Weekly ongoing support is available. This includes monitoring, bug fixes, performance optimization, security patches, and iterative feature development." },
+        { q: "Can I customize the deliverables for my specific needs?", a: "Absolutely. The listed deliverables are a starting framework. Every engagement begins with a discovery call to understand your specific requirements." },
+        { q: "What do you need from me to get started?", a: "To begin, I need: (1) A clear description of your project goals, (2) Access to any existing systems or documentation, (3) Your preferred communication channel." },
+        { q: "Is my data and intellectual property protected?", a: "Yes. All work product, code, and documentation become your intellectual property upon payment. NDAs are signed when required." },
+        { q: "What payment methods do you accept?", a: "Stripe (credit/debit cards), bank wire transfer (IBAN/SWIFT), bKash (Bangladesh), USDT (TRC20), and USDC (Solana) are all accepted." },
+        { q: "What if I am not satisfied with the deliverables?", a: "If a deliverable does not meet the agreed scope, it will be revised at no additional cost. Full refunds are available before the first deliverable is shipped." }
+      ];
+      const jsonLd = {
+        "@context": "https://schema.org",
+        "@graph": [
+          basePerson,
+          baseService,
+          {
+            "@type": "Service",
+            "@id": `https://hrdnsh.com/services/${svc.id}/#service`,
+            "name": svc.title, "description": svc.description,
+            "provider": { "@type": "Person", "@id": "https://hrdnsh.com/#person" },
+            "offers": { "@type": "Offer", "price": svc.pricing.oneTime, "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": `https://hrdnsh.com/services/${svc.id}/` }
+          },
+          {
+            "@type": "FAQPage", "@id": `https://hrdnsh.com/services/${svc.id}/#faq`,
+            "mainEntity": faqItems.map(item => ({
+              "@type": "Question", "name": item.q,
+              "acceptedAnswer": { "@type": "Answer", "text": item.a }
+            }))
+          }
+        ]
+      };
+      return JSON.stringify(jsonLd, null, 2);
+    }
+  }
+
+  // Default: Person only
+  return JSON.stringify({ "@context": "https://schema.org", "@type": "WebSite", "name": profile.name, "url": "https://hrdnsh.com" }, null, 2);
+}
+
 function buildHtml(route: Route, content: string, assets: { cssTag: string; jsTag: string }): string {
   const dirDepth = route.path.split('/').length - 1;
   const cssTag = makeRelative(assets.cssTag, dirDepth);
   const jsTag = makeRelative(assets.jsTag, dirDepth);
-
-  // Build canonical URL
   const canonicalPath = route.path.replace('/index.html', '').replace('index.html', '');
   const canonical = `https://hrdnsh.com/${canonicalPath}`;
+  const jsonLd = buildJsonLd(route);
 
   return `<!doctype html>
 <html lang="en">
@@ -124,6 +237,7 @@ function buildHtml(route: Route, content: string, assets: { cssTag: string; jsTa
     <meta name="twitter:description" content="${route.description}" />
     <meta name="twitter:image" content="https://hrdnsh.com/og-image.jpg" />
     <title>${route.title}</title>
+    <script type="application/ld+json">${jsonLd}</script>
     ${cssTag}
   </head>
   <body>
