@@ -48,15 +48,15 @@ export default function ConsultationScheduler({ onBackToHome }: ConsultationSche
   // Monitor Auth Changes on Component Mount
   useEffect(() => {
     const unsubscribe = initAuth(
-      (currentUser, token) => {
+      (currentUser) => {
         setUser(currentUser);
-        setAccessToken(token);
-        if (currentUser.displayName) setClientName(currentUser.displayName);
-        if (currentUser.email) setClientEmail(currentUser.email);
-      },
-      () => {
-        setUser(null);
-        setAccessToken(null);
+        if (currentUser) {
+          if (currentUser.displayName) setClientName(currentUser.displayName);
+          if (currentUser.email) setClientEmail(currentUser.email);
+        } else {
+          setClientName('');
+          setClientEmail('');
+        }
       }
     );
     return () => unsubscribe();
@@ -92,9 +92,11 @@ export default function ConsultationScheduler({ onBackToHome }: ConsultationSche
     setIsAuthLoading(true);
     try {
       const result = await googleSignIn();
-      if (result) {
+      if (result?.user) {
         setUser(result.user);
-        setAccessToken(result.accessToken);
+        // Get the access token from the credential
+        const credential = result.credential as any;
+        if (credential?.accessToken) setAccessToken(credential.accessToken);
         if (result.user.displayName) setClientName(result.user.displayName);
         if (result.user.email) setClientEmail(result.user.email);
       }
