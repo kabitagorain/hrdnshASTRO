@@ -3,13 +3,13 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, User,
 import firebaseConfigJson from '../../firebase-applet-config.json';
 
 const firebaseConfig = {
-  apiKey: process.env?.VITE_FIREBASE_API_KEY || firebaseConfigJson.apiKey,
-  authDomain: process.env?.VITE_FIREBASE_AUTH_DOMAIN || firebaseConfigJson.authDomain,
-  projectId: process.env?.VITE_FIREBASE_PROJECT_ID || firebaseConfigJson.projectId,
-  storageBucket: process.env?.VITE_FIREBASE_STORAGE_BUCKET || firebaseConfigJson.storageBucket,
-  messagingSenderId: process.env?.VITE_FIREBASE_MESSAGING_SENDER_ID || firebaseConfigJson.messagingSenderId,
-  appId: process.env?.VITE_FIREBASE_APP_ID || firebaseConfigJson.appId,
-  measurementId: process.env?.VITE_FIREBASE_MEASUREMENT_ID || firebaseConfigJson.measurementId || ""
+  apiKey: (typeof process !== 'undefined' && process.env?.VITE_FIREBASE_API_KEY) || firebaseConfigJson.apiKey,
+  authDomain: (typeof process !== 'undefined' && process.env?.VITE_FIREBASE_AUTH_DOMAIN) || firebaseConfigJson.authDomain,
+  projectId: (typeof process !== 'undefined' && process.env?.VITE_FIREBASE_PROJECT_ID) || firebaseConfigJson.projectId,
+  storageBucket: (typeof process !== 'undefined' && process.env?.VITE_FIREBASE_STORAGE_BUCKET) || firebaseConfigJson.storageBucket,
+  messagingSenderId: (typeof process !== 'undefined' && process.env?.VITE_FIREBASE_MESSAGING_SENDER_ID) || firebaseConfigJson.messagingSenderId,
+  appId: (typeof process !== 'undefined' && process.env?.VITE_FIREBASE_APP_ID) || firebaseConfigJson.appId,
+  measurementId: (typeof process !== 'undefined' && process.env?.VITE_FIREBASE_MEASUREMENT_ID) || firebaseConfigJson.measurementId || ""
 };
 
 // Lazy initialization — avoids crash in SSR/Node environment
