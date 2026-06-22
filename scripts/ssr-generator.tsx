@@ -22,6 +22,7 @@ interface Route {
   path: string;
   title: string;
   description: string;
+  h1: string;
 }
 
 // Read Vite's generated index.html to extract the correct hashed asset filenames
@@ -51,32 +52,38 @@ const routes: Route[] = [
   {
     view: 'home', slug: null, service: null, path: 'index.html',
     title: `${profile.name} | Sovereign Systems & Cloud Migration Architect`,
-    description: 'Shatter modern bloated architectures with sovereign, low-latency deployment pipelines. Specializing in AI/RAG integration, Python asynchronous optimization, self-managed ERPNext instances.'
+    description: 'Sovereign AI consultant specializing in private RAG systems, ERPNext, and high-performance backend architectures.',
+    h1: 'Haradhan Sharma — Sovereign Systems Architect & AI Automation Specialist'
   },
   {
     view: 'resume', slug: null, service: null, path: 'resume/index.html',
     title: `Resume & Credentials | ${profile.name}`,
-    description: 'Professional background, certifications, and technical expertise in Sovereign AI, RAG, ERPNext, and cloud architectures.'
+    description: 'Professional background, certifications, and technical expertise in Sovereign AI, RAG, ERPNext, and cloud architectures.',
+    h1: 'Resume & Credentials'
   },
   {
     view: 'consultation', slug: null, service: null, path: 'consultation/index.html',
     title: `Book a Consultation | ${profile.name}`,
-    description: 'Schedule a discovery call to discuss your AI automation, RAG pipeline, ERPNext, or infrastructure migration project.'
+    description: 'Schedule a discovery call to discuss your AI automation, RAG pipeline, ERPNext, or infrastructure migration project.',
+    h1: 'Book a Free Consultation'
   },
   {
     view: 'billing-portal', slug: null, service: null, path: 'billing/index.html',
     title: `Billing & Invoicing | ${profile.name}`,
-    description: 'Secure payment portal for invoices, retainers, and project billing.'
+    description: 'Secure payment portal for invoices, retainers, and project billing.',
+    h1: 'Billing & Invoicing Portal'
   },
   {
     view: 'recommend', slug: null, service: null, path: 'recommend/index.html',
     title: `Recommended Infrastructure & Tools | ${profile.name}`,
-    description: 'Highly curated hosting recommendations, cloud servers, local data centers, and infrastructure tools.'
+    description: 'Highly curated hosting recommendations, cloud servers, local data centers, and infrastructure tools.',
+    h1: 'Recommended Infrastructure & Tools'
   },
   {
     view: 'blog', slug: null, service: null, path: 'blog/index.html',
     title: `Blog — AI, ERP & Infrastructure Articles — ${profile.name}`,
-    description: 'In-depth technical articles on Sovereign AI, private RAG systems, ERPNext, Odoo, LLM self-hosting, and AI automation.'
+    description: 'In-depth technical articles on Sovereign AI, private RAG systems, ERPNext, Odoo, LLM self-hosting, and AI automation.',
+    h1: 'Technical Blog — AI, ERP & Infrastructure'
   },
 ];
 
@@ -84,7 +91,8 @@ blogPosts.forEach(post => {
   routes.push({
     view: 'blog-post', slug: post.slug, service: null, path: `blog/${post.slug}/index.html`,
     title: `${post.title} — ${profile.name}`,
-    description: post.description
+    description: post.description,
+    h1: post.title
   });
 });
 
@@ -92,7 +100,8 @@ services.forEach(service => {
   routes.push({
     view: 'service-detail', slug: null, service: service.id, path: `services/${service.id}/index.html`,
     title: `${service.title} | ${profile.name} Consulting`,
-    description: service.description
+    description: service.tagline || service.summary || service.title,
+    h1: service.title
   });
 });
 
@@ -241,6 +250,7 @@ function buildHtml(route: Route, content: string, assets: { cssTag: string; jsTa
     ${cssTag}
   </head>
   <body>
+    <h1 style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;">${route.h1}</h1>
     <div id="root">${content}</div>
     ${jsTag}
   </body>
