@@ -1,7 +1,7 @@
 // SSR Generator — renders React components to static HTML for SEO/GEO discovery
-// This ensures AI agents and search crawlers can read content without JavaScript execution.
+// Reads Vite's dist/index.html to get correct hashed asset paths, then generates
+// static HTML for all routes with proper script/link tags for React hydration.
 
-// Load .env before importing app modules that depend on process.env
 import { config } from 'dotenv';
 config();
 
@@ -24,6 +24,29 @@ interface Route {
   description: string;
 }
 
+// Read Vite's generated index.html to extract the correct hashed asset filenames
+function getViteAssetTags(): { cssTag: string; jsTag: string } {
+  const indexHtml = fs.readFileSync(path.join(DIST_DIR, 'index.html'), 'utf8');
+
+  // Extract the full <link rel="stylesheet" ...> tag (handles both /> and > endings)
+  const cssMatch = indexHtml.match(/<link[^>]*rel="stylesheet"[^>]*>/);
+  const cssTag = cssMatch ? cssMatch[0].replace(/\s*\/?>$/, ' />') : '<link rel="stylesheet" href="/assets/index.css" />';
+
+  // Extract the full <script type="module" ...> tag
+  const jsMatch = indexHtml.match(/<script[^>]*type="module"[^>]*><\/script>/);
+  const jsTag = jsMatch ? jsMatch[0] : '<script type="module" src="/assets/index.js"></script>';
+
+  return { cssTag, jsTag };
+}
+
+// Convert absolute asset paths to relative based on directory depth
+function makeRelative(tag: string, depth: number): string {
+  if (depth === 0) return tag;
+  const prefix = '../'.repeat(depth);
+  return tag.replace(/href="\/assets\//g, `href="${prefix}assets/`)
+             .replace(/src="\/assets\//g, `src="${prefix}assets/`);
+}
+
 const routes: Route[] = [
   {
     view: 'home', slug: null, service: null, path: 'index.html',
@@ -31,27 +54,27 @@ const routes: Route[] = [
     description: 'Shatter modern bloated architectures with sovereign, low-latency deployment pipelines. Specializing in AI/RAG integration, Python asynchronous optimization, self-managed ERPNext instances.'
   },
   {
-    view: 'resume', slug: null, service: null, path: 'resume.html',
+    view: 'resume', slug: null, service: null, path: 'resume/index.html',
     title: `Resume & Credentials | ${profile.name}`,
     description: 'Professional background, certifications, and technical expertise in Sovereign AI, RAG, ERPNext, and cloud architectures.'
   },
   {
-    view: 'consultation', slug: null, service: null, path: 'consultation.html',
+    view: 'consultation', slug: null, service: null, path: 'consultation/index.html',
     title: `Book a Consultation | ${profile.name}`,
     description: 'Schedule a discovery call to discuss your AI automation, RAG pipeline, ERPNext, or infrastructure migration project.'
   },
   {
-    view: 'billing-portal', slug: null, service: null, path: 'billing.html',
+    view: 'billing-portal', slug: null, service: null, path: 'billing/index.html',
     title: `Billing & Invoicing | ${profile.name}`,
     description: 'Secure payment portal for invoices, retainers, and project billing.'
   },
   {
-    view: 'recommend', slug: null, service: null, path: 'recommend.html',
+    view: 'recommend', slug: null, service: null, path: 'recommend/index.html',
     title: `Recommended Infrastructure & Tools | ${profile.name}`,
     description: 'Highly curated hosting recommendations, cloud servers, local data centers, and infrastructure tools.'
   },
   {
-    view: 'blog', slug: null, service: null, path: 'blog.html',
+    view: 'blog', slug: null, service: null, path: 'blog/index.html',
     title: `Blog — AI, ERP & Infrastructure Articles — ${profile.name}`,
     description: 'In-depth technical articles on Sovereign AI, private RAG systems, ERPNext, Odoo, LLM self-hosting, and AI automation.'
   },
@@ -59,7 +82,7 @@ const routes: Route[] = [
 
 blogPosts.forEach(post => {
   routes.push({
-    view: 'blog-post', slug: post.slug, service: null, path: `blog/${post.slug}.html`,
+    view: 'blog-post', slug: post.slug, service: null, path: `blog/${post.slug}/index.html`,
     title: `${post.title} — ${profile.name}`,
     description: post.description
   });
@@ -67,15 +90,20 @@ blogPosts.forEach(post => {
 
 services.forEach(service => {
   routes.push({
-    view: 'service-detail', slug: null, service: service.id, path: `services/${service.id}.html`,
+    view: 'service-detail', slug: null, service: service.id, path: `services/${service.id}/index.html`,
     title: `${service.title} | ${profile.name} Consulting`,
     description: service.description
   });
 });
 
-function buildHtml(route: Route, content: string): string {
-  const slug = route.path.replace('.html', '');
-  const canonical = `https://hrdnsh.com/${slug === 'index' ? '' : slug}`;
+function buildHtml(route: Route, content: string, assets: { cssTag: string; jsTag: string }): string {
+  const dirDepth = route.path.split('/').length - 1;
+  const cssTag = makeRelative(assets.cssTag, dirDepth);
+  const jsTag = makeRelative(assets.jsTag, dirDepth);
+
+  // Build canonical URL
+  const canonicalPath = route.path.replace('/index.html', '').replace('index.html', '');
+  const canonical = `https://hrdnsh.com/${canonicalPath}`;
 
   return `<!doctype html>
 <html lang="en">
@@ -96,9 +124,11 @@ function buildHtml(route: Route, content: string): string {
     <meta name="twitter:description" content="${route.description}" />
     <meta name="twitter:image" content="https://hrdnsh.com/og-image.jpg" />
     <title>${route.title}</title>
+    ${cssTag}
   </head>
   <body>
     <div id="root">${content}</div>
+    ${jsTag}
   </body>
 </html>`;
 }
@@ -108,6 +138,9 @@ async function generate() {
     fs.mkdirSync(DIST_DIR, { recursive: true });
   }
 
+  // Get the correct asset tags from Vite's output
+  const assets = getViteAssetTags();
+  console.log(`Assets: ${assets.cssTag} | ${assets.jsTag}\n`);
   console.log(`Starting SSG for ${routes.length} pages...\n`);
 
   let success = 0;
@@ -126,7 +159,7 @@ async function generate() {
       const dir = path.dirname(filePath);
       if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
-      const fullHtml = buildHtml(route, content);
+      const fullHtml = buildHtml(route, content, assets);
       fs.writeFileSync(filePath, fullHtml);
       console.log(`  OK  ${route.path} (${content.length} chars)`);
       success++;
