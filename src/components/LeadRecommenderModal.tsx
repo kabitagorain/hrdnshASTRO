@@ -89,7 +89,7 @@ export default function LeadRecommenderModal({ isOpen, onClose, onSelectService 
         {/* Header indicator */}
         <div className="mb-6 flex items-center space-x-2">
           <Sparkles className="h-4 w-4 text-orange-400 animate-pulse" />
-          <span className="font-mono text-[9px] uppercase tracking-widest text-zinc-400 font-bold">
+          <span className="font-mono text-[14px] uppercase tracking-widest text-zinc-400 font-bold">
             System Configurator / Step {step} of 3
           </span>
         </div>
@@ -106,7 +106,7 @@ export default function LeadRecommenderModal({ isOpen, onClose, onSelectService 
               <h3 className="font-display text-2xl font-bold tracking-tight text-white mb-2">
                 What is your primary commercial or technical focus?
               </h3>
-              <p className="text-zinc-400 text-xs mb-6 font-sans">
+              <p className="text-zinc-400  mb-6 font-sans">
                 Select your engineering requirement to match with a hardened, production-grade service implementation.
               </p>
 
@@ -117,8 +117,8 @@ export default function LeadRecommenderModal({ isOpen, onClose, onSelectService 
                 >
                   <span className="text-xl mr-3">🧠</span>
                   <div>
-                    <h5 className="font-display font-bold uppercase text-white tracking-wider text-xs group-hover:text-orange-400 transition-colors">AI Agents & RAG</h5>
-                    <p className="text-[11px] text-zinc-450 mt-1 leading-relaxed">Deploy cognitive workers & factual knowledge bases.</p>
+                    <h5 className="font-display font-bold uppercase text-white tracking-wider  group-hover:text-orange-400 transition-colors">AI Agents & RAG</h5>
+                    <p className="text-[15px] text-zinc-450 mt-1 leading-relaxed">Deploy cognitive workers & factual knowledge bases.</p>
                   </div>
                 </button>
 
@@ -128,8 +128,8 @@ export default function LeadRecommenderModal({ isOpen, onClose, onSelectService 
                 >
                   <span className="text-xl mr-3">⚡</span>
                   <div>
-                    <h5 className="font-display font-bold uppercase text-white tracking-wider text-xs group-hover:text-orange-400 transition-colors">Backend Optimization</h5>
-                    <p className="text-[11px] text-zinc-450 mt-1 leading-relaxed">Transition to High-Performance Async & cloud scaling.</p>
+                    <h5 className="font-display font-bold uppercase text-white tracking-wider  group-hover:text-orange-400 transition-colors">Backend Optimization</h5>
+                    <p className="text-[15px] text-zinc-450 mt-1 leading-relaxed">Transition to High-Performance Async & cloud scaling.</p>
                   </div>
                 </button>
 
@@ -139,8 +139,8 @@ export default function LeadRecommenderModal({ isOpen, onClose, onSelectService 
                 >
                   <span className="text-xl mr-3">🚀</span>
                   <div>
-                    <h5 className="font-display font-bold uppercase text-white tracking-wider text-xs group-hover:text-orange-400 transition-colors">Full-Stack Platforms</h5>
-                    <p className="text-[11px] text-zinc-450 mt-1 leading-relaxed">Island Architecture for maximum SEO and interaction times.</p>
+                    <h5 className="font-display font-bold uppercase text-white tracking-wider  group-hover:text-orange-400 transition-colors">Full-Stack Platforms</h5>
+                    <p className="text-[15px] text-zinc-450 mt-1 leading-relaxed">Island Architecture for maximum SEO and interaction times.</p>
                   </div>
                 </button>
 
@@ -150,8 +150,8 @@ export default function LeadRecommenderModal({ isOpen, onClose, onSelectService 
                 >
                   <span className="text-xl mr-3">🏭</span>
                   <div>
-                    <h5 className="font-display font-bold uppercase text-white tracking-wider text-xs group-hover:text-orange-400 transition-colors">Sovereign ERP & Shop floor</h5>
-                    <p className="text-[11px] text-zinc-450 mt-1 leading-relaxed">Connect warehouse trackers, IoT metrics & core finance.</p>
+                    <h5 className="font-display font-bold uppercase text-white tracking-wider  group-hover:text-orange-400 transition-colors">Sovereign ERP & Shop floor</h5>
+                    <p className="text-[15px] text-zinc-450 mt-1 leading-relaxed">Connect warehouse trackers, IoT metrics & core finance.</p>
                   </div>
                 </button>
 
@@ -161,8 +161,8 @@ export default function LeadRecommenderModal({ isOpen, onClose, onSelectService 
                 >
                   <span className="text-xl mr-3">📈</span>
                   <div>
-                    <h5 className="font-display font-bold uppercase text-white tracking-wider text-xs group-hover:text-orange-400 transition-colors">Trading & FinTech</h5>
-                    <p className="text-[11px] text-zinc-450 mt-1 leading-relaxed">MQL5 automation, vector backtesting, risk controllers.</p>
+                    <h5 className="font-display font-bold uppercase text-white tracking-wider  group-hover:text-orange-400 transition-colors">Trading & FinTech</h5>
+                    <p className="text-[15px] text-zinc-450 mt-1 leading-relaxed">MQL5 automation, vector backtesting, risk controllers.</p>
                   </div>
                 </button>
 
@@ -172,8 +172,8 @@ export default function LeadRecommenderModal({ isOpen, onClose, onSelectService 
                 >
                   <span className="text-xl mr-3">🛡️</span>
                   <div>
-                    <h5 className="font-display font-bold uppercase text-white tracking-wider text-xs group-hover:text-orange-400 transition-colors">Ecommerce Reliability</h5>
-                    <p className="text-[11px] text-zinc-450 mt-1 leading-relaxed">Layer 7 firewalls, rate limiting & conversion engineering.</p>
+                    <h5 className="font-display font-bold uppercase text-white tracking-wider  group-hover:text-orange-400 transition-colors">Ecommerce Reliability</h5>
+                    <p className="text-[15px] text-zinc-450 mt-1 leading-relaxed">Layer 7 firewalls, rate limiting & conversion engineering.</p>
                   </div>
                 </button>
               </div>
@@ -188,7 +188,7 @@ export default function LeadRecommenderModal({ isOpen, onClose, onSelectService 
               exit={{ opacity: 0, x: -10 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="flex items-center space-x-2 text-zinc-400 mb-4 font-mono text-[9px] uppercase tracking-widest font-bold">
+              <div className="flex items-center space-x-2 text-zinc-400 mb-4 font-mono text-[14px] uppercase tracking-widest font-bold">
                 <button 
                   onClick={() => setStep(1)}
                   className="flex items-center space-x-1 hover:text-white transition-colors cursor-pointer"
@@ -201,7 +201,7 @@ export default function LeadRecommenderModal({ isOpen, onClose, onSelectService 
               <h3 className="font-display text-2xl font-bold tracking-tight text-white mb-2">
                 What is your target timeline and deployment budget?
               </h3>
-              <p className="text-zinc-400 text-xs mb-6 font-sans">
+              <p className="text-zinc-400  mb-6 font-sans">
                 Select your engineering tier. All products are delivered with source ownership and robust standard configurations.
               </p>
 
@@ -210,12 +210,12 @@ export default function LeadRecommenderModal({ isOpen, onClose, onSelectService 
                   onClick={() => { setScale('mvp'); calculateMatchesDirect(goal, 'mvp'); }}
                   className="w-full flex items-start text-left p-5 rounded-sm border border-white/5 bg-white/[0.01] hover:border-orange-500/30 hover:bg-orange-500/[0.02] group transition-all cursor-pointer hover:scale-[1.005] duration-300"
                 >
-                  <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-sm border border-orange-500 text-orange-400 mt-0.5 mr-4 font-mono text-[9px]">
+                  <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-sm border border-orange-500 text-orange-400 mt-0.5 mr-4 font-mono text-[14px]">
                     <Terminal className="h-3 w-3" />
                   </div>
                   <div>
-                    <h5 className="font-display font-bold uppercase text-white tracking-wider text-xs group-hover:text-amber-200 transition-colors">Fast Rollout / Prototyping Tiers</h5>
-                    <p className="text-xs text-zinc-400 mt-1 leading-relaxed border-t border-white/[0.02] pt-1">
+                    <h5 className="font-display font-bold uppercase text-white tracking-wider  group-hover:text-amber-200 transition-colors">Fast Rollout / Prototyping Tiers</h5>
+                    <p className=" text-zinc-400 mt-1 leading-relaxed border-t border-white/[0.02] pt-1">
                       Projects delivered within 1 - 2 weeks focusing on essential automation workflows, hardened server hosting configurations, or single-tier applications. Best for budgets scaling $399 - $1,490.
                     </p>
                   </div>
@@ -225,12 +225,12 @@ export default function LeadRecommenderModal({ isOpen, onClose, onSelectService 
                   onClick={() => { setScale('enterprise'); calculateMatchesDirect(goal, 'enterprise'); }}
                   className="w-full flex items-start text-left p-5 rounded-sm border border-white/5 bg-white/[0.01] hover:border-orange-500/30 hover:bg-orange-500/[0.02] group transition-all cursor-pointer hover:scale-[1.005] duration-300"
                 >
-                  <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-sm border border-orange-500 text-orange-400 mt-0.5 mr-4 font-mono text-[9px]">
+                  <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-sm border border-orange-500 text-orange-400 mt-0.5 mr-4 font-mono text-[14px]">
                     <Sparkles className="h-3 w-3 animate-pulse" />
                   </div>
                   <div>
-                    <h5 className="font-display font-bold uppercase text-white tracking-wider text-xs group-hover:text-amber-200 transition-colors">Enterprise Scale / High-Performance Ecosystems</h5>
-                    <p className="text-xs text-zinc-400 mt-1 leading-relaxed border-t border-white/[0.02] pt-1">
+                    <h5 className="font-display font-bold uppercase text-white tracking-wider  group-hover:text-amber-200 transition-colors">Enterprise Scale / High-Performance Ecosystems</h5>
+                    <p className=" text-zinc-400 mt-1 leading-relaxed border-t border-white/[0.02] pt-1">
                       Custom manufacturing planning MRP suites, comprehensive vector db fine-tuning, dual-renderer modern frameworks, high-throughput microservices, onsite IoT sensor networks, etc. Timeline spans 4 - 10 weeks. Designed for budgets $2,499 - $4,999+.
                     </p>
                   </div>
@@ -254,7 +254,7 @@ export default function LeadRecommenderModal({ isOpen, onClose, onSelectService 
                 <h3 className="font-display text-2xl font-bold tracking-tight text-white">
                   Matched Engineering System!
                 </h3>
-                <p className="text-zinc-400 text-[10px] font-mono mt-1 uppercase tracking-wider">
+                <p className="text-zinc-400 text-[16px] font-mono mt-1 uppercase tracking-wider">
                   Configured custom matching parameters for optimized implementation ROI.
                 </p>
               </div>
@@ -267,10 +267,10 @@ export default function LeadRecommenderModal({ isOpen, onClose, onSelectService 
                 </span>
 
                 <div className="flex items-center justify-between mb-3 relative z-10">
-                  <span className="rounded-sm bg-orange-500/10 px-2.5 py-0.5 text-[9px] font-bold text-orange-400 uppercase tracking-widest font-mono border border-orange-500/10">
+                  <span className="rounded-sm bg-orange-500/10 px-2.5 py-0.5 text-[15px] font-bold text-orange-400 uppercase tracking-widest font-mono border border-orange-500/10">
                     {results[0].category}
                   </span>
-                  <span className="font-mono text-[10px] text-orange-500 uppercase tracking-wider font-bold">
+                  <span className="font-mono text-[16px] text-orange-500 uppercase tracking-wider font-bold">
                     Est: {results[0].timeline}
                   </span>
                 </div>
@@ -280,20 +280,20 @@ export default function LeadRecommenderModal({ isOpen, onClose, onSelectService 
                   <span>{results[0].title}</span>
                 </h4>
                 
-                <p className="text-zinc-400 text-xs leading-relaxed font-sans mb-4 relative z-10">
+                <p className="text-zinc-400  leading-relaxed font-sans mb-4 relative z-10">
                   {results[0].tagline}
                 </p>
 
                 {/* Pricing and Deliverables Summary */}
                 <div className="border-t border-white/5 pt-3.5 flex items-center justify-between relative z-10">
                   <div>
-                    <h6 className="font-mono text-[9px] uppercase text-zinc-400 tracking-widest font-bold">Setup Valuation</h6>
+                    <h6 className="font-mono text-[14px] uppercase text-zinc-400 tracking-widest font-bold">Setup Valuation</h6>
                     <p className="font-serif italic text-xl text-amber-200 mt-0.5">
                       ${results[0].pricing.oneTime}
                     </p>
                   </div>
                   <div className="text-right">
-                    <h6 className="font-mono text-[9px] uppercase text-zinc-400 tracking-widest font-bold">Weekly dev SLA</h6>
+                    <h6 className="font-mono text-[14px] uppercase text-zinc-400 tracking-widest font-bold">Weekly dev SLA</h6>
                     <p className="font-serif italic text-sm text-zinc-300 mt-0.5">
                       ${results[0].pricing.weekly}/wk
                     </p>
@@ -303,7 +303,7 @@ export default function LeadRecommenderModal({ isOpen, onClose, onSelectService 
 
               {/* Interactive Host Coordinator Selector */}
               <div className="space-y-2">
-                <p className="text-zinc-400 font-mono text-[8px] uppercase tracking-widest font-bold">
+                <p className="text-zinc-400 font-mono text-[16px] uppercase tracking-widest font-bold">
                   Sovereign SLA Host Node Selector
                 </p>
                 <DatacenterMap 
@@ -316,7 +316,7 @@ export default function LeadRecommenderModal({ isOpen, onClose, onSelectService 
               <div className="flex flex-col sm:flex-row gap-3">
                 <button
                   onClick={() => { onClose(); onSelectService(results[0].id); }}
-                  className="flex-grow rounded-sm bg-white hover:bg-orange-500 text-zinc-950 hover:text-white py-3.5 text-center text-[10px] font-bold uppercase tracking-widest shadow-xl cursor-pointer flex items-center justify-center space-x-1.5 duration-300"
+                  className="flex-grow rounded-sm bg-white hover:bg-orange-500 text-zinc-950 hover:text-white py-3.5 text-center text-[16px] font-bold uppercase tracking-widest shadow-xl cursor-pointer flex items-center justify-center space-x-1.5 duration-300"
                   id="recommender-cta-view"
                 >
                   <span>View System Architecture</span>
@@ -324,7 +324,7 @@ export default function LeadRecommenderModal({ isOpen, onClose, onSelectService 
                 </button>
                 <button
                   onClick={() => { resetState(); }}
-                  className="rounded-sm border border-white/10 p-3.5 text-center text-[10px] font-bold uppercase tracking-widest text-[#9c9c9c] hover:text-white transition-colors cursor-pointer"
+                  className="rounded-sm border border-white/10 p-3.5 text-center text-[16px] font-bold uppercase tracking-widest text-[#9c9c9c] hover:text-white transition-colors cursor-pointer"
                 >
                   Reset Configurator
                 </button>

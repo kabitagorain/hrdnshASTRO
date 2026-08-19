@@ -616,7 +616,7 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
                     <h2 className="font-display text-3xl font-extrabold text-white">
                       Strategic Proof of <span className="font-serif italic text-amber-200 font-normal">Excellence</span>
                     </h2>
-                    <p className="mt-4 text-xs text-orange-500 font-mono uppercase tracking-widest font-bold">
+                    <p className="mt-4  text-orange-500 font-mono uppercase tracking-widest font-bold">
                       Lighthouse audit-verified client response deliverables
                     </p>
                   </div>
@@ -651,17 +651,17 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
                               </div>
                             </div>
 
-                            <p className="text-xs text-zinc-300 font-sans italic leading-relaxed relative z-10">
+                            <p className=" text-zinc-300 font-sans italic leading-relaxed relative z-10">
                               "{test.quote}"
                             </p>
                           </div>
 
                           <div className="mt-6 border-t border-white/5 pt-4 flex items-center justify-between">
                             <div>
-                              <span className="block text-xs font-bold text-white">{test.author}</span>
-                              <span className="text-[10px] text-zinc-500 font-mono uppercase tracking-wider">{test.role}</span>
+                              <span className="block  font-bold text-white">{test.author}</span>
+                              <span className="text-[16px] text-zinc-500 font-mono uppercase tracking-wider">{test.role}</span>
                             </div>
-                            <span className="rounded-sm bg-orange-500/10 border border-orange-500/20 px-2.5 py-1 font-mono text-[9px] uppercase tracking-widest text-orange-400 shrink-0">
+                            <span className="rounded-sm bg-orange-500/10 border border-orange-500/20 px-2.5 py-1 font-mono text-[14px] uppercase tracking-widest text-orange-400 shrink-0">
                               {test.service}
                             </span>
                           </div>
@@ -674,113 +674,113 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
 
               {/* Advanced FAQ Frame */}
               <section className="py-24 border-t border-white/5">
-                <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                   <div className="text-center max-w-3xl mx-auto mb-16">
                     <h2 className="font-display text-3xl font-extrabold text-white">
                       System <span className="font-serif italic text-amber-200 font-normal">FAQ</span>
                     </h2>
-                    <p className="mt-4 text-xs text-zinc-500 font-mono uppercase tracking-widest">
+                    <p className="mt-4  text-zinc-500 font-mono uppercase tracking-widest">
                       Frequently reviewed details regarding code ownership, milestone payments, and deployment guarantees.
                     </p>
                   </div>
 
                   <div className="space-y-4" id="faq-accordions">
                     <div className="p-6 rounded-sm border border-white/5 bg-white/[0.01] hover:border-orange-500/20 transition-colors duration-300">
-                      <h4 className="font-display font-semibold text-white text-xs flex items-center space-x-2">
+                      <h4 className="font-display font-semibold text-white  flex items-center space-x-2">
                         <HelpCircle className="h-4.5 w-4.5 text-orange-500 shrink-0" />
                         <span>Do I own 100% of the completed service code?</span>
                       </h4>
-                      <p className="text-xs text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
+                      <p className=" text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
                         Yes, absolutely. Once final invoices are settled, the entire private GitHub repository, Docker blueprints, and administrator keys are fully transferred. There are zero licensing, royalty, or hosting restrictions.
                       </p>
                     </div>
 
                     <div className="p-6 rounded-sm border border-white/5 bg-white/[0.01] hover:border-orange-500/20 transition-colors duration-300">
-                      <h4 className="font-display font-semibold text-white text-xs flex items-center space-x-2">
+                      <h4 className="font-display font-semibold text-white  flex items-center space-x-2">
                         <HelpCircle className="h-4.5 w-4.5 text-orange-500 shrink-0" />
                         <span>How are APIs and server resource billing managed?</span>
                       </h4>
-                      <p className="text-xs text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
+                      <p className=" text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
                         All underlying resource costs (e.g., Contabo, Hetzner, DO VPS nodes, OpenAI API keys) are billed directly to your corporate accounts. I assist in setting up strict usage locks, semantic caching layers, and token compression to prevent runaway operational bills.
                       </p>
                     </div>
 
                     <div className="p-6 rounded-sm border border-white/5 bg-white/[0.01] hover:border-orange-500/20 transition-colors duration-300">
-                      <h4 className="font-display font-semibold text-white text-xs flex items-center space-x-2">
+                      <h4 className="font-display font-semibold text-white  flex items-center space-x-2">
                         <HelpCircle className="h-4.5 w-4.5 text-orange-500 shrink-0" />
                         <span>What happens if the system encounters a bug after launch?</span>
                       </h4>
-                      <p className="text-xs text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
+                      <p className=" text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
                         Every single architectural deployment includes an automatic 30-day performance warranty. During this window, any configuration deviations, memory leaks, or execution failures are resolved instantly as priority items. Ongoing weekly Retainers extend this protective SLA infinitely.
                       </p>
                     </div>
 
                     <div className="p-6 rounded-sm border border-white/5 bg-white/[0.01] hover:border-orange-500/20 transition-colors duration-300">
-                      <h4 className="font-display font-semibold text-white text-xs flex items-center space-x-2">
+                      <h4 className="font-display font-semibold text-white  flex items-center space-x-2">
                         <HelpCircle className="h-4.5 w-4.5 text-orange-500 shrink-0" />
                         <span>Do you offer ongoing support after delivery?</span>
                       </h4>
-                      <p className="text-xs text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
+                      <p className=" text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
                         Yes. Weekly ongoing support is available and includes monitoring, bug fixes, performance optimization, security patches, and iterative feature development. You can cancel anytime with no penalties.
                       </p>
                     </div>
 
                     <div className="p-6 rounded-sm border border-white/5 bg-white/[0.01] hover:border-orange-500/20 transition-colors duration-300">
-                      <h4 className="font-display font-semibold text-white text-xs flex items-center space-x-2">
+                      <h4 className="font-display font-semibold text-white  flex items-center space-x-2">
                         <HelpCircle className="h-4.5 w-4.5 text-orange-500 shrink-0" />
                         <span>Can I customize the deliverables for my specific needs?</span>
                       </h4>
-                      <p className="text-xs text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
+                      <p className=" text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
                         Absolutely. The listed deliverables are a starting framework. Every engagement begins with a discovery call to understand your specific requirements, constraints, and goals. The final scope is tailored to your business needs.
                       </p>
                     </div>
 
                     <div className="p-6 rounded-sm border border-white/5 bg-white/[0.01] hover:border-orange-500/20 transition-colors duration-300">
-                      <h4 className="font-display font-semibold text-white text-xs flex items-center space-x-2">
+                      <h4 className="font-display font-semibold text-white  flex items-center space-x-2">
                         <HelpCircle className="h-4.5 w-4.5 text-orange-500 shrink-0" />
                         <span>What do you need from me to get started?</span>
                       </h4>
-                      <p className="text-xs text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
+                      <p className=" text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
                         To begin, I need: (1) A clear description of your project goals and requirements, (2) Access to any existing systems, codebases, or documentation, (3) Your preferred communication channel. A 30-minute discovery call is usually sufficient to define the full scope.
                       </p>
                     </div>
 
                     <div className="p-6 rounded-sm border border-white/5 bg-white/[0.01] hover:border-orange-500/20 transition-colors duration-300">
-                      <h4 className="font-display font-semibold text-white text-xs flex items-center space-x-2">
+                      <h4 className="font-display font-semibold text-white  flex items-center space-x-2">
                         <HelpCircle className="h-4.5 w-4.5 text-orange-500 shrink-0" />
                         <span>Is my data and intellectual property protected?</span>
                       </h4>
-                      <p className="text-xs text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
+                      <p className=" text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
                         Yes. All work product, code, and documentation become your intellectual property upon payment. NDAs are signed when required. For AI/RAG projects, your data never leaves your infrastructure — work can be done within your VPC or on-premise environment.
                       </p>
                     </div>
 
                     <div className="p-6 rounded-sm border border-white/5 bg-white/[0.01] hover:border-orange-500/20 transition-colors duration-300">
-                      <h4 className="font-display font-semibold text-white text-xs flex items-center space-x-2">
+                      <h4 className="font-display font-semibold text-white  flex items-center space-x-2">
                         <HelpCircle className="h-4.5 w-4.5 text-orange-500 shrink-0" />
                         <span>What payment methods do you accept?</span>
                       </h4>
-                      <p className="text-xs text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
+                      <p className=" text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
                         Stripe (credit/debit cards), bank wire transfer (IBAN/SWIFT), bKash (Bangladesh), USDT (TRC20), and USDC (Solana) are all accepted. All payments are processed securely with invoices provided for every transaction.
                       </p>
                     </div>
 
                     <div className="p-6 rounded-sm border border-white/5 bg-white/[0.01] hover:border-orange-500/20 transition-colors duration-300">
-                      <h4 className="font-display font-semibold text-white text-xs flex items-center space-x-2">
+                      <h4 className="font-display font-semibold text-white  flex items-center space-x-2">
                         <HelpCircle className="h-4.5 w-4.5 text-orange-500 shrink-0" />
                         <span>What if I am not satisfied with the deliverables?</span>
                       </h4>
-                      <p className="text-xs text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
+                      <p className=" text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
                         If a deliverable does not meet the agreed scope, it will be revised at no additional cost. The weekly support plan includes unlimited revisions within scope. Full refunds are available before the first deliverable is shipped.
                       </p>
                     </div>
 
                     <div className="p-6 rounded-sm border border-white/5 bg-white/[0.01] hover:border-orange-500/20 transition-colors duration-300">
-                      <h4 className="font-display font-semibold text-white text-xs flex items-center space-x-2">
+                      <h4 className="font-display font-semibold text-white  flex items-center space-x-2">
                         <HelpCircle className="h-4.5 w-4.5 text-orange-500 shrink-0" />
                         <span>How do you handle communication during the project?</span>
                       </h4>
-                      <p className="text-xs text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
+                      <p className=" text-zinc-400 font-sans leading-relaxed mt-3 pl-6.5">
                         I provide daily progress updates via your preferred channel (email, Slack, Telegram, or video calls). A shared project board tracks all tasks, milestones, and blockers. You have full visibility into the development process at all times.
                       </p>
                     </div>
@@ -797,13 +797,13 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
 
                     <div className="relative z-10 max-w-xl mx-auto space-y-6">
                       <div className="text-center">
-                        <span className="font-mono text-[9px] uppercase text-orange-400 tracking-widest font-bold px-3 py-1 bg-orange-500/10 border border-orange-500/20 rounded-sm inline-block">
+                        <span className="font-mono text-[14px] uppercase text-orange-400 tracking-widest font-bold px-3 py-1 bg-orange-500/10 border border-orange-500/20 rounded-sm inline-block">
                           Get scannable contract briefings
                         </span>
                         <h2 className="font-display text-2xl font-bold tracking-tight text-white mt-4">
                           Initiate a Scoped <span className="font-serif italic text-amber-200 font-normal">Project Discussion</span>
                         </h2>
-                        <p className="text-zinc-500 text-xs mt-2 leading-relaxed">
+                        <p className="text-zinc-500  mt-2 leading-relaxed">
                           Provide your email and requirements. Haradhan will reply under 2 hours with an official technical roadmap or schedule a direct briefing session.
                         </p>
                       </div>
@@ -812,50 +812,50 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
                         <div className="p-8 rounded-sm border border-orange-500/20 bg-orange-550/10 text-center space-y-2">
                           <CheckCircle2 className="h-8 w-8 text-orange-400 mx-auto animate-bounce" />
                           <h4 className="font-display font-semibold text-white text-sm uppercase tracking-widest">Request Relayed!</h4>
-                          <p className="text-[11px] text-zinc-400 font-sans">Haradhan's email scheduler is now notified. Please watch your inbox for our secure roadmap invoice within <span className="font-mono text-white font-bold">2 hours</span>.</p>
+                          <p className="text-[15px] text-zinc-400 font-sans">Haradhan's email scheduler is now notified. Please watch your inbox for our secure roadmap invoice within <span className="font-mono text-white font-bold">2 hours</span>.</p>
                         </div>
                       ) : (
-                        <form onSubmit={handleSendMessage} className="space-y-4 text-xs font-sans" id="home-contact-form">
+                        <form onSubmit={handleSendMessage} className="space-y-4  font-sans" id="home-contact-form">
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                              <label className="block font-mono text-[9px] uppercase text-zinc-500 tracking-widest font-bold mb-1.5">Company Representative *</label>
+                              <label className="block font-mono text-[14px] uppercase text-zinc-500 tracking-widest font-bold mb-1.5">Company Representative *</label>
                               <input 
                                 type="text"
                                 required
                                 value={msgName}
                                 onChange={(e) => setMsgName(e.target.value)}
                                 placeholder="e.g. James R."
-                                className="w-full rounded-sm border border-white/5 bg-white/[0.01] px-4 py-2.5 text-xs text-white placeholder-zinc-600 focus:border-orange-500/50 focus:outline-none focus:bg-[#070707]"
+                                className="w-full rounded-sm border border-white/5 bg-white/[0.01] px-4 py-2.5  text-white placeholder-zinc-600 focus:border-orange-500/50 focus:outline-none focus:bg-[#070707]"
                               />
                             </div>
                             <div>
-                              <label className="block font-mono text-[9px] uppercase text-zinc-500 tracking-widest font-bold mb-1.5">Business Contact *</label>
+                              <label className="block font-mono text-[14px] uppercase text-zinc-500 tracking-widest font-bold mb-1.5">Business Contact *</label>
                               <input 
                                 type="email"
                                 required
                                 value={msgEmail}
                                 onChange={(e) => setMsgEmail(e.target.value)}
                                 placeholder="e.g. james@saasops.com"
-                                className="w-full rounded-sm border border-white/5 bg-white/[0.01] px-4 py-2.5 text-xs text-white placeholder-zinc-600 focus:border-orange-500/50 focus:outline-none focus:bg-[#070707]"
+                                className="w-full rounded-sm border border-white/5 bg-white/[0.01] px-4 py-2.5  text-white placeholder-zinc-600 focus:border-orange-500/50 focus:outline-none focus:bg-[#070707]"
                               />
                             </div>
                           </div>
 
                           <div>
-                            <label className="block font-mono text-[9px] uppercase text-zinc-500 tracking-widest font-bold mb-1.5">Scope or custom modifications needed</label>
+                            <label className="block font-mono text-[14px] uppercase text-zinc-500 tracking-widest font-bold mb-1.5">Scope or custom modifications needed</label>
                             <textarea 
                               rows={3}
                               required
                               value={msgText}
                               onChange={(e) => setMsgText(e.target.value)}
                               placeholder="e.g. Looking to integrate Private AI Agent system onto our Contabo host and route it via corporate Telegram webhook."
-                              className="w-full rounded-sm border border-white/5 bg-white/[0.01] px-4 py-2.5 text-xs text-white placeholder-zinc-600 focus:border-orange-500/50 focus:outline-none focus:bg-[#070707] resize-none"
+                              className="w-full rounded-sm border border-white/5 bg-white/[0.01] px-4 py-2.5  text-white placeholder-zinc-600 focus:border-orange-500/50 focus:outline-none focus:bg-[#070707] resize-none"
                             />
                           </div>
 
                           <button
                             type="submit"
-                            className="w-full rounded-sm bg-white hover:bg-orange-500 hover:text-white py-3 text-center font-display text-[10px] font-bold uppercase tracking-widest text-zinc-950 shadow-xl cursor-pointer transition-colors duration-300"
+                            className="w-full rounded-sm bg-white hover:bg-orange-500 hover:text-white py-3 text-center font-display text-[16px] font-bold uppercase tracking-widest text-zinc-950 shadow-xl cursor-pointer transition-colors duration-300"
                           >
                             Submit Project Briefing Request
                           </button>

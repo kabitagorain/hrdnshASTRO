@@ -131,15 +131,15 @@ export default function DatacenterMap({ selectedId, onSelect, titleOverride }: D
     <div className="rounded-sm border border-white/5 bg-zinc-950/70 p-5 space-y-5 font-sans" id="datacenter-map-wrapper">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/5 pb-3 gap-2">
         <div className="space-y-1">
-          <h4 className="font-display font-medium text-xs text-white uppercase tracking-wider flex items-center space-x-2">
+          <h4 className="font-display font-medium  text-white uppercase tracking-wider flex items-center space-x-2">
             <Globe className="h-4 w-4 text-orange-400 animate-spin-slow" />
             <span>{titleOverride || "Sovereign Datacenter Allocation Map"}</span>
           </h4>
-          <p className="text-xs text-zinc-400">
+          <p className=" text-zinc-400">
             Pinpoint your zero-loss, high-concurrency target VPS host infrastructure node coordinates.
           </p>
         </div>
-        <div className="flex items-center space-x-2 bg-black px-2.5 py-1 rounded border border-white/5 font-mono text-[10px] text-orange-400 animate-pulse">
+        <div className="flex items-center space-x-2 bg-black px-2.5 py-1 rounded border border-white/5 font-mono text-[16px] text-orange-400 animate-pulse">
           <Activity className="h-3.5 w-3.5 text-orange-500 shrink-0" />
           <span className="font-bold">Traceroute: Active Telemetry</span>
         </div>
@@ -147,7 +147,7 @@ export default function DatacenterMap({ selectedId, onSelect, titleOverride }: D
 
       {/* Region selective filter tabs */}
       <div className="flex flex-wrap items-center gap-1.5 bg-black/35 p-1.5 rounded border border-white/[0.02]">
-        <span className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest mr-2 ml-1">REGIONS FILTER:</span>
+        <span className="text-[16px] font-mono font-bold text-zinc-400 uppercase tracking-widest mr-2 ml-1">REGIONS FILTER:</span>
         {[
           { key: 'ALL', label: '🌐 All Clusters', count: datacenters.length },
           { key: 'EU', label: '🇪🇺 Europe', count: datacenters.filter(d => d.category === 'EU').length },
@@ -158,13 +158,13 @@ export default function DatacenterMap({ selectedId, onSelect, titleOverride }: D
             key={tab.key}
             type="button"
             onClick={() => setActiveRegionFilter(tab.key as any)}
-            className={`px-2.5 py-1.5 rounded-sm font-mono text-[10px] uppercase tracking-wider font-bold transition-all cursor-pointer ${
+            className={`px-2.5 py-1.5 rounded-sm font-mono text-[16px] uppercase tracking-wider font-bold transition-all cursor-pointer ${
               activeRegionFilter === tab.key
                 ? 'bg-orange-500/10 border border-orange-500/30 text-orange-400 font-extrabold'
                 : 'bg-transparent border border-transparent text-zinc-400 hover:text-zinc-200'
             }`}
           >
-            {tab.label} <span className="opacity-60 text-[9px]">({tab.count})</span>
+            {tab.label} <span className="opacity-60 text-[15px]">({tab.count})</span>
           </button>
         ))}
       </div>
@@ -177,8 +177,8 @@ export default function DatacenterMap({ selectedId, onSelect, titleOverride }: D
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#111111_1px,transparent_1px),linear-gradient(to_bottom,#111111_1px,transparent_1px)] bg-[size:16px_16px] opacity-35" />
           
           {/* Coordinate Watermarks */}
-          <span className="absolute top-2 left-3 font-mono text-[9px] text-zinc-450 tracking-widest">PROJECTION: MERCATOR LAT/LONG LAYER</span>
-          <span className="absolute bottom-2 right-3 font-mono text-[9px] text-zinc-450 tracking-widest">SOCIALLY DISTANCE HOST ROUTING</span>
+          <span className="absolute top-2 left-3 font-mono text-[14px] text-zinc-450 tracking-widest">PROJECTION: MERCATOR LAT/LONG LAYER</span>
+          <span className="absolute bottom-2 right-3 font-mono text-[14px] text-zinc-450 tracking-widest">SOCIALLY DISTANCE HOST ROUTING</span>
 
           {/* Interactive World Grid map representation */}
           <div className="relative w-full aspect-[2/1] bg-black/40 rounded-sm">
@@ -247,7 +247,7 @@ export default function DatacenterMap({ selectedId, onSelect, titleOverride }: D
                   </span>
 
                   {/* Tiny label on hover */}
-                  <span className="absolute left-1/2 -translate-x-1/2 top-4 whitespace-nowrap bg-black/95 border border-white/20 px-2 py-0.5 rounded text-[9px] text-zinc-200 tracking-wider font-mono uppercase opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl z-30">
+                  <span className="absolute left-1/2 -translate-x-1/2 top-4 whitespace-nowrap bg-black/95 border border-white/20 px-2 py-0.5 rounded text-[15px] text-zinc-200 tracking-wider font-mono uppercase opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl z-30">
                     {node.name} ({simulatedPings[node.id]}ms)
                   </span>
                 </button>
@@ -255,7 +255,7 @@ export default function DatacenterMap({ selectedId, onSelect, titleOverride }: D
             })}
           </div>
 
-          <div className="mt-3 flex items-center justify-between text-[10px] font-mono text-zinc-400 border-t border-white/[0.05] pt-2">
+          <div className="mt-3 flex items-center justify-between text-[16px] font-mono text-zinc-400 border-t border-white/[0.05] pt-2">
             <span>Latitude Tracker Enabled</span>
             <div className="flex items-center space-x-3">
               <span className="flex items-center space-x-1"><span className="h-1.5 w-1.5 rounded-full bg-amber-400" /> <span>Selected</span></span>
@@ -269,54 +269,54 @@ export default function DatacenterMap({ selectedId, onSelect, titleOverride }: D
           <div className="space-y-3">
             <div className="flex items-start justify-between">
               <div>
-                <span className="rounded bg-orange-500/10 border border-orange-500/20 px-1.5 py-0.5 text-[9px] font-mono text-orange-400 font-bold uppercase tracking-widest block w-min whitespace-nowrap">
+                <span className="rounded bg-orange-500/10 border border-orange-500/20 px-1.5 py-0.5 text-[15px] font-mono text-orange-400 font-bold uppercase tracking-widest block w-min whitespace-nowrap">
                   ACTIVE HOST
                 </span>
                 <h5 className="font-display font-bold text-sm text-white mt-1.5 leading-tight">
                   {activeNode.name}
                 </h5>
-                <p className="text-xs text-zinc-400 font-sans mt-0.5">
+                <p className=" text-zinc-400 font-sans mt-0.5">
                   {activeNode.region}
                 </p>
               </div>
               <div className="text-right">
-                <span className="block text-[9px] font-mono uppercase text-zinc-400 font-bold">LATENCY</span>
+                <span className="block text-[15px] font-mono uppercase text-zinc-400 font-bold">LATENCY</span>
                 <span className="font-mono text-base font-extrabold text-amber-200">
                   {simulatedPings[activeNode.id] || activeNode.pingBase}ms
                 </span>
               </div>
             </div>
 
-            <div className="border-t border-white/5 pt-3.5 grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-1 gap-2 font-mono text-[11px]">
+            <div className="border-t border-white/5 pt-3.5 grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-1 gap-2 font-mono text-[16px]">
               <div className="flex justify-between items-center bg-zinc-950 p-2 rounded border border-white/[0.04]">
-                <span className="text-zinc-400 uppercase tracking-wider text-[10px]">GEOGRAPHY GPS</span>
+                <span className="text-zinc-400 uppercase tracking-wider text-[16px]">GEOGRAPHY GPS</span>
                 <span className="text-zinc-200 font-bold uppercase tracking-wider">{activeNode.latitude} / {activeNode.longitude}</span>
               </div>
               <div className="flex justify-between items-center bg-zinc-950 p-2 rounded border border-white/[0.04]">
-                <span className="text-zinc-400 uppercase tracking-wider text-[10px]">ORCHESTRAY PATH</span>
+                <span className="text-zinc-400 uppercase tracking-wider text-[16px]">ORCHESTRAY PATH</span>
                 <span className="text-zinc-200 font-bold uppercase tracking-wider">{activeNode.provider}</span>
               </div>
               <div className="flex justify-between items-center bg-zinc-950 p-2 rounded border border-white/[0.04]">
-                <span className="text-zinc-400 uppercase tracking-wider text-[10px]">REGULATORY SHIELD</span>
+                <span className="text-zinc-400 uppercase tracking-wider text-[16px]">REGULATORY SHIELD</span>
                 <span className="text-zinc-200 font-bold text-right uppercase tracking-wider truncate max-w-[150px]" title={activeNode.jurisdiction}>
                   {activeNode.jurisdiction}
                 </span>
               </div>
               <div className="flex justify-between items-center bg-zinc-950 p-2 rounded border border-white/[0.04]">
-                <span className="text-zinc-400 uppercase tracking-wider text-[10px]">POWER GRID</span>
-                <span className="text-teal-400 font-bold flex items-center gap-1 text-[10px]">
+                <span className="text-zinc-400 uppercase tracking-wider text-[16px]">POWER GRID</span>
+                <span className="text-teal-400 font-bold flex items-center gap-1 text-[16px]">
                   <Zap className="h-3 w-3 fill-teal-400/20 shrink-0" />
                   <span>{activeNode.greenEnergy}</span>
                 </span>
               </div>
               <div className="flex justify-between items-center bg-zinc-950 p-2 rounded border border-white/[0.04] sm:col-span-2 2xl:col-span-1">
-                <span className="text-zinc-400 uppercase tracking-wider text-[10px]">PORT METRIC</span>
+                <span className="text-zinc-400 uppercase tracking-wider text-[16px]">PORT METRIC</span>
                 <span className="text-zinc-200 font-bold text-right sm:text-left 2xl:text-right">{activeNode.carrierSpeed}</span>
               </div>
             </div>
           </div>
 
-          <div className="bg-black/40 border border-orange-500/10 p-2.5 rounded text-xs text-zinc-350 font-semibold flex items-center space-x-2">
+          <div className="bg-black/40 border border-orange-500/10 p-2.5 rounded  text-zinc-350 font-semibold flex items-center space-x-2">
             <Shield className="h-4 w-4 text-orange-500 shrink-0 animate-pulse" />
             <span className="leading-tight">Selected coordinate coordinates verified for 100% SLA and direct zero-loss cloud routing.</span>
           </div>

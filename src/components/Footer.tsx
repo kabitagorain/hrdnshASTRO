@@ -33,32 +33,32 @@ export default function Footer({ setView }: FooterProps) {
                 </span>
               </span>
             </div>
-            <p className="text-zinc-500 text-xs leading-relaxed max-w-sm">
+            <p className="text-zinc-500  leading-relaxed max-w-sm">
               Deploying sovereign AI architectures, private RAG, and asynchronous high-throughput backends globally. Free seats, code ownership, secure VPS.
             </p>
           </div>
 
           {/* Nav Links Col */}
           <div className="space-y-4">
-            <span className="font-mono text-[9px] uppercase text-zinc-500 tracking-widest font-bold">Engineering Links</span>
-            <ul className="space-y-2 text-xs">
+            <span className="font-mono text-[14px] uppercase text-zinc-500 tracking-widest font-bold">Engineering Links</span>
+            <ul className="space-y-2 ">
               <li>
-                <button onClick={() => setView('home')} className="text-zinc-400 hover:text-white transition-colors cursor-pointer text-left uppercase tracking-widest text-[10px] font-semibold">
+                <button onClick={() => setView('home')} className="text-zinc-400 hover:text-white transition-colors cursor-pointer text-left uppercase tracking-widest text-[16px] font-semibold">
                   System Catalog
                 </button>
               </li>
               <li>
-                <button onClick={() => setView('resume')} className="text-zinc-400 hover:text-white transition-colors cursor-pointer text-left uppercase tracking-widest text-[10px] font-semibold">
+                <button onClick={() => setView('resume')} className="text-zinc-400 hover:text-white transition-colors cursor-pointer text-left uppercase tracking-widest text-[16px] font-semibold">
                   Bio & Resume
                 </button>
               </li>
               <li>
-                <button onClick={() => setView('billing-portal')} className="text-zinc-400 hover:text-white transition-colors cursor-pointer text-left uppercase tracking-widest text-[10px] font-semibold">
+                <button onClick={() => setView('billing-portal')} className="text-zinc-400 hover:text-white transition-colors cursor-pointer text-left uppercase tracking-widest text-[16px] font-semibold">
                   Direct Invoicing
                 </button>
               </li>
               <li>
-                <button onClick={() => setView('recommend')} className="text-zinc-400 hover:text-white transition-colors cursor-pointer text-left uppercase tracking-widest text-[10px] font-semibold">
+                <button onClick={() => setView('recommend')} className="text-zinc-400 hover:text-white transition-colors cursor-pointer text-left uppercase tracking-widest text-[16px] font-semibold">
                   Affiliate Tools
                 </button>
               </li>
@@ -67,15 +67,15 @@ export default function Footer({ setView }: FooterProps) {
 
           {/* Contact Col */}
           <div className="space-y-4">
-            <span className="font-mono text-[9px] uppercase text-zinc-500 tracking-widest font-bold">Contact Coordinates</span>
-            <ul className="space-y-3 text-xs text-zinc-400 font-mono text-[10px] uppercase tracking-wider font-semibold">
+            <span className="font-mono text-[14px] uppercase text-zinc-500 tracking-widest font-bold">Contact Coordinates</span>
+            <ul className="space-y-3  text-zinc-400 font-mono text-[16px] uppercase tracking-wider font-semibold">
               <li className="flex items-center space-x-2.5">
                 <Mail className="h-3.5 w-3.5 text-orange-500 shrink-0" />
-                <a href={`mailto:${profile.email}`} className="hover:text-white transition-colors normal-case font-sans text-xs">{profile.email}</a>
+                <a href={`mailto:${profile.email}`} className="hover:text-white transition-colors normal-case font-sans ">{profile.email}</a>
               </li>
               <li className="flex items-center space-x-2.5">
                 <Phone className="h-3.5 w-3.5 text-orange-500 shrink-0" />
-                <a href={`tel:${profile.phone}`} className="hover:text-white transition-colors normal-case font-sans text-xs">{profile.phone}</a>
+                <a href={`tel:${profile.phone}`} className="hover:text-white transition-colors normal-case font-sans ">{profile.phone}</a>
               </li>
               <li className="flex items-center space-x-2.5">
                 <Globe className="h-3.5 w-3.5 text-orange-500 shrink-0" />
@@ -87,10 +87,10 @@ export default function Footer({ setView }: FooterProps) {
         </div>
 
         {/* Copyright and Back to Top action key */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-[10px] text-zinc-600 gap-4 uppercase tracking-wider">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-[16px] text-zinc-600 gap-4 uppercase tracking-wider">
           <div className="space-y-1">
             <span>© 2026 {siteData.brandName} • All rights administered under source licenses.</span>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[9px] text-zinc-500 mt-1 uppercase font-mono tracking-widest">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[15px] text-zinc-500 mt-1 uppercase font-mono tracking-widest">
               <button onClick={() => setView('terms')} className="hover:text-white text-zinc-400 cursor-pointer font-bold transition-colors">
                 Terms of Service
               </button>
@@ -104,7 +104,7 @@ export default function Footer({ setView }: FooterProps) {
           <div className="flex items-center space-x-6">
             <button
               onClick={handleScrollToTop}
-              className="inline-flex items-center space-x-2 rounded-sm border border-white/5 bg-white/[0.02] hover:bg-orange-500 px-3.5 py-1.5 text-[9px] font-mono tracking-widest text-zinc-400 hover:text-white font-bold transition-all duration-300 shadow-md cursor-pointer group"
+              className="inline-flex items-center space-x-2 rounded-sm border border-white/5 bg-white/[0.02] hover:bg-orange-500 px-3.5 py-1.5 text-[15px] font-mono tracking-widest text-zinc-400 hover:text-white font-bold transition-all duration-300 shadow-md cursor-pointer group"
               id="footer-back-to-top"
               title="Return to topmost coordinate"
             >

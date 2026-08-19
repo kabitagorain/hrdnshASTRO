@@ -49,11 +49,11 @@ export default function BlogIndex({ onNavigate }: BlogIndexProps) {
   }, []);
 
   return (
-    <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16 animate-fadeIn">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 animate-fadeIn">
       {/* Page Header */}
       <div className="text-center mb-16">
         <div className="inline-flex items-center gap-2 rounded-sm border border-orange-500/20 bg-orange-500/5 px-4 py-2 mb-6">
-          <span className="text-xs font-bold text-orange-400 uppercase tracking-widest">Technical Blog</span>
+          <span className=" font-bold text-orange-400 uppercase tracking-widest">Technical Blog</span>
         </div>
         <h1 className="font-display text-3xl sm:text-4xl font-black text-white tracking-tight">
           Deep dives into <span className="font-serif italic text-amber-200 font-normal">AI, ERP & Infrastructure</span>
@@ -74,16 +74,16 @@ export default function BlogIndex({ onNavigate }: BlogIndexProps) {
             <div className="flex flex-col sm:flex-row sm:items-start gap-4">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-3">
-                  <span className="text-[10px] font-bold text-orange-400 tracking-widest uppercase">{post.category}</span>
+                  <span className="text-[16px] font-bold text-orange-400 tracking-widest uppercase">{post.category}</span>
                   <span className="text-zinc-600">·</span>
-                  <span className="text-[10px] text-zinc-500">{post.date}</span>
+                  <span className="text-[16px] text-zinc-500">{post.date}</span>
                   <span className="text-zinc-600">·</span>
-                  <span className="text-[10px] text-zinc-500">{post.readTime} read</span>
+                  <span className="text-[16px] text-zinc-500">{post.readTime} read</span>
                 </div>
                 <h2 className="text-lg font-bold text-white group-hover:text-orange-300 transition-colors mb-2">
                   {post.title}
                 </h2>
-                <p className="text-zinc-400 leading-relaxed text-xs">
+                <p className="text-zinc-400 leading-relaxed ">
                   {post.description}
                 </p>
               </div>

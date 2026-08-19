@@ -54,9 +54,9 @@ export default function BlogPostPage({ slug, onNavigate }: BlogPostProps) {
 
   if (!post) {
     return (
-      <div className="mx-auto max-w-4xl py-24 text-center px-4">
+      <div className="mx-auto max-w-7xl py-24 text-center px-4">
         <h3 className="font-display text-xl font-bold text-white">Article not found.</h3>
-        <button onClick={() => onNavigate('blog')} className="mt-4 text-orange-500 hover:text-orange-400 text-xs uppercase tracking-widest font-bold">
+        <button onClick={() => onNavigate('blog')} className="mt-4 text-orange-500 hover:text-orange-400  uppercase tracking-widest font-bold">
           ← Back to Blog
         </button>
       </div>
@@ -73,10 +73,10 @@ export default function BlogPostPage({ slug, onNavigate }: BlogPostProps) {
         return <h3 key={i} className="font-display text-base font-bold text-amber-200 mt-6 mb-2">{paragraph.replace('### ', '')}</h3>;
       }
       if (paragraph.startsWith('- ')) {
-        return <li key={i} className="text-xs text-zinc-300 leading-relaxed ml-4 mb-1">{paragraph.replace('- ', '')}</li>;
+        return <li key={i} className=" text-zinc-300 leading-relaxed ml-4 mb-1">{paragraph.replace('- ', '')}</li>;
       }
       if (paragraph.startsWith('1. ') || paragraph.startsWith('2. ') || paragraph.startsWith('3. ') || paragraph.startsWith('4. ') || paragraph.startsWith('5. ') || paragraph.startsWith('6. ')) {
-        return <li key={i} className="text-xs text-zinc-300 leading-relaxed ml-4 mb-1 list-decimal">{paragraph.replace(/^\d+\.\s*/, '')}</li>;
+        return <li key={i} className=" text-zinc-300 leading-relaxed ml-4 mb-1 list-decimal">{paragraph.replace(/^\d+\.\s*/, '')}</li>;
       }
       // Handle bold markdown **text**
       const parts = paragraph.split(/(\*\*[^*]+\*\*)/g);
@@ -93,7 +93,7 @@ export default function BlogPostPage({ slug, onNavigate }: BlogPostProps) {
           return ip;
         });
       });
-      return <p key={i} className="text-xs text-zinc-300 leading-relaxed mb-4">{rendered}</p>;
+      return <p key={i} className=" text-zinc-300 leading-relaxed mb-4">{rendered}</p>;
     });
   };
 
@@ -101,7 +101,7 @@ export default function BlogPostPage({ slug, onNavigate }: BlogPostProps) {
     <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16 animate-fadeIn">
       {/* Breadcrumb */}
       <nav className="mb-8" aria-label="Breadcrumb">
-        <ol className="flex items-center gap-2 text-xs text-zinc-500">
+        <ol className="flex items-center gap-2  text-zinc-500">
           <li><button onClick={() => onNavigate('home')} className="hover:text-zinc-300 transition-colors">Home</button></li>
           <li>/</li>
           <li><button onClick={() => onNavigate('blog')} className="hover:text-zinc-300 transition-colors">Blog</button></li>
@@ -112,11 +112,11 @@ export default function BlogPostPage({ slug, onNavigate }: BlogPostProps) {
 
       <header className="mb-12">
         <div className="flex items-center gap-3 mb-4">
-          <span className="text-[10px] font-bold text-orange-400 tracking-widest uppercase">{post.category}</span>
+          <span className="text-[16px] font-bold text-orange-400 tracking-widest uppercase">{post.category}</span>
           <span className="text-zinc-600">·</span>
-          <span className="text-[10px] text-zinc-500">{post.date}</span>
+          <span className="text-[16px] text-zinc-500">{post.date}</span>
           <span className="text-zinc-600">·</span>
-          <span className="text-[10px] text-zinc-500">{post.readTime} read</span>
+          <span className="text-[16px] text-zinc-500">{post.readTime} read</span>
         </div>
         <h1 className="font-display text-2xl sm:text-3xl font-black text-white tracking-tight mb-4">
           {post.title}
@@ -133,12 +133,12 @@ export default function BlogPostPage({ slug, onNavigate }: BlogPostProps) {
       {/* CTA */}
       <div className="mt-16 p-8 rounded-sm border border-orange-500/15 bg-orange-500/5">
         <h3 className="font-display text-lg font-bold text-white mb-3">Need help with this technology?</h3>
-        <p className="text-zinc-400 text-xs mb-6 leading-relaxed">
+        <p className="text-zinc-400  mb-6 leading-relaxed">
           I build production-grade systems in AI, RAG, ERP, and cloud infrastructure. Every engagement starts with a free discovery call.
         </p>
         <button
           onClick={() => onNavigate('consultation')}
-          className="inline-flex items-center gap-2 rounded-sm bg-white px-6 py-3 text-xs font-bold uppercase tracking-widest text-zinc-950 transition-all hover:bg-orange-500 hover:text-white cursor-pointer"
+          className="inline-flex items-center gap-2 rounded-sm bg-white px-6 py-3  font-bold uppercase tracking-widest text-zinc-950 transition-all hover:bg-orange-500 hover:text-white cursor-pointer"
         >
           Book a consultation
           <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

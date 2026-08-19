@@ -562,17 +562,17 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
   }, [pastInvoices, searchQuery]);
 
   return (
-    <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-16 animate-fadeIn" id="direct-invoice-portal">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 animate-fadeIn" id="direct-invoice-portal">
       
       {/* Portal Header */}
       <div className="mb-8 text-center max-w-2xl mx-auto space-y-4">
-        <div className="inline-flex rounded-sm border border-amber-500/20 bg-amber-500/10 px-3 py-1 font-mono text-[9px] font-bold text-amber-400 uppercase tracking-widest">
+        <div className="inline-flex rounded-sm border border-amber-500/20 bg-amber-500/10 px-3 py-1 font-mono text-[14px] font-bold text-amber-400 uppercase tracking-widest">
           Sovereign Control Center &bull; CRM & Financial Ledgers
         </div>
         <h1 className="font-display text-3xl font-extrabold tracking-tight text-white leading-none">
           Haradhan Portfolio <span className="font-serif italic text-amber-200 font-normal">Administration Suite</span>
         </h1>
-        <p className="text-zinc-500 text-xs font-sans leading-relaxed">
+        <p className="text-zinc-500  font-sans leading-relaxed">
           Manage your consulting pipeline, direct client statement of work billing setups, and instantly synchronize offline lead lists to secure Google Sheets spreadsheets.
         </p>
       </div>
@@ -581,7 +581,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
       <div className="flex border-b border-white/5 mb-8 justify-center sm:justify-start">
         <button
           onClick={() => setActiveSection('billing')}
-          className={`px-5 py-3 font-display text-[10px] uppercase tracking-widest font-bold border-b-2 transition-all cursor-pointer ${
+          className={`px-5 py-3 font-display text-[16px] uppercase tracking-widest font-bold border-b-2 transition-all cursor-pointer ${
             activeSection === 'billing'
               ? 'border-amber-500 text-white bg-white/[0.01]'
               : 'border-transparent text-zinc-500 hover:text-zinc-300'
@@ -597,7 +597,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
             const bookings = JSON.parse(localStorage.getItem('haradhan_bookings') || '[]');
             setCrmBookings(bookings);
           }}
-          className={`px-5 py-3 font-display text-[10px] uppercase tracking-widest font-bold border-b-2 transition-all cursor-pointer ${
+          className={`px-5 py-3 font-display text-[16px] uppercase tracking-widest font-bold border-b-2 transition-all cursor-pointer ${
             activeSection === 'crm'
               ? 'border-amber-500 text-white bg-white/[0.01]'
               : 'border-transparent text-zinc-500 hover:text-zinc-300'
@@ -613,13 +613,13 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
           <div className="mb-8 flex items-center justify-between border-b border-white/5 pb-6">
             <button
               onClick={onBackToHome}
-              className="group inline-flex items-center space-x-2 rounded-sm border border-white/5 bg-white/[0.02] px-4 py-2 text-xs font-bold uppercase tracking-widest text-zinc-400 hover:text-white transition-all cursor-pointer"
+              className="group inline-flex items-center space-x-2 rounded-sm border border-white/5 bg-white/[0.02] px-4 py-2  font-bold uppercase tracking-widest text-zinc-400 hover:text-white transition-all cursor-pointer"
             >
               <ArrowLeft className="h-3.5 w-3.5 group-hover:-translate-x-1 transition-transform text-orange-400" />
               <span>Home Suite</span>
             </button>
 
-            <div className="flex items-center space-x-3 text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-widest">
+            <div className="flex items-center space-x-3 text-[16px] font-mono font-bold text-zinc-500 uppercase tracking-widest">
               <button 
                 type="button"
                 onClick={() => { setStep(1); setIsLogged(false); }}
@@ -643,21 +643,21 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
             {/* Quick Presets Frame */}
             <div className="rounded-sm border border-white/5 bg-white/[0.01] p-5 space-y-4">
               <div className="flex items-center justify-between border-b border-white/5 pb-2.5">
-                <h4 className="font-display font-medium text-xs text-white uppercase tracking-wider flex items-center space-x-2">
+                <h4 className="font-display font-medium  text-white uppercase tracking-wider flex items-center space-x-2">
                   <Sparkles className="h-4 w-4 text-amber-400" />
                   <span>Synchronized System & Service Scoper</span>
                 </h4>
-                <span className="rounded bg-orange-500/10 border border-orange-500/20 px-1.5 py-0.5 text-[8px] font-mono text-orange-400 uppercase tracking-widest font-bold">14 Core Systems</span>
+                <span className="rounded bg-orange-500/10 border border-orange-500/20 px-1.5 py-0.5 text-[16px] font-mono text-orange-400 uppercase tracking-widest font-bold">14 Core Systems</span>
               </div>
               
-              <p className="text-[10px] text-zinc-500 leading-relaxed font-sans">
+              <p className="text-[16px] text-zinc-500 leading-relaxed font-sans">
                 Align the direct invoice parameters with your actual pre-existing systems. Selecting an option below auto-populates its exact structured deliverables, rate formulas, and timelines into the live statement of work.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
                 {/* Service Selector Dropdown */}
                 <div className="space-y-1.5">
-                  <label className="block font-mono text-[8px] uppercase text-zinc-505 tracking-wider font-bold">Matched Deployment System</label>
+                  <label className="block font-mono text-[16px] uppercase text-zinc-505 tracking-wider font-bold">Matched Deployment System</label>
                   <select
                     value={selectedServiceId}
                     onChange={(e) => {
@@ -668,11 +668,11 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                         setSelectedServiceId('');
                       }
                     }}
-                    className="w-full h-[38px] rounded-sm border border-white/5 bg-[#0e0e0e] px-3 text-xs text-white uppercase tracking-wider focus:border-amber-500/50 focus:outline-[#ffaa00] focus:bg-[#070707]"
+                    className="w-full h-[38px] rounded-sm border border-white/5 bg-[#0e0e0e] px-3  text-white uppercase tracking-wider focus:border-amber-500/50 focus:outline-[#ffaa00] focus:bg-[#070707]"
                   >
                     <option value="" className="lowercase text-zinc-650">-- SELECT STANDARD SERVICE TEMPLATE --</option>
                     {services.map(s => (
-                      <option key={s.id} value={s.id} className="bg-[#050510] text-[11px] font-medium font-sans">
+                      <option key={s.id} value={s.id} className="bg-[#050510] text-[15px] font-medium font-sans">
                         {s.icon} {s.title}
                       </option>
                     ))}
@@ -681,7 +681,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
 
                 {/* Billing Model & Speed Toggle */}
                 <div className="space-y-1.5">
-                  <label className="block font-mono text-[8px] uppercase text-zinc-550 tracking-wider font-bold">Pricing Framework & Rate Cap</label>
+                  <label className="block font-mono text-[16px] uppercase text-zinc-550 tracking-wider font-bold">Pricing Framework & Rate Cap</label>
                   <div className="flex items-center space-x-1.5 bg-zinc-950 p-1.5 h-[38px] rounded-sm border border-white/5">
                     <button
                       type="button"
@@ -690,7 +690,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                         setBillingModel('oneTime');
                         handleApplyServiceTemplate(selectedServiceId, 'oneTime');
                       }}
-                      className={`flex-grow h-full text-[8.5px] font-mono font-bold uppercase rounded-sm transition-all cursor-pointer disabled:opacity-20 disabled:pointer-events-none ${
+                      className={`flex-grow h-full text-[15px] font-mono font-bold uppercase rounded-sm transition-all cursor-pointer disabled:opacity-20 disabled:pointer-events-none ${
                         billingModel === 'oneTime'
                           ? 'bg-amber-500/10 border border-amber-500/30 text-orange-400 font-bold'
                           : 'text-zinc-500 hover:text-zinc-300'
@@ -705,7 +705,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                         setBillingModel('weekly');
                         handleApplyServiceTemplate(selectedServiceId, 'weekly');
                       }}
-                      className={`flex-grow h-full text-[8.5px] font-mono font-bold uppercase rounded-sm transition-all cursor-pointer disabled:opacity-20 disabled:pointer-events-none ${
+                      className={`flex-grow h-full text-[15px] font-mono font-bold uppercase rounded-sm transition-all cursor-pointer disabled:opacity-20 disabled:pointer-events-none ${
                         billingModel === 'weekly'
                           ? 'bg-amber-500/10 border border-amber-500/30 text-orange-400 font-bold'
                           : 'text-zinc-500 hover:text-zinc-300'
@@ -719,14 +719,14 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
 
               {/* General Work Quick Presets (Fallback/Hourly blocks) */}
               <div className="pt-2 border-t border-white/[0.03]">
-                <span className="block font-mono text-[8px] uppercase text-zinc-550 tracking-widest font-bold mb-2">Or quick-apply general consulting hours</span>
+                <span className="block font-mono text-[16px] uppercase text-zinc-550 tracking-widest font-bold mb-2">Or quick-apply general consulting hours</span>
                 <div className="flex flex-wrap gap-2">
                   {presetTemplates.map((tpl, i) => (
                     <button
                       key={i}
                       type="button"
                       onClick={() => handleApplyTemplate(tpl)}
-                      className="px-3 py-1.5 rounded bg-zinc-900 hover:bg-[#121212] border border-white/5 text-[9.5px] font-mono font-semibold text-zinc-300 hover:text-white transition-colors cursor-pointer"
+                      className="px-3 py-1.5 rounded bg-zinc-900 hover:bg-[#121212] border border-white/5 text-[16px] font-mono font-semibold text-zinc-300 hover:text-white transition-colors cursor-pointer"
                     >
                       {tpl.title}
                     </button>
@@ -737,52 +737,52 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
 
             {/* Core Bill Properties */}
             <div className="rounded-sm border border-white/5 bg-white/[0.02] p-6 space-y-4">
-              <h3 className="font-display font-bold text-xs text-white uppercase tracking-wider border-b border-white/5 pb-2">
+              <h3 className="font-display font-bold  text-white uppercase tracking-wider border-b border-white/5 pb-2">
                 1. Contract & Entity Parameters
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block font-mono text-[9px] uppercase text-zinc-550 tracking-widest font-bold mb-1.5">Your Company Name *</label>
+                  <label className="block font-mono text-[14px] uppercase text-zinc-550 tracking-widest font-bold mb-1.5">Your Company Name *</label>
                   <input
                     type="text"
                     required
                     value={clientName}
                     onChange={(e) => setClientName(e.target.value)}
                     placeholder="e.g. BlueSky Ventures Ltd"
-                    className="w-full rounded-sm border border-white/5 bg-white/[0.01] px-4 py-2.5 text-xs text-white placeholder-zinc-650 focus:border-amber-500/50 focus:outline-none focus:bg-[#070707]"
+                    className="w-full rounded-sm border border-white/5 bg-white/[0.01] px-4 py-2.5  text-white placeholder-zinc-650 focus:border-amber-500/50 focus:outline-none focus:bg-[#070707]"
                   />
                 </div>
                 <div>
-                  <label className="block font-mono text-[9px] uppercase text-zinc-550 tracking-widest font-bold mb-1.5">Contact Billing Email *</label>
+                  <label className="block font-mono text-[14px] uppercase text-zinc-550 tracking-widest font-bold mb-1.5">Contact Billing Email *</label>
                   <input
                     type="email"
                     required
                     value={clientEmail}
                     onChange={(e) => setClientEmail(e.target.value)}
                     placeholder="e.g. accounting@bluesky.co"
-                    className="w-full rounded-sm border border-white/5 bg-white/[0.01] px-4 py-2.5 text-xs text-white placeholder-zinc-650 focus:border-amber-500/50 focus:outline-none focus:bg-[#070707]"
+                    className="w-full rounded-sm border border-white/5 bg-white/[0.01] px-4 py-2.5  text-white placeholder-zinc-650 focus:border-amber-500/50 focus:outline-none focus:bg-[#070707]"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block font-mono text-[9px] uppercase text-zinc-550 tracking-widest font-bold mb-1.5">Scope Title Summary</label>
+                  <label className="block font-mono text-[14px] uppercase text-zinc-550 tracking-widest font-bold mb-1.5">Scope Title Summary</label>
                   <input
                     type="text"
                     value={invoiceTitle}
                     onChange={(e) => setInvoiceTitle(e.target.value)}
                     placeholder="e.g. Custom Node Backend Audit"
-                    className="w-full rounded-sm border border-white/5 bg-white/[0.01] px-4 py-2.5 text-xs text-white placeholder-zinc-650 focus:border-amber-500/50 focus:outline-none focus:bg-[#070707]"
+                    className="w-full rounded-sm border border-white/5 bg-white/[0.01] px-4 py-2.5  text-white placeholder-zinc-650 focus:border-amber-500/50 focus:outline-none focus:bg-[#070707]"
                   />
                 </div>
                 <div>
-                  <label className="block font-mono text-[9px] uppercase text-zinc-550 tracking-widest font-bold mb-1.5">Acceptance Milestone Agreement</label>
+                  <label className="block font-mono text-[14px] uppercase text-zinc-550 tracking-widest font-bold mb-1.5">Acceptance Milestone Agreement</label>
                   <select
                     value={paymentSchedule}
                     onChange={(e) => setPaymentSchedule(e.target.value)}
-                    className="w-full h-[37px] rounded-sm border border-white/5 bg-white/[0.01] px-3 text-xs text-white focus:border-amber-500/50 focus:outline-none focus:bg-[#070707]"
+                    className="w-full h-[37px] rounded-sm border border-white/5 bg-white/[0.01] px-3  text-white focus:border-amber-500/50 focus:outline-none focus:bg-[#070707]"
                   >
                     <option className="bg-[#050505]" value="50% Upfront, 50% Post-Acceptance">50% Upfront, 50% Post-Acceptance</option>
                     <option className="bg-[#050505]" value="100% Pre-payment Retainer">100% Pre-payment Retainer</option>
@@ -795,7 +795,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
 
             {/* Line Items Builder */}
             <div className="rounded-sm border border-white/5 bg-white/[0.02] p-6 space-y-4">
-              <h3 className="font-display font-bold text-xs text-white uppercase tracking-wider border-b border-white/5 pb-2">
+              <h3 className="font-display font-bold  text-white uppercase tracking-wider border-b border-white/5 pb-2">
                 2. Live Itemized Deliverables Table
               </h3>
 
@@ -804,11 +804,11 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                 {lineItems.map((item) => (
                   <div 
                     key={item.id} 
-                    className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3 rounded bg-white/[0.01] border border-white/5 text-xs gap-3"
+                    className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3 rounded bg-white/[0.01] border border-white/5  gap-3"
                   >
                     <div className="space-y-1">
-                      <span className="font-display font-bold text-white text-xs">{item.name}</span>
-                      <span className="block text-[10px] text-zinc-500 font-mono">
+                      <span className="font-display font-bold text-white ">{item.name}</span>
+                      <span className="block text-[16px] text-zinc-500 font-mono">
                         Billing rate: ${item.rate} USD x {item.qty} quantity block
                       </span>
                     </div>
@@ -828,7 +828,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                 ))}
 
                 {lineItems.length === 0 && (
-                  <div className="p-8 text-center border border-dashed border-white/5 rounded text-zinc-600 font-sans text-xs">
+                  <div className="p-8 text-center border border-dashed border-white/5 rounded text-zinc-600 font-sans ">
                     Please compile at least one item below to lock valuations correctly.
                   </div>
                 )}
@@ -836,7 +836,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
 
               {/* Add New Line Item Form */}
               <div className="bg-white/[0.01] border border-white/5 p-4 rounded-sm space-y-3">
-                <span className="block font-mono text-[9px] uppercase text-zinc-500 font-bold tracking-wider">Add Custom Line Item Deliverable</span>
+                <span className="block font-mono text-[14px] uppercase text-zinc-500 font-bold tracking-wider">Add Custom Line Item Deliverable</span>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
                   <div className="sm:col-span-2">
@@ -845,7 +845,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                       placeholder="e.g. AWS Multi-Region Replication setup"
                       value={newItemName}
                       onChange={(e) => setNewItemName(e.target.value)}
-                      className="w-full h-9 rounded-sm border border-white/5 bg-zinc-950/50 px-3 text-xs text-white placeholder-zinc-700 focus:border-amber-500/40 focus:outline-none"
+                      className="w-full h-9 rounded-sm border border-white/5 bg-zinc-950/50 px-3  text-white placeholder-zinc-700 focus:border-amber-500/40 focus:outline-none"
                     />
                   </div>
                   <div>
@@ -856,7 +856,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                       title="Quantity"
                       value={newItemQty === 0 ? '' : newItemQty}
                       onChange={(e) => setNewItemQty(Number(e.target.value))}
-                      className="w-full h-9 rounded-sm border border-white/5 bg-zinc-950/50 px-3 text-xs text-white focus:border-amber-500/40 focus:outline-none"
+                      className="w-full h-9 rounded-sm border border-white/5 bg-zinc-950/50 px-3  text-white focus:border-amber-500/40 focus:outline-none"
                     />
                   </div>
                   <div>
@@ -867,7 +867,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                       title="Rate per item"
                       value={newItemRate === 0 ? '' : newItemRate}
                       onChange={(e) => setNewItemRate(Number(e.target.value))}
-                      className="w-full h-9 rounded-sm border border-white/5 bg-zinc-950/50 px-3 text-xs text-white focus:border-amber-500/40 focus:outline-none"
+                      className="w-full h-9 rounded-sm border border-white/5 bg-zinc-950/50 px-3  text-white focus:border-amber-500/40 focus:outline-none"
                     />
                   </div>
                 </div>
@@ -877,7 +877,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                     type="button"
                     onClick={handleAddItem}
                     disabled={!newItemName}
-                    className="inline-flex items-center space-x-1.5 px-4 h-8 bg-zinc-800 hover:bg-zinc-700 text-white font-mono text-[10px] uppercase font-bold tracking-wide rounded cursor-pointer disabled:opacity-40"
+                    className="inline-flex items-center space-x-1.5 px-4 h-8 bg-zinc-800 hover:bg-zinc-700 text-white font-mono text-[16px] uppercase font-bold tracking-wide rounded cursor-pointer disabled:opacity-40"
                   >
                     <Plus className="h-3.5 w-3.5" />
                     <span>Insert Deliverable</span>
@@ -889,10 +889,10 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
 
             {/* Geographic Datacenter Allocation Map Card */}
             <div className="rounded-sm border border-white/5 bg-white/[0.02] p-6 space-y-4">
-              <h3 className="font-display font-bold text-xs text-white uppercase tracking-wider border-b border-white/5 pb-2">
+              <h3 className="font-display font-bold  text-white uppercase tracking-wider border-b border-white/5 pb-2">
                 3. Physical Server Host Allocation Map
               </h3>
-              <p className="text-[10px] text-zinc-550 leading-relaxed font-sans mt-1">
+              <p className="text-[16px] text-zinc-550 leading-relaxed font-sans mt-1">
                 Select your legal jurisdiction and hosting hub directly. Your chosen datacenter registers as SOW metadata for continuous latency optimization SLA.
               </p>
               <DatacenterMap 
@@ -907,7 +907,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                 type="button"
                 disabled={!clientName || !clientEmail || lineItems.length === 0}
                 onClick={() => setStep(2)}
-                className="group inline-flex items-center space-x-2 rounded-sm bg-white hover:bg-amber-500 text-zinc-950 hover:text-white px-8 py-3.5 font-display text-[10px] uppercase tracking-widest font-bold shadow-xl transition-all disabled:opacity-30 disabled:pointer-events-none cursor-pointer duration-300"
+                className="group inline-flex items-center space-x-2 rounded-sm bg-white hover:bg-amber-500 text-zinc-950 hover:text-white px-8 py-3.5 font-display text-[16px] uppercase tracking-widest font-bold shadow-xl transition-all disabled:opacity-30 disabled:pointer-events-none cursor-pointer duration-300"
               >
                 <span>Generate Verified Billing Coordinates</span>
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-amber-500 group-hover:text-white" />
@@ -919,12 +919,12 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
           {/* Right Preview Column */}
           <div className="space-y-6">
             <div className="rounded-sm border border-white/5 bg-[#0a0a0a] p-5 space-y-4">
-              <span className="font-mono text-[9px] uppercase tracking-widest text-zinc-500 font-bold block">Dynamic Pre-Calculations</span>
+              <span className="font-mono text-[14px] uppercase tracking-widest text-zinc-500 font-bold block">Dynamic Pre-Calculations</span>
               
-              <div className="space-y-3 pb-4 border-b border-white/5 text-xs">
+              <div className="space-y-3 pb-4 border-b border-white/5 ">
                 <div className="flex justify-between">
                   <span className="text-zinc-450 font-medium">Deliverables Count:</span>
-                  <span className="font-mono text-white text-xs font-bold">{lineItems.length} items</span>
+                  <span className="font-mono text-white  font-bold">{lineItems.length} items</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-zinc-450 font-medium">Schedule Plan:</span>
@@ -932,15 +932,15 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                 </div>
               </div>
 
-              <div className="flex justify-between text-xs items-center">
+              <div className="flex justify-between  items-center">
                 <span className="text-zinc-450 font-medium">Dynamic Valuation:</span>
                 <span className="font-serif italic text-2xl font-normal text-amber-200">${subtotal} USD</span>
               </div>
             </div>
 
-            <div className="rounded-sm border border-dashed border-white/10 p-5 space-y-2 text-xs">
+            <div className="rounded-sm border border-dashed border-white/10 p-5 space-y-2 ">
               <h5 className="font-display font-semibold text-white">Prism Settlement Security</h5>
-              <p className="text-[10px] text-zinc-500 leading-relaxed font-sans">
+              <p className="text-[16px] text-zinc-500 leading-relaxed font-sans">
                 These dynamic calculations compile straight into standard PDF/JSON representations processed entirely in the offline browser stack. No third-party API exposure translates to zero centralized merchant leak risk.
               </p>
             </div>
@@ -962,31 +962,31 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
               <div className="flex flex-col sm:flex-row justify-between pb-6 border-b border-white/5 gap-4">
                 <div>
                   <span className="font-display text-xl font-bold uppercase tracking-widest text-white leading-none block">{siteData.brandName}</span>
-                  <span className="text-[9px] font-mono text-zinc-500 uppercase tracking-widest mt-1 block">Full-Stack Cloud Consulting</span>
+                  <span className="text-[15px] font-mono text-zinc-500 uppercase tracking-widest mt-1 block">Full-Stack Cloud Consulting</span>
                 </div>
                 <div className="text-left sm:text-right">
-                  <span className="font-mono text-xs font-bold text-amber-500 p-2 bg-amber-500/10 border border-amber-500/20 rounded-sm">{invoiceNumber}</span>
-                  <span className="text-[9px] font-mono text-zinc-500 mt-3 block">Issue Date: {todayDate}</span>
+                  <span className="font-mono  font-bold text-amber-500 p-2 bg-amber-500/10 border border-amber-500/20 rounded-sm">{invoiceNumber}</span>
+                  <span className="text-[15px] font-mono text-zinc-500 mt-3 block">Issue Date: {todayDate}</span>
                 </div>
               </div>
 
               {/* Billing Info */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 py-6 border-b border-white/5 text-xs text-zinc-300">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 py-6 border-b border-white/5  text-zinc-300">
                 <div>
-                  <span className="text-zinc-550 font-mono uppercase tracking-widest text-[9px] font-bold block mb-1.5">PREPARED BY (FACILITATOR)</span>
+                  <span className="text-zinc-550 font-mono uppercase tracking-widest text-[15px] font-bold block mb-1.5">PREPARED BY (FACILITATOR)</span>
                   <p className="font-display font-semibold text-white">{profile.name}</p>
                   <p className="text-zinc-400 mt-0.5">{profile.title}</p>
-                  <p className="text-zinc-500 font-mono text-[9px] mt-0.5">Mailing ID: haradhan.sharma@gmail.com</p>
+                  <p className="text-zinc-500 font-mono text-[14px] mt-0.5">Mailing ID: haradhan.sharma@gmail.com</p>
                 </div>
                 <div>
-                  <span className="text-zinc-550 font-mono uppercase tracking-widest text-[9px] font-bold block mb-1.5">PREPARED FOR (CLIENT REPRESENTATIVE)</span>
+                  <span className="text-zinc-550 font-mono uppercase tracking-widest text-[15px] font-bold block mb-1.5">PREPARED FOR (CLIENT REPRESENTATIVE)</span>
                   <p className="font-display font-semibold text-white">{clientName}</p>
                   <p className="text-zinc-400 mt-0.5">{clientEmail}</p>
-                  <p className="text-zinc-500 font-mono text-[9.5px] mt-0.5">Agreement SLA: {paymentSchedule}</p>
+                  <p className="text-zinc-500 font-mono text-[16px] mt-0.5">Agreement SLA: {paymentSchedule}</p>
                 </div>
                 <div className="sm:col-span-2 pt-3 border-t border-white/[0.03] flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-                  <span className="text-zinc-550 font-mono uppercase tracking-widest text-[8px] font-bold">SOVEREIGN HOSTING ALLOCATION</span>
-                  <span className="text-amber-200 font-mono text-[10px] font-bold uppercase tracking-wider">
+                  <span className="text-zinc-550 font-mono uppercase tracking-widest text-[16px] font-bold">SOVEREIGN HOSTING ALLOCATION</span>
+                  <span className="text-amber-200 font-mono text-[16px] font-bold uppercase tracking-wider">
                     🌐 {datacenters.find(d => d.id === selectedDatacenterId)?.name} &mdash; {datacenters.find(d => d.id === selectedDatacenterId)?.region}
                   </span>
                 </div>
@@ -994,14 +994,14 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
 
               {/* Compiled Line Deliverables Grid */}
               <div className="py-6 border-b border-white/5 space-y-3">
-                <span className="text-zinc-550 font-mono uppercase tracking-widest text-[9px] font-bold block mb-3">CUSTOM BILL CHARGES DETAIL</span>
+                <span className="text-zinc-550 font-mono uppercase tracking-widest text-[15px] font-bold block mb-3">CUSTOM BILL CHARGES DETAIL</span>
                 
-                <div className="text-xs space-y-2">
+                <div className=" space-y-2">
                   {lineItems.map((item, idx) => (
                     <div key={idx} className="flex justify-between p-3 rounded-sm bg-white/[0.01] border border-white/5">
                       <div>
                         <p className="font-display font-semibold text-white">{item.name}</p>
-                        <p className="text-[10px] text-zinc-500 mt-0.5">Quantity: {item.qty} units &bull; Rate: ${item.rate} USD</p>
+                        <p className="text-[16px] text-zinc-500 mt-0.5">Quantity: {item.qty} units &bull; Rate: ${item.rate} USD</p>
                       </div>
                       <span className="font-mono font-bold text-white">${item.qty * item.rate}.00</span>
                     </div>
@@ -1012,12 +1012,12 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
               {/* Dynamic Subtotal Summary */}
               <div className="py-6 flex justify-between items-center bg-white/[0.01] px-4 border border-dashed border-white/5 rounded-sm">
                 <div className="text-left font-mono">
-                  <span className="text-[9px] text-zinc-500 uppercase tracking-widest block font-bold">Billing Currency Protocol</span>
-                  <p className="text-[8.5px] text-zinc-650 uppercase tracking-wider mt-1">Settles straight with 0% intermediate fees</p>
+                  <span className="text-[15px] text-zinc-500 uppercase tracking-widest block font-bold">Billing Currency Protocol</span>
+                  <p className="text-[15px] text-zinc-650 uppercase tracking-wider mt-1">Settles straight with 0% intermediate fees</p>
                 </div>
                 <div className="text-right">
                   <span className="font-serif italic text-3xl text-amber-200">${subtotal}</span>
-                  <span className="font-mono text-[9px] text-zinc-500 uppercase tracking-widest block font-bold mt-1">USD Value NET 15</span>
+                  <span className="font-mono text-[14px] text-zinc-500 uppercase tracking-widest block font-bold mt-1">USD Value NET 15</span>
                 </div>
               </div>
 
@@ -1031,7 +1031,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                   <ShieldCheck className="h-4.5 w-4.5 text-amber-400" />
                   <span>Choose Direct Settlement Route</span>
                 </h3>
-                <p className="text-zinc-500 text-xs leading-relaxed mt-1">
+                <p className="text-zinc-500  leading-relaxed mt-1">
                   We process direct transfers natively via Clear Bank Swift, bKash (Bangladesh), TRC20 USDT, and Solana USDC. Select a routing channel below to access the payment details.
                 </p>
               </div>
@@ -1050,8 +1050,8 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                   >
                     <span className="text-lg">{gate.icon}</span>
                     <div className="text-left">
-                      <span className="block text-[9.5px] font-bold uppercase tracking-wider text-white leading-none">{gate.name.split(' ')[0]}</span>
-                      <span className="block text-[7px] text-zinc-550 font-mono uppercase tracking-widest mt-1 font-bold">{gate.region.split(' ')[0]}</span>
+                      <span className="block text-[16px] font-bold uppercase tracking-wider text-white leading-none">{gate.name.split(' ')[0]}</span>
+                      <span className="block text-[14px] text-zinc-550 font-mono uppercase tracking-widest mt-1 font-bold">{gate.region.split(' ')[0]}</span>
                     </div>
                   </button>
                 ))}
@@ -1062,41 +1062,41 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                 <div className="p-4 rounded border border-white/5 bg-white/[0.01] space-y-4 animate-fadeIn">
                   
                   <div className="flex items-center justify-between border-b border-white/5 pb-2">
-                    <span className="font-mono text-[9px] uppercase text-zinc-400 tracking-widest font-bold">
+                    <span className="font-mono text-[14px] uppercase text-zinc-400 tracking-widest font-bold">
                       Direct Coordinates &mdash; {activeGateway.name}
                     </span>
                     <button
                       onClick={handleCopyCoords}
-                      className="font-mono text-[8px] uppercase tracking-widest border border-white/10 hover:border-amber-500/40 bg-zinc-950 hover:bg-amber-500 hover:text-white px-2 py-1 rounded transition-colors cursor-pointer font-bold"
+                      className="font-mono text-[16px] uppercase tracking-widest border border-white/10 hover:border-amber-500/40 bg-zinc-950 hover:bg-amber-500 hover:text-white px-2 py-1 rounded transition-colors cursor-pointer font-bold"
                     >
                       {copiedCoords ? 'Copied Coordinates' : 'Copy Values'}
                     </button>
                   </div>
 
                   {/* Lines of values to pay */}
-                  <div className="space-y-2 text-xs font-mono">
+                  <div className="space-y-2  font-mono">
                     {activeGateway.details.map((dt, idx) => (
                       <div key={idx} className="flex flex-col sm:flex-row sm:justify-between border-b border-white/[0.03] py-1.5 gap-1">
-                        <span className="text-zinc-500 uppercase text-[9px] tracking-wider font-bold shrink-0">{dt.label}:</span>
-                        <span className="text-white text-[10px] sm:text-right select-all font-bold tracking-normal">{dt.value}</span>
+                        <span className="text-zinc-500 uppercase text-[15px] tracking-wider font-bold shrink-0">{dt.label}:</span>
+                        <span className="text-white text-[16px] sm:text-right select-all font-bold tracking-normal">{dt.value}</span>
                       </div>
                     ))}
                   </div>
 
-                  <p className="text-[2026-06-15] text-[10px] text-zinc-500 leading-relaxed font-sans">
+                  <p className="text-[2026-06-15] text-[16px] text-zinc-500 leading-relaxed font-sans">
                     {activeGateway.description}
                   </p>
 
                   {/* Manual Handshake verification form */}
                   {!isLogged ? (
                     <form onSubmit={handleLockAndSettle} className="space-y-3.5 border-t border-white/5 pt-4">
-                      <span className="block font-mono text-[9px] uppercase text-zinc-500 tracking-widest font-bold">
+                      <span className="block font-mono text-[14px] uppercase text-zinc-500 tracking-widest font-bold">
                         Acknowledge and Register Deposit Hash
                       </span>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                          <label className="block font-mono text-[8px] uppercase text-zinc-500 tracking-widest font-bold mb-1">
+                          <label className="block font-mono text-[16px] uppercase text-zinc-500 tracking-widest font-bold mb-1">
                             Deposit Reference / Bank TX# / TrxID *
                           </label>
                           <input
@@ -1105,11 +1105,11 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                             value={trxId}
                             onChange={(e) => setTrxId(e.target.value)}
                             placeholder="e.g. bKash TxID 8JKN94O2"
-                            className="w-full rounded-sm border border-white/5 bg-zinc-950 px-3 py-2 text-xs text-white placeholder-zinc-700 focus:border-amber-500/50 focus:outline-none"
+                            className="w-full rounded-sm border border-white/5 bg-zinc-950 px-3 py-2  text-white placeholder-zinc-700 focus:border-amber-500/50 focus:outline-none"
                           />
                         </div>
                         <div>
-                          <label className="block font-mono text-[8px] uppercase text-zinc-500 tracking-widest font-bold mb-1">
+                          <label className="block font-mono text-[16px] uppercase text-zinc-500 tracking-widest font-bold mb-1">
                             Additional Verification Memo
                           </label>
                           <input
@@ -1117,7 +1117,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                             value={userMemo}
                             onChange={(e) => setUserMemo(e.target.value)}
                             placeholder="e.g. Sent 50% deposit via USDT TRC20"
-                            className="w-full rounded-sm border border-white/5 bg-zinc-950 px-3 py-2 text-xs text-white placeholder-zinc-700 focus:border-amber-500/50 focus:outline-none"
+                            className="w-full rounded-sm border border-white/5 bg-zinc-950 px-3 py-2  text-white placeholder-zinc-700 focus:border-amber-500/50 focus:outline-none"
                           />
                         </div>
                       </div>
@@ -1125,7 +1125,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                       <button
                         type="submit"
                         disabled={!trxId}
-                        className="w-full rounded-sm bg-orange-600 hover:bg-orange-500 text-white font-display text-[10px] font-bold uppercase tracking-widest py-3 text-center transition-colors cursor-pointer disabled:opacity-40"
+                        className="w-full rounded-sm bg-orange-600 hover:bg-orange-500 text-white font-display text-[16px] font-bold uppercase tracking-widest py-3 text-center transition-colors cursor-pointer disabled:opacity-40"
                       >
                         File Transfer Reference onto Browser Audit Trail
                       </button>
@@ -1133,10 +1133,10 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                   ) : (
                     <div className="p-4 rounded border border-emerald-500/20 bg-emerald-500/[0.03] space-y-3 text-center animate-fadeIn">
                       <CheckCircle2 className="h-6 w-6 text-emerald-400 mx-auto animate-bounce" />
-                      <h4 className="font-display font-medium text-xs uppercase tracking-wider text-white">
+                      <h4 className="font-display font-medium  uppercase tracking-wider text-white">
                         Direct Deposit Traced & Cached!
                       </h4>
-                      <p className="text-[10px] text-zinc-400 font-sans leading-relaxed max-w-md mx-auto">
+                      <p className="text-[16px] text-zinc-400 font-sans leading-relaxed max-w-md mx-auto">
                         Your direct invoice settlement parameter has been registered on-site with local tracer Ref ID: <span className="font-mono text-white select-all font-bold">{trxId}</span>. Please trigger the contract submit buttons below to sync this metadata with Haradhan.
                       </p>
                       
@@ -1159,7 +1159,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                             certifiedDate: todayDate
                           });
                         }}
-                        className="inline-flex items-center space-x-1.5 p-1.5 border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/25 px-3 rounded-sm font-mono text-[9px] uppercase tracking-wider font-bold text-emerald-300 transition-colors"
+                        className="inline-flex items-center space-x-1.5 p-1.5 border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/25 px-3 rounded-sm font-mono text-[14px] uppercase tracking-wider font-bold text-emerald-300 transition-colors"
                       >
                         <Download className="h-3.5 w-3.5 shrink-0" />
                         <span>Save Audit JSON Invoice Receipt</span>
@@ -1178,7 +1178,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                 <h4 className="font-display text-[10.5px] uppercase font-bold tracking-widest text-zinc-550">
                   Transmit Generated Bill Metadata & Reference Details
                 </h4>
-                <p className="text-zinc-600 text-[11px] leading-relaxed">
+                <p className="text-zinc-600 text-[15px] leading-relaxed">
                   Send this compiled layout with your logged clearing transaction codes directly to Haradhan. This syncs up his central ledger for immediate manual reconciliation, taking less than 2 hours.
                 </p>
               </div>
@@ -1186,7 +1186,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3" id="submission-channels-wrapper">
                 <a
                   href={whatsappString}
-                  className="flex items-center justify-center space-x-2.5 rounded bg-emerald-600 hover:bg-emerald-500 px-5 py-3.5 text-xs font-bold uppercase tracking-widest text-white shadow-lg shadow-emerald-600/10 transition-all text-center"
+                  className="flex items-center justify-center space-x-2.5 rounded bg-emerald-600 hover:bg-emerald-500 px-5 py-3.5  font-bold uppercase tracking-widest text-white shadow-lg shadow-emerald-600/10 transition-all text-center"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -1196,7 +1196,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
 
                 <a
                   href={mailtoString}
-                  className="flex items-center justify-center space-x-2.5 rounded bg-white hover:bg-amber-500 text-zinc-950 hover:text-white px-5 py-3.5 text-xs font-bold uppercase tracking-widest shadow-lg transition-all text-center duration-300"
+                  className="flex items-center justify-center space-x-2.5 rounded bg-white hover:bg-amber-500 text-zinc-950 hover:text-white px-5 py-3.5  font-bold uppercase tracking-widest shadow-lg transition-all text-center duration-300"
                 >
                   <Mail className="h-4 w-4 shrink-0" />
                   <span>Email Compliant Bill Copy</span>
@@ -1216,17 +1216,17 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
           </div>
 
           {/* FAQ & Quick Actions Columns */}
-          <div className="space-y-6 text-xs text-zinc-400">
+          <div className="space-y-6  text-zinc-400">
             
             <div className="rounded-sm border border-white/5 bg-white/[0.02] p-5 space-y-4">
-              <span className="font-mono text-[9px] uppercase tracking-widest text-zinc-500 font-bold block">Invoice Information</span>
+              <span className="font-mono text-[14px] uppercase tracking-widest text-zinc-500 font-bold block">Invoice Information</span>
               
               <div className="space-y-2 pb-3 border-b border-white/5">
-                <span className="block text-zinc-500 uppercase text-[8px] font-mono tracking-wider font-bold">VALUATION:</span>
+                <span className="block text-zinc-500 uppercase text-[16px] font-mono tracking-wider font-bold">VALUATION:</span>
                 <span className="text-2xl font-serif italic text-amber-200 block">${subtotal} USD</span>
               </div>
 
-              <div className="space-y-2 text-[11px] leading-relaxed">
+              <div className="space-y-2 text-[15px] leading-relaxed">
                 <div className="flex justify-between">
                   <span className="text-zinc-500">Ref ID:</span>
                   <span className="font-mono text-white font-semibold">{invoiceNumber}</span>
@@ -1243,14 +1243,14 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                 <AlertCircle className="h-4 w-4 shrink-0" />
                 <h5 className="font-display font-semibold">Self-Reconciling Protocol</h5>
               </div>
-              <p className="text-[10px] text-zinc-500 font-sans">
+              <p className="text-[16px] text-zinc-500 font-sans">
                 Direct invoicing bypasses standard marketplace structures to minimize cost margins. Haradhan uses safe manually verified clearing paths. All contracts come with signed source delivery templates, guaranteed.
               </p>
             </div>
 
             <button
               onClick={() => { setStep(1); setIsLogged(false); }}
-              className="w-full text-center py-2 border border-white/5 hover:border-amber-500/20 rounded bg-[#0a0a0a] hover:bg-white/[0.03] text-zinc-300 font-mono text-[9.5px] uppercase tracking-wider font-bold transition-all cursor-pointer"
+              className="w-full text-center py-2 border border-white/5 hover:border-amber-500/20 rounded bg-[#0a0a0a] hover:bg-white/[0.03] text-zinc-300 font-mono text-[16px] uppercase tracking-wider font-bold transition-all cursor-pointer"
             >
               Back to Invoicing Composer
             </button>
@@ -1269,7 +1269,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
               <History className="h-5 w-5 text-amber-500 shrink-0" />
               <span>Offline Ledger History Trace</span>
             </h3>
-            <p className="text-zinc-500 text-xs mt-1">
+            <p className="text-zinc-500  mt-1">
               Your local browser safely caches transactions filed on this site for direct self-reconciliation.
             </p>
           </div>
@@ -1282,7 +1282,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
               placeholder="Filter Ledger details..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded bg-white/[0.01] border border-white/5 pl-9 pr-4 py-2 font-mono text-[10px] text-white placeholder-zinc-700 focus:border-amber-500/50 focus:outline-none"
+              className="w-full rounded bg-white/[0.01] border border-white/5 pl-9 pr-4 py-2 font-mono text-[16px] text-white placeholder-zinc-700 focus:border-amber-500/50 focus:outline-none"
             />
           </div>
         </div>
@@ -1290,15 +1290,15 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
         {filteredInvoices.length === 0 ? (
           <div className="rounded border border-dashed border-white/5 p-12 text-center text-zinc-550 space-y-2">
             <Receipt className="h-7 w-7 mx-auto text-zinc-805 opacity-50" />
-            <p className="text-xs font-sans">
+            <p className=" font-sans">
               No direct payments cached matching filters. Go compile / register reference hashes to log receipt nodes.
             </p>
           </div>
         ) : (
           <div className="overflow-x-auto rounded border border-white/5" id="direct-ledgers-table-wrapper">
-            <table className="w-full text-left border-collapse text-xs">
+            <table className="w-full text-left border-collapse ">
               <thead>
-                <tr className="border-b border-white/10 bg-white/[0.01] font-mono text-[9.5px] uppercase tracking-widest text-[#606060] font-bold">
+                <tr className="border-b border-white/10 bg-white/[0.01] font-mono text-[16px] uppercase tracking-widest text-[#606060] font-bold">
                   <th className="p-4">Invoice ID</th>
                   <th className="p-4">Statement Title / SOW</th>
                   <th className="p-4">Billing Company</th>
@@ -1312,35 +1312,35 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                   <tr key={idx} className="hover:bg-white/[0.01] transition-colors leading-normal" id={`direct-inv-row-${inv.invoiceNumber}`}>
                     <td className="p-4">
                       <span className="font-mono font-bold text-amber-500 block">{inv.invoiceNumber}</span>
-                      <span className="block text-[9.5px] text-zinc-650 mt-1 font-mono">{inv.issueDate} &bull; {inv.timestamp || '08:00 AM'}</span>
+                      <span className="block text-[16px] text-zinc-650 mt-1 font-mono">{inv.issueDate} &bull; {inv.timestamp || '08:00 AM'}</span>
                     </td>
                     <td className="p-4 font-semibold text-zinc-300">
                       {inv.serviceTitle}
                       <div className="flex flex-col gap-0.5 mt-1">
-                        <span className="block text-[9px] text-[#808080] font-mono uppercase tracking-wider">{inv.billingType || 'custom direct'}</span>
+                        <span className="block text-[15px] text-[#808080] font-mono uppercase tracking-wider">{inv.billingType || 'custom direct'}</span>
                         {inv.datacenterName && (
-                          <span className="block text-[8.5px] text-amber-500/80 font-mono uppercase font-bold">🌐 Host: {inv.datacenterName} ({inv.datacenterRegion})</span>
+                          <span className="block text-[15px] text-amber-500/80 font-mono uppercase font-bold">🌐 Host: {inv.datacenterName} ({inv.datacenterRegion})</span>
                         )}
                       </div>
                     </td>
                     <td className="p-4">
                       <span className="block text-white font-medium">{inv.clientName}</span>
-                      <span className="block text-[10px] text-zinc-600 font-mono mt-0.5">{inv.email}</span>
+                      <span className="block text-[16px] text-zinc-600 font-mono mt-0.5">{inv.email}</span>
                     </td>
-                    <td className="p-4 font-mono text-[10px]">
-                      <span className="text-amber-500/80 font-bold uppercase block text-[9.5px]">{inv.gateway}</span>
-                      <span className="block text-zinc-550 text-[9.5px] font-bold truncate mt-1 max-w-[150px]" title={inv.trxId}>Ref Hash: {inv.trxId}</span>
+                    <td className="p-4 font-mono text-[16px]">
+                      <span className="text-amber-500/80 font-bold uppercase block text-[16px]">{inv.gateway}</span>
+                      <span className="block text-zinc-550 text-[16px] font-bold truncate mt-1 max-w-[150px]" title={inv.trxId}>Ref Hash: {inv.trxId}</span>
                     </td>
                     <td className="p-4">
                       <span className="font-serif italic text-sm text-amber-200 font-bold block">${inv.amount} USD</span>
-                      <span className="inline-block mt-1 bg-amber-500/10 border border-amber-500/20 text-amber-400 font-mono text-[8px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider">
+                      <span className="inline-block mt-1 bg-amber-500/10 border border-amber-500/20 text-amber-400 font-mono text-[16px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider">
                         Awaiting Verification
                       </span>
                     </td>
                     <td className="p-4 text-center">
                       <button
                         onClick={() => handleDownloadInvoiceRecord(inv)}
-                        className="inline-flex items-center space-x-1 px-2.5 py-1.5 border border-white/5 hover:border-amber-500/20 bg-zinc-950/20 hover:bg-[#121212] transition-colors rounded-sm font-mono text-[9px] uppercase tracking-wider font-bold text-zinc-400 hover:text-white cursor-pointer"
+                        className="inline-flex items-center space-x-1 px-2.5 py-1.5 border border-white/5 hover:border-amber-500/20 bg-zinc-950/20 hover:bg-[#121212] transition-colors rounded-sm font-mono text-[14px] uppercase tracking-wider font-bold text-zinc-400 hover:text-white cursor-pointer"
                       >
                         <Download className="h-3.5 w-3.5" />
                         <span>Receipt</span>
@@ -1366,15 +1366,15 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
               </div>
               <div className="space-y-2">
                 <h3 className="font-display font-medium text-sm lg:text-base text-white">Administrator Access Required</h3>
-                <p className="text-zinc-500 text-xs font-sans leading-relaxed">
+                <p className="text-zinc-500  font-sans leading-relaxed">
                   The Google Sheets CRM contains private client records and transaction logs. Please sign in as the authorized administrator to unlock access.
                 </p>
               </div>
 
               {googleUser && !isUserAdmin && (
-                <div className="p-3.5 bg-rose-500/5 border border-rose-500/10 rounded font-mono text-[10px] text-rose-400 leading-normal text-left">
+                <div className="p-3.5 bg-rose-500/5 border border-rose-500/10 rounded font-mono text-[16px] text-rose-400 leading-normal text-left">
                   <span className="text-[#808080]">Current email:</span> <span className="font-bold text-white break-all">{googleUser.email}</span>
-                  <div className="mt-1.5 text-zinc-500 text-[9px] leading-snug">Only authorized administrators are allowed to access this registry (Authorized: <span className="text-amber-300 font-bold">{ADMIN_EMAILS.join(', ')}</span>).</div>
+                  <div className="mt-1.5 text-zinc-500 text-[15px] leading-snug">Only authorized administrators are allowed to access this registry (Authorized: <span className="text-amber-300 font-bold">{ADMIN_EMAILS.join(', ')}</span>).</div>
                 </div>
               )}
 
@@ -1384,7 +1384,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                     onClick={handleConnectSheets}
                     disabled={isAuthLoading}
                     type="button"
-                    className="gsi-material-button mx-auto text-xs font-bold"
+                    className="gsi-material-button mx-auto  font-bold"
                   >
                     <div className="gsi-material-button-state"></div>
                     <div className="gsi-material-button-content-wrapper">
@@ -1396,13 +1396,13 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                           <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
                         </svg>
                       </div>
-                      <span className="gsi-material-button-contents text-zinc-950 font-bold uppercase tracking-wider text-[9px] font-mono">Sign in with Google</span>
+                      <span className="gsi-material-button-contents text-zinc-950 font-bold uppercase tracking-wider text-[15px] font-mono">Sign in with Google</span>
                     </div>
                   </button>
                 ) : (
                   <button
                     onClick={handleDisconnectSheets}
-                    className="inline-flex justify-center items-center space-x-1.5 px-4.5 py-2.5 border border-white/5 hover:border-zinc-300 bg-white/5 hover:bg-white/10 text-white rounded-sm font-mono text-[9px] uppercase tracking-widest font-bold transition-all cursor-pointer"
+                    className="inline-flex justify-center items-center space-x-1.5 px-4.5 py-2.5 border border-white/5 hover:border-zinc-300 bg-white/5 hover:bg-white/10 text-white rounded-sm font-mono text-[14px] uppercase tracking-widest font-bold transition-all cursor-pointer"
                   >
                     <LogOut className="h-3.5 w-3.5 text-rose-450" />
                     <span>Use Admin Account</span>
@@ -1420,7 +1420,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                   <Database className="h-5 w-5 text-orange-500 animate-pulse" />
                   <span>Google Sheets CRM Integration Hub</span>
                 </h2>
-                <p className="text-zinc-500 text-xs mt-1">
+                <p className="text-zinc-500  mt-1">
                   Connect your Google Sheets spreadsheet to act as an offline-first high-fidelity Leads & billing CRM database.
                 </p>
               </div>
@@ -1428,7 +1428,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
               {/* Status indicator */}
               <div className="flex items-center space-x-2">
                 <span className={`h-2.5 w-2.5 rounded-full ${googleToken ? 'bg-emerald-500 animate-ping' : 'bg-rose-500'}`} />
-                <span className="font-mono text-[9px] uppercase tracking-wider font-bold text-zinc-400">
+                <span className="font-mono text-[14px] uppercase tracking-wider font-bold text-zinc-400">
                   {googleToken ? 'Connected' : 'Offline Mode'}
                 </span>
               </div>
@@ -1437,7 +1437,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Left Column: Connection & Account Controls */}
               <div className="space-y-4">
-                <h3 className="font-mono text-[10px] uppercase text-zinc-500 tracking-wider font-bold">1. Google Authorization</h3>
+                <h3 className="font-mono text-[16px] uppercase text-zinc-500 tracking-wider font-bold">1. Google Authorization</h3>
                 
                 {googleUser ? (
                   <div className="rounded-sm border border-white/5 bg-white/[0.01] p-4 space-y-3">
@@ -1445,19 +1445,19 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                       {googleUser.photoURL ? (
                         <img src={googleUser.photoURL} alt="Google Avatar" className="h-9 w-9 rounded-full border border-white/10" referrerPolicy="no-referrer" />
                       ) : (
-                        <div className="h-9 w-9 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 font-mono flex items-center justify-center font-bold text-xs">
+                        <div className="h-9 w-9 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 font-mono flex items-center justify-center font-bold ">
                           {googleUser.displayName?.charAt(0) || 'U'}
                         </div>
                       )}
                       <div>
-                        <h4 className="font-display font-medium text-xs text-white leading-none">{googleUser.displayName || 'Authorized User'}</h4>
-                        <p className="font-mono text-[9.5px] text-zinc-555 mt-1">{googleUser.email}</p>
+                        <h4 className="font-display font-medium  text-white leading-none">{googleUser.displayName || 'Authorized User'}</h4>
+                        <p className="font-mono text-[16px] text-zinc-555 mt-1">{googleUser.email}</p>
                       </div>
                     </div>
 
                     <button
                       onClick={handleDisconnectSheets}
-                      className="inline-flex items-center space-x-1.5 px-3 py-1.5 border border-white/5 hover:border-rose-500/20 bg-rose-500/5 hover:bg-rose-500/10 text-rose-400 hover:text-white rounded-sm font-mono text-[9px] uppercase tracking-widest font-bold transition-all cursor-pointer"
+                      className="inline-flex items-center space-x-1.5 px-3 py-1.5 border border-white/5 hover:border-rose-500/20 bg-rose-500/5 hover:bg-rose-500/10 text-rose-400 hover:text-white rounded-sm font-mono text-[14px] uppercase tracking-widest font-bold transition-all cursor-pointer"
                     >
                       <LogOut className="h-3.5 w-3.5" />
                       <span>Disconnect Workspace</span>
@@ -1465,7 +1465,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                   </div>
                 ) : (
                   <div className="rounded-sm border border-white/5 bg-white/[0.01] p-5 text-center space-y-4">
-                    <p className="text-[11px] text-zinc-500 font-sans leading-relaxed">
+                    <p className="text-[15px] text-zinc-500 font-sans leading-relaxed">
                       Connect your Google Account with Spreadsheet permissions to bind this site to your secure Sheets.
                     </p>
                     
@@ -1473,7 +1473,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                       onClick={handleConnectSheets}
                       disabled={isAuthLoading}
                       type="button"
-                      className="gsi-material-button mx-auto text-xs font-bold"
+                      className="gsi-material-button mx-auto  font-bold"
                     >
                       <div className="gsi-material-button-state"></div>
                       <div className="gsi-material-button-content-wrapper">
@@ -1485,7 +1485,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                             <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
                           </svg>
                         </div>
-                        <span className="gsi-material-button-contents text-zinc-950 font-bold uppercase tracking-wider text-[9px] font-mono">Sign in with Google Sheets</span>
+                        <span className="gsi-material-button-contents text-zinc-950 font-bold uppercase tracking-wider text-[15px] font-mono">Sign in with Google Sheets</span>
                       </div>
                     </button>
                   </div>
@@ -1494,14 +1494,14 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
 
               {/* Right Column: Spreadsheet Bind & Master Sync Controls */}
               <div className="space-y-4">
-                <h3 className="font-mono text-[10px] uppercase text-zinc-500 tracking-wider font-bold">2. CRM Spreadsheet Link</h3>
+                <h3 className="font-mono text-[16px] uppercase text-zinc-500 tracking-wider font-bold">2. CRM Spreadsheet Link</h3>
                 
                 <div className="rounded-sm border border-white/5 bg-white/[0.01] p-4 space-y-4">
                   {crmSpreadsheetId ? (
                     <div className="space-y-3">
                       <div className="space-y-1">
-                        <span className="block text-[8px] font-mono text-[#808080] uppercase tracking-widest font-bold">Connected CRM Spreadsheet ID</span>
-                        <div className="flex items-center space-x-1.5 font-mono text-[9px] bg-black/40 border border-white/5 p-2 rounded text-zinc-400 uppercase select-all truncate">
+                        <span className="block text-[16px] font-mono text-[#808080] uppercase tracking-widest font-bold">Connected CRM Spreadsheet ID</span>
+                        <div className="flex items-center space-x-1.5 font-mono text-[14px] bg-black/40 border border-white/5 p-2 rounded text-zinc-400 uppercase select-all truncate">
                           <span>{crmSpreadsheetId}</span>
                         </div>
                       </div>
@@ -1511,7 +1511,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                           href={`https://docs.google.com/spreadsheets/d/${crmSpreadsheetId}`}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center space-x-1.5 px-3 py-2 border border-orange-500/20 bg-orange-500/10 hover:bg-orange-500/20 text-orange-400 hover:text-white rounded-sm font-mono text-[9px] uppercase tracking-widest font-bold transition-all cursor-pointer"
+                          className="inline-flex items-center space-x-1.5 px-3 py-2 border border-orange-500/20 bg-orange-500/10 hover:bg-orange-500/20 text-orange-400 hover:text-white rounded-sm font-mono text-[14px] uppercase tracking-widest font-bold transition-all cursor-pointer"
                         >
                           <ExternalLink className="h-3.5 w-3.5" />
                           <span>Launch Spreadsheet</span>
@@ -1521,7 +1521,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                           onClick={handleCreateCRMSheet}
                           disabled={!googleToken || isSyncingLeads}
                           type="button"
-                          className="inline-flex items-center space-x-1 px-3 py-2 border border-white/5 bg-[#141414] hover:bg-[#1a1a1a] hover:border-white/10 text-zinc-400 hover:text-white rounded-sm font-mono text-[9px] uppercase tracking-widest font-bold transition-all cursor-pointer disabled:opacity-30 disabled:pointer-events-none"
+                          className="inline-flex items-center space-x-1 px-3 py-2 border border-white/5 bg-[#141414] hover:bg-[#1a1a1a] hover:border-white/10 text-zinc-400 hover:text-white rounded-sm font-mono text-[14px] uppercase tracking-widest font-bold transition-all cursor-pointer disabled:opacity-30 disabled:pointer-events-none"
                         >
                           <span>Re-Create Sheet CRM</span>
                         </button>
@@ -1529,7 +1529,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                     </div>
                   ) : (
                     <div className="text-center py-4 space-y-3">
-                      <p className="text-[11px] text-zinc-500 font-sans leading-relaxed">
+                      <p className="text-[15px] text-zinc-500 font-sans leading-relaxed">
                         No CRM Spreadsheet bound. Automatically generate a spreadsheet containing Leads, Bookings, and Invoices sheets.
                       </p>
                       
@@ -1537,7 +1537,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                         onClick={handleCreateCRMSheet}
                         disabled={!googleToken || isSyncingLeads}
                         type="button"
-                        className="inline-flex items-center space-x-1.5 px-4.5 py-2 rounded-sm bg-white hover:bg-amber-500 hover:text-white text-zinc-950 font-mono text-[9px] uppercase tracking-widest font-bold shadow-xl transition-all cursor-pointer disabled:opacity-35 disabled:bg-zinc-800 disabled:text-zinc-650 disabled:pointer-events-none"
+                        className="inline-flex items-center space-x-1.5 px-4.5 py-2 rounded-sm bg-white hover:bg-amber-500 hover:text-white text-zinc-950 font-mono text-[14px] uppercase tracking-widest font-bold shadow-xl transition-all cursor-pointer disabled:opacity-35 disabled:bg-zinc-800 disabled:text-zinc-650 disabled:pointer-events-none"
                       >
                         {isSyncingLeads ? <RefreshCw className="h-3.5 w-3.5 animate-spin" /> : <Plus className="h-3.5 w-3.5" />}
                         <span>Initialize Google Sheet CRM Setup</span>
@@ -1552,8 +1552,8 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
             {googleToken && crmSpreadsheetId && (
               <div className="border-t border-white/5 pt-5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div className="space-y-1">
-                  <h4 className="font-display font-semibold text-xs text-white">Consolidated Sync Actions</h4>
-                  <p className="text-[10px] text-zinc-500 font-sans leading-relaxed">
+                  <h4 className="font-display font-semibold  text-white">Consolidated Sync Actions</h4>
+                  <p className="text-[16px] text-zinc-500 font-sans leading-relaxed">
                     This logs all local storage data ({crmLeads.length} leads, {crmBookings.length} bookings, {pastInvoices.length} invoices) into their respective worksheets on your Google Sheet.
                   </p>
                 </div>
@@ -1563,7 +1563,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                     onClick={handlePushSync}
                     disabled={isSyncingLeads || isSyncingBookings || isSyncingInvoices}
                     type="button"
-                    className="inline-flex items-center space-x-1.5 px-6 py-2.5 rounded-sm bg-orange-500 text-white hover:bg-orange-600 font-mono text-[10px] uppercase tracking-widest font-bold shadow-xl cursor-pointer transition-colors duration-300 disabled:opacity-40"
+                    className="inline-flex items-center space-x-1.5 px-6 py-2.5 rounded-sm bg-orange-500 text-white hover:bg-orange-600 font-mono text-[16px] uppercase tracking-widest font-bold shadow-xl cursor-pointer transition-colors duration-300 disabled:opacity-40"
                   >
                     {isSyncingLeads || isSyncingBookings || isSyncingInvoices ? (
                       <RefreshCw className="h-3.5 w-3.5 animate-spin" />
@@ -1574,7 +1574,7 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                   </button>
 
                   {syncTriggered && (
-                    <div className="flex items-center space-x-1.5 text-emerald-400 font-mono text-[10px] font-bold uppercase tracking-wider animate-fadeIn">
+                    <div className="flex items-center space-x-1.5 text-emerald-400 font-mono text-[16px] font-bold uppercase tracking-wider animate-fadeIn">
                       <Check className="h-4 w-4 shrink-0" />
                       <span>Sync Successful!</span>
                     </div>
@@ -1585,11 +1585,11 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
 
             {/* Error notifications */}
             {sheetsError && (
-              <div className="rounded-sm border border-rose-500/10 bg-rose-500/5 p-3.5 flex items-start space-x-3 text-xs text-rose-400">
+              <div className="rounded-sm border border-rose-500/10 bg-rose-500/5 p-3.5 flex items-start space-x-3  text-rose-400">
                 <AlertCircle className="h-4 w-4 text-rose-400 shrink-0 mt-0.5" />
                 <div className="space-y-0.5">
-                  <span className="font-mono font-bold uppercase text-[9px] tracking-wider">Sheets Synchronization Warning</span>
-                  <p className="font-sans text-[11px] leading-relaxed mt-1 text-zinc-400">{sheetsError}</p>
+                  <span className="font-mono font-bold uppercase text-[15px] tracking-wider">Sheets Synchronization Warning</span>
+                  <p className="font-sans text-[15px] leading-relaxed mt-1 text-zinc-400">{sheetsError}</p>
                 </div>
               </div>
             )}
@@ -1602,14 +1602,14 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
             {/* Leads Column */}
             <div className="rounded-sm border border-white/5 bg-[#0a0a0a] p-5 space-y-4">
               <div className="flex justify-between items-center border-b border-white/5 pb-2.5">
-                <h3 className="font-display font-semibold text-xs text-white uppercase tracking-wider flex items-center space-x-2">
+                <h3 className="font-display font-semibold  text-white uppercase tracking-wider flex items-center space-x-2">
                   <Mail className="h-4 w-4 text-orange-400" />
                   <span>Collected Warm Leads ({crmLeads.length})</span>
                 </h3>
               </div>
 
               {crmLeads.length === 0 ? (
-                <div className="py-12 border border-dashed border-white/5 text-center text-zinc-550 text-xs font-sans rounded-sm">
+                <div className="py-12 border border-dashed border-white/5 text-center text-zinc-550  font-sans rounded-sm">
                   No leads compiled on client contact form yet.
                 </div>
               ) : (
@@ -1625,16 +1625,16 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                       </button>
 
                       <div className="pr-6 space-y-1">
-                        <span className="font-mono text-[8px] font-bold text-orange-500 bg-orange-500/10 px-1.5 py-0.5 rounded uppercase tracking-wider">{lead.id}</span>
-                        <h4 className="font-display font-bold text-xs text-white">{lead.name}</h4>
-                        <span className="block text-[10px] text-zinc-500 font-mono">{lead.email}</span>
+                        <span className="font-mono text-[16px] font-bold text-orange-500 bg-orange-500/10 px-1.5 py-0.5 rounded uppercase tracking-wider">{lead.id}</span>
+                        <h4 className="font-display font-bold  text-white">{lead.name}</h4>
+                        <span className="block text-[16px] text-zinc-500 font-mono">{lead.email}</span>
                       </div>
 
                       <div className="border-t border-white/5 pt-2 space-y-1.5">
-                        <p className="text-[10px] text-zinc-400 italic font-sans break-words leading-relaxed">
+                        <p className="text-[16px] text-zinc-400 italic font-sans break-words leading-relaxed">
                           "{lead.message}"
                         </p>
-                        <div className="flex justify-between items-center font-mono text-[8.5px] text-zinc-600">
+                        <div className="flex justify-between items-center font-mono text-[15px] text-zinc-600">
                           <span>Via: {lead.source || 'Direct Website Form'}</span>
                           <span>{lead.date}</span>
                         </div>
@@ -1648,14 +1648,14 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
             {/* Bookings Column */}
             <div className="rounded-sm border border-white/5 bg-[#0a0a0a] p-5 space-y-4">
               <div className="flex justify-between items-center border-b border-white/5 pb-2.5">
-                <h3 className="font-display font-semibold text-xs text-white uppercase tracking-wider flex items-center space-x-2">
+                <h3 className="font-display font-semibold  text-white uppercase tracking-wider flex items-center space-x-2">
                   <Calendar className="h-4 w-4 text-orange-400" />
                   <span>Sovereign Scheduled Bookings ({crmBookings.length})</span>
                 </h3>
               </div>
 
               {crmBookings.length === 0 ? (
-                <div className="py-12 border border-dashed border-white/5 text-center text-zinc-550 text-xs font-sans rounded-sm">
+                <div className="py-12 border border-dashed border-white/5 text-center text-zinc-550  font-sans rounded-sm">
                   No consultations booked via calendar scheduler yet.
                 </div>
               ) : (
@@ -1671,20 +1671,20 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
                       </button>
 
                       <div className="pr-6 space-y-1">
-                        <span className="font-mono text-[8px] font-bold text-amber-500 bg-amber-500/10 px-1.5 py-0.5 rounded uppercase tracking-wider">{b.bookingId}</span>
-                        <h4 className="font-display font-bold text-xs text-white">{b.clientName}</h4>
-                        <span className="block text-[10px] text-zinc-500 font-mono">{b.clientEmail}</span>
+                        <span className="font-mono text-[16px] font-bold text-amber-500 bg-amber-500/10 px-1.5 py-0.5 rounded uppercase tracking-wider">{b.bookingId}</span>
+                        <h4 className="font-display font-bold  text-white">{b.clientName}</h4>
+                        <span className="block text-[16px] text-zinc-500 font-mono">{b.clientEmail}</span>
                       </div>
 
                       <div className="border-t border-white/5 pt-2 space-y-1.5">
-                        <div className="flex items-center space-x-2 font-mono text-[9px] text-[#ffaa00] font-bold uppercase tracking-wider">
+                        <div className="flex items-center space-x-2 font-mono text-[14px] text-[#ffaa00] font-bold uppercase tracking-wider">
                           <span>📅 {b.date}</span>
                           <span>⏰ {b.time} (UTC)</span>
                         </div>
-                        <p className="text-[10px] text-zinc-400 italic font-sans break-words leading-relaxed">
+                        <p className="text-[16px] text-zinc-400 italic font-sans break-words leading-relaxed">
                           Brief: "{b.details}"
                         </p>
-                        <div className="flex justify-between items-center font-mono text-[8.5px] text-zinc-600">
+                        <div className="flex justify-between items-center font-mono text-[15px] text-zinc-600">
                           <span>Channel: {b.location || 'Meet Session'}</span>
                           <span>Scheduled On: {b.created ? new Date(b.created).toLocaleDateString() : 'Pending'}</span>
                         </div>

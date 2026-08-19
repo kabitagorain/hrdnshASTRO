@@ -8,9 +8,52 @@ interface ConsultationSchedulerProps {
   onBackToHome?: () => void;
 }
 
+// Helper to generate the next N business days starting from today or tomorrow
+function getUpcomingBusinessDays(count: number = 5) {
+  const days: { key: string; label: string; desc: string }[] = [];
+  const descriptions = [
+    'Sovereign Openings',
+    'Architecture Reviews',
+    'ERP & Shopfloor Scopes',
+    'FinTech Tech Stack audits',
+    'Secure Cloud VPS deployments'
+  ];
+
+  let current = new Date();
+  // Move to tomorrow if currently past typical working hours, or start from today
+  current.setDate(current.getDate() + 1);
+
+  while (days.length < count) {
+    const dayOfWeek = current.getDay();
+    // Exclude weekends (0 = Sunday, 6 = Saturday)
+    if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+      const year = current.getFullYear();
+      const month = String(current.getMonth() + 1).padStart(2, '0');
+      const day = String(current.getDate()).padStart(2, '0');
+      const key = `${year}-${month}-${day}`;
+
+      const dayName = current.toLocaleDateString('en-US', { weekday: 'short' });
+      const monthName = current.toLocaleDateString('en-US', { month: 'short' });
+      const dayNum = current.getDate();
+
+      days.push({
+        key,
+        label: `${dayName}, ${monthName} ${dayNum}`,
+        desc: descriptions[days.length % descriptions.length]
+      });
+    }
+    current.setDate(current.getDate() + 1);
+  }
+
+  return days;
+}
+
 export default function ConsultationScheduler({ onBackToHome }: ConsultationSchedulerProps) {
+  // Generate real-world upcoming business dates dynamically
+  const availableDates = useMemo(() => getUpcomingBusinessDays(5), []);
+
   const [step, setStep] = useState(1);
-  const [selectedDate, setSelectedDate] = useState<string>('2026-06-15');
+  const [selectedDate, setSelectedDate] = useState<string>(() => availableDates[0]?.key || '');
   const [selectedTime, setSelectedTime] = useState<string>('14:00');
   
   // Form fields
@@ -28,14 +71,7 @@ export default function ConsultationScheduler({ onBackToHome }: ConsultationSche
   const [bookedMeetingLinks, setBookedMeetingLinks] = useState<{ hangoutLink?: string; htmlLink?: string } | null>(null);
   const [isBookingSubmitting, setIsBookingSubmitting] = useState(false);
 
-  // Available dates (upcoming business days in June 2026)
-  const availableDates = [
-    { key: '2026-06-15', label: 'Mon, Jun 15', desc: 'Sovereign Openings' },
-    { key: '2026-06-16', label: 'Tue, Jun 16', desc: 'Architecture Reviews' },
-    { key: '2026-06-17', label: 'Wed, Jun 17', desc: 'ERP & Shopfloor Scopes' },
-    { key: '2026-06-18', label: 'Thu, Jun 18', desc: 'FinTech Tech Stack audits' },
-    { key: '2026-06-19', label: 'Fri, Jun 19', desc: 'Secure Cloud VPS deployments' },
-  ];
+  
 
   // Available UTC times (coordinated with freelancing schedule)
   const timeSlots = [
@@ -275,17 +311,17 @@ export default function ConsultationScheduler({ onBackToHome }: ConsultationSche
   };
 
   return (
-    <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16 animate-fadeIn" id="consultation-booking-view">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 animate-fadeIn" id="consultation-booking-view">
       
       {/* View Header */}
       <div className="mb-12 text-center max-w-2xl mx-auto space-y-4">
-        <div className="inline-flex rounded-sm border border-orange-500/20 bg-orange-500/10 px-3 py-1 font-mono text-[9px] font-bold text-orange-400 uppercase tracking-widest">
+        <div className="inline-flex rounded-sm border border-orange-500/20 bg-orange-500/10 px-3 py-1 font-mono text-[14px] font-bold text-orange-400 uppercase tracking-widest">
           Consolidated Booking Engine
         </div>
         <h1 className="font-display text-3xl font-extrabold tracking-tight text-white leading-none">
           Coordinate Your <span className="font-serif italic text-amber-200 font-normal">Technical Scoping Block</span>
         </h1>
-        <p className="text-zinc-500 text-xs font-sans leading-relaxed">
+        <p className="text-zinc-500  font-sans leading-relaxed">
           Book a 30-minute high-fidelity system roadmap session. Instantly check your own schedule for conflicts and automatically insert events with Google Meet.
         </p>
       </div>
@@ -303,11 +339,11 @@ export default function ConsultationScheduler({ onBackToHome }: ConsultationSche
                   <div className="space-y-1">
                     <div className="flex items-center space-x-2">
                       <Globe className={`h-4.5 w-4.5 ${accessToken ? 'text-orange-500' : 'text-zinc-500'}`} />
-                      <h4 className="font-display font-bold text-xs text-white uppercase tracking-wider">
+                      <h4 className="font-display font-bold  text-white uppercase tracking-wider">
                         Google Calendar Sync
                       </h4>
                     </div>
-                    <p className="text-[10px] text-zinc-500 max-w-md font-sans leading-relaxed">
+                    <p className="text-[16px] text-zinc-500 max-w-md font-sans leading-relaxed">
                       Connect your Google Calendar to automatically scan your schedule for conflicts, check available times, and insert the booking instantly.
                     </p>
                   </div>
@@ -316,13 +352,13 @@ export default function ConsultationScheduler({ onBackToHome }: ConsultationSche
                       type="button"
                       onClick={handleConnectCalendar}
                       disabled={isAuthLoading}
-                      className="px-4 py-2 rounded-sm bg-orange-600 hover:bg-orange-500 text-white font-mono text-[9px] uppercase tracking-wider font-bold transition-all cursor-pointer disabled:opacity-50"
+                      className="px-4 py-2 rounded-sm bg-orange-600 hover:bg-orange-500 text-white font-mono text-[14px] uppercase tracking-wider font-bold transition-all cursor-pointer disabled:opacity-50"
                     >
                       {isAuthLoading ? 'Connecting...' : 'Connect'}
                     </button>
                   ) : (
                     <div className="flex items-center space-x-2">
-                      <span className="inline-flex rounded-full bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 font-mono text-[8px] font-bold text-emerald-400 uppercase">
+                      <span className="inline-flex rounded-full bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 font-mono text-[16px] font-bold text-emerald-400 uppercase">
                         Sync Active
                       </span>
                       <button
@@ -342,21 +378,21 @@ export default function ConsultationScheduler({ onBackToHome }: ConsultationSche
                     {user.photoURL && (
                       <img src={user.photoURL} alt={user.displayName || 'Google User'} className="h-5 w-5 rounded-full" referrerPolicy="no-referrer" />
                     )}
-                    <span className="font-mono text-[9px] text-zinc-400">
+                    <span className="font-mono text-[14px] text-zinc-400">
                       Synchronized with: <span className="text-white font-medium">{user.email}</span>
                     </span>
                   </div>
                 )}
 
                 {accessToken && isEventsLoading && (
-                  <div className="flex items-center space-x-1.5 font-mono text-[9px] text-orange-400 animate-pulse">
+                  <div className="flex items-center space-x-1.5 font-mono text-[14px] text-orange-400 animate-pulse">
                     <span className="h-1.5 w-1.5 rounded-full bg-orange-500"></span>
                     <span>Checking your real-time calendar availability...</span>
                   </div>
                 )}
 
                 {eventsFetchError && (
-                  <div className="flex items-start space-x-2 bg-red-500/10 border border-red-500/20 rounded p-3 text-red-400 font-sans text-[10px] leading-relaxed">
+                  <div className="flex items-start space-x-2 bg-red-500/10 border border-red-500/20 rounded p-3 text-red-400 font-sans text-[16px] leading-relaxed">
                     <ShieldAlert className="h-4 w-4 shrink-0 mt-0.5" />
                     <div>
                       <span className="font-bold block">Calendar Sync Issue:</span>
@@ -368,7 +404,7 @@ export default function ConsultationScheduler({ onBackToHome }: ConsultationSche
 
               {/* Date selection strip cards */}
               <div className="space-y-2.5">
-                <label className="block font-mono text-[9px] uppercase text-zinc-500 tracking-widest font-bold">1. Select Target Date (UTC)</label>
+                <label className="block font-mono text-[14px] uppercase text-zinc-500 tracking-widest font-bold">1. Select Target Date (UTC)</label>
                 <div className="grid grid-cols-2 sm:grid-cols-5 gap-2" id="date-strips">
                   {availableDates.map((date) => (
                     <button
@@ -381,8 +417,8 @@ export default function ConsultationScheduler({ onBackToHome }: ConsultationSche
                           : 'bg-white/[0.01] border-white/5 text-zinc-400 hover:border-white/10 hover:bg-white/[0.02]'
                       }`}
                     >
-                      <span className="block font-display font-medium text-xs text-white uppercase leading-none">{date.label.split(', ')[1]}</span>
-                      <span className="block text-[8px] font-mono text-zinc-500 mt-1 uppercase tracking-wider">{date.label.split(', ')[0]}</span>
+                      <span className="block font-display font-medium  text-white uppercase leading-none">{date.label.split(', ')[1]}</span>
+                      <span className="block text-[16px] font-mono text-zinc-500 mt-1 uppercase tracking-wider">{date.label.split(', ')[0]}</span>
                     </button>
                   ))}
                 </div>
@@ -390,7 +426,7 @@ export default function ConsultationScheduler({ onBackToHome }: ConsultationSche
 
               {/* Time Slots grid */}
               <div className="space-y-2.5">
-                <label className="block font-mono text-[9px] uppercase text-zinc-500 tracking-widest font-bold">2. Choose Synchronized Time Slot</label>
+                <label className="block font-mono text-[14px] uppercase text-zinc-500 tracking-widest font-bold">2. Choose Synchronized Time Slot</label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2" id="time-grid">
                   {timeSlots.map((time) => {
                     const isOccupied = slotAvailability[time.key]?.isOccupied;
@@ -413,16 +449,16 @@ export default function ConsultationScheduler({ onBackToHome }: ConsultationSche
                       >
                         <div className="flex items-center space-x-3">
                           <Clock className={`h-4 w-4 ${isOccupied ? 'text-red-900/40' : isSelected ? 'text-orange-400' : 'text-zinc-500'}`} />
-                          <span className={`text-xs font-mono font-bold ${isOccupied ? 'line-through text-zinc-555' : ''}`}>
+                          <span className={` font-mono font-bold ${isOccupied ? 'line-through text-zinc-555' : ''}`}>
                             {time.label}
                           </span>
                         </div>
                         {isOccupied ? (
-                          <span className="text-[7px] font-mono uppercase bg-red-500/10 border border-red-500/25 text-red-400 px-1.5 py-0.5 rounded font-bold">
+                          <span className="text-[14px] font-mono uppercase bg-red-500/10 border border-red-500/25 text-red-400 px-1.5 py-0.5 rounded font-bold">
                             Busy: {conflictText || 'Conflict'}
                           </span>
                         ) : (
-                          <span className="text-[8px] font-mono uppercase text-zinc-500 tracking-widest font-bold">
+                          <span className="text-[16px] font-mono uppercase text-zinc-500 tracking-widest font-bold">
                             {time.col}
                           </span>
                         )}
@@ -434,43 +470,43 @@ export default function ConsultationScheduler({ onBackToHome }: ConsultationSche
 
               {/* Contact Information Sheets */}
               <div className="rounded-sm border border-white/5 bg-white/[0.02] p-6 space-y-4">
-                <h3 className="font-display font-bold text-xs text-white uppercase tracking-wider border-b border-white/5 pb-2">
+                <h3 className="font-display font-bold  text-white uppercase tracking-wider border-b border-white/5 pb-2">
                   3. Corporate Details
                 </h3>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block font-mono text-[9px] uppercase text-zinc-500 tracking-widest font-bold mb-1.5">Representative Name *</label>
+                    <label className="block font-mono text-[14px] uppercase text-zinc-500 tracking-widest font-bold mb-1.5">Representative Name *</label>
                     <input 
                       type="text"
                       required
                       value={clientName}
                       onChange={(e) => setClientName(e.target.value)}
                       placeholder="e.g. David Vance"
-                      className="w-full rounded-sm border border-white/5 bg-white/[0.01] px-4 py-2.5 text-xs text-white placeholder-zinc-650 focus:border-orange-500/50 focus:outline-none focus:bg-[#070707]"
+                      className="w-full rounded-sm border border-white/5 bg-white/[0.01] px-4 py-2.5  text-white placeholder-zinc-650 focus:border-orange-500/50 focus:outline-none focus:bg-[#070707]"
                     />
                   </div>
                   <div>
-                    <label className="block font-mono text-[9px] uppercase text-zinc-500 tracking-widest font-bold mb-1.5">Business Email *</label>
+                    <label className="block font-mono text-[14px] uppercase text-zinc-500 tracking-widest font-bold mb-1.5">Business Email *</label>
                     <input 
                       type="email"
                       required
                       value={clientEmail}
                       onChange={(e) => setClientEmail(e.target.value)}
                       placeholder="e.g. david@saascapital.net"
-                      className="w-full rounded-sm border border-white/5 bg-white/[0.01] px-4 py-2.5 text-xs text-white placeholder-zinc-650 focus:border-orange-500/50 focus:outline-none focus:bg-[#070707]"
+                      className="w-full rounded-sm border border-white/5 bg-white/[0.01] px-4 py-2.5  text-white placeholder-zinc-650 focus:border-orange-500/50 focus:outline-none focus:bg-[#070707]"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block font-mono text-[9px] uppercase text-zinc-500 tracking-widest font-bold mb-1.5">Brief description of systems / goals</label>
+                  <label className="block font-mono text-[14px] uppercase text-zinc-500 tracking-widest font-bold mb-1.5">Brief description of systems / goals</label>
                   <textarea 
                     rows={4}
                     value={briefDetails}
                     onChange={(e) => setBriefDetails(e.target.value)}
                     placeholder="e.g. Looking for help scoping a high-concurrency microservice transition on AWS and a PostgreSQL master-slave structure."
-                    className="w-full rounded-sm border border-white/5 bg-white/[0.01] px-4 py-2.5 text-xs text-white placeholder-zinc-650 focus:border-orange-500/50 focus:outline-none focus:bg-[#070707] resize-none"
+                    className="w-full rounded-sm border border-white/5 bg-white/[0.01] px-4 py-2.5  text-white placeholder-zinc-650 focus:border-orange-500/50 focus:outline-none focus:bg-[#070707] resize-none"
                   />
                 </div>
               </div>
@@ -479,7 +515,7 @@ export default function ConsultationScheduler({ onBackToHome }: ConsultationSche
               <button
                 type="submit"
                 disabled={isBookingSubmitting || !clientName || !clientEmail}
-                className="w-full rounded-sm bg-white hover:bg-orange-500 text-zinc-950 hover:text-white py-3.5 text-center font-display text-[10px] font-bold uppercase tracking-widest shadow-xl transition-all cursor-pointer disabled:opacity-35 disabled:pointer-events-none duration-300"
+                className="w-full rounded-sm bg-white hover:bg-orange-500 text-zinc-950 hover:text-white py-3.5 text-center font-display text-[16px] font-bold uppercase tracking-widest shadow-xl transition-all cursor-pointer disabled:opacity-35 disabled:pointer-events-none duration-300"
               >
                 {isBookingSubmitting ? (
                   <span className="flex items-center justify-center space-x-2">
@@ -501,12 +537,12 @@ export default function ConsultationScheduler({ onBackToHome }: ConsultationSche
 
               <div className="space-y-2">
                 <h2 className="font-display text-2xl font-bold tracking-tight text-white leading-none">Consultation Slot Locked!</h2>
-                <p className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 font-bold">
+                <p className="text-[16px] font-mono uppercase tracking-widest text-zinc-500 font-bold">
                   Reserved for {clientName} &bull; Ref Log: CS-2026-{Math.floor(Math.random() * 899 + 100)}
                 </p>
               </div>
 
-              <p className="text-zinc-400 text-xs leading-relaxed max-w-lg mx-auto font-sans">
+              <p className="text-zinc-400  leading-relaxed max-w-lg mx-auto font-sans">
                 You have reserved a virtual 30-minute technical block on <span className="font-bold text-white uppercase font-mono">{meetingDateFormatted}</span> at <span className="font-bold text-white uppercase font-mono">{meetingTimeFormatted}</span>.
               </p>
 
@@ -515,16 +551,16 @@ export default function ConsultationScheduler({ onBackToHome }: ConsultationSche
                 <div className="max-w-lg mx-auto p-4 rounded-sm border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 space-y-1.5 text-left">
                   <div className="flex items-center space-x-2">
                     <Video className="h-4.5 w-4.5 shrink-0" />
-                    <span className="font-display font-bold text-xs uppercase tracking-wider">Google Meet Conference Generated!</span>
+                    <span className="font-display font-bold  uppercase tracking-wider">Google Meet Conference Generated!</span>
                   </div>
-                  <p className="text-[10px] text-zinc-400 leading-relaxed font-sans">
+                  <p className="text-[16px] text-zinc-400 leading-relaxed font-sans">
                     A secure videoconference link has been minted. Click to join at the scheduled hour or consult your calendar invitations.
                   </p>
                   <a 
                     href={bookedMeetingLinks.hangoutLink} 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="inline-flex items-center space-x-1 font-mono text-xs text-white underline hover:text-orange-400 break-all"
+                    className="inline-flex items-center space-x-1 font-mono  text-white underline hover:text-orange-400 break-all"
                   >
                     <span>{bookedMeetingLinks.hangoutLink}</span>
                   </a>
@@ -538,7 +574,7 @@ export default function ConsultationScheduler({ onBackToHome }: ConsultationSche
                     href={bookedMeetingLinks.htmlLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center space-x-2.5 rounded-sm bg-orange-600 hover:bg-orange-500 text-white py-3.5 text-xs font-bold uppercase tracking-widest shadow-lg transition-colors text-center font-display"
+                    className="flex items-center justify-center space-x-2.5 rounded-sm bg-orange-600 hover:bg-orange-500 text-white py-3.5  font-bold uppercase tracking-widest shadow-lg transition-colors text-center font-display"
                   >
                     <Globe className="h-4 w-4 shrink-0" />
                     <span>View Calendar Event</span>
@@ -548,7 +584,7 @@ export default function ConsultationScheduler({ onBackToHome }: ConsultationSche
                     href={googleCalendarUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center space-x-2.5 rounded-sm bg-[#ea580c] hover:bg-orange-500 text-white py-3.5 text-xs font-bold uppercase tracking-widest shadow-lg transition-colors text-center font-display"
+                    className="flex items-center justify-center space-x-2.5 rounded-sm bg-[#ea580c] hover:bg-orange-500 text-white py-3.5  font-bold uppercase tracking-widest shadow-lg transition-colors text-center font-display"
                   >
                     <Globe className="h-4 w-4 shrink-0" />
                     <span>Sync to Google Calendar</span>
@@ -557,7 +593,7 @@ export default function ConsultationScheduler({ onBackToHome }: ConsultationSche
 
                 <button
                   onClick={handleDownloadICS}
-                  className="flex items-center justify-center space-x-2.5 rounded-sm border border-white/15 bg-white/[0.02] hover:bg-white/[0.08] hover:border-orange-500/40 text-zinc-300 hover:text-white py-3.5 text-xs font-bold uppercase tracking-widest transition-all cursor-pointer font-display"
+                  className="flex items-center justify-center space-x-2.5 rounded-sm border border-white/15 bg-white/[0.02] hover:bg-white/[0.08] hover:border-orange-500/40 text-zinc-300 hover:text-white py-3.5  font-bold uppercase tracking-widest transition-all cursor-pointer font-display"
                 >
                   <Download className="h-4 w-4 shrink-0 text-orange-500" />
                   <span>Download .ICS Invitation</span>
@@ -565,14 +601,14 @@ export default function ConsultationScheduler({ onBackToHome }: ConsultationSche
               </div>
 
               <div className="pt-4 border-t border-white/5 max-w-lg mx-auto">
-                <p className="text-[9px] text-zinc-500 leading-relaxed font-mono uppercase tracking-wider">
+                <p className="text-[15px] text-zinc-500 leading-relaxed font-mono uppercase tracking-wider">
                   Real-time calendar invites have been pushed to {clientEmail} and haradhan.sharma@gmail.com.
                 </p>
               </div>
 
               <button
                 onClick={() => { setStep(1); setClientName(''); setClientEmail(''); setBriefDetails(''); setBookedMeetingLinks(null); }}
-                className="mt-4 inline-flex items-center space-x-1.5 text-[10px] font-mono uppercase tracking-widest text-zinc-550 hover:text-orange-400 transition-colors cursor-pointer font-bold"
+                className="mt-4 inline-flex items-center space-x-1.5 text-[16px] font-mono uppercase tracking-widest text-zinc-550 hover:text-orange-400 transition-colors cursor-pointer font-bold"
               >
                 <span>Schedule Another Block</span>
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -586,16 +622,16 @@ export default function ConsultationScheduler({ onBackToHome }: ConsultationSche
         <div className="space-y-6">
           <div className="rounded-sm border border-white/5 bg-white/[0.02] p-5 space-y-4">
             
-            <h4 className="font-display font-bold text-[10px] uppercase text-zinc-500 tracking-widest border-b border-white/5 pb-2.5">
+            <h4 className="font-display font-bold text-[16px] uppercase text-zinc-500 tracking-widest border-b border-white/5 pb-2.5">
               Briefing Credentials
             </h4>
 
-            <div className="space-y-4 font-sans text-xs">
+            <div className="space-y-4 font-sans ">
               <div className="flex items-start space-x-3 text-zinc-400">
                 <Video className="h-4.5 w-4.5 text-orange-500 mt-0.5 shrink-0" />
                 <div>
                   <span className="block font-semibold text-white leading-none">Google Meet Virtual</span>
-                  <p className="text-[10px] text-zinc-550 leading-relaxed mt-1">Virtual secure tele-conference. Standard secure link is created and attached natively with Google Meet.</p>
+                  <p className="text-[16px] text-zinc-550 leading-relaxed mt-1">Virtual secure tele-conference. Standard secure link is created and attached natively with Google Meet.</p>
                 </div>
               </div>
 
@@ -603,13 +639,13 @@ export default function ConsultationScheduler({ onBackToHome }: ConsultationSche
                 <Bookmark className="h-4.5 w-4.5 text-orange-500 mt-0.5 shrink-0" />
                 <div>
                   <span className="block font-semibold text-white leading-none">Zero Cost SLA</span>
-                  <p className="text-[10px] text-zinc-550 leading-relaxed mt-1">These initial 30 minutes are fully complimentary. No obligations are attached.</p>
+                  <p className="text-[16px] text-zinc-550 leading-relaxed mt-1">These initial 30 minutes are fully complimentary. No obligations are attached.</p>
                 </div>
               </div>
             </div>
 
             <div className="pt-3 border-t border-white/5">
-              <span className="block text-[8px] font-mono uppercase text-zinc-500 tracking-wider font-bold">
+              <span className="block text-[16px] font-mono uppercase text-zinc-500 tracking-wider font-bold">
                 COORDINATOR: {profile.email}
               </span>
             </div>
@@ -617,8 +653,8 @@ export default function ConsultationScheduler({ onBackToHome }: ConsultationSche
           </div>
 
           <div className="rounded-sm border border-orange-500/5 bg-orange-500/[0.01] p-5">
-            <h5 className="font-display font-semibold text-xs text-white mb-2">Technical Preparations</h5>
-            <p className="text-[10px] text-zinc-500 leading-relaxed font-sans">
+            <h5 className="font-display font-semibold  text-white mb-2">Technical Preparations</h5>
+            <p className="text-[16px] text-zinc-500 leading-relaxed font-sans">
               To expedite the roadmap formulation, please have any active codebase repositories, AWS/Contabo dashboard credential tokens, or architectural wireframes accessible during the virtual brief.
             </p>
           </div>

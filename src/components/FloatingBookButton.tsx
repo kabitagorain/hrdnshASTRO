@@ -17,7 +17,7 @@ export default function FloatingBookButton({ onBookSession }: FloatingBookButton
   return (
     <button
       onClick={onBookSession}
-      className={`fixed bottom-6 right-6 z-40 flex items-center gap-2.5 rounded-full px-6 py-3.5 font-display text-[11px] font-bold uppercase tracking-widest text-zinc-950 bg-white shadow-lg shadow-orange-500/20 hover:bg-orange-500 hover:text-white hover:shadow-orange-500/40 hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer group ${
+      className={`fixed bottom-6 right-6 z-40 flex items-center gap-2.5 rounded-full px-6 py-3.5 font-display text-[15px] font-bold uppercase tracking-widest text-zinc-950 bg-white shadow-lg shadow-orange-500/20 hover:bg-orange-500 hover:text-white hover:shadow-orange-500/40 hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer group ${
         visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
       }`}
       id="floating-book-button"

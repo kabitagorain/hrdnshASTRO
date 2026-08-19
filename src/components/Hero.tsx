@@ -25,15 +25,15 @@ export default function Hero({ onOpenRecommender, onExploreServices, locale = 'e
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center relative z-10">
         
         {/* Sleek Minimalist Feature Chip */}
-        <div className="inline-flex items-center space-x-2 rounded-sm border border-orange-500/20 bg-orange-950/10 px-4 py-1.5 text-xs text-orange-400 backdrop-blur-md mb-8 animate-fadeIn">
+        <div className="inline-flex items-center space-x-2 rounded-sm border border-orange-500/20 bg-orange-950/10 px-4 py-1.5  text-orange-400 backdrop-blur-md mb-8 animate-fadeIn">
           <Cpu className="h-3.5 w-3.5 text-orange-400 animate-spin" />
-          <span className="font-mono uppercase tracking-widest text-[9px] font-bold">
+          <span className="font-mono uppercase tracking-widest text-[15px] font-bold">
             {t.heroBadge}
           </span>
         </div>
 
         {/* Sophisticated Display Heading */}
-        <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-none text-balance">
+        <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white max-w-7xl mx-auto leading-none text-balance">
           {t.heroHeadingPart1}{' '}
           <span className="font-serif italic text-amber-200 font-normal block sm:inline">
             {t.heroHeadingPart2}
@@ -50,7 +50,7 @@ export default function Hero({ onOpenRecommender, onExploreServices, locale = 'e
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
           <button
             onClick={onOpenRecommender}
-            className="w-full sm:w-auto px-8 py-3.5 rounded-sm bg-white text-zinc-950 uppercase tracking-widest font-bold text-xs hover:bg-orange-500 hover:text-white hover:scale-[1.01] transition-all duration-300 shadow-xl shadow-orange-500/10 cursor-pointer flex items-center justify-center space-x-2"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-sm bg-white text-zinc-950 uppercase tracking-widest font-bold  hover:bg-orange-500 hover:text-white hover:scale-[1.01] transition-all duration-300 shadow-xl shadow-orange-500/10 cursor-pointer flex items-center justify-center space-x-2"
             id="hero-cta-recommender"
           >
             <Sparkles className="h-4 w-4 text-orange-500" />
@@ -60,7 +60,7 @@ export default function Hero({ onOpenRecommender, onExploreServices, locale = 'e
 
           <button
             onClick={onExploreServices}
-            className="w-full sm:w-auto px-8 py-3.5 rounded-sm border border-white/10 hover:border-white/30 bg-white/5 text-zinc-400 hover:text-white uppercase tracking-widest font-bold text-xs transition-all duration-300 cursor-pointer flex items-center justify-center space-x-2"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-sm border border-white/10 hover:border-white/30 bg-white/5 text-zinc-400 hover:text-white uppercase tracking-widest font-bold  transition-all duration-300 cursor-pointer flex items-center justify-center space-x-2"
           >
             <Terminal className="h-4 w-4 text-orange-500" />
             <span>System Architecture Catalog</span>
@@ -69,13 +69,13 @@ export default function Hero({ onOpenRecommender, onExploreServices, locale = 'e
 
         {/* Trust Stats */}
         <div className="mt-16 border-y border-white/5 bg-white/[0.01] py-6 backdrop-blur-sm">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-7xl mx-auto px-4">
             {profile.stats.map((stat, i) => (
               <div key={i} className="text-center">
                 <div className="font-serif italic text-3xl font-normal text-amber-200">
                   {stat.value}
                 </div>
-                <div className="mt-1 font-mono text-[9px] uppercase tracking-widest text-zinc-500 font-bold">
+                <div className="mt-1 font-mono text-[14px] uppercase tracking-widest text-zinc-500 font-bold">
                   {stat.label}
                 </div>
               </div>

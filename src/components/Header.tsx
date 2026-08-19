@@ -44,7 +44,7 @@ export default function Header({ currentView, setView, locale, setLocale }: Head
         <nav className="hidden lg:flex items-center space-x-7 xl:space-x-8">
           <button
             onClick={() => handleNavClick('resume')}
-            className={`font-sans text-xs uppercase tracking-widest font-medium transition-colors hover:text-white ${
+            className={`font-sans  uppercase tracking-widest font-medium transition-colors hover:text-white ${
               currentView === 'resume' 
                 ? 'text-orange-500 border-b border-orange-500/50 pb-0.5' 
                 : 'text-zinc-400'
@@ -56,7 +56,7 @@ export default function Header({ currentView, setView, locale, setLocale }: Head
 
           <button
             onClick={() => handleNavClick('recommend')}
-            className={`font-sans text-xs uppercase tracking-widest font-medium transition-colors hover:text-white ${
+            className={`font-sans  uppercase tracking-widest font-medium transition-colors hover:text-white ${
               currentView === 'recommend' 
                 ? 'text-orange-500 border-b border-orange-500/50 pb-0.5' 
                 : 'text-zinc-400'
@@ -68,7 +68,7 @@ export default function Header({ currentView, setView, locale, setLocale }: Head
 
           <button
             onClick={() => handleNavClick('blog')}
-            className={`font-sans text-xs uppercase tracking-widest font-medium transition-colors hover:text-white ${
+            className={`font-sans  uppercase tracking-widest font-medium transition-colors hover:text-white ${
               currentView === 'blog' || currentView === 'blog-post'
                 ? 'text-orange-500 border-b border-orange-500/50 pb-0.5' 
                 : 'text-zinc-400'
@@ -83,7 +83,7 @@ export default function Header({ currentView, setView, locale, setLocale }: Head
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
               onMouseEnter={() => setDropdownOpen(true)}
-              className="flex items-center space-x-1 font-sans text-xs uppercase tracking-widest font-medium text-zinc-400 transition-colors hover:text-white"
+              className="flex items-center space-x-1 font-sans  uppercase tracking-widest font-medium text-zinc-400 transition-colors hover:text-white"
               id="nav-dropdown-trigger"
             >
               <span>Platform</span>
@@ -101,7 +101,7 @@ export default function Header({ currentView, setView, locale, setLocale }: Head
                   href={profile.upwork}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between rounded px-3 py-2 text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:bg-white/5 hover:text-white"
+                  className="flex items-center justify-between rounded px-3 py-2  font-semibold uppercase tracking-wider text-zinc-400 hover:bg-white/5 hover:text-white"
                 >
                   <span>Upwork Escrow</span>
                   <ExternalLink className="h-3 w-3 text-orange-500" />
@@ -111,7 +111,7 @@ export default function Header({ currentView, setView, locale, setLocale }: Head
                     handleNavClick('billing-portal');
                     setDropdownOpen(false);
                   }}
-                  className="w-full flex items-center justify-between rounded px-3 py-2 text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:bg-white/5 hover:text-white text-left cursor-pointer"
+                  className="w-full flex items-center justify-between rounded px-3 py-2  font-semibold uppercase tracking-wider text-zinc-400 hover:bg-white/5 hover:text-white text-left cursor-pointer"
                 >
                   <span>Direct Invoice</span>
                   <Globe className="h-3 w-3 text-amber-500" />
@@ -126,7 +126,7 @@ export default function Header({ currentView, setView, locale, setLocale }: Head
           <select
             value={locale}
             onChange={(e) => setLocale(e.target.value)}
-            className="bg-zinc-950 border border-white/5 hover:border-orange-500/20 text-xs font-mono text-zinc-400 hover:text-white px-2.5 py-1.5 rounded-sm focus:outline-none focus:ring-1 focus:ring-orange-500/20 cursor-pointer uppercase tracking-wider h-[34px] font-bold"
+            className="bg-zinc-950 border border-white/5 hover:border-orange-500/20  font-mono text-zinc-400 hover:text-white px-2.5 py-1.5 rounded-sm focus:outline-none focus:ring-1 focus:ring-orange-500/20 cursor-pointer uppercase tracking-wider h-[34px] font-bold"
             title="Sovereign Locale Selector"
           >
             <option value="en" className="bg-[#050505]">🇬🇧 EN</option>
@@ -137,7 +137,7 @@ export default function Header({ currentView, setView, locale, setLocale }: Head
 
           <button
             onClick={() => handleNavClick('consultation')}
-            className="rounded-sm px-6 py-2 font-display text-[11px] font-bold uppercase tracking-widest text-zinc-950 bg-white hover:bg-orange-500 hover:text-white transition-all duration-300 cursor-pointer"
+            className="rounded-sm px-6 py-2 font-display text-[15px] font-bold uppercase tracking-widest text-zinc-950 bg-white hover:bg-orange-500 hover:text-white transition-all duration-300 cursor-pointer"
             id="nav-cta-contact"
           >
             Book Free Session
@@ -164,7 +164,7 @@ export default function Header({ currentView, setView, locale, setLocale }: Head
         <div className="lg:hidden border-b border-white/5 bg-[#050505] px-4 pb-6 pt-3 space-y-1 animate-fadeIn" id="mobile-navigation-menu">
           <button
             onClick={() => handleNavClick('resume')}
-            className={`block w-full py-3 text-left text-xs uppercase tracking-widest font-semibold text-zinc-300 hover:text-white ${
+            className={`block w-full py-3 text-left  uppercase tracking-widest font-semibold text-zinc-300 hover:text-white ${
               currentView === 'resume' ? 'text-orange-500 font-bold bg-white/5 px-3 rounded' : ''
             }`}
           >
@@ -172,7 +172,7 @@ export default function Header({ currentView, setView, locale, setLocale }: Head
           </button>
           <button
             onClick={() => handleNavClick('recommend')}
-            className={`block w-full py-3 text-left text-xs uppercase tracking-widest font-semibold text-zinc-300 hover:text-white ${
+            className={`block w-full py-3 text-left  uppercase tracking-widest font-semibold text-zinc-300 hover:text-white ${
               currentView === 'recommend' ? 'text-orange-500 font-bold bg-white/5 px-3 rounded' : ''
             }`}
           >
@@ -180,7 +180,7 @@ export default function Header({ currentView, setView, locale, setLocale }: Head
           </button>
           <button
             onClick={() => handleNavClick('blog')}
-            className={`block w-full py-3 text-left text-xs uppercase tracking-widest font-semibold text-zinc-300 hover:text-white ${
+            className={`block w-full py-3 text-left  uppercase tracking-widest font-semibold text-zinc-300 hover:text-white ${
               currentView === 'blog' || currentView === 'blog-post' ? 'text-orange-500 font-bold bg-white/5 px-3 rounded' : ''
             }`}
           >
@@ -188,7 +188,7 @@ export default function Header({ currentView, setView, locale, setLocale }: Head
           </button>
           <button
             onClick={() => handleNavClick('consultation')}
-            className={`block w-full py-3 text-left text-xs uppercase tracking-widest font-semibold text-zinc-300 hover:text-white ${
+            className={`block w-full py-3 text-left  uppercase tracking-widest font-semibold text-zinc-300 hover:text-white ${
               currentView === 'consultation' ? 'text-orange-500 font-bold bg-white/5 px-3 rounded' : ''
             }`}
           >
@@ -196,7 +196,7 @@ export default function Header({ currentView, setView, locale, setLocale }: Head
           </button>
           
           <div className="border-t border-white/5 pt-4 mt-3">
-            <span className="block px-2 text-[10px] font-bold uppercase tracking-widest text-zinc-500">
+            <span className="block px-2 text-[16px] font-bold uppercase tracking-widest text-zinc-500">
               Escrow & Hiring
             </span>
             <div className="mt-2 grid grid-cols-2 gap-2">
@@ -204,27 +204,27 @@ export default function Header({ currentView, setView, locale, setLocale }: Head
                 href={profile.upwork}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center rounded border border-white/5 bg-white/5 py-2.5 text-[10px] font-bold uppercase tracking-widest text-zinc-300 hover:bg-orange-500 hover:text-white transition-colors"
+                className="flex items-center justify-center rounded border border-white/5 bg-white/5 py-2.5 text-[16px] font-bold uppercase tracking-widest text-zinc-300 hover:bg-orange-500 hover:text-white transition-colors"
               >
                 Upwork
               </a>
               <button
                 onClick={() => handleNavClick('billing-portal')}
-                className="flex items-center justify-center rounded border border-orange-500/20 bg-orange-500/10 py-2.5 text-[10px] font-bold uppercase tracking-widest text-orange-400 hover:bg-orange-500 hover:text-white transition-colors cursor-pointer text-center w-full"
+                className="flex items-center justify-center rounded border border-orange-500/20 bg-orange-500/10 py-2.5 text-[16px] font-bold uppercase tracking-widest text-orange-400 hover:bg-orange-500 hover:text-white transition-colors cursor-pointer text-center w-full"
               >
                 Invoicing
               </button>
             </div>
 
             <div className="mt-3.5 pt-3.5 border-t border-white/[0.03]">
-              <label htmlFor="mobile-locale" className="block text-[8px] font-mono font-bold uppercase text-zinc-500 tracking-widest mb-1.5 px-1">
+              <label htmlFor="mobile-locale" className="block text-[16px] font-mono font-bold uppercase text-zinc-500 tracking-widest mb-1.5 px-1">
                 Language
               </label>
               <select
                 id="mobile-locale"
                 value={locale}
                 onChange={(e) => setLocale(e.target.value)}
-                className="w-full bg-zinc-950 border border-white/5 text-xs font-mono text-zinc-400 px-3 py-2.5 rounded-sm focus:outline-none focus:ring-0 cursor-pointer uppercase tracking-wider font-bold"
+                className="w-full bg-zinc-950 border border-white/5  font-mono text-zinc-400 px-3 py-2.5 rounded-sm focus:outline-none focus:ring-0 cursor-pointer uppercase tracking-wider font-bold"
               >
                 <option value="en" className="bg-[#050505]">🇬🇧 English (EN)</option>
                 <option value="de" className="bg-[#050505]">🇩🇪 Deutsch (DE)</option>
