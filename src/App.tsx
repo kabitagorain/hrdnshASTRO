@@ -44,6 +44,7 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
   const [msgEmail, setMsgEmail] = useState('');
   const [msgText, setMsgText] = useState('');
   const [msgSuccess, setMsgSuccess] = useState(false);
+  const [msgSending, setMsgSending] = useState(false);
 
   // 1. Initial Load Deep Link Param Sync — supports both clean paths and ?view= query params
   useEffect(() => {
@@ -555,11 +556,13 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
     setCurrentView('payment');
   };
 
-  const handleSendMessage = (e: React.FormEvent) => {
+  const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!msgName || !msgEmail || !msgText) return;
+    if (!msgName || !msgEmail || !msgText || msgSending) return;
     
-    // Save contact to local storage CRM list for future Google Sheets synchronization
+    setMsgSending(true);
+
+    // Save contact to local storage CRM list for backup synchronization
     const existingLeads = JSON.parse(localStorage.getItem('haradhan_leads') || '[]');
     const newLead = {
       id: `LEAD-${Math.floor(100000 + Math.random() * 900000)}`,
@@ -572,13 +575,36 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
     existingLeads.push(newLead);
     localStorage.setItem('haradhan_leads', JSON.stringify(existingLeads));
 
-    setMsgSuccess(true);
-    setTimeout(() => {
-      setMsgSuccess(false);
-      setMsgName('');
-      setMsgEmail('');
-      setMsgText('');
-    }, 4000);
+    try {
+      // Direct delivery to me@hrdnsh.com via formsubmit relay
+      await fetch('https://formsubmit.co/ajax/me@hrdnsh.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: msgName,
+          email: msgEmail,
+          message: msgText,
+          _subject: `New Strategic Project Briefing: ${msgName}`,
+          _replyto: msgEmail,
+          _template: 'table',
+          _captcha: 'false'
+        })
+      });
+    } catch (err) {
+      console.warn('Form direct relay note:', err);
+    } finally {
+      setMsgSending(false);
+      setMsgSuccess(true);
+      setTimeout(() => {
+        setMsgSuccess(false);
+        setMsgName('');
+        setMsgEmail('');
+        setMsgText('');
+      }, 5000);
+    }
   };
 
   return (
@@ -1064,10 +1090,24 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
 
                           <button
                             type="submit"
-                            className="w-full rounded-sm bg-white hover:bg-orange-500 hover:text-white py-3 text-center font-display text-[16px] font-bold uppercase tracking-widest text-zinc-950 shadow-xl cursor-pointer transition-colors duration-300"
+                            disabled={msgSending}
+                            className={`w-full rounded-sm bg-white hover:bg-orange-500 hover:text-white py-3 text-center font-display text-[16px] font-bold uppercase tracking-widest text-zinc-950 shadow-xl cursor-pointer transition-all duration-300 flex items-center justify-center space-x-2 ${msgSending ? 'opacity-70 cursor-not-allowed' : ''}`}
                           >
-                            Submit Project Briefing Request
+                            {msgSending ? (
+                              <>
+                                <span className="inline-block h-4 w-4 border-2 border-zinc-950 border-t-transparent rounded-full animate-spin"></span>
+                                <span>Relaying to me@hrdnsh.com...</span>
+                              </>
+                            ) : (
+                              <span>Submit Project Briefing Request</span>
+                            )}
                           </button>
+                          
+                          <div className="text-center pt-2">
+                            <span className="text-xs text-zinc-500 font-mono">
+                              Direct inquiry: <a href="mailto:me@hrdnsh.com" className="text-zinc-400 hover:text-amber-400 underline transition-colors">me@hrdnsh.com</a>
+                            </span>
+                          </div>
                         </form>
                       )}
                     </div>
