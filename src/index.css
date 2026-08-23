@@ -1,83 +1,62 @@
-@import url('https://fonts.googleapis.com/css2?family=Aldrich&family=Allerta&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Zen+Dots&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300..900;1,300..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Aldrich", sans-serif;
-  --font-display: "Zen Dots", sans-serif;
-  --font-serif: "Allerta", sans-serif;
-  --font-mono: "Courier Prime", monospace;
+  --font-sans: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "Roboto Condensed", "Roboto", -apple-system, sans-serif;
+  --font-mono: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-  /* Sophisticated Dark Theme Colors */
-  --color-obsidian-bg: #050505;
-  --color-obsidian-card: rgba(255, 255, 255, 0.03);
-  --color-obsidian-border: rgba(255, 255, 255, 0.06);
-  --color-obsidian-input: #0a0a0a;
+  /* High-Profile Executive Dark Theme Colors */
+  --color-obsidian-bg: #09090b;
+  --color-obsidian-card: #111114;
+  --color-obsidian-border: #27272a;
+  --color-obsidian-input: #18181b;
   
-  --color-glow-blue: #f97316;
-  --color-glow-indigo: #ea580c;
-  --color-glow-purple: #d97706;
-  --color-glow-cyan: #fbbf24;
+  --color-brand-amber: #d97706;
+  --color-brand-orange: #ea580c;
+  --color-brand-gold: #f59e0b;
 }
 
 @layer base {
   body {
-    background-color: #050505;
+    background-color: #09090b;
     color: #f4f4f5;
     font-family: var(--font-sans);
     font-optical-sizing: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  code, pre, .font-mono {
+    font-family: var(--font-mono);
   }
 }
 
-/* Accessibility contrast boosting of midtone grays for high-end legibility */
-@media screen {
-  .text-zinc-650, .text-zinc-600, .text-zinc-550 {
-    color: #b4b4bc !important; /* Force beautiful bright zinc-350 contrast on dark background */
-  }
-  .text-zinc-500, .text-zinc-450 {
-    color: #e4e4e7 !important; /* Force elegant bright zinc-200 contrast on dark background */
-  }
+/* Crisp Executive Card and Border System */
+.exec-card {
+  background-color: #111114;
+  border: 1px solid #27272a;
+  border-radius: 4px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Cinematic animated glows shifted to elegant orange-amber tone */
-.glass-glow {
-  position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
+.exec-card:hover {
+  border-color: #3f3f46;
 }
 
-.glass-glow::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(to bottom right, rgba(249, 115, 22, 0.15), rgba(251, 191, 36, 0.08), transparent);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  pointer-events: none;
+.exec-card-accent {
+  background-color: #111114;
+  border: 1px solid rgba(234, 88, 12, 0.2);
+  border-radius: 4px;
 }
 
-.glow-btn-primary {
-  background: #ffffff;
-  color: #000000;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  border: 1px solid #ffffff;
-}
-
-.glow-btn-primary:hover {
-  background: #f97316;
-  border-color: #f97316;
-  color: #ffffff;
-  box-shadow: 0 4px 20px rgba(249, 115, 22, 0.4);
-  transform: translateY(-1px);
-}
-
-.radial-glow-map {
-  background: radial-gradient(1000px circle at var(--x, 0px) var(--y, 0px), rgba(249, 115, 22, 0.08), transparent 45%);
+.exec-card-accent:hover {
+  border-color: rgba(234, 88, 12, 0.45);
 }
 
 /* Custom scrollbar */
@@ -86,189 +65,48 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #050505;
+  background: #09090b;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1f1f1f;
-  border-radius: 4px;
+  background: #27272a;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #2b2b2b;
+  background: #3f3f46;
 }
 
-/* Custom print stylesheet for generating pristine high-fidelity PDF documents */
+/* Custom print stylesheet for generating pristine executive PDF documents */
 @media print {
   html, body {
     background-color: #ffffff !important;
-    color: #0b0f19 !important;
-    font-family: Menlo, Monaco, Consolas, "Courier New", monospace !important;
+    color: #09090b !important;
+    font-family: "Roboto", sans-serif !important;
   }
 
-  /* Exclude navigational headers, footers, interactive chat layers, and glowing backgrounds */
   header, footer, nav, #header-brand, .no-print, button, .chat-panel, .ambient-glow, .bg-black\/90, .backdrop-blur-md {
     display: none !important;
   }
 
-  /* Force container padding overrides for a clean single or double page print output */
   #resume-hub-view {
     max-width: 100% !important;
     width: 100% !important;
     background: #ffffff !important;
-    color: #0b0f19 !important;
-    padding-top: 1rem !important;
-    padding-bottom: 1rem !important;
+    color: #09090b !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
     margin: 0 !important;
   }
 
-  /* Normalize text colors to high-contrast rich text elements */
-  .text-white, .text-zinc-100, .text-zinc-300, .text-zinc-400, .text-zinc-500, .text-zinc-550, .text-zinc-650 {
-    color: #1e293b !important;
+  .text-white {
+    color: #09090b !important;
   }
 
-  /* Retain high-contrast premium orange-amber tones as deep crimson/orange accents */
-  .text-orange-500, .text-orange-400, .text-orange-600, .text-amber-200, .text-amber-400 {
-    color: #b45309 !important; /* Deep warm amber-orange optimized for dark-on-light readability */
+  .text-zinc-300, .text-zinc-400, .text-zinc-500 {
+    color: #3f3f46 !important;
   }
 
-  /* Transform dark dark backgrounds into light subtle border accents */
-  .border-white\/5, .border-white\/10, .border-orange-500\/10, .border-orange-500\/20 {
-    border-color: #e2e8f0 !important;
-    border-width: 1px !important;
-  }
-
-  .bg-white\/\[0\.02\], .bg-white\/\[0\.01\], .bg-orange-500\/10 {
+  .bg-white\/\[0\.02\], .bg-\[\#0c0c0e\], .bg-black\/60 {
     background-color: #f8fafc !important;
+    border-color: #e2e8f0 !important;
   }
-
-  /* Reset layout constraints and make grid columns robust */
-  .grid {
-    display: block !important;
-  }
-
-  .grid-cols-2, .grid-cols-3, .lg\:grid-cols-3 {
-    display: grid !important;
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-  }
-}
-
-/* Google Sign-In Material Button styles */
-.gsi-material-button {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  -webkit-appearance: none;
-  background-color: WHITE;
-  background-image: none;
-  border: 1px solid #747775;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  color: #1f1f1f;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 13px;
-  height: 38px;
-  letter-spacing: 0.25px;
-  outline: none;
-  overflow: hidden;
-  padding: 0 12px;
-  position: relative;
-  text-align: center;
-  transition: background-color .218s, border-color .218s, box-shadow .218s;
-  transition-property: background-color, border-color, box-shadow;
-  transition-duration: 0.218s, 0.218s, 0.218s;
-  transition-timing-function: ease-in-out, ease-in-out, ease-in-out;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  vertical-align: middle;
-  white-space: nowrap;
-  width: auto;
-  max-width: 400px;
-  min-width: min-content;
-}
-
-.gsi-material-button .gsi-material-button-icon {
-  height: 18px;
-  margin-right: 10px;
-  min-width: 18px;
-  width: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.gsi-material-button .gsi-material-button-content-wrapper {
-  -webkit-align-items: center;
-  align-items: center;
-  display: flex;
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  -webkit-flex-wrap: nowrap;
-  flex-wrap: nowrap;
-  height: 100%;
-  justify-content: space-between;
-  position: relative;
-  width: 100%;
-}
-
-.gsi-material-button .gsi-material-button-contents {
-  -webkit-flex-grow: 1;
-  flex-grow: 1;
-  font-weight: 700;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  vertical-align: middle;
-}
-
-.gsi-material-button .gsi-material-button-state {
-  -webkit-transition: opacity .218s;
-  transition: opacity .218s;
-  bottom: 0;
-  left: 0;
-  opacity: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
-.gsi-material-button:disabled {
-  cursor: default;
-  background-color: #ffffff61;
-  border-color: #1f1f1f1f;
-}
-
-.gsi-material-button:disabled .gsi-material-button-contents {
-  color: #1f1f1f1f;
-}
-
-.gsi-material-button:disabled .gsi-material-button-icon {
-  opacity: 30%;
-}
-
-.gsi-material-button:not(:disabled):hover {
-  -webkit-box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
-  box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
-  background-color: #fcfcfc;
-}
-
-.gsi-material-button:not(:disabled):hover .gsi-material-button-state {
-  background-color: #303030;
-  opacity: 4%;
-}
-
-.gsi-material-button:not(:disabled):focus {
-  border-color: #0b57d0;
-  outline: none;
-}
-
-.gsi-material-button:not(:disabled):focus .gsi-material-button-state {
-  background-color: #303030;
-  opacity: 8%;
-}
-
-.gsi-material-button:not(:disabled):active .gsi-material-button-state {
-  background-color: #303030;
-  opacity: 12%;
 }

@@ -80,7 +80,7 @@ export function generateCatalog() {
   doc.restore();
 
   // Mini metadata box
-  doc.fillColor(COLOR_TEXT_MUTED).font('Courier-Bold').fontSize(8.5).text('SECURE RESOURCE RECORD // VERSION 2.5', 40, 80);
+  doc.fillColor(COLOR_TEXT_MUTED).font('Courier-Bold').fontSize(8.5).text('EXECUTIVE DOSSIER & SYSTEMS CATALOG // VERSION 3.0', 40, 80);
   doc.fillColor(COLOR_AMBER).font('Courier-Bold').fontSize(8.5).text('STATUS: SOVEREIGN PRODUCTION-READY', 40, 93);
 
   // Large Branding Name
@@ -90,11 +90,11 @@ export function generateCatalog() {
   doc.strokeColor(COLOR_ORANGE).lineWidth(2).moveTo(40, 202).lineTo(280, 202).stroke();
 
   // Premium Title
-  doc.fillColor(COLOR_AMBER).font('Times-BoldItalic').fontSize(16).text("Sovereign Systems Architect & AI Engineer", 40, 216);
+  doc.fillColor(COLOR_AMBER).font('Times-BoldItalic').fontSize(16).text("Executive Operations Leader & Chief Enterprise Architect", 40, 216);
   
   // Tagline/Sub-bracket
   doc.fillColor(COLOR_TEXT_MUTED).font('Helvetica').fontSize(10.5).text(
-    'Production-grade automation agents, high-efficiency retrieval pipelines, private database clustering, and low-latency digital infrastructures optimized for enterprise growth.',
+    'Bridging 20+ years of industrial manufacturing & executive operations leadership (10 Yrs PPC Manager at Fakir Knitwears, CEO) with Sovereign AI pipelines, Custom ERP architectures, and high-concurrency systems.',
     40, 260, { width: 480, lineGap: 4.5 }
   );
 
@@ -114,10 +114,10 @@ export function generateCatalog() {
     doc.restore();
   };
 
-  drawStatBox(40, '150+', 'Projects successfully built & shipped');
-  drawStatBox(170, '15+', 'Years combined tech proficiency');
-  drawStatBox(300, '100%', 'Ultimate client feedback rating');
-  drawStatBox(430, '< 2 HRS', 'Typical emergency response index');
+  drawStatBox(40, '20+ YRS', 'Industrial & Tech Leadership');
+  drawStatBox(170, '10 YRS', 'PPC Head (Fakir Knitwears)');
+  drawStatBox(300, '63 DIST.', 'Brand Scale (Districts)');
+  drawStatBox(430, '150+', 'Enterprise Architectures Shipped');
 
   // Bottom profile card
   const profileCardY = 490;

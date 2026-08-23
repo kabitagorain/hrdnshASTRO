@@ -131,8 +131,10 @@ export default function ConsultationScheduler({ onBackToHome }: ConsultationSche
       if (result?.user) {
         setUser(result.user);
         // Get the access token from the credential
-        const credential = result.credential as any;
+        const resAny = result as any;
+        const credential = resAny?.credential || resAny?._tokenResponse?.oauthAccessToken;
         if (credential?.accessToken) setAccessToken(credential.accessToken);
+        else if (typeof credential === 'string') setAccessToken(credential);
         if (result.user.displayName) setClientName(result.user.displayName);
         if (result.user.email) setClientEmail(result.user.email);
       }

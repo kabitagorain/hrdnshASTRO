@@ -118,13 +118,9 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
 
     // Monitor Sheets integration authorization status
     const unsubscribe = initAuth(
-      (currentUser, token) => {
+      (currentUser) => {
         setGoogleUser(currentUser);
-        setGoogleToken(token);
-      },
-      () => {
-        setGoogleUser(null);
-        setGoogleToken(null);
+        if (!currentUser) setGoogleToken(null);
       }
     );
 
@@ -415,9 +411,11 @@ export default function InvoicingPortal({ onBackToHome }: InvoicingPortalProps) 
     setSheetsError(null);
     try {
       const result = await googleSignIn();
-      if (result) {
+      if (result?.user) {
         setGoogleUser(result.user);
-        setGoogleToken(result.accessToken);
+        const resAny = result as any;
+        const credential = resAny?.credential || resAny?._tokenResponse?.oauthAccessToken;
+        setGoogleToken(typeof credential === 'string' ? credential : credential?.accessToken || null);
       }
     } catch (err: any) {
       console.error("Sheets authorization failed:", err);

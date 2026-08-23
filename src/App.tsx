@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { MessageSquare, CheckCircle2, HelpCircle, Star, Quote, Brain, Zap, Factory } from 'lucide-react';
+import { MessageSquare, CheckCircle2, HelpCircle, Star, Quote, Brain, Zap, Factory, ShieldCheck, TrendingUp, Layers, Cpu, Building2, Server, ArrowRight, Check } from 'lucide-react';
 
 // Centralized components
 import Header from './components/Header';
@@ -135,21 +135,25 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
     if (currentView === 'service-detail' && selectedServiceId) {
       const matched = services.find(s => s.id === selectedServiceId);
       if (matched) {
-        titleStr = `${matched.title} | ${profile.name} Consulting`;
-        descStr = matched.tagline || matched.businessOwner.summary;
+        titleStr = `${matched.title} | ${profile.name}`;
+        descStr = matched.tagline || matched.businessOwner?.summary || matched.title;
         canonicalUrl = `https://hrdnsh.com/services/${selectedServiceId}/`;
       }
+    } else if (currentView === 'services') {
+      titleStr = `Systems Architecture & Custom ERP Catalog | ${profile.name}`;
+      descStr = `Explore 14 production-grade engineering blueprints: Sovereign AI, Agentic RAG, Industrial ERP (Odoo/ERPNext), High-Concurrency Backends, and Cloud Hardening.`;
+      canonicalUrl = 'https://hrdnsh.com/services/';
     } else if (currentView === 'resume') {
-      titleStr = `Official Resume & Tech Stack | ${profile.name}`;
-      descStr = `Comprehensive background on Python Async Optimizations, Cloud migrations, autonomous RAG stacks, and modern SRE of Haradhan Sharma.`;
+      titleStr = `Executive CV & Leadership Dossier | ${profile.name}`;
+      descStr = `Executive Curriculum Vitae of Haradhan Sharma: 20+ years industrial operations leadership, 10 years PPC Manager at Fakir Knitwears, CEO, and Chief Architect.`;
       canonicalUrl = 'https://hrdnsh.com/resume/';
     } else if (currentView === 'recommend') {
-      titleStr = `Recommended Infrastructure & Tools | ${profile.name}`;
-      descStr = `Highly curated hosting recommendation, cloud servers, local database solutions, and domain providers utilized by Haradhan Sharma.`;
+      titleStr = `Recommended Enterprise Tech Stack | ${profile.name}`;
+      descStr = `Personally vetted infrastructure, cloud servers, local databases, and development tools recommended by Haradhan Sharma.`;
       canonicalUrl = 'https://hrdnsh.com/recommend/';
     } else if (currentView === 'blog') {
-      titleStr = `Blog — AI, ERP & Infrastructure Articles | ${profile.name}`;
-      descStr = `In-depth technical articles on Sovereign AI, private RAG systems, ERPNext, Odoo, LLM self-hosting, and AI automation for businesses.`;
+      titleStr = `Executive Insights — Industrial Operations, ERP & Sovereign AI | ${profile.name}`;
+      descStr = `Authoritative analysis on industrial manufacturing leadership, production planning (PPC), Sovereign AI, private RAG pipelines, and custom ERP implementation.`;
       canonicalUrl = 'https://hrdnsh.com/blog/';
     } else if (currentView === 'blog-post' && selectedBlogPostSlug) {
       const foundPost = blogPosts.find(p => p.slug === selectedBlogPostSlug);
@@ -159,21 +163,21 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
         canonicalUrl = `https://hrdnsh.com/blog/${selectedBlogPostSlug}/`;
       }
     } else if (currentView === 'consultation') {
-      titleStr = `Book an SLA Deployment Consultation | ${profile.name}`;
-      descStr = `Schedule a direct enterprise scope-definition meeting or urgent virtual deployment brief with Haradhan Sharma.`;
+      titleStr = `Schedule an Executive Strategic Consultation | ${profile.name}`;
+      descStr = `Book a strategic discovery session to discuss factory operations modernization, Sovereign AI, custom ERP architecture, or enterprise scaling.`;
       canonicalUrl = 'https://hrdnsh.com/consultation/';
     } else if (currentView === 'billing-portal' || currentView === 'payment') {
-      titleStr = `Invoicing & Payment Portal | ${profile.name}`;
-      descStr = `Secure client-side escrow checkouts and payment reconciliations for custom system developments.`;
+      titleStr = `Corporate Invoicing & Payment Settlement | ${profile.name}`;
+      descStr = `Secure client payment settlement and invoicing for custom enterprise system agreements.`;
       canonicalUrl = 'https://hrdnsh.com/billing/';
     } else if (currentView === 'terms') {
-      titleStr = `Terms of Service & Licensing | ${profile.name}`;
-      descStr = `Governance terms, container resource ownership models, cloud SLA guarantees, and dispute resolutions.`;
-      canonicalUrl = 'https://hrdnsh.com/?view=terms';
+      titleStr = `Terms of Engagement & Licensing | ${profile.name}`;
+      descStr = `Enterprise consulting engagement protocols, licensing terms, and code ownership guarantees.`;
+      canonicalUrl = 'https://hrdnsh.com/terms/';
     } else if (currentView === 'privacy') {
-      titleStr = `Privacy Protection Standard | ${profile.name}`;
-      descStr = `Information detailing diagnostic logging frameworks, contact caches, real-time calendars, and zero-monetization storage buffers.`;
-      canonicalUrl = 'https://hrdnsh.com/?view=privacy';
+      titleStr = `Privacy & Data Governance Standard | ${profile.name}`;
+      descStr = `Zero-trust data governance policy and client confidentiality commitments.`;
+      canonicalUrl = 'https://hrdnsh.com/privacy/';
     }
 
     // Set Document title
@@ -504,6 +508,7 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
   const pathToView = (pathname: string): { view: string; serviceId: string | null; slug: string | null } => {
     const p = pathname.replace(/\/$/, '') || '/';
     if (p === '/' || p === '') return { view: 'home', serviceId: null, slug: null };
+    if (p === '/services') return { view: 'services', serviceId: null, slug: null };
     if (p === '/resume') return { view: 'resume', serviceId: null, slug: null };
     if (p === '/consultation') return { view: 'consultation', serviceId: null, slug: null };
     if (p === '/billing') return { view: 'billing-portal', serviceId: null, slug: null };
@@ -521,6 +526,7 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
   const viewToPath = (view: string, serviceId: string | null, slug: string | null): string => {
     switch (view) {
       case 'home': return '/';
+      case 'services': return '/services/';
       case 'resume': return '/resume/';
       case 'consultation': return '/consultation/';
       case 'billing-portal': return '/billing/';
@@ -593,21 +599,224 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              {/* Cinematic Hero */}
+              {/* Cinematic Executive Hero */}
               <Hero 
                 onOpenRecommender={() => setIsRecommenderOpen(true)}
-                onExploreServices={() => {
-                  const el = document.getElementById('services-catalog');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }}
+                onExploreServices={() => handleSetView('services')}
+                onViewResume={() => handleSetView('resume')}
+                onScheduleConsultation={() => handleSetView('consultation')}
                 locale={locale}
               />
 
-              {/* Dynamic Catalog */}
-              <ServicesGrid 
-                onSelectService={(id) => handleSetView('service-detail', id)}
-                onInitiatePayment={handleInitiatePayment}
-              />
+              {/* Executive Strategic Pillars */}
+              <section className="py-20 border-t border-zinc-800 bg-[#09090b]" id="executive-pillars">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                  <div className="text-center max-w-3xl mx-auto mb-16">
+                    <div className="inline-flex items-center space-x-2 rounded-full border border-zinc-800 bg-zinc-900/80 px-3.5 py-1 text-amber-400 font-mono text-xs uppercase tracking-wider font-semibold mb-4">
+                      <ShieldCheck className="h-3.5 w-3.5" />
+                      <span>The Executive Dual Advantage</span>
+                    </div>
+                    <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white">
+                      Physical Industrial Scale <span className="text-amber-400 font-bold">Meets</span> Sovereign Deep-Tech
+                    </h2>
+                    <p className="mt-4 text-zinc-400 text-sm sm:text-base leading-relaxed font-sans">
+                      Most software engineers have never walked a factory floor, and most factory executives lack software engineering depth. I unify both worlds into high-impact operational leadership.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {/* Pillar 1 */}
+                    <div className="exec-card p-8 group flex flex-col justify-between hover:border-amber-500/40">
+                      <div>
+                        <div className="h-12 w-12 rounded bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-6 group-hover:scale-105 transition-transform">
+                          <Factory className="h-6 w-6" />
+                        </div>
+                        <h3 className="font-display text-xl font-bold text-white mb-3">
+                          10+ Years Factory Floor & PPC Leadership
+                        </h3>
+                        <p className="text-zinc-400 text-sm leading-relaxed mb-6 font-sans">
+                          Led Production Planning & Coordination at Fakir Knitwears Ltd. Master Production Scheduling (MPS), line balancing, cut-to-ship ratios, and zero air-freight penalties across large-scale export manufacturing.
+                        </p>
+                      </div>
+                      <ul className="space-y-2 border-t border-zinc-800/80 pt-4 text-xs font-mono text-zinc-300">
+                        <li className="flex items-center space-x-2"><Check className="h-3.5 w-3.5 text-amber-400 shrink-0" /><span>TNA Calendar Optimization</span></li>
+                        <li className="flex items-center space-x-2"><Check className="h-3.5 w-3.5 text-amber-400 shrink-0" /><span>Capacity Balancing & Lead-Time Control</span></li>
+                        <li className="flex items-center space-x-2"><Check className="h-3.5 w-3.5 text-amber-400 shrink-0" /><span>Thies Computerized Dyeing Pioneer</span></li>
+                      </ul>
+                    </div>
+
+                    {/* Pillar 2 */}
+                    <div className="exec-card p-8 group flex flex-col justify-between hover:border-amber-500/40">
+                      <div>
+                        <div className="h-12 w-12 rounded bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-6 group-hover:scale-105 transition-transform">
+                          <Building2 className="h-6 w-6" />
+                        </div>
+                        <h3 className="font-display text-xl font-bold text-white mb-3">
+                          CEO & Nationwide Brand Scale
+                        </h3>
+                        <p className="text-zinc-400 text-sm leading-relaxed mb-6 font-sans">
+                          Founded and scaled an apparel brand reaching 63 districts of Bangladesh with 1,200+ commercial dealership requests. Complete ownership of P&L, supply chain, styling, and dealer networks.
+                        </p>
+                      </div>
+                      <ul className="space-y-2 border-t border-zinc-800/80 pt-4 text-xs font-mono text-zinc-300">
+                        <li className="flex items-center space-x-2"><Check className="h-3.5 w-3.5 text-amber-400 shrink-0" /><span>Nationwide Dealership Models</span></li>
+                        <li className="flex items-center space-x-2"><Check className="h-3.5 w-3.5 text-amber-400 shrink-0" /><span>End-to-End Supply Chain Sourcing</span></li>
+                        <li className="flex items-center space-x-2"><Check className="h-3.5 w-3.5 text-amber-400 shrink-0" /><span>Commercial Strategy & Retail Growth</span></li>
+                      </ul>
+                    </div>
+
+                    {/* Pillar 3 */}
+                    <div className="exec-card p-8 group flex flex-col justify-between hover:border-amber-500/40">
+                      <div>
+                        <div className="h-12 w-12 rounded bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-6 group-hover:scale-105 transition-transform">
+                          <Cpu className="h-6 w-6" />
+                        </div>
+                        <h3 className="font-display text-xl font-bold text-white mb-3">
+                          Sovereign AI & Custom ERP Architecture
+                        </h3>
+                        <p className="text-zinc-400 text-sm leading-relaxed mb-6 font-sans">
+                          Architecting zero-data-leak private AI systems (RAG pgvector, OpenClaw, Hermes Agent), custom ERP implementations (Odoo/ERPNext), and high-concurrency async Python systems.
+                        </p>
+                      </div>
+                      <ul className="space-y-2 border-t border-zinc-800/80 pt-4 text-xs font-mono text-zinc-300">
+                        <li className="flex items-center space-x-2"><Check className="h-3.5 w-3.5 text-amber-400 shrink-0" /><span>Zero-Trust Sovereign AI & Private RAG</span></li>
+                        <li className="flex items-center space-x-2"><Check className="h-3.5 w-3.5 text-amber-400 shrink-0" /><span>Custom Manufacturing ERP Modules</span></li>
+                        <li className="flex items-center space-x-2"><Check className="h-3.5 w-3.5 text-amber-400 shrink-0" /><span>Sub-50ms Postgres & Async Backends</span></li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="mt-12 text-center">
+                    <button
+                      onClick={() => handleSetView('resume')}
+                      className="inline-flex items-center space-x-2 text-xs font-mono font-bold uppercase tracking-wider text-amber-400 hover:text-amber-300 transition-colors"
+                    >
+                      <span>Explore the Full Executive Dossier & Verified Career Chronology</span>
+                      <ArrowRight className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+              </section>
+
+              {/* Core Systems & Architecture Domains Preview */}
+              <section className="py-20 border-t border-zinc-800 bg-[#09090b]" id="featured-systems">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                  <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                    <div>
+                      <div className="inline-flex items-center space-x-2 font-mono text-xs uppercase tracking-wider text-amber-400 font-bold mb-3">
+                        <Cpu className="h-3.5 w-3.5" />
+                        <span>Core Systems Architecture</span>
+                      </div>
+                      <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-white">
+                        Production Solutions & Engineering Ecosystems
+                      </h2>
+                    </div>
+                    <button
+                      onClick={() => handleSetView('services')}
+                      className="inline-flex items-center space-x-2 rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 px-5 py-2.5 text-xs font-display font-bold uppercase tracking-wider text-white transition-colors cursor-pointer self-start md:self-auto"
+                    >
+                      <span>View All 14 Architectures</span>
+                      <ArrowRight className="h-3.5 w-3.5 text-amber-400" />
+                    </button>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {/* Featured 1: Sovereign AI */}
+                    <div 
+                      onClick={() => handleSetView('service-detail', 'agentic-ai-rag-orchestration')}
+                      className="exec-card p-6 cursor-pointer group flex flex-col justify-between hover:border-amber-500/50"
+                    >
+                      <div>
+                        <div className="flex items-center justify-between mb-4">
+                          <span className="rounded bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">
+                            AI & Automation
+                          </span>
+                          <span className="font-mono text-xs text-zinc-500">SYS-01</span>
+                        </div>
+                        <h3 className="font-display text-lg font-bold text-white group-hover:text-amber-400 transition-colors mb-2.5">
+                          Enterprise Agentic AI & Sovereign RAG Infrastructure
+                        </h3>
+                        <p className="text-zinc-400 text-xs leading-relaxed font-sans mb-6">
+                          Grounded enterprise intelligence using private vector databases (pgvector), local LLM orchestration (Llama 3, Gemma), and autonomous tool-calling loops with zero data leakage.
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-between pt-4 border-t border-zinc-800/80 text-xs font-mono">
+                        <span className="text-zinc-500">Timeline: 2-3 weeks</span>
+                        <span className="text-amber-400 font-bold group-hover:translate-x-1 transition-transform inline-flex items-center space-x-1">
+                          <span>Review Blueprint</span>
+                          <ArrowRight className="h-3 w-3" />
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Featured 2: Industrial ERP */}
+                    <div 
+                      onClick={() => handleSetView('service-detail', 'industrial-automation-erp')}
+                      className="exec-card p-6 cursor-pointer group flex flex-col justify-between hover:border-amber-500/50"
+                    >
+                      <div>
+                        <div className="flex items-center justify-between mb-4">
+                          <span className="rounded bg-orange-500/10 border border-orange-500/20 px-2 py-0.5 text-xs font-mono font-bold text-orange-400 uppercase tracking-wider">
+                            Industrial & ERP
+                          </span>
+                          <span className="font-mono text-xs text-zinc-500">SYS-06</span>
+                        </div>
+                        <h3 className="font-display text-lg font-bold text-white group-hover:text-amber-400 transition-colors mb-2.5">
+                          Industrial Intelligence & Custom Manufacturing ERP
+                        </h3>
+                        <p className="text-zinc-400 text-xs leading-relaxed font-sans mb-6">
+                          Digitizing composite factory operations with Odoo/ERPNext, real-time cut-to-ship tracking, automated TNA scheduling, and shop-floor MQTT IoT sensor integration.
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-between pt-4 border-t border-zinc-800/80 text-xs font-mono">
+                        <span className="text-zinc-500">Timeline: 4-6 weeks</span>
+                        <span className="text-amber-400 font-bold group-hover:translate-x-1 transition-transform inline-flex items-center space-x-1">
+                          <span>Review Blueprint</span>
+                          <ArrowRight className="h-3 w-3" />
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Featured 3: High-Concurrency Backend */}
+                    <div 
+                      onClick={() => handleSetView('service-detail', 'high-concurrency-backend-optimization')}
+                      className="exec-card p-6 cursor-pointer group flex flex-col justify-between hover:border-amber-500/50"
+                    >
+                      <div>
+                        <div className="flex items-center justify-between mb-4">
+                          <span className="rounded bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 text-xs font-mono font-bold text-blue-400 uppercase tracking-wider">
+                            Backend & Cloud
+                          </span>
+                          <span className="font-mono text-xs text-zinc-500">SYS-04</span>
+                        </div>
+                        <h3 className="font-display text-lg font-bold text-white group-hover:text-amber-400 transition-colors mb-2.5">
+                          Enterprise Backend Scaling & High-Concurrency Engineering
+                        </h3>
+                        <p className="text-zinc-400 text-xs leading-relaxed font-sans mb-6">
+                          Async Python (Django Ninja, FastAPI, Celery, Redis) with deep PostgreSQL query optimization for sub-50ms latency under high surge traffic and 99.99% uptime.
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-between pt-4 border-t border-zinc-800/80 text-xs font-mono">
+                        <span className="text-zinc-500">Timeline: 1-2 weeks</span>
+                        <span className="text-amber-400 font-bold group-hover:translate-x-1 transition-transform inline-flex items-center space-x-1">
+                          <span>Review Blueprint</span>
+                          <ArrowRight className="h-3 w-3" />
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-12 text-center">
+                    <button
+                      onClick={() => handleSetView('services')}
+                      className="inline-flex items-center space-x-2 rounded bg-amber-500 hover:bg-amber-600 text-zinc-950 px-8 py-3.5 text-xs font-display font-bold uppercase tracking-wider transition-colors cursor-pointer shadow-lg"
+                    >
+                      <span>Explore the Full 14-Architecture Systems Catalog</span>
+                      <ArrowRight className="h-4 w-4 text-zinc-950" />
+                    </button>
+                  </div>
+                </div>
+              </section>
 
               {/* Testimonials Frame */}
               <section className="py-24 bg-white/[0.01] border-t border-white/5" id="testimonials-section">
@@ -867,6 +1076,21 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
                 </div>
               </section>
 
+            </motion.div>
+          )}
+
+          {currentView === 'services' && (
+            <motion.div
+              key="services-view"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+            >
+              <ServicesGrid 
+                onSelectService={(id) => handleSetView('service-detail', id)}
+                onInitiatePayment={handleInitiatePayment}
+              />
             </motion.div>
           )}
 

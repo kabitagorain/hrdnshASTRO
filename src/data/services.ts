@@ -781,158 +781,262 @@ export const services = [
   },
 ];
 
-// Profile / About data
+// Profile / About data — Executive Operations Leader & Chief Enterprise Architect
 export const profile = {
   name: "Haradhan Sharma",
   fname: "Haradhan",
   lname: "Sharma",
   apndx: "'s",
-  title: "Full-Stack Developer & AI Automation Specialist",
+  title: "Executive Operations Leader & Chief Enterprise Architect",
+  subTitle: "20+ Years Industrial Operations Leadership • 15+ Years Deep-Tech & Sovereign AI Architecture",
   tagline:
-    "Building intelligent systems that help businesses grow — from custom web apps to AI agents that work while you sleep.",
+    "Bridging 20+ years of industrial manufacturing & executive operations leadership with modern Sovereign AI, Custom ERP, and resilient enterprise software architecture.",
   email: "me@hrdnsh.com",
   phone: "+8801712270815",
   upwork: "https://www.upwork.com/freelancers/~0166a448a65b1641fb",
-  location: "Remote — Worldwide",
+  linkedin: "https://www.linkedin.com/in/haradhansharma/",
+  github: "https://github.com/haradhansharma",
+  x: "https://x.com/haradhansharma",
+  location: "Dhaka, Bangladesh • Worldwide Executive & Remote Architecture",
   url: "https://hrdnsh.com",
   bio: [
-    "I'm a full-stack developer with 5+ years of experience building production-grade applications that solve real business problems. I specialize in creating intelligent systems — from AI-powered agents to automated trading platforms — that help businesses operate smarter and faster.",
-    "My approach is practical: I focus on delivering solutions that actually work in production, not just prototypes. Every project I deliver includes proper documentation, monitoring, and the support you need to maintain it long-term.",
-    "I work with businesses of all sizes — from startups building their first MVP to established companies modernizing their tech stack. Whether you need a complete web application, an AI agent, or someone to optimize your existing infrastructure, I bring the expertise and reliability you need.",
+    "Strategic, outcome-driven Executive with over 20 years of cross-functional experience across industrial production planning, supply chain coordination, factory floor management, brand development, and modern enterprise software architecture.",
+    "A rare operator who bridges the physical shop-floor with cutting-edge digital intelligence: from pioneering computerized German Thies dyeing systems and serving 10 years as Manager of Production Planning & Coordination (PPC) at Fakir Knitwears Ltd., to founding a national retail apparel brand scaled across 63 districts with 1,200+ dealer networks, and architecting custom enterprise ERPs, Sovereign AI / Agentic RAG pipelines, and high-concurrency systems.",
+    "Proven executive leader in factory capacity planning, lead-time reduction, cost control, cross-departmental harmonization, and autonomous digital systems built for long-term sovereign ownership and zero data leak.",
+  ],
+  executiveSummary:
+    "20+ years of unified industrial operations leadership (Factory PPC, Master Scheduling, Supply Chain) and modern deep-tech systems engineering (Sovereign AI, Custom ERP, Django/FastAPI, Linux Cloud Infrastructure). Track record spans managing high-volume export manufacturing for global brands to architecting automated enterprise software platforms.",
+  executiveCompetencies: [
+    {
+      category: "Executive & Factory Leadership",
+      items: [
+        "Production Planning & Control (PPC)",
+        "Capacity Utilization & Line Balancing",
+        "TNA (Time & Action) Calendar Optimization",
+        "Factory General Management & P&L",
+        "Cut-to-Ship & Quality Assurance",
+        "Nationwide Dealership & Retail Expansion",
+      ],
+    },
+    {
+      category: "Enterprise AI & Sovereign Systems",
+      items: [
+        "Sovereign RAG Pipelines (Private pgvector)",
+        "Autonomous Agent Gateways (OpenClaw / Hermes)",
+        "Self-Hosted LLM Orchestration (Llama 3, Gemma)",
+        "Zero-Trust Enterprise Data Governance",
+        "Hallucination Auditing & Evaluation (Ragas)",
+        "Multi-Agent Workflow Automation",
+      ],
+    },
+    {
+      category: "Industrial ERP & Digital Transformation",
+      items: [
+        "Custom ERP Architecture (Odoo, ERPNext, Frappe)",
+        "Real-Time Shop-Floor Tracking & IIoT",
+        "Inventory & Supply Chain Digitization",
+        "Automated Accounting & HR Workflows",
+        "High-Concurrency Backends (Django Ninja, FastAPI)",
+        "Relational SQL & Postgres Query Tuning (<50ms)",
+      ],
+    },
+    {
+      category: "Infrastructure, DevOps & FinTech",
+      items: [
+        "Linux VPS Hardening & Cloudflare Zero-Trust",
+        "Docker Compose & CI/CD Pipelines",
+        "Algorithmic Trading Engines & MQL5 Bridges",
+        "High-Surge E-Commerce Checkout Protection",
+        "Nginx Reverse Proxies & SSL Termination",
+        "Disaster Recovery & Automated Backup Pipelines",
+      ],
+    },
+  ],
+  careerTimeline: [
+    {
+      period: "2021 — Present",
+      role: "Chief Systems Architect & Enterprise Transformation Consultant",
+      organization: "Independent / Global Contracts",
+      location: "Dhaka, Bangladesh & Worldwide",
+      highlight: "Sovereign AI, Custom ERP & High-Concurrency Systems",
+      description:
+        "Architecting self-hosted enterprise AI infrastructures (Sovereign RAG, OpenClaw, Hermes Agent), custom ERP modules (Odoo/ERPNext) for industrial manufacturing, async Python backends (Django Ninja/FastAPI), and automated quantitative trading bridges.",
+    },
+    {
+      period: "2017 — 2021",
+      role: "Founder & Chief Executive Officer (CEO)",
+      organization: "Sovereign Apparel & Clothing Brand",
+      location: "Dhaka, Bangladesh",
+      highlight: "Scaled Nationwide Distribution to 63 Districts (1,200+ Dealership Proposals)",
+      description:
+        "Led full corporate strategy, styling, textile sourcing, factory production, and commercial retail expansion across 63 districts in Bangladesh. Designed nationwide dealer model and spearheaded product lifecycle from fabric knitting to retail shelves.",
+    },
+    {
+      period: "2007 — 2017 (10 Years)",
+      role: "Manager – Production Planning & Coordination (PPC)",
+      organization: "Fakir Knitwears Ltd.",
+      location: "Fatullah, Narayanganj, Bangladesh",
+      highlight: "Executive Operations Leadership for Premier Composite Apparel Exporter",
+      description:
+        "Formulated Master Production Schedules (MPS), monitored daily cut-to-ship ratios, and harmonized cross-departmental operations across Knitting, Dyeing, Printing, Embroidery, Sewing, and Export Finishing. Streamlined TNA calendars, reduced floor bottlenecks, and eliminated air-freight penalties.",
+    },
+    {
+      period: "2005 — 2007 (2.5 Years)",
+      role: "Production Coordinator – Fabrics & Sample Development",
+      organization: "Generation Next Fashions Ltd.",
+      location: "Ashulia, Savar, Dhaka",
+      highlight: "Fabric R&D & Buyer Specification Compliance",
+      description:
+        "Managed fabric execution schedules between knitting/dyeing units and garment manufacturing lines. Oversaw R&D and pre-production sample approvals ensuring exact buyer specifications and hand-feel compliance.",
+    },
+    {
+      period: "2000 — 2005 (4.5 Years)",
+      role: "Dyeing Supervisor & Pioneer Computerized Machine Operator",
+      organization: "Purbani Fabrics Ltd.",
+      location: "Gazipur, Bangladesh",
+      highlight: "Pioneered First German Thies Computerized Dyeing Systems",
+      description:
+        "Selected as lead computerized operator for newly commissioned German Thies high-temperature dyeing machines. Promoted to Supervisor within 3 years for establishing standard operating procedures (SOPs), color precision, and drastically reducing re-dyeing rates.",
+    },
+    {
+      period: "2000 Period (1.5 Years)",
+      role: "Dyeing Section Helper & Foundation Operator",
+      organization: "The Delta Knit Composite Knitting Industries Ltd.",
+      location: "Kashimpur, Gazipur, Bangladesh",
+      highlight: "Foundational Industrial Manufacturing Roots",
+      description:
+        "Hands-on foundational immersion in industrial textile chemistry, dye-house batch preparation, fabric processing, and floor labor dynamics.",
+    },
+  ],
+  education: [
+    {
+      degree: "Bachelor's Degree (Graduation)",
+      institution: "National University / Affiliated College",
+      details: "Completed during active professional industrial leadership career.",
+    },
+    {
+      degree: "Intermediate of Business Management (IBM)",
+      institution: "Bangladesh Technical Education Board (BTEB)",
+      details: "Vocational & business management curriculum equivalent to HSC.",
+    },
+    {
+      degree: "Industrial Technical Certifications",
+      institution: "German Thies Systems & Industrial Production Institutes",
+      details: "Computerized Dyeing Operations, Production Planning (PPC), Industrial Safety & Quality Management.",
+    },
   ],
   techStack: [
     {
-      category: "Frontend & UI",
+      category: "Industrial Operations & ERP",
       items: [
-        "Astro (Island Architecture)",
-        "Nuxt 3",
-        "HTMX",
-        "Alpine.js",
-        "TailwindCSS",
-        "TypeScript",
-        "Responsive Design",
+        "Master Production Scheduling (MPS)",
+        "Capacity Planning & Line Balancing",
+        "Odoo ERP & Frappe / ERPNext",
+        "Time & Action (TNA) Scheduling",
+        "Cut-to-Ship Optimization",
+        "Supply Chain Digitization",
       ],
     },
     {
-      category: "Backend & High-Performance",
+      category: "Sovereign AI & Autonomous Systems",
       items: [
-        "Python (Async)",
-        "Django Ninja",
-        "FastAPI",
-        "Celery",
-        "Django Channels (WebSockets)",
-        "REST/GraphQL APIs",
+        "Agentic RAG Pipelines",
+        "pgvector & Pinecone",
+        "OpenClaw & Hermes Agent",
+        "Ollama Local LLM Serving",
+        "LangChain & LlamaIndex",
+        "Autonomous Tool-Calling Workflows",
       ],
     },
     {
-      category: "Database & Real-time",
+      category: "Backend & High-Concurrency",
       items: [
-        "PostgreSQL (pgvector)",
-        "MySQL/MariaDB",
-        "Redis (Caching & Pub/Sub)",
-        "MongoDB",
-        "Supabase",
-        "Pinecone",
+        "Python (Asyncio)",
+        "Django Ninja & Django Channels",
+        "FastAPI & REST APIs",
+        "Celery & Redis Task Queues",
+        "PostgreSQL (<50ms Optimization)",
+        "WebSocket Live Streaming",
       ],
     },
     {
-      category: "AI & Autonomous Agents",
-      items: [
-        "Gemma 4 (Ollama)",
-        "OpenClaw Gateway",
-        "LangChain",
-        "RAG Pipelines",
-        "Vector Embeddings",
-        "Function Calling",
-      ],
-    },
-    {
-      category: "DevOps & Reliability",
+      category: "Cloud, DevOps & FinTech",
       items: [
         "Docker & Docker Compose",
-        "GitHub Actions (CI/CD)",
-        "Nginx Reverse Proxy",
-        "Cloudflare WAF",
-        "Linux VPS Hardening",
-      ],
-    },
-    {
-      category: "FinTech & eCommerce",
-      items: [
-        "MQL5 (MetaTrader 5)",
-        "Binance SP-API",
-        "WooCommerce",
-        "Shopify (Liquid)",
-        "Amazon SP-API",
-        "ERPNext (Frappe)",
+        "Linux VPS Hardening (Ubuntu)",
+        "Cloudflare Zero-Trust & WAF",
+        "GitHub Actions CI/CD",
+        "Algorithmic Trading (MQL5 / MetaTrader 5)",
+        "Binance WebSocket APIs",
       ],
     },
   ],
   stats: [
-    { label: "Projects Delivered", value: "150+" },
-    { label: "Years Experience", value: "15+" },
-    { label: "Client Satisfaction", value: "100%" },
-    { label: "Response Time", value: "< 2hrs" },
+    { label: "Industrial & Tech Leadership", value: "20+ Yrs" },
+    { label: "PPC Head (Fakir Knitwears)", value: "10 Yrs" },
+    { label: "Brand Scale (Districts Reached)", value: "63 Dist." },
+    { label: "Architectures Delivered", value: "150+" },
   ],
 };
 
 export const commonTechStack = [
+  "Production Planning (PPC)",
+  "Sovereign AI / RAG",
+  "Odoo / ERPNext",
   "Python (Async)",
   "Django Ninja",
-  "Gemma 4 (AI)",
-  "OpenClaw",
-  "Nuxt 3",
-  "Astro",
-  "HTMX",
-  "PostgreSQL",
-  "Redis",
+  "FastAPI",
+  "PostgreSQL (pgvector)",
   "Docker",
-  "MQL5",
-  "Cloudflare",
+  "Linux Cloud Hardening",
+  "MQL5 / FinTech",
 ];
 
 // Site-wide data — single source of truth for brand, contact, and URLs
 export const siteData = {
-  siteName: `${profile.fname} ${profile.lname}${profile.apndx} Services`,
+  siteName: `${profile.fname} ${profile.lname} — Executive Operations Leader & Chief Architect`,
   brandName: "HRDNSH",
   url: profile.url,
   email: profile.email,
   phone: profile.phone,
-  whatsapp: "8801712270815", // digits only for wa.me link
+  whatsapp: "8801712270815",
   upwork: profile.upwork,
+  linkedin: profile.linkedin,
+  github: profile.github,
+  x: profile.x,
   location: profile.location,
   defaultOgImage: "/og-image.jpg",
   defaultDescription:
-    "Full-stack development services — AI agents, web apps, automation, and DevOps. Build smarter systems with expert engineering.",
+    "Executive Operations Leader & Chief Enterprise Architect with 20+ years industrial manufacturing leadership (PPC Manager at Fakir Knitwears, CEO) and deep-tech Sovereign AI, Custom ERP, and high-concurrency systems architecture.",
   serviceTypes: [
-    "Web Development",
-    "AI Agent Development",
-    "Backend Optimization",
-    "DevOps",
+    "Industrial Operations & ERP Architecture",
+    "Sovereign AI & Agentic RAG Systems",
+    "High-Concurrency Backend Engineering",
+    "Cloud Infrastructure & DevOps",
   ],
 };
 
 // Page-specific SEO data — all meta titles/descriptions from one place
 export const seoData = {
   home: {
-    title: `${profile.fname} ${profile.lname} — AI Agents, Web Apps, Automation & DevOps`,
+    title: `${profile.fname} ${profile.lname} — Executive Operations Leader & Chief Enterprise Architect`,
     description: siteData.defaultDescription,
   },
   resume: {
-    title: `Resume & Services — ${profile.fname} ${profile.lname}`,
-    description: `Download ${profile.fname}'s complete service catalog, view technical skills, and explore professional background.`,
+    title: `Executive CV & Leadership Dossier — ${profile.fname} ${profile.lname}`,
+    description: `Executive Curriculum Vitae of ${profile.fname} ${profile.lname}: 20+ years industrial operations, 10 years PPC Manager at Fakir Knitwears, CEO, and Chief Architect of Sovereign AI & Custom ERPs.`,
   },
   recommend: {
-    title: `Recommended Tools & Services — ${profile.fname} ${profile.lname}`,
-    description: `Personally recommended tools, hosting, and services — tested and used in real projects by ${profile.fname}. Honest recommendations backed by real experience.`,
+    title: `Recommended Enterprise Stack & Tools — ${profile.fname} ${profile.lname}`,
+    description: `Personally vetted enterprise infrastructure, cloud hosting, and AI developer tools recommended by ${profile.fname} ${profile.lname}.`,
   },
   privacy: {
     title: `Privacy Policy — ${profile.fname} ${profile.lname}`,
-    description: `Privacy policy for ${siteData.url} — how we collect, use, and protect your data through Cloudflare Zaraz and Google Analytics.`,
+    description: `Privacy policy for ${siteData.url} — how we collect, use, and protect your data with zero-trust sovereign architecture.`,
   },
   terms: {
     title: `Terms of Service — ${profile.fname} ${profile.lname}`,
-    description: `Terms of service for ${siteData.url} — payment terms, delivery timelines, refund policy, intellectual property rights, and client obligations.`,
+    description: `Terms of service and enterprise consulting engagement protocols for ${siteData.url}.`,
   },
 };
 
