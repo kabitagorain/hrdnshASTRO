@@ -77,13 +77,29 @@
 
 /* Custom print stylesheet for generating pristine executive PDF documents */
 @media print {
-  html, body {
-    background-color: #ffffff !important;
-    color: #09090b !important;
-    font-family: "Roboto", sans-serif !important;
+  @page {
+    margin: 12mm 15mm;
+    size: A4 portrait;
   }
 
-  header, footer, nav, #header-brand, .no-print, button, .chat-panel, .ambient-glow, .bg-black\/90, .backdrop-blur-md {
+  *, *::before, *::after {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  html, body {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-family: "Roboto", sans-serif !important;
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+  }
+
+  header, footer, nav, #header-brand, .no-print, button, .chat-panel, .ambient-glow, .bg-black\/90, .backdrop-blur-md, a[download] {
     display: none !important;
   }
 
@@ -91,22 +107,66 @@
     max-width: 100% !important;
     width: 100% !important;
     background: #ffffff !important;
-    color: #09090b !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
+    color: #0f172a !important;
+    padding: 0 !important;
     margin: 0 !important;
   }
 
-  .text-white {
-    color: #09090b !important;
+  /* Text color overrides for print contrast */
+  .text-white, .text-zinc-100, .text-zinc-200 {
+    color: #0f172a !important;
   }
 
-  .text-zinc-300, .text-zinc-400, .text-zinc-500 {
-    color: #3f3f46 !important;
+  .text-zinc-300, .text-zinc-400, .text-zinc-500, .text-zinc-600 {
+    color: #334155 !important;
   }
 
-  .bg-white\/\[0\.02\], .bg-\[\#0c0c0e\], .bg-black\/60 {
+  .text-amber-300, .text-amber-400, .text-amber-500 {
+    color: #b45309 !important;
+  }
+
+  .text-emerald-400, .text-emerald-500 {
+    color: #047857 !important;
+  }
+
+  .text-blue-400 {
+    color: #1d4ed8 !important;
+  }
+
+  /* Card and container backgrounds */
+  .exec-card, .exec-card-accent, .bg-zinc-900, .bg-zinc-950, .bg-black\/60, .bg-white\/\[0\.02\], .bg-\[\#0c0c0e\] {
     background-color: #f8fafc !important;
-    border-color: #e2e8f0 !important;
+    background: #f8fafc !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #0f172a !important;
+  }
+
+  /* Tag badges & pills */
+  .bg-amber-500\/10, .bg-emerald-950\/60 {
+    background-color: #fef3c7 !important;
+    border-color: #fde68a !important;
+    color: #92400e !important;
+  }
+
+  /* Timeline & borders */
+  .border-zinc-700, .border-zinc-800, .border-zinc-900, .border-zinc-700\/80, .border-amber-500\/40 {
+    border-color: #cbd5e1 !important;
+  }
+
+  /* Page break rules */
+  .exec-card, .relative.group {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  h1, h2, h3, h4 {
+    color: #0f172a !important;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  a {
+    color: #0f172a !important;
+    text-decoration: none !important;
   }
 }
