@@ -4,6 +4,7 @@ import { MessageSquare, CheckCircle2, HelpCircle, Star, Quote, Brain, Zap, Facto
 
 // Centralized components
 import Header from './components/Header';
+import PrintableCV from './components/PrintableCV';
 import Hero from './components/Hero';
 import LeadRecommenderModal from './components/LeadRecommenderModal';
 import ServicesGrid from './components/ServicesGrid';
@@ -1290,6 +1291,10 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
       {currentView !== 'consultation' && (
         <FloatingBookButton onBookSession={() => handleSetView('consultation')} />
       )}
+
+      {/* Print-only corporate CV document — displayed when user clicks
+          "Print / Save Executive CV (PDF)" on the /resume page (window.print()) */}
+      <PrintableCV />
 
     </div>
   );

@@ -297,7 +297,7 @@ export default function ResumeHub() {
               <span>Executive Representation</span>
             </h3>
             <p className="text-xs text-zinc-300 leading-relaxed font-sans">
-              Open to C-Level, General Manager (GM), VP of Operations, and Chief Enterprise Architect engagements worldwide. Authorized for direct advisory agreements or via corporate contracts.
+              Available for top-tier and senior management engagements worldwide — C-Level, General Manager (GM), Additional / Deputy General Manager (AGM / DGM), VP of Operations, Head of Production Planning &amp; Coordination (PPC), and Chief Enterprise Architect roles. Also open to senior coordinator &amp; planning department leadership positions across garments, textiles, and manufacturing. Authorized for direct advisory agreements or via corporate contracts.
             </p>
             <div className="pt-2">
               <a
