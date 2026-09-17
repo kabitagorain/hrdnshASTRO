@@ -48,10 +48,11 @@ export default function PrintableCV() {
         <div className="cv-heading">Executive Summary</div>
         <p className="cv-body">{profile.executiveSummary}</p>
         <p className="cv-body">
-          A rare dual-profile executive: ten years as Head of Production Planning &amp; Coordination (PPC) for a
-          premier composite knit garments exporter, followed by C-level brand leadership across 63 districts, and
-          enterprise systems architecture (Sovereign AI, Custom ERP, high-concurrency Python backends). Bridges the
-          factory floor, the boardroom, and the codebase.
+          A rare multi-dimensional executive: ten years as Head of Production Planning &amp; Coordination (PPC) and
+          Operational MIS for a premier composite knit garments exporter, comprehensive oversight of central warehouse,
+          accessories, and finished goods inventory flow, followed by C-level brand leadership across 63 districts, and
+          deep-tech enterprise systems architecture (Custom ERP, Enterprise MIS, Sovereign AI). Bridges the factory
+          floor, warehouse logistics, the boardroom, and data architecture.
         </p>
       </div>
 
@@ -122,10 +123,11 @@ export default function PrintableCV() {
       <div className="cv-section cv-footer">
         <div className="cv-heading">Executive Availability</div>
         <p className="cv-body">
-          Available for C-Level, General Manager (GM), Deputy/Additional General Manager (DGM/AGM), VP of Operations,
-          Head of Production Planning &amp; Coordination (PPC), and Chief Enterprise Architect engagements — onsite in
-          Bangladesh or worldwide as a fractional/interim executive. Open to direct advisory agreements and corporate
-          contracts. References available upon request.
+          Available for C-Level (COO / CEO), General Manager (GM), Deputy/Additional General Manager (DGM/AGM), Head of MIS
+          / Enterprise Systems, Head of Central Warehouse &amp; Supply Chain / Store Operations, VP of Operations, and
+          Head of Production Planning &amp; Coordination (PPC) engagements — onsite in Bangladesh or worldwide as an executive
+          leader, fractional executive, or principal consultant. Open to corporate employment, advisory agreements, and
+          enterprise contracts. References available upon request.
         </p>
         <div className="cv-contact cv-contact-footer">
           <span>{profile.url}</span>

@@ -147,7 +147,7 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
       canonicalUrl = 'https://hrdnsh.com/services/';
     } else if (currentView === 'resume') {
       titleStr = `Executive CV & Leadership Dossier | ${profile.name}`;
-      descStr = `Executive Curriculum Vitae of Haradhan Sharma: 20+ years industrial operations leadership, 10 years PPC Manager at Fakir Knitwears, CEO, and Chief Architect.`;
+      descStr = `Executive Curriculum Vitae of Haradhan Sharma: 20+ years industrial operations, 10 years PPC Manager at Fakir Knitwears, CEO, Head of MIS, and Central Warehouse & Supply Chain Leadership.`;
       canonicalUrl = 'https://hrdnsh.com/resume/';
     } else if (currentView === 'recommend') {
       titleStr = `Recommended Enterprise Tech Stack | ${profile.name}`;

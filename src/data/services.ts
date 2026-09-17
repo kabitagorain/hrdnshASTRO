@@ -788,11 +788,11 @@ export const profile = {
   lname: "Sharma",
   apndx: "'s",
   title: "Executive Operations Leader & Chief Enterprise Architect",
-  subTitle: "20+ Years Industrial Operations Leadership • 15+ Years Deep-Tech & Sovereign AI Architecture",
+  subTitle: "20+ Years Industrial Operations Leadership • 15+ Years Deep-Tech, Enterprise MIS & Sovereign AI Architecture",
   tagline:
-    "Bridging 20+ years of industrial manufacturing & executive operations leadership with modern Sovereign AI, Custom ERP, and resilient enterprise software architecture.",
+    "Bridging 20+ years of industrial manufacturing, factory PPC & central warehouse leadership with modern Enterprise MIS, Sovereign AI, and custom ERP architecture.",
   email: "me@hrdnsh.com",
-  phone: "+8801712270815",
+  phone: "+880****0815",
   upwork: "https://www.upwork.com/freelancers/~0166a448a65b1641fb",
   linkedin: "https://www.linkedin.com/in/haradhansharma/",
   github: "https://github.com/haradhansharma",
@@ -800,17 +800,19 @@ export const profile = {
   location: "Dhaka, Bangladesh • Worldwide Executive & Remote Architecture",
   url: "https://hrdnsh.com",
   bio: [
-    "Strategic, outcome-driven Executive with over 20 years of cross-functional experience across industrial production planning, supply chain coordination, factory floor management, brand development, and modern enterprise software architecture.",
-    "A rare operator who bridges the physical shop-floor with cutting-edge digital intelligence: from pioneering computerized German Thies dyeing systems and serving 10 years as Manager of Production Planning & Coordination (PPC) at Fakir Knitwears Ltd., to founding a national retail apparel brand scaled across 63 districts with 1,200+ dealer networks, and architecting custom enterprise ERPs, Sovereign AI / Agentic RAG pipelines, and high-concurrency systems.",
-    "Proven executive leader in factory capacity planning, lead-time reduction, cost control, cross-departmental harmonization, and autonomous digital systems built for long-term sovereign ownership and zero data leak.",
+    "Strategic, outcome-driven Executive with over 20 years of cross-functional experience across industrial production planning, supply chain & central warehouse coordination, enterprise MIS, factory floor operations, brand development, and modern software architecture.",
+    "A rare operator who bridges the physical shop-floor with cutting-edge digital intelligence: from pioneering computerized German Thies dyeing systems and serving 10 years as Manager of Production Planning & Coordination (PPC) at Fakir Knitwears Ltd. (overseeing operational MIS and raw-material to finished-goods store reconciliation), to founding a national retail apparel brand scaled across 63 districts with 1,200+ dealer networks, and architecting custom enterprise ERPs, Sovereign AI / Agentic RAG pipelines, and high-concurrency systems.",
+    "Proven executive leader in factory capacity planning, central warehouse & inventory control (FIFO/WMS), MIS executive reporting, lead-time reduction, cost control, cross-departmental harmonization, and autonomous digital systems built for long-term sovereign ownership and zero data leak.",
   ],
   executiveSummary:
-    "20+ years of unified industrial operations leadership (Factory PPC, Master Scheduling, Supply Chain) and modern deep-tech systems engineering (Sovereign AI, Custom ERP, Django/FastAPI, Linux Cloud Infrastructure). Track record spans managing high-volume export manufacturing for global brands to architecting automated enterprise software platforms.",
+    "20+ years of unified industrial operations leadership (Factory PPC, Master Scheduling, Central Warehouse & Supply Chain, Enterprise MIS) and modern deep-tech systems engineering (Sovereign AI, Custom ERP, Django/FastAPI, Linux Cloud Infrastructure). Track record spans managing high-volume export manufacturing for global brands to architecting automated enterprise software platforms and executive reporting engines.",
   executiveCompetencies: [
     {
       category: "Executive & Factory Leadership",
       items: [
         "Production Planning & Control (PPC)",
+        "Central Warehouse & Store Operations (Raw Material & FG)",
+        "Inventory Turn, FIFO & Pilferage / Loss Control",
         "Capacity Utilization & Line Balancing",
         "TNA (Time & Action) Calendar Optimization",
         "Factory General Management & P&L",
@@ -830,10 +832,12 @@ export const profile = {
       ],
     },
     {
-      category: "Industrial ERP & Digital Transformation",
+      category: "Industrial ERP, MIS & Digital Transformation",
       items: [
         "Custom ERP Architecture (Odoo, ERPNext, Frappe)",
-        "Real-Time Shop-Floor Tracking & IIoT",
+        "Enterprise MIS Reporting & Executive Dashboards",
+        "Real-Time Shop-Floor Tracking & WMS Digitization",
+        "Cross-Departmental Data Reconciliation (Store, PPC, Accounts)",
         "Inventory & Supply Chain Digitization",
         "Automated Accounting & HR Workflows",
         "High-Concurrency Backends (Django Ninja, FastAPI)",
@@ -858,27 +862,27 @@ export const profile = {
       role: "Chief Systems Architect & Enterprise Transformation Consultant",
       organization: "Independent / Global Contracts",
       location: "Dhaka, Bangladesh & Worldwide",
-      highlight: "Sovereign AI, Custom ERP & High-Concurrency Systems",
+      highlight: "Sovereign AI, Custom ERP, Enterprise MIS & High-Concurrency Systems",
       description:
-        "Architecting self-hosted enterprise AI infrastructures (Sovereign RAG, OpenClaw, Hermes Agent), custom ERP modules (Odoo/ERPNext) for industrial manufacturing, async Python backends (Django Ninja/FastAPI), and automated quantitative trading bridges.",
+        "Architecting self-hosted enterprise AI infrastructures (Sovereign RAG, OpenClaw, Hermes Agent), custom ERP & WMS modules (Odoo/ERPNext) for industrial manufacturing, executive MIS dashboards, async Python backends (Django Ninja/FastAPI), and automated quantitative trading bridges.",
     },
     {
       period: "2017 — 2021",
       role: "Founder & Chief Executive Officer (CEO)",
       organization: "Sovereign Apparel & Clothing Brand",
       location: "Dhaka, Bangladesh",
-      highlight: "Scaled Nationwide Distribution to 63 Districts (1,200+ Dealership Proposals)",
+      highlight: "Scaled Nationwide Distribution to 63 Districts (Central Warehouse & Supply Chain)",
       description:
-        "Led full corporate strategy, styling, textile sourcing, factory production, and commercial retail expansion across 63 districts in Bangladesh. Designed nationwide dealer model and spearheaded product lifecycle from fabric knitting to retail shelves.",
+        "Led full corporate strategy, styling, textile sourcing, factory production, central warehouse inventory flow, and commercial retail expansion across 63 districts in Bangladesh. Designed nationwide dealer distribution model and managed end-to-end supply chain from fabric knitting to retail store fulfillment.",
     },
     {
       period: "2007 — 2017 (10 Years)",
-      role: "Manager – Production Planning & Coordination (PPC)",
+      role: "Manager – Production Planning & Coordination (PPC) & Operational MIS",
       organization: "Fakir Knitwears Ltd.",
       location: "Fatullah, Narayanganj, Bangladesh",
-      highlight: "Executive Operations Leadership for Premier Composite Apparel Exporter",
+      highlight: "Executive Operations & MIS Leadership for Premier Composite Apparel Exporter",
       description:
-        "Formulated Master Production Schedules (MPS), monitored daily cut-to-ship ratios, and harmonized cross-departmental operations across Knitting, Dyeing, Printing, Embroidery, Sewing, and Export Finishing. Streamlined TNA calendars, reduced floor bottlenecks, and eliminated air-freight penalties.",
+        "Formulated Master Production Schedules (MPS), spearheaded the factory's core operational MIS reporting, and synchronized cross-departmental operations across Central Fabric & Accessories Stores, Knitting, Dyeing, Printing, Embroidery, Sewing, and Export Finishing. Monitored cut-to-ship reconciliation, streamlined TNA calendars, and eliminated floor bottlenecks.",
     },
     {
       period: "2005 — 2007 (2.5 Years)",
@@ -927,14 +931,16 @@ export const profile = {
   ],
   techStack: [
     {
-      category: "Industrial Operations & ERP",
+      category: "Industrial Operations, MIS & WMS",
       items: [
         "Master Production Scheduling (MPS)",
+        "Enterprise MIS & Reporting Engines",
+        "Central Warehouse & Store Logistics",
+        "WMS & Inventory Lot / FIFO Tracking",
         "Capacity Planning & Line Balancing",
         "Odoo ERP & Frappe / ERPNext",
         "Time & Action (TNA) Scheduling",
         "Cut-to-Ship Optimization",
-        "Supply Chain Digitization",
       ],
     },
     {

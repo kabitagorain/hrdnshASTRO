@@ -31,7 +31,9 @@ export default function ResumeHub() {
             <span className="bg-zinc-900 border border-zinc-700/80 px-2.5 py-1 rounded text-amber-400">20+ Yrs Industrial Operations</span>
             <span className="bg-zinc-900 border border-zinc-700/80 px-2.5 py-1 rounded text-amber-300">10 Yrs PPC Head (Fakir Knitwears)</span>
             <span className="bg-zinc-900 border border-zinc-700/80 px-2.5 py-1 rounded text-zinc-300">CEO (63 Districts Scale)</span>
-            <span className="bg-zinc-900 border border-zinc-700/80 px-2.5 py-1 rounded text-amber-400">Sovereign AI & ERP Architect</span>
+            <span className="bg-zinc-900 border border-zinc-700/80 px-2.5 py-1 rounded text-amber-400">Head of MIS & Enterprise Systems</span>
+            <span className="bg-zinc-900 border border-zinc-700/80 px-2.5 py-1 rounded text-amber-300">Warehouse & Supply Chain Lead</span>
+            <span className="bg-zinc-900 border border-zinc-700/80 px-2.5 py-1 rounded text-zinc-300">Sovereign AI & ERP Architect</span>
           </div>
 
           {/* Executive Summary Box */}
@@ -73,7 +75,7 @@ export default function ResumeHub() {
                 className="relative h-32 w-32 rounded-2xl border-2 border-amber-500/40 object-cover object-top shadow-2xl bg-zinc-950"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-zinc-950 bg-emerald-500 text-[10px] text-zinc-950 font-bold" title="Open to General Management, VP, and Chief Architect roles">
+              <div className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-zinc-950 bg-emerald-500 text-[10px] text-zinc-950 font-bold" title="Open to C-Level, General Management, Head of MIS, Warehouse/Supply Chain, and Chief Architect roles">
                 ✓
               </div>
             </div>
@@ -297,7 +299,7 @@ export default function ResumeHub() {
               <span>Executive Representation</span>
             </h3>
             <p className="text-xs text-zinc-300 leading-relaxed font-sans">
-              Available for top-tier and senior management engagements worldwide — C-Level, General Manager (GM), Additional / Deputy General Manager (AGM / DGM), VP of Operations, Head of Production Planning &amp; Coordination (PPC), and Chief Enterprise Architect roles. Also open to senior coordinator &amp; planning department leadership positions across garments, textiles, and manufacturing. Authorized for direct advisory agreements or via corporate contracts.
+              Available for top-tier and senior management engagements worldwide — C-Level (COO / CEO), General Manager (GM), Deputy / Additional General Manager (DGM / AGM), Head of MIS / IT &amp; Enterprise Systems, Head of Central Warehouse &amp; Supply Chain / Store Operations, VP of Operations, and Head of Production Planning &amp; Coordination (PPC). Authorized for direct corporate employment, executive retainers, or global advisory agreements.
             </p>
             <div className="pt-2">
               <a

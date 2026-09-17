@@ -1,26 +1,27 @@
 # **HARADHAN SHARMA**
 
-**Dhaka, Bangladesh** | **Email:** [Your Email] | **Phone:** [Your Phone Number]
-
-**LinkedIn:** [Your LinkedIn URL] | **Portfolio/GitHub:** [Your Link, if applicable]
+**Dhaka, Bangladesh** | **Email:** me@hrdnsh.com | **Phone:** +880****0815
+**Website / Portfolio:** https://hrdnsh.com | **LinkedIn:** linkedin.com/in/haradhansharma | **GitHub:** github.com/haradhansharma
+**Target Executive Roles:** Chief Operating Officer (COO) | General Manager (GM) | Head of MIS & Enterprise Systems | Head of Central Warehouse & Supply Chain | Head of Production Planning & Coordination (PPC)
 
 ---
 
 ## **EXECUTIVE SUMMARY**
 
-Strategic, outcome-driven **Garments & Textile Executive** with **20+ years of cross-functional experience** spanning industrial production planning, supply chain coordination, factory floor management, brand development, and modern ERP software architecture.
+Strategic, outcome-driven **Industrial Operations Leader & Chief Enterprise Architect** with **20+ years of cross-functional experience** spanning industrial production planning, central warehouse & store logistics, enterprise MIS reporting, factory floor leadership, nationwide brand distribution, and modern ERP software architecture.
 
-Demonstrated leadership track record, including **10 years as Manager of Production Planning & Coordination (PPC) at Fakir Knitwears Ltd.** and executive leadership as **Founder & CEO of a nation-wide apparel brand** (scaling outreach across 63 districts). Unique ability to bridge traditional manufacturing operations with modern digital systems, shop-floor automation, and data-driven workflow optimization. Proven expert in capacity planning, lead-time reduction, cost control, and cross-departmental coordination from sample development to final shipment.
+Demonstrated leadership track record, including **10 years as Manager of Production Planning & Coordination (PPC) and Operational MIS at Fakir Knitwears Ltd.** and executive leadership as **Founder & CEO of a nationwide apparel brand** (scaling outreach across 63 districts with central warehouse fulfillment). Unique, rare capability to bridge the physical shop-floor and warehouse operations with modern digital systems, automated MIS dashboards, database query optimization, and ERP architecture (Odoo/ERPNext). Proven authority in master scheduling, capacity planning, central store inventory turn/FIFO control, lead-time reduction, cost control, and cross-departmental harmonization from raw material intake to final export shipment.
 
 ---
 
 ## **CORE COMPETENCIES & INDUSTRIAL EXPERTISE**
 
-* **Executive Leadership:** Strategic Planning, Operations Management, Factory General Management, Brand Strategy & Distribution Networks.
-* **Production Planning & Control (PPC):** Capacity Utilization, Line Balancing, TNA (Time & Action) Management, Lead Time Optimization, Bottleneck Resolution.
-* **Textile & Apparel Operations:** Computerized Dyeing Systems (Thies), Knitting, Sample Development, Fabric Production Coordination, Quality Assurance.
-* **Digital Transformation & ERP:** Modern ERP Implementation, Shop-Floor Data Tracking, Process Automation, Inventory & Supply Chain Digitization.
-* **Cross-Functional Coordination:** Merchandising, Commercial, Supply Chain, R&D, Maintenance, and Executive Board Alignment.
+* **Executive Leadership:** Strategic Operations Management, Factory General Management (P&L), Enterprise Governance, Brand Distribution.
+* **Production Planning & Control (PPC):** Capacity Utilization, Line Balancing, Master Production Scheduling (MPS), TNA (Time & Action) Management, Bottleneck Resolution.
+* **Central Warehouse & Supply Chain:** Raw Material & Finished Goods Store Operations, Inventory Turn Optimization, FIFO & Lot Tracking, Pilferage & Wastage Mitigation, Material Flow Logistics.
+* **Enterprise MIS & Operational Intelligence:** Daily Production & Shipment MIS, Cross-Departmental Reconciliation (Stores, PPC, Merchandising, Accounts), Executive KPI Dashboards.
+* **Textile & Apparel Operations:** Computerized Dyeing Systems (German Thies), Knitting, Sample R&D Development, Fabric Production Coordination, Cut-to-Ship Quality Assurance.
+* **Digital Transformation & ERP:** Custom ERP Architecture (Odoo, ERPNext, Frappe), Warehouse Management Systems (WMS), Shop-Floor Data Tracking, Async Python Backends, PostgreSQL Database Tuning.
 
 ---
 
@@ -34,11 +35,12 @@ Demonstrated leadership track record, including **10 years as Manager of Product
 
 * **Brand & Market Expansion:** Conceptualized, built, and launched a nation-wide retail clothing brand, managing product development, styling, sourcing, and commercial execution.
 * **National Distribution Network:** Developed a dealership framework that expanded across **63 districts in Bangladesh**, generating over **1,200 commercial dealership requests** and establishing a plan for 100 flagship brand stores.
+* **Central Warehouse & Supply Chain:** Established and managed central warehouse operations, inventory storage standards, stock reconciliation, and national fulfillment logistics from manufacturing to regional store networks.
 * **End-to-End Operations:** Oversaw financial management, supply chain logistics, fabric sourcing, production scheduling, marketing strategies, and retail distribution channel management.
 
 ---
 
-### **MANAGER – PRODUCTION PLANNING & COORDINATION (PPC)**
+### **MANAGER – PRODUCTION PLANNING & COORDINATION (PPC) & OPERATIONAL MIS**
 
 *Promoted from Assistant Manager (PPC)*
 
@@ -47,9 +49,11 @@ Demonstrated leadership track record, including **10 years as Manager of Product
 *2007 – 2017 (10 Years)*
 
 * **Strategic Factory Coordination:** Led production planning and cross-departmental operations for one of Bangladesh’s premier composite knit garment exporters, ensuring on-time delivery across high-volume international orders.
+* **Core MIS & Reporting Architecture:** Spearheaded the factory's operational Management Information Systems (MIS), publishing daily cross-departmental progress, cut-to-ship reconciliation, and inventory consumption reports for executive leadership.
+* **Store & Material Flow Synchronization:** Coordinated with Central Fabric and Accessories Stores for timely material allocations, reducing dead stock, eliminating production stoppages, and maintaining precise FIFO lot controls.
 * **Production Optimization:** Formulated master production schedules (MPS), monitored daily cut-to-ship ratios, and harmonized workflow across Knitting, Dyeing, Printing, Embroidery, Sewing, and Finishing units.
 * **Lead-Time & Cost Reduction:** Streamlined Time & Action (TNA) calendars to reduce production lead times, eliminate floor bottlenecks, and minimize air-freight penalties.
-* **Inter-Departmental Alignment:** Acted as the core link between Merchandising, Supply Chain, Factory Floor Management, and Buyers to ensure quality compliance and order fulfillment.
+* **Inter-Departmental Alignment:** Acted as the core link between Merchandising, Supply Chain, Central Stores, Factory Floor Management, and International Buyers to ensure quality compliance and order fulfillment.
 
 ---
 

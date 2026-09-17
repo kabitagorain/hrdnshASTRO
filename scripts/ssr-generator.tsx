@@ -64,7 +64,7 @@ const routes: Route[] = [
   {
     view: 'resume', slug: null, service: null, path: 'resume/index.html',
     title: `Executive CV & Leadership Dossier | ${profile.name}`,
-    description: 'Executive Curriculum Vitae of Haradhan Sharma: 20+ years industrial operations, 10 years PPC Manager at Fakir Knitwears, CEO, and Chief Architect of Sovereign AI & Custom ERPs.',
+    description: 'Executive CV of Haradhan Sharma: 20+ years industrial operations, 10 years PPC Manager at Fakir Knitwears, CEO, Head of MIS, and Central Warehouse & Supply Chain Leadership.',
     h1: 'Executive Curriculum Vitae & Leadership Dossier'
   },
   {
@@ -126,6 +126,9 @@ function buildJsonLd(route: Route): string {
     ].filter(Boolean),
     "knowsAbout": [
       "Production Planning and Control (PPC)",
+      "Management Information Systems (MIS)",
+      "Enterprise Warehouse & Inventory Management (WMS)",
+      "Supply Chain Material Flow & Central Store Logistics",
       "Industrial Factory Floor Leadership",
       "Master Production Scheduling (MPS)",
       "Sovereign AI Architecture",
