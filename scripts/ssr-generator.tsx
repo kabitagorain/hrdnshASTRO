@@ -122,7 +122,9 @@ function buildJsonLd(route: Route): string {
       profile.linkedin,
       profile.github,
       profile.upwork,
-      profile.x
+      profile.x,
+      "https://dev.to/haradhansharma",
+      "https://hashnode.com/@haradhansharma"
     ].filter(Boolean),
     "knowsAbout": [
       "Production Planning and Control (PPC)",
@@ -246,7 +248,8 @@ function buildHtml(route: Route, content: string, assets: { cssTag: string; jsTa
   const dirDepth = route.path.split('/').length - 1;
   const cssTag = makeRelative(assets.cssTag, dirDepth);
   const jsTag = makeRelative(assets.jsTag, dirDepth);
-  const canonicalPath = route.path.replace('/index.html', '').replace('index.html', '');
+  const rawPath = route.path.replace('/index.html', '').replace('index.html', '');
+  const canonicalPath = rawPath ? (rawPath.endsWith('/') ? rawPath : `${rawPath}/`) : '';
   const canonical = `https://hrdnsh.com/${canonicalPath}`;
   const jsonLd = buildJsonLd(route);
 

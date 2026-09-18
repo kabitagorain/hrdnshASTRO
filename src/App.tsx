@@ -26,6 +26,42 @@ import { testimonials, siteData, profile, services } from './data/services';
 import { translations } from './data/translations';
 import { blogPosts } from './data/blogPosts';
 
+// Clean URL path <-> view mapping
+export const pathToView = (pathname: string): { view: string; serviceId: string | null; slug: string | null } => {
+  const p = pathname.replace(/\/$/, "") || "/";
+  if (p === "/" || p === "") return { view: "home", serviceId: null, slug: null };
+  if (p === "/services") return { view: "services", serviceId: null, slug: null };
+  if (p === "/resume") return { view: "resume", serviceId: null, slug: null };
+  if (p === "/consultation") return { view: "consultation", serviceId: null, slug: null };
+  if (p === "/billing") return { view: "billing-portal", serviceId: null, slug: null };
+  if (p === "/recommend") return { view: "recommend", serviceId: null, slug: null };
+  if (p === "/blog") return { view: "blog", serviceId: null, slug: null };
+  // Blog posts: /blog/slug-name/
+  const blogMatch = p.match(/^\/blog\/([^/]+)\/?$/);
+  if (blogMatch) return { view: "blog-post", serviceId: null, slug: blogMatch[1] };
+  // Services: /services/service-id/
+  const svcMatch = p.match(/^\/services\/([^/]+)\/?$/);
+  if (svcMatch) return { view: "service-detail", serviceId: svcMatch[1], slug: null };
+  return { view: "home", serviceId: null, slug: null };
+};
+
+export const viewToPath = (view: string, serviceId: string | null = null, slug: string | null = null): string => {
+  switch (view) {
+    case "home": return "/";
+    case "services": return "/services/";
+    case "resume": return "/resume/";
+    case "consultation": return "/consultation/";
+    case "billing-portal": return "/billing/";
+    case "recommend": return "/recommend/";
+    case "blog": return "/blog/";
+    case "blog-post": return `/blog/${slug}/`;
+    case "service-detail": return `/services/${serviceId}/`;
+    case "terms": return "/terms/";
+    case "privacy": return "/privacy/";
+    default: return "/";
+  }
+};
+
 interface AppProps {
   initialView?: string;
   initialServiceId?: string | null;
@@ -62,15 +98,24 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
       const serviceParam = url.searchParams.get('service');
       const slugParam = url.searchParams.get('slug');
       if (viewParam) {
+        let targetView = viewParam;
+        let targetService = serviceParam;
+        let targetSlug = slugParam;
         if (viewParam === 'service-detail' && serviceParam) {
+          targetView = 'service-detail';
           setCurrentView('service-detail');
           setSelectedServiceId(serviceParam);
         } else if (viewParam === 'blog-post' && slugParam) {
+          targetView = 'blog-post';
           setCurrentView('blog-post');
           setSelectedBlogPostSlug(slugParam);
         } else if (['home', 'resume', 'recommend', 'consultation', 'billing-portal', 'invoicing', 'terms', 'privacy', 'blog'].includes(viewParam)) {
-          setCurrentView(viewParam === 'invoicing' ? 'billing-portal' : viewParam);
+          targetView = viewParam === 'invoicing' ? 'billing-portal' : viewParam;
+          setCurrentView(targetView);
         }
+        // Normalize legacy ?view= in address bar to clean canonical path to preserve & consolidate GSC equity
+        const cleanPath = viewToPath(targetView, targetService, targetSlug);
+        window.history.replaceState(null, '', cleanPath);
       }
     }
   }, []);
@@ -242,7 +287,9 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
         link.setAttribute('hreflang', hl);
         document.head.appendChild(link);
       }
-      link.setAttribute('href', `https://hrdnsh.com/${hl === 'en' ? '' : hl + '/'}${currentView === 'home' ? '' : '?view=' + currentView}${currentView !== 'home' && selectedServiceId ? '&service=' + selectedServiceId : ''}`);
+      const currentCleanPath = viewToPath(currentView, selectedServiceId, selectedBlogPostSlug).replace(/^\//, '');
+      const langPrefix = hl === 'en' ? '' : `${hl}/`;
+      link.setAttribute('href', `https://hrdnsh.com/${langPrefix}${currentCleanPath}`);
     });
     // x-default
     let xDefault = document.querySelector('link[rel="alternate"][hreflang="x-default"]');
@@ -252,7 +299,8 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
       xDefault.setAttribute('hreflang', 'x-default');
       document.head.appendChild(xDefault);
     }
-    xDefault.setAttribute('href', `https://hrdnsh.com/${currentView === 'home' ? '' : '?view=' + currentView}${currentView !== 'home' && selectedServiceId ? '&service=' + selectedServiceId : ''}`);
+    const currentCleanPath = viewToPath(currentView, selectedServiceId, selectedBlogPostSlug).replace(/^\//, '');
+    xDefault.setAttribute('href', `https://hrdnsh.com/${currentCleanPath}`);
 
     // 2. JSON-LD structured data graph array setup (Person + local ProfessionalService + FAQ + Service)
     const basePersonSchema = {
@@ -390,7 +438,7 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
       if (matched) {
         graphArray.push({
           "@type": "Service",
-          "@id": `https://hrdnsh.com/?view=service-detail&service=${matched.id}#service`,
+          "@id": `https://hrdnsh.com/services/${matched.id}/#service`,
           "name": matched.title,
           "description": matched.tagline || matched.businessOwner.summary,
           "provider": {
@@ -402,14 +450,14 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
             "price": matched.pricing.oneTime,
             "priceCurrency": "USD",
             "availability": "https://schema.org/InStock",
-            "url": `https://hrdnsh.com/?view=service-detail&service=${matched.id}`
+            "url": `https://hrdnsh.com/services/${matched.id}/`
           }
         });
 
         // Add service-specific FAQ schema
         graphArray.push({
           "@type": "FAQPage",
-          "@id": `https://hrdnsh.com/?view=service-detail&service=${matched.id}#faq`,
+          "@id": `https://hrdnsh.com/services/${matched.id}/#faq`,
           "mainEntity": [
             {
               "@type": "Question",
@@ -494,9 +542,7 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
         : selectedBlogPostSlug
         ? `Blog: ${selectedBlogPostSlug}`
         : `Hub View: ${currentView}`;
-      const pagePath = selectedServiceId 
-        ? `/?view=${currentView}&service=${selectedServiceId}`
-        : `/?view=${currentView}`;
+      const pagePath = viewToPath(currentView, selectedServiceId, selectedBlogPostSlug);
         
       (window as any).gtag('event', 'page_view', {
         page_title: pageTitle,
@@ -506,42 +552,7 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
     }
   }, [currentView, selectedServiceId]);
 
-  // Clean URL path ↔ view mapping
-  const pathToView = (pathname: string): { view: string; serviceId: string | null; slug: string | null } => {
-    const p = pathname.replace(/\/$/, '') || '/';
-    if (p === '/' || p === '') return { view: 'home', serviceId: null, slug: null };
-    if (p === '/services') return { view: 'services', serviceId: null, slug: null };
-    if (p === '/resume') return { view: 'resume', serviceId: null, slug: null };
-    if (p === '/consultation') return { view: 'consultation', serviceId: null, slug: null };
-    if (p === '/billing') return { view: 'billing-portal', serviceId: null, slug: null };
-    if (p === '/recommend') return { view: 'recommend', serviceId: null, slug: null };
-    if (p === '/blog') return { view: 'blog', serviceId: null, slug: null };
-    // Blog posts: /blog/slug-name/
-    const blogMatch = p.match(/^\/blog\/([^/]+)\/?$/);
-    if (blogMatch) return { view: 'blog-post', serviceId: null, slug: blogMatch[1] };
-    // Services: /services/service-id/
-    const svcMatch = p.match(/^\/services\/([^/]+)\/?$/);
-    if (svcMatch) return { view: 'service-detail', serviceId: svcMatch[1], slug: null };
-    return { view: 'home', serviceId: null, slug: null };
-  };
-
-  const viewToPath = (view: string, serviceId: string | null, slug: string | null): string => {
-    switch (view) {
-      case 'home': return '/';
-      case 'services': return '/services/';
-      case 'resume': return '/resume/';
-      case 'consultation': return '/consultation/';
-      case 'billing-portal': return '/billing/';
-      case 'recommend': return '/recommend/';
-      case 'blog': return '/blog/';
-      case 'blog-post': return `/blog/${slug}/`;
-      case 'service-detail': return `/services/${serviceId}/`;
-      case 'terms': return '/terms/';
-      case 'privacy': return '/privacy/';
-      default: return '/';
-    }
-  };
-
+  // (Clean URL helpers pathToView and viewToPath are declared above)
   const handleSetView = (view: string, serviceId: string | null = null, blogSlug: string | null = null) => {
     setCurrentView(view);
     setSelectedServiceId(serviceId);
