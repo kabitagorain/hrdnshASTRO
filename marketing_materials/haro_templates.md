@@ -128,6 +128,41 @@ https://hrdnsh.com
 - Experience with compliance frameworks relevant to healthcare and finance
 - Background in secure software development and vulnerability assessment
 
+
+## Template 5: Industrial Manufacturing Operations, IIoT & Supply Chain Optimization
+
+**When to Use:** Journalist queries about manufacturing trends, supply chain bottlenecks, factory floor IoT, apparel/textile industry modernization, shop-floor AI, production planning (PPC), or lead-time reductions.
+
+**Response Template:**
+
+**Haradhan Sharma**
+Executive Operations Leader & Industrial Systems Architect
+Haradhan Sharma Consulting
+me@hrdnsh.com
+https://hrdnsh.com | https://hrdnsh.com/resume/
+
+**Expertise:** Over 20 years of dual leadership spanning industrial factory operations (10 years as Manager of Production Planning & Coordination at Fakir Knitwears Ltd., managing multi-million garment export cycles) and software systems architecture (Industrial IoT, low-latency Python, and edge AI telemetry).
+
+**Response to Query:**
+[Answer the journalist's specific question directly and concisely—typically 2-4 sentences max. Focus on real shop-floor data and financial impact.]
+
+**Key Insights to Include (adapt as needed):**
+- Real factory floor reality: "In discrete manufacturing like apparel, fabric represents 65% of FOB cost. The biggest profit leaks aren't labor costs—they are fabric wastage on cutting tables and uncoordinated dyeing lot shading that ruins entire export shipments."
+- The IIoT edge advantage: "Modernizing manufacturing doesn't require $300k proprietary software. Affordable edge microcontrollers (ESP32) streaming machine telemetry over MQTT allow plant managers to detect line-balance bottlenecks in sub-15 minutes instead of discovering missed targets at evening shift handovers."
+- The AI document extraction win: "In high-volume manufacturing, automating the conversion of multi-page buyer tech packs into verified production BOMs with local AI agents cuts administrative lead times from 48 hours to 3 minutes while eliminating human calculation errors in fabric consumption."
+- On-Time In-Full (OTIF) guarantee: "Digital lot-gating in warehouse management systems prevents mixed dye lots from ever reaching the cutting table, mathematically eliminating the two-tone shading defects that cause six-figure buyer chargebacks."
+
+**Credentials to Mention:**
+- Former Manager, Production Planning & Coordination (PPC) and Operations MIS at Fakir Knitwears Ltd. (10 years)
+- Former CEO of a national clothing brand scaled across 63 districts
+- Systems Architect deploying event-driven Python, MQTT telemetry, and self-hosted AI pipelines for global industrial clients
+- Operating from Dhaka, Bangladesh, serving enterprise manufacturing and tech clients worldwide
+
+### Sample Response for Manufacturing Query:
+**Query:** *"What is the most overlooked cause of production delays in high-volume export manufacturing?"*
+**Response:** *"The most catastrophic delays happen at the boundary between raw material storage and cutting. When factories fail to enforce strict lot-wise shade segregation in their warehouse, fabric rolls from different dye batches get mixed on cutting tables. The garment looks fine under factory fluorescents but fails spectrophotometer inspection under retail store lighting. An entire $180,000 shipment gets rejected at export inspection, forcing expensive air-freight panic. Digital barcode lot-gating at the cutting table eliminates this single point of failure completely."*
+
+
 ## General Response Guidelines:
 
 1. **Speed is Critical:** Journalists often need responses within 1-2 hours. Have these templates ready to customize quickly.
