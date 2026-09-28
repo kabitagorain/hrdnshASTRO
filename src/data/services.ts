@@ -67,8 +67,8 @@ export const services = [
       "Secure, web-accessible AI orchestration with multi-model routing and enterprise-grade infrastructure hardening.",
     icon: "🤖",
     pricing: {
-      oneTime: 699, // Architecture, Web UI hardening, and Model/API orchestration
-      weekly: 149, // Uptime monitoring, security patches, and model cost optimization
+      oneTime: 999, // Architecture, Web UI hardening, and Model/API orchestration
+      weekly: 199, // Uptime monitoring, security patches, and model cost optimization
     },
     payment_links: {
       default: {
@@ -124,8 +124,8 @@ export const services = [
       "Deploy a 24/7 digital workforce on your own hardware with zero recurring API costs.",
     icon: "🤖",
     pricing: {
-      oneTime: 599, // High value: eliminates monthly API taxes
-      weekly: 149, // Maintenance for SEO crawling, model updates, and performance tuning
+      oneTime: 899, // High value: eliminates monthly API taxes
+      weekly: 199, // Maintenance for SEO crawling, model updates, and performance tuning
     },
     payment_links: {
       default: {
@@ -181,8 +181,8 @@ export const services = [
       "Eliminate bottlenecks and scale your infrastructure to 10K+ concurrent users with industrial-grade <50ms latency.",
     icon: "⚡",
     pricing: {
-      oneTime: 899, // Premium pricing for specialized Python/Async architecture
-      weekly: 199, // Ongoing performance monitoring and scaling
+      oneTime: 1499, // Premium pricing for specialized Python/Async architecture
+      weekly: 249, // Ongoing performance monitoring and scaling
     },
     payment_links: {
       default: {
@@ -299,7 +299,7 @@ export const services = [
     icon: "🏭",
     pricing: {
       oneTime: 4999, // High-ROI investment in operational efficiency and waste reduction
-      weekly: 299, // Continuous logic optimization, sensor maintenance, and reporting updates
+      weekly: 499, // Continuous logic optimization, sensor maintenance, and reporting updates
     },
     payment_links: {
       default: {
@@ -357,7 +357,7 @@ export const services = [
     icon: "📊",
     pricing: {
       oneTime: 3999, // High value for complex Frappe/Python environments and data migration
-      weekly: 249, // Managed backups, security patching, and custom business-logic scripts
+      weekly: 399, // Managed backups, security patching, and custom business-logic scripts
     },
     payment_links: {
       default: {
@@ -367,7 +367,7 @@ export const services = [
     },
     businessOwner: {
       summary:
-        "Most enterprise software is designed to bleed you dry with 'per-user' licenses that increase as your company grows. I help you achieve operational independence by deploying a Sovereign Business OS (ERPNext/Odoo). You get the full power of a world-class CRM, Accounting, HR, and Supply Chain system on your own private cloud—with unlimited users, zero recurring license fees, and total ownership of your data.",
+        "Most enterprise software is designed to bleed you dry with 'per-user' licenses that increase as your company grows. I help you achieve operational independence by deploying a Sovereign Business OS & Warehouse System. You get the full power of a world-class CRM, Accounting, HR, and Supply Chain system on your own private cloud—with unlimited users, zero recurring license fees, and total ownership of your data.",
       benefits: [
         "End the Subscription Tax: Stop paying monthly 'per-seat' fees and keep your growth costs at zero",
         "360° Operational Command: A single, unified source of truth for your Accounting, Sales, and Warehouse",
@@ -377,16 +377,16 @@ export const services = [
     },
     developer: {
       summary:
-        "Professional orchestration of the Frappe Framework and ERPNext ecosystem. I specialize in high-availability MariaDB/PostgreSQL configurations, Redis-backed Bench optimization, and custom Python-based server hooks. All deployments are standardized via Docker to ensure seamless scalability and effortless disaster recovery.",
+        "Professional orchestration of custom Python frameworks and open enterprise architectures. I specialize in high-availability MariaDB/PostgreSQL configurations, Redis-backed Bench optimization, and custom Python-based server hooks. All deployments are standardized via Docker to ensure seamless scalability and effortless disaster recovery.",
       benefits: [
         "Frappe Framework Mastery: Engineering custom DocTypes, complex Client Scripts, and deep Server Hooks",
         "Sovereign Infrastructure: Docker-based multi-tenant deployments on hardened Ubuntu VPS environments",
-        "Enterprise Data Migration: Expert ETL pipelines to transition legacy Excel or SAP data into ERPNext without loss",
+        "Enterprise Data Migration: Expert ETL pipelines to transition legacy Excel or SAP data into sovereign relational databases without loss",
         "Unified API Ecosystem: Connecting your sovereign ERP to Shopify, WooCommerce, or custom internal applications",
       ],
     },
     deliverables: [
-      "Fully Optimized Sovereign ERPNext/CRM instance on your private VPS",
+      "Fully Optimized Sovereign Enterprise ERP/CRM instance on your private VPS",
       "Enterprise Security Suite (SSL, Firewall, and Immutable Automated Backups)",
       "Custom-Configured Modules (Sales, Purchase, Inventory, and Accounts)",
       "Role-Based Access Control (RBAC) & Comprehensive Employee Training",
@@ -394,7 +394,7 @@ export const services = [
       "60-Day Post-Implementation Technical Audit & Performance Tuning",
     ],
     timeline: "4-10 weeks for full implementation and data migration",
-    techStack: ["ERPNext", "Frappe", "Python", "MariaDB", "Redis", "Docker"],
+    techStack: ["Python", "PostgreSQL", "MariaDB", "Redis", "Docker", "REST API"],
   },
   {
     id: "algorithmic-trading-fintech",
@@ -464,8 +464,8 @@ export const services = [
       "Build an unbreakable digital foundation with automated, self-healing infrastructure and zero-trust security.",
     icon: "🔒",
     pricing: {
-      oneTime: 699, // Architecture, Cloudflare WAF hardening, and CI/CD pipeline engineering
-      weekly: 129, // Infrastructure retainer for monitoring, security patching, and disaster recovery
+      oneTime: 999, // Architecture, Cloudflare WAF hardening, and CI/CD pipeline engineering
+      weekly: 199, // Infrastructure retainer for monitoring, security patching, and disaster recovery
     },
     payment_links: {
       default: {
@@ -522,8 +522,8 @@ export const services = [
       "Eliminating the 'Fear of the Crash' with zero-downtime maintenance for high-growth online stores.",
     icon: "🛠️",
     pricing: {
-      oneTime: 399, // Comprehensive system audit, security hardening, and baseline optimization
-      weekly: 99, // 24/7 proactive monitoring, security patching, and emergency response
+      oneTime: 499, // Comprehensive system audit, security hardening, and baseline optimization
+      weekly: 129, // 24/7 proactive monitoring, security patching, and emergency response
     },
     payment_links: {
       default: {
@@ -640,8 +640,8 @@ export const services = [
       "Maximize your ROI by eliminating latency and securing your revenue stream with industrial-grade edge protection.",
     icon: "🛡️",
     pricing: {
-      oneTime: 1200, // Varnish/Nginx architectural overhaul and Layer 7 WAF configuration
-      weekly: 150, // Bot mitigation monitoring, cache-hit ratio tuning, and edge-node optimization
+      oneTime: 1499, // Varnish/Nginx architectural overhaul and Layer 7 WAF configuration
+      weekly: 199, // Bot mitigation monitoring, cache-hit ratio tuning, and edge-node optimization
     },
     payment_links: {
       default: {
