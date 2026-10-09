@@ -130,13 +130,23 @@ export default function Footer({ setView }: FooterProps) {
           <div className="space-y-1">
             <span>© 2026 {siteData.brandName} • {profile.name}</span>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-zinc-400 mt-1 uppercase font-mono tracking-widest">
-              <button onClick={() => setView('terms')} className="hover:text-white text-zinc-400 cursor-pointer font-bold transition-colors">
+              <a 
+                href="/terms/" 
+                onClick={(e) => { e.preventDefault(); setView('terms'); }} 
+                className="hover:text-white text-zinc-400 cursor-pointer font-bold transition-colors"
+                id="footer-terms-link"
+              >
                 Terms of Engagement
-              </button>
+              </a>
               <span className="text-zinc-700">•</span>
-              <button onClick={() => setView('privacy')} className="hover:text-white text-zinc-400 cursor-pointer font-bold transition-colors">
+              <a 
+                href="/privacy/" 
+                onClick={(e) => { e.preventDefault(); setView('privacy'); }} 
+                className="hover:text-white text-zinc-400 cursor-pointer font-bold transition-colors"
+                id="footer-privacy-link"
+              >
                 Privacy & Data Governance
-              </button>
+              </a>
             </div>
           </div>
 

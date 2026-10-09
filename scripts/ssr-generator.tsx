@@ -91,6 +91,18 @@ const routes: Route[] = [
     description: 'Authoritative analysis on industrial manufacturing leadership, production planning (PPC), Sovereign AI, private RAG pipelines, and custom ERP implementation.',
     h1: 'Executive Insights — Industrial Operations, ERP & Sovereign AI'
   },
+  {
+    view: 'privacy', slug: null, service: null, path: 'privacy/index.html',
+    title: `Privacy & Data Governance Policy | ${profile.name}`,
+    description: 'Privacy policy, data protection governance, security protocols, and third-party advertising cookie disclosures for Haradhan Sharma Executive Advisory.',
+    h1: 'Privacy Protection & Data Governance Protocol'
+  },
+  {
+    view: 'terms', slug: null, service: null, path: 'terms/index.html',
+    title: `Terms of Engagement & Corporate Master Services | ${profile.name}`,
+    description: 'Master service terms of engagement, liability scopes, retainers, and delivery milestones for Haradhan Sharma Executive Advisory.',
+    h1: 'Terms of Engagement & Corporate Master Services'
+  },
 ];
 
 blogPosts.forEach(post => {
@@ -271,6 +283,16 @@ function buildHtml(route: Route, content: string, assets: { cssTag: string; jsTa
     <meta name="twitter:title" content="${route.title}" />
     <meta name="twitter:description" content="${route.description}" />
     <meta name="twitter:image" content="https://hrdnsh.com/og-image.jpg" />
+    <meta name="google-adsense-account" content="ca-pub-8699640014335732">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VM4JDZYW59"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-VM4JDZYW59');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8699640014335732" crossorigin="anonymous"></script>
     <title>${route.title}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

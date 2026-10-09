@@ -10,6 +10,8 @@ const urls = [
     'https://hrdnsh.com/billing/',
     'https://hrdnsh.com/recommend/',
     'https://hrdnsh.com/blog/',
+    'https://hrdnsh.com/privacy/',
+    'https://hrdnsh.com/terms/',
 ];
 
 blogPosts.forEach(post => {

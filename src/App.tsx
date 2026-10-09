@@ -36,6 +36,8 @@ export const pathToView = (pathname: string): { view: string; serviceId: string 
   if (p === "/billing") return { view: "billing-portal", serviceId: null, slug: null };
   if (p === "/recommend") return { view: "recommend", serviceId: null, slug: null };
   if (p === "/blog") return { view: "blog", serviceId: null, slug: null };
+  if (p === "/privacy") return { view: "privacy", serviceId: null, slug: null };
+  if (p === "/terms") return { view: "terms", serviceId: null, slug: null };
   // Blog posts: /blog/slug-name/
   const blogMatch = p.match(/^\/blog\/([^/]+)\/?$/);
   if (blogMatch) return { view: "blog-post", serviceId: null, slug: blogMatch[1] };
