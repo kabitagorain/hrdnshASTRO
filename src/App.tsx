@@ -26,57 +26,78 @@ import { testimonials, siteData, profile, services } from './data/services';
 import { translations } from './data/translations';
 import { blogPosts } from './data/blogPosts';
 
-// Clean URL path <-> view mapping
-export const pathToView = (pathname: string): { view: string; serviceId: string | null; slug: string | null } => {
-  const p = pathname.replace(/\/$/, "") || "/";
-  if (p === "/" || p === "") return { view: "home", serviceId: null, slug: null };
-  if (p === "/services") return { view: "services", serviceId: null, slug: null };
-  if (p === "/resume") return { view: "resume", serviceId: null, slug: null };
-  if (p === "/consultation") return { view: "consultation", serviceId: null, slug: null };
-  if (p === "/billing") return { view: "billing-portal", serviceId: null, slug: null };
-  if (p === "/recommend") return { view: "recommend", serviceId: null, slug: null };
-  if (p === "/blog") return { view: "blog", serviceId: null, slug: null };
-  if (p === "/privacy") return { view: "privacy", serviceId: null, slug: null };
-  if (p === "/terms") return { view: "terms", serviceId: null, slug: null };
+// Clean URL path <-> view mapping with multilingual support
+export const pathToView = (pathname: string): { view: string; serviceId: string | null; slug: string | null; locale: string } => {
+  let p = pathname.replace(/\/$/, "") || "/";
+  let locale = "en";
+
+  // Check for supported locale prefix (/de, /bn, /es)
+  const localeMatch = p.match(/^\/(de|bn|es)($|\/.*)/);
+  if (localeMatch) {
+    locale = localeMatch[1];
+    p = localeMatch[2] || "/";
+    p = p.replace(/\/$/, "") || "/";
+  }
+
+  if (p === "/" || p === "") return { view: "home", serviceId: null, slug: null, locale };
+  if (p === "/services") return { view: "services", serviceId: null, slug: null, locale };
+  if (p === "/resume") return { view: "resume", serviceId: null, slug: null, locale };
+  if (p === "/consultation") return { view: "consultation", serviceId: null, slug: null, locale };
+  if (p === "/billing") return { view: "billing-portal", serviceId: null, slug: null, locale };
+  if (p === "/recommend") return { view: "recommend", serviceId: null, slug: null, locale };
+  if (p === "/blog") return { view: "blog", serviceId: null, slug: null, locale };
+  if (p === "/privacy") return { view: "privacy", serviceId: null, slug: null, locale };
+  if (p === "/terms") return { view: "terms", serviceId: null, slug: null, locale };
   // Blog posts: /blog/slug-name/
   const blogMatch = p.match(/^\/blog\/([^/]+)\/?$/);
-  if (blogMatch) return { view: "blog-post", serviceId: null, slug: blogMatch[1] };
+  if (blogMatch) return { view: "blog-post", serviceId: null, slug: blogMatch[1], locale };
   // Services: /services/service-id/
   const svcMatch = p.match(/^\/services\/([^/]+)\/?$/);
-  if (svcMatch) return { view: "service-detail", serviceId: svcMatch[1], slug: null };
-  return { view: "home", serviceId: null, slug: null };
+  if (svcMatch) return { view: "service-detail", serviceId: svcMatch[1], slug: null, locale };
+  return { view: "home", serviceId: null, slug: null, locale };
 };
 
-export const viewToPath = (view: string, serviceId: string | null = null, slug: string | null = null): string => {
+export const viewToPath = (
+  view: string,
+  serviceId: string | null = null,
+  slug: string | null = null,
+  locale: string = "en"
+): string => {
+  const prefix = locale && locale !== "en" ? `/${locale}` : "";
+  let subPath = "/";
   switch (view) {
-    case "home": return "/";
-    case "services": return "/services/";
-    case "resume": return "/resume/";
-    case "consultation": return "/consultation/";
-    case "billing-portal": return "/billing/";
-    case "recommend": return "/recommend/";
-    case "blog": return "/blog/";
-    case "blog-post": return `/blog/${slug}/`;
-    case "service-detail": return `/services/${serviceId}/`;
-    case "terms": return "/terms/";
-    case "privacy": return "/privacy/";
-    default: return "/";
+    case "home": subPath = "/"; break;
+    case "services": subPath = "/services/"; break;
+    case "resume": subPath = "/resume/"; break;
+    case "consultation": subPath = "/consultation/"; break;
+    case "billing-portal": subPath = "/billing/"; break;
+    case "recommend": subPath = "/recommend/"; break;
+    case "blog": subPath = "/blog/"; break;
+    case "blog-post": subPath = `/blog/${slug}/`; break;
+    case "service-detail": subPath = `/services/${serviceId}/`; break;
+    case "terms": subPath = "/terms/"; break;
+    case "privacy": subPath = "/privacy/"; break;
+    default: subPath = "/"; break;
   }
+  if (!prefix) return subPath;
+  if (subPath === "/") return `${prefix}/`;
+  return `${prefix}${subPath}`;
 };
 
 interface AppProps {
   initialView?: string;
   initialServiceId?: string | null;
   initialSlug?: string | null;
+  initialLocale?: string;
 }
 
-export default function App({ initialView, initialServiceId, initialSlug }: AppProps) {
+export default function App({ initialView, initialServiceId, initialSlug, initialLocale }: AppProps) {
+  const [locale, setLocale] = useState<string>(initialLocale || 'en');
   const [currentView, setCurrentView] = useState<string>(initialView || 'home');
   const [selectedServiceId, setSelectedServiceId] = useState<string | null>(initialServiceId || null);
   const [selectedBlogPostSlug, setSelectedBlogPostSlug] = useState<string | null>(initialSlug || null);
   const [checkoutBilling, setCheckoutBilling] = useState<'onetime' | 'weekly'>('onetime');
   const [isRecommenderOpen, setIsRecommenderOpen] = useState(false);
-  const [locale, setLocale] = useState<string>('en');
 
   // Forms for simple contact sub-sheet
   const [msgName, setMsgName] = useState('');
@@ -85,12 +106,15 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
   const [msgSuccess, setMsgSuccess] = useState(false);
   const [msgSending, setMsgSending] = useState(false);
 
-  // 1. Initial Load Deep Link Param Sync — supports both clean paths and ?view= query params
+  // 1. Initial Load Deep Link Param Sync — supports both clean paths and ?view= query params across all locales
   useEffect(() => {
     const url = new URL(window.location.href);
     // Check for clean path first
     const pathInfo = pathToView(url.pathname);
-    if (pathInfo.view !== 'home') {
+    if (pathInfo.locale) {
+      setLocale(pathInfo.locale);
+    }
+    if (pathInfo.view !== 'home' || pathInfo.locale !== 'en') {
       setCurrentView(pathInfo.view);
       setSelectedServiceId(pathInfo.serviceId);
       setSelectedBlogPostSlug(pathInfo.slug);
@@ -99,6 +123,10 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
       const viewParam = url.searchParams.get('view');
       const serviceParam = url.searchParams.get('service');
       const slugParam = url.searchParams.get('slug');
+      const localeParam = url.searchParams.get('lang') || url.searchParams.get('locale');
+      if (localeParam && ['de', 'bn', 'es'].includes(localeParam)) {
+        setLocale(localeParam);
+      }
       if (viewParam) {
         let targetView = viewParam;
         let targetService = serviceParam;
@@ -116,117 +144,87 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
           setCurrentView(targetView);
         }
         // Normalize legacy ?view= in address bar to clean canonical path to preserve & consolidate GSC equity
-        const cleanPath = viewToPath(targetView, targetService, targetSlug);
+        const cleanPath = viewToPath(targetView, targetService, targetSlug, localeParam || 'en');
         window.history.replaceState(null, '', cleanPath);
       }
     }
   }, []);
 
-  // 2. Browser PopState State Synchronizer — supports clean paths and query params
+  // 2. Browser PopState State Synchronizer — supports clean paths and query params across all locales
   useEffect(() => {
     const handlePopState = () => {
       const url = new URL(window.location.href);
       const pathInfo = pathToView(url.pathname);
-      if (pathInfo.view !== 'home') {
-        setCurrentView(pathInfo.view);
-        setSelectedServiceId(pathInfo.serviceId);
-        setSelectedBlogPostSlug(pathInfo.slug);
-      } else {
-        // Fallback to query params
-        const viewParam = url.searchParams.get('view') || 'home';
-        const serviceParam = url.searchParams.get('service');
-        const slugParam = url.searchParams.get('slug');
-        setCurrentView(viewParam === 'invoicing' ? 'billing-portal' : viewParam);
-        setSelectedServiceId(serviceParam || null);
-        setSelectedBlogPostSlug(slugParam || null);
-      }
+      setLocale(pathInfo.locale);
+      setCurrentView(pathInfo.view);
+      setSelectedServiceId(pathInfo.serviceId);
+      setSelectedBlogPostSlug(pathInfo.slug);
     };
 
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Dynamic noindex / robots tag for Terms and Privacy views to keep them out of standard search sitemaps
-  useEffect(() => {
-    let robotsMeta = document.querySelector('meta[name="robots"]');
-    if (['terms', 'privacy'].includes(currentView)) {
-      if (!robotsMeta) {
-        robotsMeta = document.createElement('meta');
-        robotsMeta.setAttribute('name', 'robots');
-        document.head.appendChild(robotsMeta);
-      }
-      robotsMeta.setAttribute('content', 'noindex, nofollow');
-    } else {
-      if (robotsMeta) {
-        robotsMeta.remove();
-      }
-    }
-  }, [currentView]);
 
-  // 3. Active Change pushing to History State — clean URLs for SEO
+
+  // 3. Active Change pushing to History State — clean URLs for SEO with locale
   useEffect(() => {
-    const currentPath = viewToPath(currentView, selectedServiceId, selectedBlogPostSlug);
+    const currentPath = viewToPath(currentView, selectedServiceId, selectedBlogPostSlug, locale);
     if (window.location.pathname !== currentPath) {
       window.history.pushState(null, '', currentPath);
     }
-  }, [currentView, selectedServiceId, selectedBlogPostSlug]);
+  }, [currentView, selectedServiceId, selectedBlogPostSlug, locale]);
 
   // Dynamic Head SEO, canonical link, Open Graph, Twitter Card, and JSON-LD structured schema generator
   useEffect(() => {
     document.documentElement.setAttribute('lang', locale);
     const t = translations[locale] || translations.en;
 
-    // 1. Dynamic document titles and descriptions
-    let titleStr = `${profile.name} | ${t.heroBadge}`;
-    let descStr = t.heroTagline;
-    let canonicalUrl = 'https://hrdnsh.com';
+    // 1. Dynamic document titles and descriptions with multilingual localization
+    let titleStr = t.pages?.home?.title || `${profile.name} — Executive Operations Leader & Chief Enterprise Architect`;
+    let descStr = t.pages?.home?.description || t.heroTagline;
+    let canonicalUrl = `https://hrdnsh.com${viewToPath(currentView, selectedServiceId, selectedBlogPostSlug, locale)}`;
 
     if (currentView === 'service-detail' && selectedServiceId) {
+      const svcTr = t.services?.[selectedServiceId];
       const matched = services.find(s => s.id === selectedServiceId);
-      if (matched) {
+      if (svcTr) {
+        titleStr = `${svcTr.title} | ${profile.name}`;
+        descStr = svcTr.tagline;
+      } else if (matched) {
         titleStr = `${matched.title} | ${profile.name}`;
         descStr = matched.tagline || matched.businessOwner?.summary || matched.title;
-        canonicalUrl = `https://hrdnsh.com/services/${selectedServiceId}/`;
       }
     } else if (currentView === 'services') {
-      titleStr = `Systems Architecture & Custom ERP Catalog | ${profile.name}`;
-      descStr = `Explore 14 production-grade engineering blueprints: Sovereign AI, Agentic RAG, Industrial ERP (Odoo/ERPNext), High-Concurrency Backends, and Cloud Hardening.`;
-      canonicalUrl = 'https://hrdnsh.com/services/';
+      titleStr = t.pages?.services?.title || `Systems Architecture & Custom ERP Catalog | ${profile.name}`;
+      descStr = t.pages?.services?.description || `Explore 14 production-grade engineering blueprints: Sovereign AI, Agentic RAG, Industrial ERP (Odoo/ERPNext), High-Concurrency Backends, and Cloud Hardening.`;
     } else if (currentView === 'resume') {
-      titleStr = `Executive CV & Leadership Dossier | ${profile.name}`;
-      descStr = `Executive Curriculum Vitae of Haradhan Sharma: 20+ years industrial operations, 10 years PPC Manager at Fakir Knitwears, CEO, Head of MIS, and Central Warehouse & Supply Chain Leadership.`;
-      canonicalUrl = 'https://hrdnsh.com/resume/';
+      titleStr = t.pages?.resume?.title || `Executive CV & Leadership Dossier | ${profile.name}`;
+      descStr = t.pages?.resume?.description || `Executive Curriculum Vitae of Haradhan Sharma: 20+ years industrial operations, 10 years PPC Manager at Fakir Knitwears, CEO, Head of MIS, and Central Warehouse & Supply Chain Leadership.`;
     } else if (currentView === 'recommend') {
-      titleStr = `Recommended Enterprise Tech Stack | ${profile.name}`;
-      descStr = `Personally vetted infrastructure, cloud servers, local databases, and development tools recommended by Haradhan Sharma.`;
-      canonicalUrl = 'https://hrdnsh.com/recommend/';
+      titleStr = t.pages?.recommend?.title || `Recommended Enterprise Tech Stack | ${profile.name}`;
+      descStr = t.pages?.recommend?.description || `Personally vetted infrastructure, cloud servers, local databases, and development tools recommended by Haradhan Sharma.`;
     } else if (currentView === 'blog') {
       titleStr = `Executive Insights — Industrial Operations, ERP & Sovereign AI | ${profile.name}`;
       descStr = `Authoritative analysis on industrial manufacturing leadership, production planning (PPC), Sovereign AI, private RAG pipelines, and custom ERP implementation.`;
-      canonicalUrl = 'https://hrdnsh.com/blog/';
     } else if (currentView === 'blog-post' && selectedBlogPostSlug) {
       const foundPost = blogPosts.find(p => p.slug === selectedBlogPostSlug);
       if (foundPost) {
         titleStr = `${foundPost.title} | ${profile.name}`;
         descStr = foundPost.description;
-        canonicalUrl = `https://hrdnsh.com/blog/${selectedBlogPostSlug}/`;
       }
     } else if (currentView === 'consultation') {
-      titleStr = `Schedule an Executive Strategic Consultation | ${profile.name}`;
-      descStr = `Book a strategic discovery session to discuss factory operations modernization, Sovereign AI, custom ERP architecture, or enterprise scaling.`;
-      canonicalUrl = 'https://hrdnsh.com/consultation/';
+      titleStr = t.pages?.consultation?.title || `Schedule an Executive Strategic Consultation | ${profile.name}`;
+      descStr = t.pages?.consultation?.description || `Book a strategic discovery session to discuss factory operations modernization, Sovereign AI, custom ERP architecture, or enterprise scaling.`;
     } else if (currentView === 'billing-portal' || currentView === 'payment') {
-      titleStr = `Corporate Invoicing & Payment Settlement | ${profile.name}`;
-      descStr = `Secure client payment settlement and invoicing for custom enterprise system agreements.`;
-      canonicalUrl = 'https://hrdnsh.com/billing/';
+      titleStr = t.pages?.billing?.title || `Corporate Invoicing & Payment Settlement | ${profile.name}`;
+      descStr = t.pages?.billing?.description || `Secure client payment settlement and invoicing for custom enterprise system agreements.`;
     } else if (currentView === 'terms') {
-      titleStr = `Terms of Engagement & Licensing | ${profile.name}`;
-      descStr = `Enterprise consulting engagement protocols, licensing terms, and code ownership guarantees.`;
-      canonicalUrl = 'https://hrdnsh.com/terms/';
+      titleStr = t.pages?.terms?.title || `Terms of Engagement & Licensing | ${profile.name}`;
+      descStr = t.pages?.terms?.description || `Enterprise consulting engagement protocols, licensing terms, and code ownership guarantees.`;
     } else if (currentView === 'privacy') {
-      titleStr = `Privacy & Data Governance Standard | ${profile.name}`;
-      descStr = `Zero-trust data governance policy and client confidentiality commitments.`;
-      canonicalUrl = 'https://hrdnsh.com/privacy/';
+      titleStr = t.pages?.privacy?.title || `Privacy & Data Governance Standard | ${profile.name}`;
+      descStr = t.pages?.privacy?.description || `Zero-trust data governance policy and client confidentiality commitments.`;
     }
 
     // Set Document title
@@ -250,7 +248,9 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
     // Open Graph
     updateMeta('og:title', titleStr, true);
     updateMeta('og:description', descStr, true);
-    updateMeta('og:url', canonicalUrl, true);
+    const dynamicCanonicalPath = viewToPath(currentView, selectedServiceId, selectedBlogPostSlug, locale);
+    const selfOgUrl = `https://hrdnsh.com${dynamicCanonicalPath}`;
+    updateMeta('og:url', selfOgUrl, true);
     updateMeta('og:image', 'https://hrdnsh.com/og-image.jpg', true);
     updateMeta('og:type', currentView === 'service-detail' || currentView === 'blog-post' ? 'article' : 'website', true);
     updateMeta('og:locale', locale === 'en' ? 'en_US' : locale === 'de' ? 'de_DE' : locale === 'bn' ? 'bn_BD' : 'es_ES', true);
@@ -270,39 +270,47 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
     updateMeta('twitter:description', descStr);
     updateMeta('twitter:image', 'https://hrdnsh.com/og-image.jpg');
 
-    // Update Canonical URL relation link tag
+    // Update Canonical URL relation link tag (self-referencing for current locale)
+    const canonicalPath = viewToPath(currentView, selectedServiceId, selectedBlogPostSlug, locale);
+    const selfCanonicalUrl = `https://hrdnsh.com${canonicalPath}`;
+
     let canonicalLink = document.querySelector('link[rel="canonical"]');
     if (!canonicalLink) {
       canonicalLink = document.createElement('link');
       canonicalLink.setAttribute('rel', 'canonical');
       document.head.appendChild(canonicalLink);
     }
-    canonicalLink.setAttribute('href', canonicalUrl);
+    canonicalLink.setAttribute('href', selfCanonicalUrl);
 
-    // Hreflang tags for multilingual SEO
-    const hreflangLocales = ['en', 'de', 'bn', 'es'];
-    hreflangLocales.forEach(hl => {
-      let link = document.querySelector(`link[rel="alternate"][hreflang="${hl}"]`);
-      if (!link) {
-        link = document.createElement('link');
-        link.setAttribute('rel', 'alternate');
-        link.setAttribute('hreflang', hl);
-        document.head.appendChild(link);
+    // Hreflang tags for multilingual SEO (only for core and service pages; blogs are English-universal)
+    const isMultilingualView = !['blog', 'blog-post'].includes(currentView);
+    if (isMultilingualView) {
+      const hreflangLocales = ['en', 'de', 'bn', 'es'];
+      hreflangLocales.forEach(hl => {
+        let link = document.querySelector(`link[rel="alternate"][hreflang="${hl}"]`);
+        if (!link) {
+          link = document.createElement('link');
+          link.setAttribute('rel', 'alternate');
+          link.setAttribute('hreflang', hl);
+          document.head.appendChild(link);
+        }
+        const localizedPath = viewToPath(currentView, selectedServiceId, selectedBlogPostSlug, hl);
+        link.setAttribute('href', `https://hrdnsh.com${localizedPath}`);
+      });
+      // x-default
+      let xDefault = document.querySelector('link[rel="alternate"][hreflang="x-default"]');
+      if (!xDefault) {
+        xDefault = document.createElement('link');
+        xDefault.setAttribute('rel', 'alternate');
+        xDefault.setAttribute('hreflang', 'x-default');
+        document.head.appendChild(xDefault);
       }
-      const currentCleanPath = viewToPath(currentView, selectedServiceId, selectedBlogPostSlug).replace(/^\//, '');
-      const langPrefix = hl === 'en' ? '' : `${hl}/`;
-      link.setAttribute('href', `https://hrdnsh.com/${langPrefix}${currentCleanPath}`);
-    });
-    // x-default
-    let xDefault = document.querySelector('link[rel="alternate"][hreflang="x-default"]');
-    if (!xDefault) {
-      xDefault = document.createElement('link');
-      xDefault.setAttribute('rel', 'alternate');
-      xDefault.setAttribute('hreflang', 'x-default');
-      document.head.appendChild(xDefault);
+      const defaultPath = viewToPath(currentView, selectedServiceId, selectedBlogPostSlug, 'en');
+      xDefault.setAttribute('href', `https://hrdnsh.com${defaultPath}`);
+    } else {
+      // Remove any leftover alternate tags on blog pages so search engines index the single canonical URL
+      document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(el => el.remove());
     }
-    const currentCleanPath = viewToPath(currentView, selectedServiceId, selectedBlogPostSlug).replace(/^\//, '');
-    xDefault.setAttribute('href', `https://hrdnsh.com/${currentCleanPath}`);
 
     // 2. JSON-LD structured data graph array setup (Person + local ProfessionalService + FAQ + Service)
     const basePersonSchema = {
@@ -559,8 +567,15 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
     setCurrentView(view);
     setSelectedServiceId(serviceId);
     setSelectedBlogPostSlug(blogSlug);
-    // Push clean URL to history
-    const path = viewToPath(view, serviceId, blogSlug);
+    // Push clean URL to history preserving active locale
+    const path = viewToPath(view, serviceId, blogSlug, locale);
+    window.history.pushState(null, '', path);
+  };
+
+  const handleSetLocale = (newLocale: string) => {
+    setLocale(newLocale);
+    // Push clean URL to history with new locale
+    const path = viewToPath(currentView, selectedServiceId, selectedBlogPostSlug, newLocale);
     window.history.pushState(null, '', path);
   };
 
@@ -625,7 +640,7 @@ export default function App({ initialView, initialServiceId, initialSlug }: AppP
     <div className="relative min-h-screen bg-[#050505] text-zinc-300 overflow-x-hidden flex flex-col justify-between" id="master-app-root">
       
       {/* Dynamic Header */}
-      <Header currentView={currentView} setView={handleSetView} locale={locale} setLocale={setLocale} />
+      <Header currentView={currentView} setView={handleSetView} locale={locale} setLocale={handleSetLocale} />
 
       {/* Main Core Viewport Content */}
       <main className="flex-grow relative z-10">

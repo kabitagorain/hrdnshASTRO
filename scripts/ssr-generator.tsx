@@ -12,6 +12,7 @@ import path from 'path';
 import App from '../src/App';
 import { services, profile } from '../src/data/services';
 import { blogPosts } from '../src/data/blogPosts';
+import { translations, Locale } from '../src/data/translations';
 
 const DIST_DIR = path.resolve('dist');
 
@@ -19,11 +20,15 @@ interface Route {
   view: string;
   slug: string | null;
   service: string | null;
+  locale: string;
   path: string;
   title: string;
   description: string;
   h1: string;
+  isMultilingual: boolean;
 }
+
+const LOCALES: Locale[] = ['en', 'de', 'bn', 'es'];
 
 // Read Vite's generated index.html to extract the correct hashed asset filenames
 function getViteAssetTags(): { cssTag: string; jsTag: string } {
@@ -48,136 +53,148 @@ function makeRelative(tag: string, depth: number): string {
              .replace(/src="\/assets\//g, `src="${prefix}assets/`);
 }
 
-const routes: Route[] = [
-  {
-    view: 'home', slug: null, service: null, path: 'index.html',
-    title: `${profile.name} — Executive Operations Leader & Chief Enterprise Architect`,
-    description: '20+ years industrial manufacturing leadership (PPC Manager at Fakir Knitwears, CEO) and deep-tech Sovereign AI, Custom ERP, and high-concurrency systems architecture.',
-    h1: 'Haradhan Sharma — Executive Operations Leader & Chief Enterprise Architect'
-  },
-  {
-    view: 'services', slug: null, service: null, path: 'services/index.html',
-    title: `Systems Architecture & Custom ERP Catalog | ${profile.name}`,
-    description: 'Explore 14 production-grade engineering blueprints: Sovereign AI, Agentic RAG, Industrial ERP (Odoo/ERPNext), High-Concurrency Backends, and Cloud Hardening.',
-    h1: 'Production Engineering Ecosystems & Systems Architecture'
-  },
-  {
-    view: 'resume', slug: null, service: null, path: 'resume/index.html',
-    title: `Executive CV & Leadership Dossier | ${profile.name}`,
-    description: 'Executive CV of Haradhan Sharma: 20+ years industrial operations, 10 years PPC Manager at Fakir Knitwears, CEO, Head of MIS, and Central Warehouse & Supply Chain Leadership.',
-    h1: 'Executive Curriculum Vitae & Leadership Dossier'
-  },
-  {
-    view: 'consultation', slug: null, service: null, path: 'consultation/index.html',
-    title: `Strategic Advisory & Executive Consultation | ${profile.name}`,
-    description: 'Schedule an executive discovery session to discuss factory operations modernization, Sovereign AI, custom ERP architecture, or enterprise scaling.',
-    h1: 'Schedule an Executive Strategic Consultation'
-  },
-  {
-    view: 'billing-portal', slug: null, service: null, path: 'billing/index.html',
-    title: `Direct Invoicing & Corporate Billing | ${profile.name}`,
-    description: 'Secure payment portal for enterprise contracts, retainers, and strategic advisory agreements.',
-    h1: 'Corporate Invoicing & Settlement Portal'
-  },
-  {
-    view: 'recommend', slug: null, service: null, path: 'recommend/index.html',
-    title: `Recommended Enterprise Stack & Tools | ${profile.name}`,
-    description: 'Personally vetted enterprise infrastructure, cloud hosting, and AI developer tools recommended by Haradhan Sharma.',
-    h1: 'Recommended Enterprise Infrastructure & Stack'
-  },
-  {
-    view: 'blog', slug: null, service: null, path: 'blog/index.html',
-    title: `Executive Insights — Industrial Operations, ERP & Sovereign AI — ${profile.name}`,
-    description: 'Authoritative analysis on industrial manufacturing leadership, production planning (PPC), Sovereign AI, private RAG pipelines, and custom ERP implementation.',
-    h1: 'Executive Insights — Industrial Operations, ERP & Sovereign AI'
-  },
-  {
-    view: 'privacy', slug: null, service: null, path: 'privacy/index.html',
-    title: `Privacy & Data Governance Policy | ${profile.name}`,
-    description: 'Privacy policy, data protection governance, security protocols, and third-party advertising cookie disclosures for Haradhan Sharma Executive Advisory.',
-    h1: 'Privacy Protection & Data Governance Protocol'
-  },
-  {
-    view: 'terms', slug: null, service: null, path: 'terms/index.html',
-    title: `Terms of Engagement & Corporate Master Services | ${profile.name}`,
-    description: 'Master service terms of engagement, liability scopes, retainers, and delivery milestones for Haradhan Sharma Executive Advisory.',
-    h1: 'Terms of Engagement & Corporate Master Services'
-  },
+const routes: Route[] = [];
+
+type PageKey = 'home' | 'services' | 'resume' | 'consultation' | 'billing' | 'recommend' | 'privacy' | 'terms';
+
+interface CoreViewConfig {
+  view: string;
+  pageKey: PageKey;
+  enSubPath: string;
+}
+
+const coreViews: CoreViewConfig[] = [
+  { view: 'home', pageKey: 'home', enSubPath: '' },
+  { view: 'services', pageKey: 'services', enSubPath: 'services/' },
+  { view: 'resume', pageKey: 'resume', enSubPath: 'resume/' },
+  { view: 'consultation', pageKey: 'consultation', enSubPath: 'consultation/' },
+  { view: 'billing-portal', pageKey: 'billing', enSubPath: 'billing/' },
+  { view: 'recommend', pageKey: 'recommend', enSubPath: 'recommend/' },
+  { view: 'privacy', pageKey: 'privacy', enSubPath: 'privacy/' },
+  { view: 'terms', pageKey: 'terms', enSubPath: 'terms/' },
 ];
+
+// 1. Core pages across all 4 locales (8 views * 4 locales = 32 pages)
+coreViews.forEach(cv => {
+  LOCALES.forEach(loc => {
+    const pageData = translations[loc]?.pages?.[cv.pageKey] || translations['en'].pages[cv.pageKey];
+    const pathPrefix = loc === 'en' ? cv.enSubPath : `${loc}/${cv.enSubPath}`;
+    const filePath = `${pathPrefix}index.html`;
+
+    routes.push({
+      view: cv.view,
+      slug: null,
+      service: null,
+      locale: loc,
+      path: filePath,
+      title: pageData.title,
+      description: pageData.description,
+      h1: pageData.h1,
+      isMultilingual: true,
+    });
+  });
+});
+
+// 2. Services across all 4 locales (14 services * 4 locales = 56 pages)
+services.forEach(service => {
+  LOCALES.forEach(loc => {
+    const svcTrans = translations[loc]?.services?.[service.id];
+    const svcTitle = svcTrans?.title || service.title;
+    const svcTagline = svcTrans?.tagline || service.tagline || (service as any).businessOwner?.summary || service.title;
+    const pathPrefix = loc === 'en' ? `services/${service.id}/` : `${loc}/services/${service.id}/`;
+    const filePath = `${pathPrefix}index.html`;
+
+    routes.push({
+      view: 'service-detail',
+      slug: null,
+      service: service.id,
+      locale: loc,
+      path: filePath,
+      title: `${svcTitle} | ${profile.name}`,
+      description: svcTagline,
+      h1: svcTitle,
+      isMultilingual: true,
+    });
+  });
+});
+
+// 3. Blog pages — English Universal (1 index + 17 posts = 18 pages)
+routes.push({
+  view: 'blog',
+  slug: null,
+  service: null,
+  locale: 'en',
+  path: 'blog/index.html',
+  title: `Executive Insights — Industrial Operations, ERP & Sovereign AI — ${profile.name}`,
+  description: 'Authoritative analysis on industrial manufacturing leadership, production planning (PPC), Sovereign AI, private RAG pipelines, and custom ERP implementation.',
+  h1: 'Executive Insights — Industrial Operations, ERP & Sovereign AI',
+  isMultilingual: false,
+});
 
 blogPosts.forEach(post => {
   routes.push({
-    view: 'blog-post', slug: post.slug, service: null, path: `blog/${post.slug}/index.html`,
+    view: 'blog-post',
+    slug: post.slug,
+    service: null,
+    locale: 'en',
+    path: `blog/${post.slug}/index.html`,
     title: `${post.title} — ${profile.name}`,
     description: post.description,
-    h1: post.title
+    h1: post.title,
+    isMultilingual: false,
   });
 });
 
-services.forEach(service => {
-  routes.push({
-    view: 'service-detail', slug: null, service: service.id, path: `services/${service.id}/index.html`,
-    title: `${service.title} | ${profile.name}`,
-    description: service.tagline || (service as any).businessOwner?.summary || service.title,
-    h1: service.title
-  });
-});
+function getHreflangTags(route: Route): string {
+  if (!route.isMultilingual) return '';
+
+  let subPath = '';
+  if (route.view === 'home') {
+    subPath = '';
+  } else if (route.view === 'service-detail' && route.service) {
+    subPath = `services/${route.service}/`;
+  } else {
+    const cv = coreViews.find(c => c.view === route.view);
+    subPath = cv ? cv.enSubPath : '';
+  }
+
+  const enUrl = `https://hrdnsh.com/${subPath}`;
+  const deUrl = `https://hrdnsh.com/de/${subPath}`;
+  const bnUrl = `https://hrdnsh.com/bn/${subPath}`;
+  const esUrl = `https://hrdnsh.com/es/${subPath}`;
+
+  return [
+    `    <link rel="alternate" hreflang="en" href="${enUrl}" />`,
+    `    <link rel="alternate" hreflang="de" href="${deUrl}" />`,
+    `    <link rel="alternate" hreflang="bn" href="${bnUrl}" />`,
+    `    <link rel="alternate" hreflang="es" href="${esUrl}" />`,
+    `    <link rel="alternate" hreflang="x-default" href="${enUrl}" />`
+  ].join('\n');
+}
 
 function buildJsonLd(route: Route): string {
   const basePerson = {
     "@type": "Person", "@id": "https://hrdnsh.com/#person",
     "name": profile.name, 
     "jobTitle": "Executive Operations Leader & Chief Enterprise Architect",
-    "url": "https://hrdnsh.com", 
-    "image": "https://hrdnsh.com/avatar.png",
-    "sameAs": [
-      profile.linkedin,
-      profile.github,
-      profile.upwork,
-      profile.x,
-      "https://dev.to/haradhansharma",
-      "https://hashnode.com/@haradhansharma"
-    ].filter(Boolean),
-    "knowsAbout": [
-      "Production Planning and Control (PPC)",
-      "Management Information Systems (MIS)",
-      "Enterprise Warehouse & Inventory Management (WMS)",
-      "Supply Chain Material Flow & Central Store Logistics",
-      "Industrial Factory Floor Leadership",
-      "Master Production Scheduling (MPS)",
-      "Sovereign AI Architecture",
-      "Enterprise Agentic RAG",
-      "Custom ERP Systems (Odoo, ERPNext)",
-      "Python Async High-Concurrency Backends",
-      "PostgreSQL pgvector Optimization",
-      "Linux Cloud Infrastructure Hardening"
-    ],
-    "worksFor": {
-      "@type": "Organization",
-      "name": "HRDNSH Executive Advisory"
-    }
-  };
-  
-  const baseService = {
-    "@type": "ProfessionalService", "@id": "https://hrdnsh.com/#service",
-    "name": "Haradhan Sharma Executive Advisory & Enterprise Architecture",
-    "url": "https://hrdnsh.com", 
-    "logo": "https://hrdnsh.com/avatar.png",
-    "image": "https://hrdnsh.com/og-image.jpg",
-    "description": "Executive Operations Leadership and Deep-Tech Enterprise Architecture specializing in Sovereign AI, Custom Manufacturing ERP (Odoo/ERPNext), and high-concurrency systems.",
-    "telephone": "+8801712270815", 
-    "priceRange": "$$$",
-    "address": { "@type": "PostalAddress", "addressLocality": "Dhaka", "addressCountry": "BD" },
-    "founder": { "@type": "Person", "@id": "https://hrdnsh.com/#person" }
+    "worksFor": { "@type": "Organization", "name": "Haradhan Sharma Executive Advisory" },
+    "url": "https://hrdnsh.com",
+    "sameAs": [profile.linkedin, profile.github, profile.upwork]
   };
 
-  // Homepage: Person + ProfessionalService + FAQPage
+  const baseService = {
+    "@type": "ProfessionalService", "@id": "https://hrdnsh.com/#business",
+    "name": "Haradhan Sharma Executive Advisory",
+    "url": "https://hrdnsh.com",
+    "priceRange": "$$$$",
+    "address": { "@type": "PostalAddress", "addressCountry": "BD" }
+  };
+
+  // Homepage: Organization + Person + FAQPage
   if (route.view === 'home') {
     const faqItems = [
-      { q: "What is Haradhan Sharma's leadership background?", a: "Haradhan Sharma brings 20+ years of cross-functional industrial leadership: 10 years as Manager of Production Planning & Coordination (PPC) at Fakir Knitwears Ltd., Founder & CEO scaling an apparel brand across 63 districts (1,200+ dealer proposals), and Chief Architect of Sovereign AI & Custom ERP software." },
-      { q: "What is the dual advantage of physical operations and deep-tech architecture?", a: "Most software architects have never managed industrial factory floors, and most factory executives lack deep software engineering capability. Haradhan bridges both—optimizing shop-floor workflows, PPC, capacity balancing, and ERP alongside private Sovereign AI and high-concurrency backends." },
-      { q: "Do clients retain full code and intellectual property ownership?", a: "Yes, absolutely 100%. All custom ERP modules, AI pipelines, repository architectures, and deployment keys are transferred in full with zero licensing or vendor lock-in." },
-      { q: "How is Sovereign AI different from public SaaS AI?", a: "Sovereign AI runs on your private cloud or on-premise infrastructure. Private RAG systems query your internal company documentation with zero data leaks to public foundation models, ensuring complete intellectual property and compliance security." },
+      { q: "What is Haradhan Sharma's core background?", a: "Over 20 years of dual-track expertise: industrial manufacturing leadership (PPC Manager at Fakir Knitwears, CEO, Head of MIS) combined with deep-tech systems architecture (Sovereign AI, private RAG pipelines, custom ERP, and cloud security)." },
+      { q: "What services are offered?", a: "14 core production blueprints across Sovereign AI, Private RAG pipelines, Custom Industrial ERP (Odoo, ERPNext), High-Concurrency Backend Architecture, and Enterprise Cloud Infrastructure." },
       { q: "How can I engage Haradhan Sharma for executive advisory or architecture roles?", a: "You can book a strategic consultation directly through the website, send an inquiry via email (me@hrdnsh.com), or connect via LinkedIn and Upwork." }
     ];
     const jsonLd = {
@@ -206,6 +223,7 @@ function buildJsonLd(route: Route): string {
         "@type": "Article",
         "headline": post.title,
         "description": post.description,
+        "image": ["https://hrdnsh.com/og-image.jpg"],
         "author": { "@type": "Person", name: profile.name, url: "https://hrdnsh.com" },
         "publisher": { "@type": "Person", name: profile.name, url: "https://hrdnsh.com" },
         "datePublished": "2026-06-22T00:00:00+00:00",
@@ -263,22 +281,30 @@ function buildHtml(route: Route, content: string, assets: { cssTag: string; jsTa
   const rawPath = route.path.replace('/index.html', '').replace('index.html', '');
   const canonicalPath = rawPath ? (rawPath.endsWith('/') ? rawPath : `${rawPath}/`) : '';
   const canonical = `https://hrdnsh.com/${canonicalPath}`;
+  const hreflangTags = getHreflangTags(route);
   const jsonLd = buildJsonLd(route);
+  const ogLocaleMap: Record<string, string> = {
+    en: 'en_US',
+    de: 'de_DE',
+    bn: 'bn_BD',
+    es: 'es_ES',
+  };
+  const ogLocale = ogLocaleMap[route.locale] || 'en_US';
 
   return `<!doctype html>
-<html lang="en">
+<html lang="${route.locale}">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="${route.description}" />
     <link rel="canonical" href="${canonical}" />
-    <meta property="og:title" content="${route.title}" />
+${hreflangTags ? hreflangTags + '\n' : ''}    <meta property="og:title" content="${route.title}" />
     <meta property="og:description" content="${route.description}" />
     <meta property="og:url" content="${canonical}" />
     <meta property="og:image" content="https://hrdnsh.com/og-image.jpg" />
     <meta property="og:site_name" content="Haradhan Sharma Executive Advisory" />
     <meta property="og:type" content="${route.view === 'home' ? 'website' : 'article'}" />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content="${ogLocale}" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${route.title}" />
     <meta name="twitter:description" content="${route.description}" />
@@ -327,6 +353,7 @@ async function generate() {
         initialView: route.view,
         initialServiceId: route.service,
         initialSlug: route.slug,
+        initialLocale: route.locale,
       });
       const content = ReactDOMServer.renderToStaticMarkup(element);
 
@@ -336,10 +363,10 @@ async function generate() {
 
       const fullHtml = buildHtml(route, content, assets);
       fs.writeFileSync(filePath, fullHtml);
-      console.log(`  OK  ${route.path} (${content.length} chars)`);
+      console.log(`  OK  [${route.locale}] ${route.path} (${content.length} chars)`);
       success++;
     } catch (e: any) {
-      console.error(`  FAIL  ${route.path}: ${e.message}`);
+      console.error(`  FAIL  [${route.locale}] ${route.path}: ${e.message}`);
       failed++;
     }
   }

@@ -121,7 +121,7 @@ export default function RecommendGrid() {
                     rel="noopener noreferrer"
                     className="relative z-10 w-full rounded-sm border border-white/10 bg-white/[0.01] hover:bg-white/[0.04] hover:border-orange-500/40 py-3 text-center text-[16px] font-bold uppercase tracking-widest text-zinc-200 hover:text-white transition-all flex items-center justify-center space-x-1.5 duration-300"
                   >
-                    <span>Deploy Ecosystem</span>
+                    <span>{(item as any).ctaText || "Deploy Ecosystem"}</span>
                     <ExternalLink className="h-3.5 w-3.5 text-orange-500" />
                   </a>
 
