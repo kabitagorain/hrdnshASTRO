@@ -92,8 +92,9 @@ export default function Footer({ setView }: FooterProps) {
                 </button>
               </li>
               <li>
-                <button onClick={() => setView('recommend')} className="text-zinc-300 hover:text-orange-400 transition-colors cursor-pointer text-left uppercase tracking-wider text-xs font-semibold">
-                  Recommended Tech Stack
+                <button onClick={() => setView('recommend')} className="text-zinc-300 hover:text-orange-400 transition-colors cursor-pointer text-left uppercase tracking-wider text-xs font-semibold flex items-center justify-between group">
+                  <span>Recommended Tech Stack</span>
+                  <span className="text-[10px] text-purple-400 font-mono border border-purple-500/30 bg-purple-500/10 px-1 py-0.2 rounded ml-1 group-hover:border-purple-400">🇨🇭 Proton</span>
                 </button>
               </li>
               <li>
@@ -146,6 +147,15 @@ export default function Footer({ setView }: FooterProps) {
                 id="footer-privacy-link"
               >
                 Privacy & Data Governance
+              </a>
+              <span className="text-zinc-700">•</span>
+              <a 
+                href="/recommend/" 
+                onClick={(e) => { e.preventDefault(); setView('recommend'); }} 
+                className="hover:text-purple-300 text-zinc-400 cursor-pointer font-bold transition-colors"
+                id="footer-proton-link"
+              >
+                Sovereign Stack (Proton)
               </a>
             </div>
           </div>

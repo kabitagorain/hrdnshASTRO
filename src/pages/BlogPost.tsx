@@ -78,6 +78,35 @@ export default function BlogPostPage({ slug, onNavigate }: BlogPostProps) {
       if (paragraph.startsWith('1. ') || paragraph.startsWith('2. ') || paragraph.startsWith('3. ') || paragraph.startsWith('4. ') || paragraph.startsWith('5. ') || paragraph.startsWith('6. ')) {
         return <li key={i} className=" text-zinc-300 leading-relaxed ml-4 mb-1 list-decimal">{paragraph.replace(/^\d+\.\s*/, '')}</li>;
       }
+      // Helper to parse markdown links [text](url)
+      const parseLinks = (text: string, keyPrefix: string): React.ReactNode => {
+        const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+        const tokens: React.ReactNode[] = [];
+        let lastIdx = 0;
+        let match;
+        while ((match = linkRegex.exec(text)) !== null) {
+          if (match.index > lastIdx) {
+            tokens.push(text.slice(lastIdx, match.index));
+          }
+          tokens.push(
+            <a
+              key={`${keyPrefix}-link-${match.index}`}
+              href={match[2]}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-orange-400 hover:text-amber-300 underline font-semibold transition-colors"
+            >
+              {match[1]}
+            </a>
+          );
+          lastIdx = linkRegex.lastIndex;
+        }
+        if (lastIdx < text.length) {
+          tokens.push(text.slice(lastIdx));
+        }
+        return tokens;
+      };
+
       // Handle bold markdown **text**
       const parts = paragraph.split(/(\*\*[^*]+\*\*)/g);
       const rendered = parts.map((part, j) => {
@@ -90,7 +119,7 @@ export default function BlogPostPage({ slug, onNavigate }: BlogPostProps) {
           if (ip.startsWith('*') && ip.endsWith('*') && !ip.startsWith('**')) {
             return <em key={`${j}-${k}`} className="text-zinc-400">{ip.slice(1, -1)}</em>;
           }
-          return ip;
+          return parseLinks(ip, `${j}-${k}`);
         });
       });
       return <p key={i} className=" text-zinc-300 leading-relaxed mb-4">{rendered}</p>;

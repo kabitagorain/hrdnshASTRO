@@ -659,7 +659,7 @@ export const blogPosts: BlogPost[] = [
       "- `PubkeyAuthentication yes`",
       "- `KbdInteractiveAuthentication no`",
       "- `MaxAuthTries 3`",
-      "Change the default port from 22 to an alternate high port, and enforce multi-factor SSH keys (ed25519-sk) or route connections exclusively through an internal WireGuard VPN bastion.",
+      "Change the default port from 22 to an alternate high port, and enforce multi-factor SSH keys (ed25519-sk) or route connections exclusively through an internal WireGuard VPN bastion (such as [Proton VPN with Secure Core](https://go.getproton.me/aff_c?offer_id=26&aff_id=20831), which routes management traffic through hardened Swiss underground bunkers to shield your origin IP).",
       "## 2. Kernel Security (`/etc/sysctl.conf`)",
       "Prevent IP spoofing, SYN flood attacks, and packet redirects with kernel parameter tuning:",
       "- `net.ipv4.tcp_syncookies = 1`",
@@ -684,7 +684,7 @@ export const blogPosts: BlogPost[] = [
     date: "October 02, 2026",
     readTime: "15 min",
     content: [
-      "For organizations handling confidential contracts, medical data, or proprietary manufacturing IP, sending tokens to public SaaS LLMs is out of the question. High-throughput local serving provides absolute sovereignty.",
+      "For organizations handling confidential contracts, medical data, or proprietary manufacturing IP, sending tokens to public SaaS LLMs is out of the question. High-throughput local serving provides absolute sovereignty. For day-to-day confidential coding queries and web intelligence where dedicated GPUs are unavailable, zero-knowledge assistants like [Proton Lumo](https://go.getproton.me/aff_c?offer_id=68&aff_id=20831) guarantee that prompts and source code are never logged or retained to train external models.",
       "## 1. The Bottleneck: KV Cache & Memory Fragmentation",
       "Traditional PyTorch inference allocates continuous VRAM blocks for key-value (KV) caches. This causes severe memory fragmentation, limiting concurrent requests to 3-5 users before triggering Out-of-Memory (OOM) crashes.",
       "vLLM solves this by implementing PagedAttention, inspired by virtual memory paging in operating systems. KV caches are partitioned into discrete non-contiguous memory blocks, reducing VRAM waste to under 4% and enabling 20x higher concurrency.",

@@ -312,6 +312,22 @@ export default function LeadRecommenderModal({ isOpen, onClose, onSelectService 
                 />
               </div>
 
+              {/* Sovereign Companion Note */}
+              <div className="rounded-sm border border-purple-500/30 bg-purple-950/20 p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono">
+                <div className="flex items-center space-x-2">
+                  <span className="text-purple-300 font-bold">🇨🇭 Sovereign Stack:</span>
+                  <span className="text-zinc-300">Pair this architecture with Proton for Business & Lumo AI for Zero-Knowledge privacy.</span>
+                </div>
+                <a
+                  href="/recommend/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-purple-300 hover:text-white underline font-bold shrink-0"
+                >
+                  Explore Proton Suite →
+                </a>
+              </div>
+
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-3">
                 <button

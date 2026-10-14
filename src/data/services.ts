@@ -1,3 +1,4 @@
+import type { ProtonTool } from '../types';
 // Service definitions — single source of truth
 export const services = [
   {
@@ -1082,8 +1083,247 @@ export const paymentGateways = [
   // { code: 'manual', name: 'Stripe', icon: '💳' }
 ];
 
+// Proton Sovereign Privacy & Security Suite
+export const protonSuite: ProtonTool[] = [
+  {
+    id: "proton-business",
+    name: "Proton for Business",
+    shortName: "Business B2B",
+    tagline: "Complete Sovereign Suite for Enterprise Privacy & Compliance",
+    category: "Enterprise Infrastructure",
+    offerType: "CPA",
+    offerId: 50,
+    url: "https://go.getproton.me/aff_c?offer_id=50&aff_id=20831",
+    badge: "Enterprise B2B",
+    startingPrice: "$6.99/user/mo",
+    ctaText: "Deploy Proton Business",
+    replaces: "Google Workspace, Microsoft 365 Enterprise",
+    architecturalNote: "Centralizes corporate identity, mail, encrypted document collaboration, and VPN under Swiss legal jurisdiction (FADP) and GDPR without US CLOUD Act exposure.",
+    coreTech: ["Zero-Access Encryption", "Custom DKIM/DMARC", "Admin Console", "HIPAA/GDPR DPA"],
+    metrics: [
+      { label: "SLA", value: "99.95%" },
+      { label: "Jurisdiction", value: "Switzerland" },
+      { label: "Compliance", value: "GDPR / HIPAA" }
+    ]
+  },
+  {
+    id: "proton-lumo",
+    name: "Proton Lumo",
+    shortName: "Lumo AI",
+    tagline: "Zero-Knowledge Encrypted AI Assistant & Confidential Search",
+    category: "Sovereign AI",
+    offerType: "RevShare",
+    offerId: 68,
+    url: "https://go.getproton.me/aff_c?offer_id=68&aff_id=20831",
+    badge: "Sovereign AI",
+    startingPrice: "Free Tier Available",
+    ctaText: "Access Proton Lumo",
+    replaces: "ChatGPT Enterprise, Microsoft Copilot, Gemini",
+    architecturalNote: "Engineered specifically for teams that cannot risk prompt leakage or source code re-training. Queries are executed in zero-knowledge Swiss enclaves with zero telemetry retention.",
+    coreTech: ["Zero Data Mining", "Confidential Compute", "Swiss Enclaves", "Web Search Shield"],
+    metrics: [
+      { label: "Model Training", value: "0% (Never)" },
+      { label: "Logs Stored", value: "Zero" },
+      { label: "Data Boundary", value: "Swiss Sovereign" }
+    ]
+  },
+  {
+    id: "proton-mail",
+    name: "Proton Mail",
+    shortName: "Mail",
+    tagline: "End-to-End Encrypted Swiss Business & Executive Email",
+    category: "Secure Communication",
+    offerType: "RevShare",
+    offerId: 7,
+    url: "https://go.getproton.me/aff_c?offer_id=7&aff_id=20831",
+    badge: "Essential Privacy",
+    startingPrice: "Free / $3.99/mo",
+    ctaText: "Get Proton Mail",
+    replaces: "Gmail, Outlook 365, Fastmail",
+    architecturalNote: "Messages are encrypted at rest with client-side public key cryptography. Incoming external messages are immediately PGP-encrypted with your public key upon receipt.",
+    coreTech: ["OpenPGP Standards", "Zero-Access Mailboxes", "Tracker Stripping", "Custom MX/DKIM"],
+    metrics: [
+      { label: "Encryption", value: "OpenPGP / AES-256" },
+      { label: "Tracker Stripping", value: "100% Active" },
+      { label: "Legal Anchor", value: "Swiss Art. 13" }
+    ]
+  },
+  {
+    id: "proton-vpn",
+    name: "Proton VPN",
+    shortName: "VPN",
+    tagline: "High-Speed Zero-Logs Swiss VPN with Secure Core Multi-Hop",
+    category: "Network Defense",
+    offerType: "RevShare",
+    offerId: 26,
+    url: "https://go.getproton.me/aff_c?offer_id=26&aff_id=20831",
+    badge: "Zero-Logs VPN",
+    startingPrice: "Free / $4.99/mo",
+    ctaText: "Activate Proton VPN",
+    replaces: "NordVPN, ExpressVPN, Cisco AnyConnect",
+    architecturalNote: "Secure Core routes management traffic through underground Swiss/Icelandic nuclear bunkers before exiting to the target network, preventing DNS spoofing and ISP surveillance.",
+    coreTech: ["Secure Core Bunkers", "WireGuard & ChaCha20", "NetShield DNS", "Tor Over VPN"],
+    metrics: [
+      { label: "Network Capacity", value: "10 Gbps" },
+      { label: "Audit Status", value: "Strict Zero-Logs" },
+      { label: "DNS Leak Defense", value: "Hardware Hardened" }
+    ]
+  },
+  {
+    id: "proton-pass",
+    name: "Proton Pass",
+    shortName: "Pass",
+    tagline: "End-to-End Encrypted Password, 2FA & Identity Masking Vault",
+    category: "Identity & Access",
+    offerType: "RevShare",
+    offerId: 38,
+    url: "https://go.getproton.me/aff_c?offer_id=38&aff_id=20831",
+    badge: "Identity Shield",
+    startingPrice: "Free / $1.99/mo",
+    ctaText: "Deploy Proton Pass",
+    replaces: "1Password, Bitwarden, LastPass",
+    architecturalNote: "Encrypts 25 cryptographic fields including URLs, notes, and usernames using Argon2id and XChaCha20-Poly1305. Includes SimpleLogin email cloaking aliases.",
+    coreTech: ["Argon2id KDF", "XChaCha20-Poly1305", "Integrated 2FA", "Hide-My-Email Aliases"],
+    metrics: [
+      { label: "KDF Iterations", value: "Argon2id Hardened" },
+      { label: "Alias Shield", value: "Unlimited Masks" },
+      { label: "Passkeys", value: "FIDO2 / WebAuthn" }
+    ]
+  },
+  {
+    id: "proton-drive",
+    name: "Proton Drive",
+    shortName: "Drive",
+    tagline: "Encrypted Cloud Storage & Real-Time Collaborative Private Docs",
+    category: "Sovereign Storage",
+    offerType: "RevShare",
+    offerId: 43,
+    url: "https://go.getproton.me/aff_c?offer_id=43&aff_id=20831",
+    badge: "Zero-Access Storage",
+    startingPrice: "Free / $3.99/mo",
+    ctaText: "Launch Proton Drive",
+    replaces: "Google Drive, Dropbox, OneDrive, Box",
+    architecturalNote: "Files are segmented and encrypted client-side using OpenPGP before transmission. Even folder structures and file names are zero-knowledge encrypted against server inspection.",
+    coreTech: ["Client-Side Chunking", "End-to-End Encrypted Docs", "Version History", "Encrypted Sync"],
+    metrics: [
+      { label: "Payload Encryption", value: "End-to-End Client" },
+      { label: "Filename Encryption", value: "Zero-Knowledge" },
+      { label: "Cloud Boundary", value: "Swiss Data Centers" }
+    ]
+  }
+];
+
+
 // Recommended tools & services (affiliate links)
 export const recommendations = [
+  {
+    category: "Privacy & Sovereign Security (Proton Suite)",
+    icon: "🛡️",
+    items: [
+      {
+        name: "Proton for Business",
+        tagline: "Enterprise Zero-Trust Privacy Suite & Compliance (B2B)",
+        description:
+          "All-in-one sovereign privacy infrastructure for modern companies: encrypted enterprise email on custom corporate domains, collaborative cloud docs, centralized credential vaults, and team-wide VPN. Guarantees GDPR and HIPAA compliance under strict Swiss privacy laws.",
+        url: "https://go.getproton.me/aff_c?offer_id=50&aff_id=20831",
+        badge: "Enterprise B2B",
+        badgeColor: "accent",
+        pros: [
+          "Centralized admin console & user provisioning",
+          "Custom company email domains (DKIM/DMARC/SPF)",
+          "GDPR, HIPAA & Swiss DPA compliance",
+          "High-priority 24/7 dedicated enterprise SLA",
+        ],
+        startingPrice: "$6.99/user/mo",
+        ctaText: "Deploy Proton Business",
+      },
+      {
+        name: "Proton Lumo",
+        tagline: "Zero-Knowledge Encrypted AI Assistant & Private Search",
+        description:
+          "Sovereign, privacy-first conversational AI assistant and search developed by Proton. Zero-access encryption architecture guarantees your prompts, proprietary source code, internal strategies, and documents are never logged or used to train third-party models.",
+        url: "https://go.getproton.me/aff_c?offer_id=68&aff_id=20831",
+        badge: "Sovereign AI",
+        badgeColor: "primary",
+        pros: [
+          "Zero model training on user data or prompts",
+          "Swiss privacy jurisdiction & zero telemetry",
+          "Code review, document analysis & private web queries",
+          "Zero-access encrypted architecture",
+        ],
+        startingPrice: "Free Tier Available",
+        ctaText: "Access Proton Lumo",
+      },
+      {
+        name: "Proton Mail",
+        tagline: "End-to-End Encrypted Swiss Business & Personal Email",
+        description:
+          "The world standard for encrypted communication, engineered by CERN scientists. Features automatic PGP interoperability, zero-access encryption ensuring not even Proton can read your emails or metadata, and seamless custom domain integration.",
+        url: "https://go.getproton.me/aff_c?offer_id=7&aff_id=20831",
+        badge: "Essential Privacy",
+        badgeColor: "accent",
+        pros: [
+          "Zero-access end-to-end encryption",
+          "Custom business domain routing & PGP keys",
+          "No tracking pixels, ads, or data-mining",
+          "Protected by Swiss privacy laws (non-EU/non-US)",
+        ],
+        startingPrice: "Free / $3.99/mo",
+        ctaText: "Get Proton Mail",
+      },
+      {
+        name: "Proton VPN",
+        tagline: "High-Speed Zero-Logs Swiss VPN with Secure Core",
+        description:
+          "High-throughput virtual private network routed through underground bunkers in Switzerland, Iceland, and Sweden. Features NetShield DNS ad/malware blocking, WireGuard protocol, Tor-over-VPN, and audited strict zero-logs defense.",
+        url: "https://go.getproton.me/aff_c?offer_id=26&aff_id=20831",
+        badge: "Zero-Logs VPN",
+        badgeColor: "primary",
+        pros: [
+          "Audited strict no-logs policy",
+          "Secure Core multi-hop architecture",
+          "NetShield DNS blocker (malware & tracking)",
+          "10 Gbps high-speed server infrastructure",
+        ],
+        startingPrice: "Free / $4.99/mo",
+        ctaText: "Activate Proton VPN",
+      },
+      {
+        name: "Proton Pass",
+        tagline: "End-to-End Encrypted Password & Identity Shield",
+        description:
+          "Zero-knowledge password manager and identity protector with built-in email alias generation (hide-my-email), integrated 2FA authenticator, passkey authentication, and encrypted team credential sharing.",
+        url: "https://go.getproton.me/aff_c?offer_id=38&aff_id=20831",
+        badge: "Identity Shield",
+        badgeColor: "accent",
+        pros: [
+          "End-to-end encrypted password vaults",
+          "Integrated hide-my-email alias masking",
+          "Hardware passkeys & built-in 2FA authenticator",
+          "Team vault sharing & breach monitoring",
+        ],
+        startingPrice: "Free / $1.99/mo",
+        ctaText: "Deploy Proton Pass",
+      },
+      {
+        name: "Proton Drive",
+        tagline: "Encrypted Cloud Storage & Real-Time Collaborative Private Docs",
+        description:
+          "End-to-end encrypted cloud storage and document collaboration. Every file, keystroke, document revision, and metadata property is encrypted client-side before upload, providing complete sovereignty over business files and backups.",
+        url: "https://go.getproton.me/aff_c?offer_id=43&aff_id=20831",
+        badge: "Zero-Access Storage",
+        badgeColor: "primary",
+        pros: [
+          "End-to-end client-side encryption",
+          "Private collaborative document editor",
+          "Encrypted file versioning & automated sync",
+          "Password-protected & expiring share links",
+        ],
+        startingPrice: "Free / $3.99/mo",
+        ctaText: "Launch Proton Drive",
+      },
+    ],
+  },
   {
     category: "Proprietary Engines & Utilities",
     icon: "⚡",

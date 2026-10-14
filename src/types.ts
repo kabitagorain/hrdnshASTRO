@@ -91,10 +91,29 @@ export interface RecommendationItem {
   badgeColor: string;
   pros: string[];
   startingPrice: string;
+  ctaText?: string;
 }
 
 export interface RecommendationCategory {
   category: string;
   icon: string;
   items: RecommendationItem[];
+}
+
+export interface ProtonTool {
+  id: string;
+  name: string;
+  shortName: string;
+  tagline: string;
+  category: string;
+  offerType: 'RevShare' | 'CPA';
+  offerId: number;
+  url: string;
+  badge: string;
+  startingPrice: string;
+  ctaText: string;
+  replaces: string;
+  architecturalNote: string;
+  coreTech: string[];
+  metrics: { label: string; value: string }[];
 }
